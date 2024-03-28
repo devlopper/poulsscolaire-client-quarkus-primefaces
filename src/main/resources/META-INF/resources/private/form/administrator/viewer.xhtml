@@ -1,0 +1,12 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template/blank.xhtml">
+
+  <ui:param name="page" value="#{formViewerPage}" />
+
+  <ui:define name="content-body">
+    <ui:include src="../component/viewer.xhtml">
+      <ui:param name="viewerController" value="#{formViewerPage.viewerController}" />
+    </ui:include>
+  </ui:define>
+</ui:composition>

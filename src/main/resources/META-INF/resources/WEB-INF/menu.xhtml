@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <div class="layout-sidebar #{guestPreferences.menuColor}">
+    <div class="nav-header">
+      <a href="#" class="brand-logo">
+        <div class="brand-title">
+          <p:graphicImage class="logo-compact" name="images/harmoirie.png" alt=""
+            library="atlantis-layout" />
+        </div>
+      </a>
+      <div class="nav-control">
+        <div class="hamburger">
+          <span class="line"></span><span class="line"></span><span class="line"></span>
+        </div>
+      </div>
+    </div>
+    <div class="dlabnav">
+      <div class="dlabnav-scroll">
+        <ul class="metismenu" id="menu">
+          <li><p:link outcome="fieldDescriptionListPage" styleClass="has-arrow ai-icon">
+              <i class="pi pi-file" />
+              <h:outputText value="Descriptions de champ" styleClass="nav-text" />
+            </p:link></li>
+          <li><p:link outcome="formListPage" styleClass="has-arrow ai-icon">
+              <i class="pi pi-file" />
+              <h:outputText value="Formulaires" styleClass="nav-text" />
+            </p:link></li>
+          <li><p:link outcome="fieldListPage" styleClass="has-arrow ai-icon">
+              <i class="pi pi-file" />
+              <h:outputText value="Champs" styleClass="nav-text" />
+            </p:link></li>
+          <li><p:link outcome="inputListPage" styleClass="has-arrow ai-icon">
+              <i class="pi pi-file" />
+              <h:outputText value="Saisies" styleClass="nav-text" />
+            </p:link></li>
+          <li><p:link outcome="dataListPage" styleClass="has-arrow ai-icon">
+              <i class="pi pi-file" />
+              <h:outputText value="Données" styleClass="nav-text" />
+            </p:link></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ui:composition>

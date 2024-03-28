@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="base.xhtml">
+
+	<ui:define name="title">
+		<h:outputText value="#{page.title}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="content-body">
+			<!-- title -->
+			<div class="page-titles">
+				<ui:insert name="content-title">
+					<h:outputText value="#{page.contentTitle}" />
+				</ui:insert>
+			</div>
+			<!-- body -->
+			<div class="row">
+				<ui:insert name="content-body" />
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

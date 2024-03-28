@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>ci.gouv.dgbf.pom</groupId>
+		<artifactId>pom-client-web-quarkus-primefaces</artifactId>
+		<version>1.0.3-SNAPSHOT</version>
+	</parent>
+	
+	<groupId>ci.gouv.dgbf.poulsscolaire.client</groupId>
+    <artifactId>poulsscolaire-client-quarkus-primefaces</artifactId>
+	<version>0.0.0-SNAPSHOT</version>
+	
+	<name>Client du module de pouls scolaire basé sur Quarkus et Primefaces</name>
+	
+	<scm>
+        <url>https://github.com/devlopper/poulsscolaire-client-quarkus-primefaces.git</url>
+        <connection>scm:git:https://github.com/devlopper/poulsscolaire-client-quarkus-primefaces.git</connection>
+        <developerConnection>scm:git:https://github.com/devlopper/poulsscolaire-client-quarkus-primefaces.git</developerConnection>
+        <tag>${project.version}</tag>
+    </scm>
+	
+	<dependencies>
+		<dependency>
+			<groupId>ci.gouv.dgbf.system.poulsscolaire.server</groupId>
+			<artifactId>poulsscolaire-server-api</artifactId>
+			<version>0.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>ci.gouv.dgbf.extension.primefaces</groupId>
+			<artifactId>quarkus-primefaces-security-extension</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+	      <groupId>io.quarkus</groupId>
+	      <artifactId>quarkus-websockets</artifactId>
+	    </dependency>
+	</dependencies>
+		
+	<repositories>
+		<repository>
+			<id>dgbf.repository</id>
+			<url>https://github.com/devlopper/org.cyk.maven.repository/raw/main/</url>
+		</repository>
+	</repositories>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>dgbf.repository</id>
+			<url>https://github.com/devlopper/org.cyk.maven.repository/raw/main/</url>
+		</pluginRepository>
+	</pluginRepositories>
+</project>

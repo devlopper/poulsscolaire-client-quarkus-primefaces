@@ -1,0 +1,43 @@
+version: '3.8' 
+name: 'form'
+
+services:
+  logging-api:
+    image: ${IMAGE_LOGGING_API}
+    container_name: mic-logging-api
+    ports:
+       - ${PORT_LOGGING_API}:8080
+    extra_hosts:
+      sib-database: ${DB_HOST}
+    environment:
+      - SIIB_ENVIRONMENT=${ENV_ID}
+      - SIIB_DB_SID=${DB_SID}
+                
+  form-api:
+    image: ${IMAGE_FORM_API}
+    container_name: mic-form-api
+    ports:
+       - ${PORT_FORM_API}:8080
+    extra_hosts:
+      sib-database: ${DB_HOST}
+    environment:
+      - SIIB_ENVIRONMENT=${ENV_ID}
+      - SIIB_DB_SID=${DB_SID}
+      - dgbf.system.logging.server.uri=http://mic-logging-api:8080
+    depends_on:
+      - logging-api
+
+  form:
+    image: ${IMAGE}
+    container_name: mic-form
+    ports:
+       - ${PORT}:8080
+    environment:
+      - SIIB_ENVIRONMENT=${ENV_ID}
+      - quarkus.oidc.auth-server-url=${KEYCLOAK_URL}
+      - KEYCLOAK_CLIENT=${KEYCLOAK_CLIENT}
+      - dgbf.system.logging.server.uri=http://mic-logging-api:8080
+      - dgbf.system.form.server.uri=http://mic-form-api:8080
+    depends_on:
+      - logging-api
+      - form-api

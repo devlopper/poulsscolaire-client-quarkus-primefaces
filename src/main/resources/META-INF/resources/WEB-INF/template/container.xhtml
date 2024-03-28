@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+  <f:facet name="first">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+  </f:facet>
+  <title><ui:insert name="container-head-title">Gestion des formulaires</ui:insert></title>
+
+  <!-- JS FILES -->
+  <h:outputScript name="js/layout.js" library="atlantis-layout" />
+  <h:outputScript name="js/prism.js" library="atlantis-layout" />
+
+  <h:outputScript name="vendor/global/global.min.js" library="atlantis-layout" />
+  <h:outputScript name="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"
+    library="atlantis-layout" />
+  <h:outputScript name="js/custom.min.js" library="atlantis-layout" />
+  <h:outputScript name="js/dlabnav-init.js" library="atlantis-layout" />
+
+  <!-- JS CSS -->
+  <h:outputStylesheet name="css/primeicons.css" library="atlantis-layout" />
+  <h:outputStylesheet name="css/primeflex.min.css" library="atlantis-layout" />
+  <h:outputStylesheet name="css/layout-blue.css" library="atlantis-layout" />
+  <link type="text/css" rel="stylesheet"
+    href="#{request.contextPath}/resources/atlantis-layout/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" />
+  <link type="text/css" rel="stylesheet"
+    href="#{request.contextPath}/resources/atlantis-layout/css/mystyle.css" />
+
+  <ui:insert name="container-head-complement" />
+</h:head>
+
+<h:body data-sidebar-style="full">
+  <ui:insert name="container-body-content" />
+
+  <ui:include src="/confirmation.xhtml" />
+
+  <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
+    <f:facet name="start">
+      <i class="pi pi-spin pi-spinner layout-ajax-loader-icon" aria-hidden="true" />
+    </f:facet>
+
+    <f:facet name="complete">
+      <h:outputText value="" />
+    </f:facet>
+  </p:ajaxStatus>
+</h:body>
+</html>
