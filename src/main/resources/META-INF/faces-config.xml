@@ -20,106 +20,16 @@
       <redirect />
     </navigation-case>
     
-    <!-- Field Description -->
+    <!-- Due group -->
     
     <navigation-case>
-      <description>page d'accueil des descriptions de champ</description>
-      <from-outcome>fieldDescriptionIndexPage</from-outcome>
-      <to-view-id>/private/fielddescription/index.jsf</to-view-id>
+      <description>page liste des groupes d'échéances</description>
+      <from-outcome>dueGroupListPage</from-outcome>
+      <to-view-id>/private/duegroup/administrator/list.jsf</to-view-id>
       <redirect />
     </navigation-case>
     
-    <navigation-case>
-      <description>page liste des descriptions de champ</description>
-      <from-outcome>fieldDescriptionListPage</from-outcome>
-      <to-view-id>/private/fielddescription/administrator/list.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
     
-    <!-- Form  -->
-    
-    <navigation-case>
-      <description>page d'accueil des formulaires</description>
-      <from-outcome>formIndexPage</from-outcome>
-      <to-view-id>/private/form/index.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <navigation-case>
-      <description>page consultation des formulaires</description>
-      <from-outcome>formConsultPage</from-outcome>
-      <to-view-id>/private/form/administrator/consult.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <navigation-case>
-      <description>page visualisation des formulaires</description>
-      <from-outcome>formViewPage</from-outcome>
-      <to-view-id>/private/form/administrator/view.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <navigation-case>
-      <description>page du visualisateur de formulaire</description>
-      <from-outcome>formViewerPage</from-outcome>
-      <to-view-id>/private/form/administrator/viewer.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <navigation-case>
-      <description>page liste des formulaires</description>
-      <from-outcome>formListPage</from-outcome>
-      <to-view-id>/private/form/administrator/list.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <!--  Field -->
-    
-    <navigation-case>
-      <description>page d'accueil des champs</description>
-      <from-outcome>fieldIndexPage</from-outcome>
-      <to-view-id>/private/field/index.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <navigation-case>
-      <description>page liste des champs</description>
-      <from-outcome>fieldListPage</from-outcome>
-      <to-view-id>/private/field/administrator/list.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <!--  Input -->
-    
-    <navigation-case>
-      <description>page d'accueil des saisies</description>
-      <from-outcome>inputIndexPage</from-outcome>
-      <to-view-id>/private/input/index.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <navigation-case>
-      <description>page liste des saisies</description>
-      <from-outcome>inputListPage</from-outcome>
-      <to-view-id>/private/input/administrator/list.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <navigation-case>
-      <description>page des donnée de saisie</description>
-      <from-outcome>inputDatasPage</from-outcome>
-      <to-view-id>/private/input/administrator/datas.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
-    
-    <!--  Data -->
-    
-    <navigation-case>
-      <description>page liste des données</description>
-      <from-outcome>dataListPage</from-outcome>
-      <to-view-id>/private/data/administrator/list.jsf</to-view-id>
-      <redirect />
-    </navigation-case>
     
   </navigation-rule>
 </faces-config>
