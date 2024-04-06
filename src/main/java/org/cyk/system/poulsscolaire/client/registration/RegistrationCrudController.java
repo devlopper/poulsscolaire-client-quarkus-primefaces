@@ -1,0 +1,135 @@
+package org.cyk.system.poulsscolaire.client.registration;
+
+import ci.gouv.dgbf.extension.primefaces.AbstractController;
+import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
+import ci.gouv.dgbf.extension.primefaces.crud.ListController;
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
+import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
+import jakarta.enterprise.context.Dependent;
+import jakarta.faces.model.SelectItem;
+import jakarta.inject.Inject;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import org.cyk.system.poulsscolaire.server.api.AssignmentTypeClient;
+import org.cyk.system.poulsscolaire.server.api.AssignmentTypeService;
+import org.cyk.system.poulsscolaire.server.api.RegistrationClient;
+import org.cyk.system.poulsscolaire.server.api.RegistrationDto;
+import org.cyk.system.poulsscolaire.server.api.RegistrationService;
+import org.cyk.system.poulsscolaire.server.api.SchoolingClient;
+import org.cyk.system.poulsscolaire.server.api.SchoolingDto;
+import org.cyk.system.poulsscolaire.server.api.SchoolingService;
+import org.cyk.system.poulsscolaire.server.api.SeniorityClient;
+import org.cyk.system.poulsscolaire.server.api.SeniorityService;
+import org.cyk.system.poulsscolaire.server.api.StudentClient;
+import org.cyk.system.poulsscolaire.server.api.StudentDto;
+import org.cyk.system.poulsscolaire.server.api.StudentService;
+
+/**
+ * Cette classe représente le contrôleur de CRUD de {@link RegistrationDto}.
+ *
+ * @author Christian
+ *
+ */
+@Dependent
+public class RegistrationCrudController extends AbstractController {
+
+  @Inject
+  RegistrationClient client;
+
+  @Inject
+  @Getter
+  ListController listController;
+
+  @Inject
+  StudentClient studentClient;
+
+  @Getter
+  @Setter
+  List<SelectItem> students;
+
+  @Inject
+  SchoolingClient schoolingClient;
+
+  @Getter
+  @Setter
+  List<SelectItem> schoolings;
+
+  @Inject
+  AssignmentTypeClient assignmentTypeClient;
+
+  @Getter
+  @Setter
+  List<SelectItem> assignmentsType;
+
+  @Inject
+  SeniorityClient seniorityClient;
+
+  @Getter
+  @Setter
+  List<SelectItem> seniorities;
+
+  @Override
+  protected void postConstruct() {
+    super.postConstruct();
+    name = "Élèves";
+
+    listController.setEntityClass(RegistrationDto.class);
+    listController.setClient(client);
+    listController.setNotificationChannel(RegistrationService.PATH);
+
+    ProjectionDto projection = new ProjectionDto();
+    projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+        AbstractIdentifiableCodableDto.JSON_CODE, RegistrationDto.JSON_STUDENT_AS_STRING,
+        RegistrationDto.JSON_SCHOOLING_AS_STRING, RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING,
+        RegistrationDto.JSON_SENIORITY_AS_STRING);
+    listController.getReadController().setProjection(projection);
+
+    listController.initialize();
+
+    listController.getCreateController()
+        .setFunction(entity -> client.create(((RegistrationDto) entity).getStudentIdentifier(),
+            ((RegistrationDto) entity).getSchoolingIdentifier(),
+            ((RegistrationDto) entity).getAssignmentTypeIdentifier(),
+            ((RegistrationDto) entity).getSeniorityIdentifier(), userIdentifier, null));
+
+    listController.getUpdateController()
+        .setFunction(entity -> client.update(((RegistrationDto) entity).getIdentifier(),
+            ((RegistrationDto) entity).getStudentIdentifier(),
+            ((RegistrationDto) entity).getSchoolingIdentifier(),
+            ((RegistrationDto) entity).getAssignmentTypeIdentifier(),
+            ((RegistrationDto) entity).getSeniorityIdentifier(), userIdentifier, null));
+
+    students = new ActionExecutor<>(this, StudentService.GET_MANY_IDENTIFIER,
+        () -> studentClient
+            .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                StudentDto.JSON_FIRST_NAME), null, null, userIdentifier, null)
+            .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getFirstName()))
+            .toList()).execute();
+
+    schoolings = new ActionExecutor<>(this, SchoolingService.GET_MANY_IDENTIFIER,
+        () -> schoolingClient
+            .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                SchoolingDto.JSON_BRANCH_AS_STRING), null, null, userIdentifier, null)
+            .getDatas().stream()
+            .map(dto -> new SelectItem(dto.getIdentifier(), dto.getBranchAsString())).toList())
+                .execute();
+
+    assignmentsType = new ActionExecutor<>(this, AssignmentTypeService.GET_MANY_IDENTIFIER,
+        () -> assignmentTypeClient
+            .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                AbstractIdentifiableCodableNamableDto.JSON_NAME), null, null, userIdentifier, null)
+            .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
+            .toList()).execute();
+
+    seniorities = new ActionExecutor<>(this, SeniorityService.GET_MANY_IDENTIFIER,
+        () -> seniorityClient
+            .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                AbstractIdentifiableCodableNamableDto.JSON_NAME), null, null, userIdentifier, null)
+            .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
+            .toList()).execute();
+
+  }
+}

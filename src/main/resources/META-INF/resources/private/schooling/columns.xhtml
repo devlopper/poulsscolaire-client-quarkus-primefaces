@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:column headerText="Code" width="100">
+		<h:outputText value="#{record.code}" />
+	</p:column>
+
+	<p:column headerText="Ecole">
+		<h:outputText value="#{record.schoolIdentifier}" />
+	</p:column>
+	
+	<p:column headerText="Branche">
+		<h:outputText value="#{record.branchIdentifier}" />
+	</p:column>
+	
+	<p:column headerText="Période">
+		<h:outputText value="#{record.periodIdentifier}" />
+	</p:column>
+</ui:composition>

@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <div class="ui-g">
+      <div class="ui-g-3">
+        <p:outputLabel value="Matricule" for="registrationNumber" />
+      </div>
+      <div class="ui-g-9">
+        <p:inputText id="registrationNumber" value="#{controller.entity.registrationNumber}" />
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Nom" for="firstName" />
+      </div>
+      <div class="ui-g-9">
+        <p:inputText id="firstName" value="#{controller.entity.firstName}" />
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Prénoms" for="lastNames" />
+      </div>
+      <div class="ui-g-9">
+        <p:inputText id="lastNames" value="#{controller.entity.lastNames}" />
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Genre" for="gender" />
+      </div>
+      <div class="ui-g-9">
+        <p:selectOneMenu id="gender" value="#{controller.entity.genderIdentifier}" >
+          <f:selectItems value="#{container.genders}" />
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-12">
+        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
+      </div>
+    </div>
+  </h:form>
+</ui:composition>

@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <div class="ui-g">
+      <div class="ui-g-3">
+        <p:outputLabel value="Eleve" for="student" />
+      </div>
+      <div class="ui-g-9">
+        <p:selectOneMenu id="student" value="#{controller.entity.studentIdentifier}" >
+          <f:selectItems value="#{container.students}" />
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Scolarité" for="schooling" />
+      </div>
+      <div class="ui-g-9">
+        <p:selectOneMenu id="schooling" value="#{controller.entity.schoolingIdentifier}" >
+          <f:selectItems value="#{container.schoolings}" />
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Type d'affectation" for="assignmentType" />
+      </div>
+      <div class="ui-g-9">
+        <p:selectOneMenu id="assignmentType" value="#{controller.entity.assignmentTypeIdentifier}" >
+          <f:selectItems value="#{container.assignmentsType}" />
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Ancienneté" for="seniority" />
+      </div>
+      <div class="ui-g-9">
+        <p:selectOneMenu id="seniority" value="#{controller.entity.seniorityIdentifier}" >
+          <f:selectItems value="#{container.seniorities}" />
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-12">
+        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
+      </div>
+    </div>
+  </h:form>
+</ui:composition>

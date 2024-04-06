@@ -29,7 +29,59 @@
       <redirect />
     </navigation-case>
     
+    <!-- Assignment Type -->
     
+    <navigation-case>
+      <description>page liste des types d'affectation</description>
+      <from-outcome>assignmentTypeListPage</from-outcome>
+      <to-view-id>/private/assignmenttype/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Seniority -->
+    
+    <navigation-case>
+      <description>page liste des anciennetés</description>
+      <from-outcome>seniorityListPage</from-outcome>
+      <to-view-id>/private/seniority/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Gender -->
+    
+    <navigation-case>
+      <description>page liste des genres</description>
+      <from-outcome>genderListPage</from-outcome>
+      <to-view-id>/private/gender/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Student -->
+    
+    <navigation-case>
+      <description>page liste des élèves</description>
+      <from-outcome>studentListPage</from-outcome>
+      <to-view-id>/private/student/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Schooling -->
+    
+    <navigation-case>
+      <description>page liste des scolarités</description>
+      <from-outcome>schoolingListPage</from-outcome>
+      <to-view-id>/private/schooling/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Registration -->
+    
+    <navigation-case>
+      <description>page liste des inscriptions</description>
+      <from-outcome>registrationListPage</from-outcome>
+      <to-view-id>/private/registration/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
     
   </navigation-rule>
 </faces-config>

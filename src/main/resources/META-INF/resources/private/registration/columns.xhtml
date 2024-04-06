@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:column headerText="Code" width="100">
+		<h:outputText value="#{record.code}" />
+	</p:column>
+
+	<p:column headerText="Eleve">
+		<h:outputText value="#{record.studentAsString}" />
+	</p:column>
+	
+	<p:column headerText="Scolarité">
+		<h:outputText value="#{record.schoolingAsString}" />
+	</p:column>
+	
+	<p:column headerText="Type d'affectation">
+		<h:outputText value="#{record.assignmentTypeAsString}" />
+	</p:column>
+	
+	<p:column headerText="Ancienneté">
+		<h:outputText value="#{record.seniorityAsString}" />
+	</p:column>
+</ui:composition>
