@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <p:column headerText="Identifiant" width="300">
+    <h:outputText value="#{record.identifier}" />
+  </p:column>
+  
+  <p:column headerText="Valeur" width="150">
+    <h:outputText value="#{record.valueAsString}" />
+  </p:column>
+
+  <p:column headerText="Part Inscription" width="150">
+    <h:outputText value="#{record.registrationValuePartAsString}" />
+  </p:column>
+
+  <p:column headerText="Facultatif" width="150">
+    <h:outputText value="#{record.optionalAsString}" />
+  </p:column>
+  
+  <p:column headerText="Numéro d'ordre de paiement" width="150">
+    <h:outputText value="#{record.paymentOrderNumberAsString}" />
+  </p:column>
+  
+  <p:column headerText="Échéance">
+    <h:outputText value="#{record.deadlineAsString}" />
+  </p:column>
+  
+  <p:column headerText="Reconductible" width="150">
+    <h:outputText value="#{record.renewableAsString}" />
+  </p:column>
+</ui:composition>

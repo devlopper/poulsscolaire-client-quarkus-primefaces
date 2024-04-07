@@ -38,6 +38,15 @@
       <redirect />
     </navigation-case>
     
+    <!-- Amount -->
+    
+    <navigation-case>
+      <description>page liste des montants</description>
+      <from-outcome>amountListPage</from-outcome>
+      <to-view-id>/private/amount/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Assignment Type -->
     
     <navigation-case>
