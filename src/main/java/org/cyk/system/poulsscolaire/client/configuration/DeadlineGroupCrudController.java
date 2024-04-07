@@ -9,21 +9,21 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.DueGroupClient;
-import org.cyk.system.poulsscolaire.server.api.DueGroupDto;
-import org.cyk.system.poulsscolaire.server.api.DueGroupService;
+import org.cyk.system.poulsscolaire.server.api.DeadlineGroupClient;
+import org.cyk.system.poulsscolaire.server.api.DeadlineGroupDto;
+import org.cyk.system.poulsscolaire.server.api.DeadlineGroupService;
 
 /**
- * Cette classe représente le contrôleur de CRUD de {@link DueGroupDto}.
+ * Cette classe représente le contrôleur de CRUD de {@link DeadlineGroupDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class DueGroupCrudController extends AbstractController {
+public class DeadlineGroupCrudController extends AbstractController {
 
   @Inject
-  DueGroupClient client;
+  DeadlineGroupClient client;
 
   @Inject
   @Getter
@@ -34,9 +34,9 @@ public class DueGroupCrudController extends AbstractController {
     super.postConstruct();
     name = "Groupe d'échéances";
 
-    listController.setEntityClass(DueGroupDto.class);
+    listController.setEntityClass(DeadlineGroupDto.class);
     listController.setClient(client);
-    listController.setNotificationChannel(DueGroupService.PATH);
+    listController.setNotificationChannel(DeadlineGroupService.PATH);
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
@@ -46,12 +46,12 @@ public class DueGroupCrudController extends AbstractController {
     listController.initialize();
 
     listController.getCreateController()
-        .setFunction(entity -> client.create(((DueGroupDto) entity).getCode(),
-            ((DueGroupDto) entity).getName(), userIdentifier, null));
+        .setFunction(entity -> client.create(((DeadlineGroupDto) entity).getCode(),
+            ((DeadlineGroupDto) entity).getName(), userIdentifier, null));
 
     listController.getUpdateController()
-        .setFunction(entity -> client.update(((DueGroupDto) entity).getIdentifier(),
-            ((DueGroupDto) entity).getCode(), ((DueGroupDto) entity).getName(), userIdentifier,
-            null));
+        .setFunction(entity -> client.update(((DeadlineGroupDto) entity).getIdentifier(),
+            ((DeadlineGroupDto) entity).getCode(), ((DeadlineGroupDto) entity).getName(),
+            userIdentifier, null));
   }
 }

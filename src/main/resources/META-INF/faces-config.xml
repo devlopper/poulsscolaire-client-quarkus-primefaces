@@ -20,12 +20,21 @@
       <redirect />
     </navigation-case>
     
-    <!-- Due group -->
+    <!-- Deadline group -->
     
     <navigation-case>
       <description>page liste des groupes d'échéances</description>
-      <from-outcome>dueGroupListPage</from-outcome>
-      <to-view-id>/private/duegroup/administrator/list.jsf</to-view-id>
+      <from-outcome>deadlineGroupListPage</from-outcome>
+      <to-view-id>/private/deadlinegroup/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Deadline -->
+    
+    <navigation-case>
+      <description>page liste des échéances</description>
+      <from-outcome>deadlineListPage</from-outcome>
+      <to-view-id>/private/deadline/administrator/list.jsf</to-view-id>
       <redirect />
     </navigation-case>
     
