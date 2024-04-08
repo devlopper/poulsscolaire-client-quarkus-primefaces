@@ -9,9 +9,9 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.SeniorityClient;
-import org.cyk.system.poulsscolaire.server.api.SeniorityDto;
-import org.cyk.system.poulsscolaire.server.api.SeniorityService;
+import org.cyk.system.poulsscolaire.server.api.configuration.SeniorityClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.SeniorityDto;
+import org.cyk.system.poulsscolaire.server.api.configuration.SeniorityService;
 
 /**
  * Cette classe représente le contrôleur de CRUD de {@link SeniorityDto}.

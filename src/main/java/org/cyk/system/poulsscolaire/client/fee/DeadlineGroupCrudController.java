@@ -1,4 +1,4 @@
-package org.cyk.system.poulsscolaire.client.configuration;
+package org.cyk.system.poulsscolaire.client.fee;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
@@ -9,9 +9,9 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.DeadlineGroupClient;
-import org.cyk.system.poulsscolaire.server.api.DeadlineGroupDto;
-import org.cyk.system.poulsscolaire.server.api.DeadlineGroupService;
+import org.cyk.system.poulsscolaire.server.api.fee.DeadlineGroupClient;
+import org.cyk.system.poulsscolaire.server.api.fee.DeadlineGroupDto;
+import org.cyk.system.poulsscolaire.server.api.fee.DeadlineGroupService;
 
 /**
  * Cette classe représente le contrôleur de CRUD de {@link DeadlineGroupDto}.

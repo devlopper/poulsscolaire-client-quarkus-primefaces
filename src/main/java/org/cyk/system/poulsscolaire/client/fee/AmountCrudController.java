@@ -1,4 +1,4 @@
-package org.cyk.system.poulsscolaire.client.configuration;
+package org.cyk.system.poulsscolaire.client.fee;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
@@ -12,11 +12,11 @@ import jakarta.inject.Inject;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.cyk.system.poulsscolaire.server.api.AmountClient;
-import org.cyk.system.poulsscolaire.server.api.AmountDto;
-import org.cyk.system.poulsscolaire.server.api.AmountService;
-import org.cyk.system.poulsscolaire.server.api.DeadlineClient;
-import org.cyk.system.poulsscolaire.server.api.DeadlineService;
+import org.cyk.system.poulsscolaire.server.api.fee.AmountClient;
+import org.cyk.system.poulsscolaire.server.api.fee.AmountDto;
+import org.cyk.system.poulsscolaire.server.api.fee.AmountService;
+import org.cyk.system.poulsscolaire.server.api.fee.DeadlineClient;
+import org.cyk.system.poulsscolaire.server.api.fee.DeadlineService;
 
 /**
  * Cette classe représente le contrôleur de CRUD de {@link AmountDto}.

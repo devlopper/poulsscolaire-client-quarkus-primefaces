@@ -9,9 +9,9 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.GenderClient;
-import org.cyk.system.poulsscolaire.server.api.GenderDto;
-import org.cyk.system.poulsscolaire.server.api.GenderService;
+import org.cyk.system.poulsscolaire.server.api.configuration.GenderClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.GenderDto;
+import org.cyk.system.poulsscolaire.server.api.configuration.GenderService;
 
 /**
  * Cette classe représente le contrôleur de CRUD de {@link GenderDto}.

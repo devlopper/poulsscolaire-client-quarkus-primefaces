@@ -5,27 +5,26 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.DeadlineDto;
 
 /**
- * Cette classe représente la page de liste de {@link DeadlineDto}.
+ * Cette classe représente la page de liste de {@link SchoolingDto}.
  *
  * @author Christian
  *
  */
 @Named
 @ViewScoped
-public class DeadlineListPage extends AbstractPage {
+public class SchoolingListPage extends AbstractPage {
 
   @Inject
   @Getter
-  DeadlineCrudController crudController;
+  SchoolingCrudController crudController;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    contentTitle = "Liste des échéances";
+    contentTitle = "Liste des scolarités";
   }
   
-  public static final String OUTCOME = "deadlineListPage";
+  public static final String OUTCOME = "schoolingListPage";
 }

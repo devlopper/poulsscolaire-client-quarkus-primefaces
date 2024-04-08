@@ -1,4 +1,4 @@
-package org.cyk.system.poulsscolaire.client.configuration;
+package org.cyk.system.poulsscolaire.client.fee;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractPage;
 import jakarta.faces.view.ViewScoped;

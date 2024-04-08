@@ -9,9 +9,9 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.AssignmentTypeClient;
-import org.cyk.system.poulsscolaire.server.api.AssignmentTypeDto;
-import org.cyk.system.poulsscolaire.server.api.AssignmentTypeService;
+import org.cyk.system.poulsscolaire.server.api.configuration.AssignmentTypeClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.AssignmentTypeDto;
+import org.cyk.system.poulsscolaire.server.api.configuration.AssignmentTypeService;
 
 /**
  * Cette classe représente le contrôleur de CRUD de {@link AssignmentTypeDto}.

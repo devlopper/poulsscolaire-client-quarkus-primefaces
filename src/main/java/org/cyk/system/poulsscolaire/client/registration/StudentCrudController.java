@@ -1,4 +1,4 @@
-package org.cyk.system.poulsscolaire.client.configuration;
+package org.cyk.system.poulsscolaire.client.registration;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
@@ -13,11 +13,11 @@ import jakarta.inject.Inject;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.cyk.system.poulsscolaire.server.api.GenderClient;
-import org.cyk.system.poulsscolaire.server.api.GenderService;
-import org.cyk.system.poulsscolaire.server.api.StudentClient;
-import org.cyk.system.poulsscolaire.server.api.StudentDto;
-import org.cyk.system.poulsscolaire.server.api.StudentService;
+import org.cyk.system.poulsscolaire.server.api.configuration.GenderClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.GenderService;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentClient;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentService;
 
 /**
  * Cette classe représente le contrôleur de CRUD de {@link StudentDto}.

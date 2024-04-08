@@ -1,4 +1,4 @@
-package org.cyk.system.poulsscolaire.client.registration;
+package org.cyk.system.poulsscolaire.client.configuration;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
@@ -8,9 +8,9 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.SchoolingClient;
-import org.cyk.system.poulsscolaire.server.api.SchoolingDto;
-import org.cyk.system.poulsscolaire.server.api.SchoolingService;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingDto;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService;
 
 /**
  * Cette classe représente le contrôleur de CRUD de {@link SchoolingDto}.

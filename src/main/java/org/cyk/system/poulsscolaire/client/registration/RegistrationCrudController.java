@@ -13,19 +13,19 @@ import jakarta.inject.Inject;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.cyk.system.poulsscolaire.server.api.AssignmentTypeClient;
-import org.cyk.system.poulsscolaire.server.api.AssignmentTypeService;
-import org.cyk.system.poulsscolaire.server.api.RegistrationClient;
-import org.cyk.system.poulsscolaire.server.api.RegistrationDto;
-import org.cyk.system.poulsscolaire.server.api.RegistrationService;
-import org.cyk.system.poulsscolaire.server.api.SchoolingClient;
-import org.cyk.system.poulsscolaire.server.api.SchoolingDto;
-import org.cyk.system.poulsscolaire.server.api.SchoolingService;
-import org.cyk.system.poulsscolaire.server.api.SeniorityClient;
-import org.cyk.system.poulsscolaire.server.api.SeniorityService;
-import org.cyk.system.poulsscolaire.server.api.StudentClient;
-import org.cyk.system.poulsscolaire.server.api.StudentDto;
-import org.cyk.system.poulsscolaire.server.api.StudentService;
+import org.cyk.system.poulsscolaire.server.api.configuration.AssignmentTypeClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.AssignmentTypeService;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingDto;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService;
+import org.cyk.system.poulsscolaire.server.api.configuration.SeniorityClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.SeniorityService;
+import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
+import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
+import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentClient;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentService;
 
 /**
  * Cette classe représente le contrôleur de CRUD de {@link RegistrationDto}.
