@@ -38,6 +38,15 @@
       <redirect />
     </navigation-case>
     
+    <!-- Fee category -->
+    
+    <navigation-case>
+      <description>page liste des rubriques</description>
+      <from-outcome>feeCategoryListPage</from-outcome>
+      <to-view-id>/private/feecategory/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Amount -->
     
     <navigation-case>
