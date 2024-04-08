@@ -110,5 +110,14 @@
       <redirect />
     </navigation-case>
     
+    <!-- Payment Mode -->
+    
+    <navigation-case>
+      <description>page liste des modes de paiement</description>
+      <from-outcome>paymentModeListPage</from-outcome>
+      <to-view-id>/private/paymentmode/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
   </navigation-rule>
 </faces-config>
