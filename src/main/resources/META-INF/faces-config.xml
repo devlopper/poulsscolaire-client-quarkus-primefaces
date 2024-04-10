@@ -47,6 +47,24 @@
       <redirect />
     </navigation-case>
     
+    <!-- Fee -->
+    
+    <navigation-case>
+      <description>page liste des frais</description>
+      <from-outcome>feeListPage</from-outcome>
+      <to-view-id>/private/fee/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Adjusted fee -->
+    
+    <navigation-case>
+      <description>page liste des frais ajustés</description>
+      <from-outcome>adjustedFeeListPage</from-outcome>
+      <to-view-id>/private/adjustedfee/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Amount -->
     
     <navigation-case>
