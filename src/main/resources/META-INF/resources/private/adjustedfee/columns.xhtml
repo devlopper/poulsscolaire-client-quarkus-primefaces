@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+  
+  <p:column headerText="Frais">
+    <h:outputText value="#{record.feeAsString}" />
+  </p:column>
+  
+  <p:column headerText="Inscription">
+    <h:outputText value="#{record.registrationAsString}" />
+  </p:column>
+  
+  <p:column headerText="Valeur" width="100">
+    <h:outputText value="#{record.amountValueAsString}" />
+  </p:column>
+
+  <p:column headerText="Part Inscription" width="150">
+    <h:outputText value="#{record.amountRegistrationValuePartAsString}" />
+  </p:column>
+
+  <p:column headerText="Facultatif" width="100">
+    <h:outputText value="#{record.amountOptionalAsString}" />
+  </p:column>
+  
+  <p:column headerText="Numéro d'ordre de paiement" width="150">
+    <h:outputText value="#{record.amountPaymentOrderNumberAsString}" />
+  </p:column>
+  
+  <p:column headerText="Échéance">
+    <h:outputText value="#{record.amountDeadlineAsString}" />
+  </p:column>
+  
+  <p:column headerText="Reconductible" width="100">
+    <h:outputText value="#{record.amountRenewableAsString}" />
+  </p:column>
+</ui:composition>
