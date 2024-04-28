@@ -137,5 +137,22 @@
       <redirect />
     </navigation-case>
     
+    <!-- Payment -->
+    
+    <navigation-case>
+      <description>page liste des paiements</description>
+      <from-outcome>paymentListPage</from-outcome>
+      <to-view-id>/private/payment/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Payment Adjusted Fee -->
+    
+    <navigation-case>
+      <description>page liste des paiements de frais ajusté</description>
+      <from-outcome>paymentAdjustedFeeListPage</from-outcome>
+      <to-view-id>/private/paymentadjustedfee/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
 </faces-config>

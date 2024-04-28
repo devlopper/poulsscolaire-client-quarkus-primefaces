@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <div class="ui-g">
+      <div class="ui-g-3">
+        <p:outputLabel value="Paiement" for="payment" />
+      </div>
+      <div class="ui-g-9">
+        <p:selectOneMenu id="payment" value="#{controller.entity.paymentIdentifier}" >
+          <f:selectItems value="#{container.payments}" />
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Frais" for="adjustedFee" />
+      </div>
+      <div class="ui-g-9">
+        <p:selectOneMenu id="adjustedFee" value="#{controller.entity.adjustedFeeIdentifier}" >
+          <f:selectItems value="#{container.adjustedFees}" />
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Montant" for="amount" />
+      </div>
+      <div class="ui-g-9">
+        <p:inputNumber id="amount" value="#{controller.entity.amount}" />
+      </div>
+      <div class="ui-g-12">
+        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
+      </div>
+    </div>
+  </h:form>
+</ui:composition>
