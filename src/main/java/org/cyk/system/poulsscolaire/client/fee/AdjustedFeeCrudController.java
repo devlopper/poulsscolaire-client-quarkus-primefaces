@@ -110,7 +110,7 @@ public class AdjustedFeeCrudController extends AbstractController {
       return client.update(request);
     });
 
-    listController.setUpdateProjection(new ProjectionDto().addNames(
+    listController.getUpdateController().setProjection(new ProjectionDto().addNames(
         AbstractIdentifiableDto.JSON_IDENTIFIER, AbstractAmountContainerDto.JSON_AMOUNT_VALUE,
         AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART,
         AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL,

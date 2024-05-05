@@ -72,7 +72,7 @@ public class AmountCrudController extends AbstractController {
             ((AmountDto) entity).getRenewable(), ((AmountDto) entity).getDeadlineIdentifier(),
             userIdentifier, null));
 
-    listController.setUpdateProjection(new ProjectionDto().addNames(
+    listController.getUpdateController().setProjection(new ProjectionDto().addNames(
         AbstractIdentifiableDto.JSON_IDENTIFIER, AmountDto.JSON_VALUE,
         AmountDto.JSON_REGISTRATION_VALUE_PART, AmountDto.JSON_OPTIONAL, AmountDto.JSON_RENEWABLE,
         AmountDto.JSON_DEADLINE_IDENTIFIER, AmountDto.JSON_PAYMENT_ORDER_NUMBER));
