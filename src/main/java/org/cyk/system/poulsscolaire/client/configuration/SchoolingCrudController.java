@@ -39,8 +39,8 @@ public class SchoolingCrudController extends AbstractController {
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        AbstractIdentifiableCodableDto.JSON_CODE, SchoolingDto.JSON_SCHOOL_IDENTIFIER,
-        SchoolingDto.JSON_BRANCH_IDENTIFIER, SchoolingDto.JSON_PERIOD_IDENTIFIER);
+        AbstractIdentifiableCodableDto.JSON_CODE, SchoolingDto.JSON_SCHOOL_AS_STRING,
+        SchoolingDto.JSON_BRANCH_AS_STRING, SchoolingDto.JSON_PERIOD_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();

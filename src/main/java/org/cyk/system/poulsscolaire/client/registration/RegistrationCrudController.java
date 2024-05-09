@@ -74,7 +74,7 @@ public class RegistrationCrudController extends AbstractController {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    name = "Élèves";
+    name = "Inscription";
 
     listController.setEntityClass(RegistrationDto.class);
     listController.setClient(client);
@@ -112,22 +112,28 @@ public class RegistrationCrudController extends AbstractController {
     schoolings = new ActionExecutor<>(this, SchoolingService.GET_MANY_IDENTIFIER,
         () -> schoolingClient
             .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-                SchoolingDto.JSON_BRANCH_AS_STRING), null, null, userIdentifier, null)
+                SchoolingDto.JSON_SCHOOL_AS_STRING, SchoolingDto.JSON_BRANCH_AS_STRING,
+                SchoolingDto.JSON_PERIOD_AS_STRING), null, null, userIdentifier, null)
             .getDatas().stream()
-            .map(dto -> new SelectItem(dto.getIdentifier(), dto.getBranchAsString())).toList())
-                .execute();
+            .map(dto -> new SelectItem(dto.getIdentifier(), String.format("%s %s %s",
+                dto.getSchoolAsString(), dto.getBranchAsString(), dto.getPeriodAsString())))
+            .toList()).execute();
 
     assignmentsType = new ActionExecutor<>(this, AssignmentTypeService.GET_MANY_IDENTIFIER,
         () -> assignmentTypeClient
-            .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-                AbstractIdentifiableCodableNamableDto.JSON_NAME), null, null, userIdentifier, null)
+            .getMany(
+                new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                    AbstractIdentifiableCodableNamableDto.JSON_NAME),
+                null, null, userIdentifier, null)
             .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
             .toList()).execute();
 
     seniorities = new ActionExecutor<>(this, SeniorityService.GET_MANY_IDENTIFIER,
         () -> seniorityClient
-            .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-                AbstractIdentifiableCodableNamableDto.JSON_NAME), null, null, userIdentifier, null)
+            .getMany(
+                new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                    AbstractIdentifiableCodableNamableDto.JSON_NAME),
+                null, null, userIdentifier, null)
             .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
             .toList()).execute();
 
