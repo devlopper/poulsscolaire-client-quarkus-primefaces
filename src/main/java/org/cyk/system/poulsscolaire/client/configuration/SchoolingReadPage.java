@@ -40,16 +40,15 @@ public class SchoolingReadPage extends AbstractPage {
     contentTitle = "Lecture de scolarité";
 
     String identifier = getRequestParameterIdentifier();
-    schooling =
-        schoolingClient.getByIdentifier(identifier,
-            new ProjectionDto().addNames(SchoolingDto.JSON_FEE_AMOUNT_VALUE_AS_STRING,
-                SchoolingDto.JSON_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING),
-            userIdentifier, null);
+    schooling = schoolingClient.getByIdentifier(identifier,
+        new ProjectionDto().addNames(SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_VALUE_AS_STRING,
+            SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING),
+        userIdentifier, null);
     feeController.setSchoolingIdentifier(identifier);
     feeController.initialize();
-    feeController.setAmountValueTotalAsString(schooling.getFeeAmountValueAsString());
+    feeController.setAmountValueTotalAsString(schooling.getNotOptionalFeeAmountValueAsString());
     feeController.setAmountRegistrationValuePartTotalAsString(
-        schooling.getFeeAmountRegistrationValuePartAsString());
+        schooling.getNotOptionalFeeAmountRegistrationValuePartAsString());
   }
 
   public static final String OUTCOME = "schoolingReadPage";
