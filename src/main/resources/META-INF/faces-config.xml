@@ -119,6 +119,13 @@
       <redirect />
     </navigation-case>
     
+    <navigation-case>
+      <description>page lecture de scolarité</description>
+      <from-outcome>schoolingReadPage</from-outcome>
+      <to-view-id>/private/schooling/administrator/read.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Registration -->
     
     <navigation-case>

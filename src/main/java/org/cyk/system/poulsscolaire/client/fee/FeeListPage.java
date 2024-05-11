@@ -25,6 +25,7 @@ public class FeeListPage extends AbstractPage {
   protected void postConstruct() {
     super.postConstruct();
     contentTitle = "Liste des frais";
+    crudController.initialize();
   }
   
   public static final String OUTCOME = "feeListPage";

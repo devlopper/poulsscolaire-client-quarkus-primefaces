@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client.fee;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
@@ -26,6 +27,7 @@ import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryClient;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryService;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeClient;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeDto;
+import org.cyk.system.poulsscolaire.server.api.fee.FeeFilter;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeService;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeService.FeeCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeService.FeeUpdateRequestDto;
@@ -45,6 +47,14 @@ public class FeeCrudController extends AbstractController {
   @Inject
   @Getter
   ListController listController;
+
+  @Getter
+  @Setter
+  String amountValueTotalAsString;
+
+  @Getter
+  @Setter
+  String amountRegistrationValuePartTotalAsString;
 
   @Inject
   SchoolingClient schoolingClient;
@@ -81,17 +91,29 @@ public class FeeCrudController extends AbstractController {
   @Setter
   List<SelectItem> deadlines;
 
+  @Getter
+  @Setter
+  String schoolingIdentifier;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
     name = "Frais";
+  }
 
+  /**
+   * Cette méthode permet d'initialiser le contrôleur.
+   */
+  public void initialize() {
     listController.setEntityClass(FeeDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(FeeService.PATH);
 
     ProjectionDto projection = new ProjectionDto();
-    projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER, FeeDto.JSON_SCHOOLING_AS_STRING,
+    if (Core.isStringBlank(schoolingIdentifier)) {
+      projection.addNames(FeeDto.JSON_SCHOOLING_AS_STRING);
+    }
+    projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         FeeDto.JSON_ASSIGNMENT_TYPE_AS_STRING, FeeDto.JSON_SENIORITY_AS_STRING,
         FeeDto.JSON_CATEGORY_AS_STRING, AbstractAmountContainerDto.JSON_AMOUNT_VALUE_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING,
@@ -100,8 +122,16 @@ public class FeeCrudController extends AbstractController {
         AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
     listController.getReadController().setProjection(projection);
+    if (!Core.isStringBlank(schoolingIdentifier)) {
+      FeeFilter feeFilter = new FeeFilter();
+      feeFilter.setSchoolingIdentifier(schoolingIdentifier);
+      listController.getReadController().setFilter(feeFilter.toDto());
+    }
 
     listController.initialize();
+
+    listController.getCreateController()
+        .addEntityConsumer(entity -> ((FeeDto) entity).setSchoolingIdentifier(schoolingIdentifier));
 
     listController.getCreateController().setFunction(entity -> {
       FeeCreateRequestDto request = new FeeCreateRequestDto();
@@ -129,23 +159,27 @@ public class FeeCrudController extends AbstractController {
       return client.update(request);
     });
 
-    listController.getUpdateController().setProjection(new ProjectionDto().addNames(
-        AbstractIdentifiableDto.JSON_IDENTIFIER, AbstractAmountContainerDto.JSON_AMOUNT_VALUE,
-        AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART,
-        AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL,
-        AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE,
-        AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_IDENTIFIER,
-        AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER));
+    listController.getUpdateController()
+        .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+            AbstractAmountContainerDto.JSON_AMOUNT_VALUE,
+            AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART,
+            AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL,
+            AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE,
+            AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_IDENTIFIER,
+            AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER));
 
-    schoolings = new ActionExecutor<>(this, SchoolingService.GET_MANY_IDENTIFIER,
-        () -> schoolingClient
-            .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-                SchoolingDto.JSON_SCHOOL_AS_STRING, SchoolingDto.JSON_BRANCH_AS_STRING,
-                SchoolingDto.JSON_PERIOD_AS_STRING), null, null, userIdentifier, null)
-            .getDatas().stream()
-            .map(dto -> new SelectItem(dto.getIdentifier(), dto.getSchoolAsString() + " "
-                + dto.getBranchAsString() + " " + dto.getPeriodAsString()))
-            .toList()).execute();
+    if (Core.isStringBlank(schoolingIdentifier)) {
+      schoolings =
+          new ActionExecutor<>(this, SchoolingService.GET_MANY_IDENTIFIER,
+              () -> schoolingClient
+                  .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                      SchoolingDto.JSON_SCHOOL_AS_STRING, SchoolingDto.JSON_BRANCH_AS_STRING,
+                      SchoolingDto.JSON_PERIOD_AS_STRING), null, null, userIdentifier, null)
+                  .getDatas().stream()
+                  .map(dto -> new SelectItem(dto.getIdentifier(), dto.getSchoolAsString() + " "
+                      + dto.getBranchAsString() + " " + dto.getPeriodAsString()))
+                  .toList()).execute();
+    }
 
     assignmentTypes = new ActionExecutor<>(this, AssignmentTypeService.GET_MANY_IDENTIFIER,
         () -> assignmentTypeClient
@@ -182,5 +216,8 @@ public class FeeCrudController extends AbstractController {
                 null, null, userIdentifier, null)
             .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
             .toList()).execute();
+
+    amountValueTotalAsString = "---";
+    amountRegistrationValuePartTotalAsString = "---";
   }
 }

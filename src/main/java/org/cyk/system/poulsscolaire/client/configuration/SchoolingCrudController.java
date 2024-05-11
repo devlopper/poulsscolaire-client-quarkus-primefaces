@@ -40,10 +40,15 @@ public class SchoolingCrudController extends AbstractController {
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, SchoolingDto.JSON_SCHOOL_AS_STRING,
-        SchoolingDto.JSON_BRANCH_AS_STRING, SchoolingDto.JSON_PERIOD_AS_STRING);
+        SchoolingDto.JSON_BRANCH_AS_STRING, SchoolingDto.JSON_PERIOD_AS_STRING,
+        SchoolingDto.JSON_FEE_AMOUNT_VALUE_AS_STRING,
+        SchoolingDto.JSON_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
+
+    listController.getGotoReadPageButton().setRendered(true);
+    listController.getGotoReadPageButton().setOutcome(SchoolingReadPage.OUTCOME);
 
     listController.getCreateController()
         .setFunction(entity -> client.create(((SchoolingDto) entity).getSchoolIdentifier(),

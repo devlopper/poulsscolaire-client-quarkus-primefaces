@@ -4,14 +4,14 @@
 
   <h:form>
     <div class="ui-g">
-      <div class="ui-g-3">
+      <p:outputPanel styleClass="ui-g-3" rendered="#{container.schoolings != null}">
         <p:outputLabel value="Scolarité" for="schooling" />
-      </div>
-      <div class="ui-g-9">
+      </p:outputPanel>
+      <p:outputPanel styleClass="ui-g-" rendered="#{container.schoolings != null}">
         <p:selectOneMenu id="schooling" value="#{controller.entity.schoolingIdentifier}">
           <f:selectItems value="#{container.schoolings}" />
         </p:selectOneMenu>
-      </div>
+      </p:outputPanel>
       <div class="ui-g-3">
         <p:outputLabel value="Type d'affectation" for="assignmentType" />
       </div>
