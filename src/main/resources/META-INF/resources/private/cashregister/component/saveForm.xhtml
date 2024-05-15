@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <div class="ui-g">
+      <div class="ui-g-3">
+        <p:outputLabel value="École" for="school" />
+      </div>
+      <div class="ui-g-9">
+        <p:selectOneMenu id="school" value="#{controller.entity.schoolIdentifier}" >
+          <f:selectItems value="#{container.schools}" />
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Code" for="code" />
+      </div>
+      <div class="ui-g-9">
+        <p:inputText id="code" value="#{controller.entity.code}" />
+      </div>
+      <div class="ui-g-3">
+        <p:outputLabel value="Libellé" for="name" />
+      </div>
+      <div class="ui-g-9">
+        <p:inputText id="name" value="#{controller.entity.name}" />
+      </div>
+      <div class="ui-g-12">
+        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
+      </div>
+    </div>
+  </h:form>
+</ui:composition>

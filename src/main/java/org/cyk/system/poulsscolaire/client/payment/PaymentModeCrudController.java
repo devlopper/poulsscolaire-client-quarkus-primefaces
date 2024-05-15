@@ -1,4 +1,4 @@
-package org.cyk.system.poulsscolaire.client.fee;
+package org.cyk.system.poulsscolaire.client.payment;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;

@@ -135,6 +135,15 @@
       <redirect />
     </navigation-case>
     
+    <!-- Cash Register -->
+    
+    <navigation-case>
+      <description>page liste des caisses enregistreuses</description>
+      <from-outcome>cashRegisterListPage</from-outcome>
+      <to-view-id>/private/cashregister/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Payment Mode -->
     
     <navigation-case>
