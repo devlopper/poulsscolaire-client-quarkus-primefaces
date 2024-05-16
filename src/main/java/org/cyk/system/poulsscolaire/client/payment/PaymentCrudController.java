@@ -60,18 +60,21 @@ public class PaymentCrudController extends AbstractController {
     listController.initialize();
 
     listController.getCreateController()
-        .setFunction(entity -> client.create(((PaymentDto) entity).getModeIdentifier(),
-            ((PaymentDto) entity).getAmount(), userIdentifier, null));
+        .setFunction(entity -> client.create(((PaymentDto) entity).getRegistrationIdentifier(),
+            ((PaymentDto) entity).getModeIdentifier(), ((PaymentDto) entity).getAmount(),
+            userIdentifier, null));
 
     listController.getUpdateController()
         .setFunction(entity -> client.update(((PaymentDto) entity).getIdentifier(),
-            ((PaymentDto) entity).getModeIdentifier(),
-            ((PaymentDto) entity).getAmount(), userIdentifier, null));
+            ((PaymentDto) entity).getModeIdentifier(), ((PaymentDto) entity).getAmount(),
+            userIdentifier, null));
 
     modes = new ActionExecutor<>(this, PaymentModeService.GET_MANY_IDENTIFIER,
         () -> modeClient
-            .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-                AbstractIdentifiableCodableNamableDto.JSON_NAME), null, null, userIdentifier, null)
+            .getMany(
+                new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                    AbstractIdentifiableCodableNamableDto.JSON_NAME),
+                null, null, userIdentifier, null)
             .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
             .toList()).execute();
 
