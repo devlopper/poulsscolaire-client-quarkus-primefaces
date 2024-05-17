@@ -18,6 +18,9 @@ import org.cyk.system.poulsscolaire.server.api.payment.PaymentDto;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentModeClient;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentModeService;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentService;
+import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
+import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
+import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService;
 
 /**
  * Cette classe représente le contrôleur de CRUD de {@link PaymentDto}.
@@ -34,6 +37,13 @@ public class PaymentCrudController extends AbstractController {
   @Inject
   @Getter
   ListController listController;
+
+  @Inject
+  RegistrationClient registrationClient;
+
+  @Getter
+  @Setter
+  List<SelectItem> registrations;
 
   @Inject
   PaymentModeClient modeClient;
@@ -69,6 +79,16 @@ public class PaymentCrudController extends AbstractController {
             ((PaymentDto) entity).getModeIdentifier(), ((PaymentDto) entity).getAmount(),
             userIdentifier, null));
 
+    registrations = new ActionExecutor<>(this, RegistrationService.GET_MANY_IDENTIFIER,
+        () -> registrationClient
+            .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                RegistrationDto.JSON_STUDENT_AS_STRING, RegistrationDto.JSON_SCHOOLING_AS_STRING),
+                null, null, userIdentifier, null)
+            .getDatas().stream()
+            .map(dto -> new SelectItem(dto.getIdentifier(),
+                dto.getSchoolingAsString() + " - " + dto.getSchoolingAsString()))
+            .toList()).execute();
+
     modes = new ActionExecutor<>(this, PaymentModeService.GET_MANY_IDENTIFIER,
         () -> modeClient
             .getMany(
@@ -77,6 +97,8 @@ public class PaymentCrudController extends AbstractController {
                 null, null, userIdentifier, null)
             .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
             .toList()).execute();
+    
+    System.out.println("PaymentCrudController.postConstruct() : Modes : " + modes);
 
   }
 }

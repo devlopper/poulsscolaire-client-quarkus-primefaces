@@ -7,6 +7,14 @@
   <h:form>
     <div class="ui-g">
       <div class="ui-g-3">
+        <p:outputLabel value="Inscription" for="registration" />
+      </div>
+      <div class="ui-g-9">
+        <p:selectOneMenu id="registration" value="#{controller.entity.registrationIdentifier}" >
+          <f:selectItems value="#{container.registrations}" />
+        </p:selectOneMenu>
+      </div>
+      <div class="ui-g-3">
         <p:outputLabel value="Mode" for="mode" />
       </div>
       <div class="ui-g-9">
