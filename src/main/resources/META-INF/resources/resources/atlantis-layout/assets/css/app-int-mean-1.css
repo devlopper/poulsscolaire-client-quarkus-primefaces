@@ -1,0 +1,138 @@
+#menu .menu-int-dropdown {
+    display: none;
+    transition: 0.3s ease;
+}
+
+#menu .menu-int-dropdown.show {
+    display: block;
+    transition: 0.3s ease;
+    
+}
+
+
+#menu .nav .nav-item .active::after{
+    /* background-color: #ff89002e !important;
+    color: var(--vz-vertical-menu-item-active-color);
+    padding: 6px 12px;
+    border-radius: 9px;
+    font-size: 15px; */
+
+    /* display: block; */
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+
+}
+
+/* #menu>.nav .nav-item:hover{
+    background-color: #ff89002e !important;
+    transition: 0.3s ease;
+   } */
+
+#menu .nav .principale-menu>.active{
+    background-color: var(--vz-success-bg-subtle) !important;
+    color: var(--vz-vertical-menu-item-active-color);
+    padding: 6px 12px;
+    border-radius: 9px;
+    font-size: 15px;
+
+}
+
+
+#menu .navbar-menu .navbar-nav .nav-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .625rem 1.5rem;
+    color: var(--vz-vertical-menu-item-color);
+    font-size: var(--vz-vertical-menu-item-font-size);
+    font-family: var(--vz-vertical-menu-item-font-family);
+}
+
+
+
+#menu .menu-link:after {
+    content: "\f0142";
+    font-family: "Material Design Icons";
+    margin-left: auto;
+    -webkit-transition: -webkit-transform .2s;
+    transition: -webkit-transform .2s;
+    transition: transform .2s;
+    transition: transform .2s, -webkit-transform .2s;
+    font-size: 1.05rem;
+    position: absolute;
+    right: 18px;
+    color: inherit;
+}
+
+
+
+#menu .menu-int-dropdown .nav .nav-item .active{
+    /* background-color: green !important; */
+    color: orangered !important;
+
+}
+
+/* #menu i {
+    color: #fff;
+    height: 60px;
+    min-width: 50px;
+    font-size: 28px;
+    text-align: center;
+    line-height: 60px;
+} */
+
+
+
+
+#menu .principale-menu .menu-link i {
+    display: inline-block;
+    min-width: 1.75rem;
+    font-size: 18px;
+    line-height: inherit;
+}
+
+#menu  .navbar-menu .navbar-nav .nav-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .625rem 1.5rem;
+    color: var(--vz-vertical-menu-item-color);
+    font-size: var(--vz-vertical-menu-item-font-size);
+    font-family: var(--vz-vertical-menu-item-font-family);
+}
+
+  
+
+#menu .menu-int-dropdown .nav-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .625rem 1.5rem;
+    color: var(--vz-vertical-menu-item-color);
+    font-size: var(--vz-vertical-menu-item-font-size);
+    font-family: var(--vz-vertical-menu-item-font-family);
+}
+
+#menu .menu-int-dropdown .nav-sm .nav-link:before {
+    content: "";
+    width: 6px;
+    height: 1.5px;
+    margin-right: 10px;
+    background-color: var(--vz-vertical-menu-sub-item-color);
+    /* position: absolute; */
+    /* left: 2px; */
+    /* top: 16.5px; */
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    opacity: .5;
+}
+

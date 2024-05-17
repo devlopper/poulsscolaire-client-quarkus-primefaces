@@ -1,26 +1,36 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
   <h:form>
-    <div class="ui-g">
-      <div class="ui-g-3">
-        <p:outputLabel value="Code" for="code" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="code" value="#{controller.entity.code}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Libellé" for="name" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="name" value="#{controller.entity.name}" />
-      </div>
-      <div class="ui-g-12">
-        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
-      </div>
-    </div>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="codeMessage,nameMessage" />
+
+      <ui:define name="form-save-inputs">
+        <!-- Code -->
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Code" for="code" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText class="form-control" id="code" value="#{controller.entity.code}"
+              placeholder="Renseigner le code" required="true" />
+            <p:message id="codeMessage" for="code" />
+          </ui:define>
+        </ui:decorate>
+
+        <!-- Libellé -->
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Libellé" for="name" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="name" value="#{controller.entity.name}"
+              placeholder="Renseigner le libellé" required="true" />
+            <p:message id="nameMessage" for="name" />
+          </ui:define>
+        </ui:decorate>
+      </ui:define>
+    </ui:decorate>
   </h:form>
 </ui:composition>

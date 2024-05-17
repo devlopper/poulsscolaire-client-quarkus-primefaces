@@ -32,7 +32,7 @@ public class FeeCategoryCrudController extends AbstractController {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    name = "Rubriques";
+    name = FeeCategoryDto.NAME;
 
     listController.setEntityClass(FeeCategoryDto.class);
     listController.setClient(client);

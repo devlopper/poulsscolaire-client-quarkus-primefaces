@@ -1,0 +1,370 @@
+.pull-left {
+    float: left !important;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+
+
+
+/* Margins */
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mt-1 {
+    margin-top: 0.25rem !important;
+}
+
+.mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+.mt-4 {
+    margin-top: 1.875rem !important;
+}
+
+.mt-5 {
+    margin-top: 3rem !important;
+}
+
+.mt-auto {
+    margin-top: auto !important;
+}
+
+.ml-0 {
+    margin-left: 0 !important;
+}
+
+.ml-1 {
+    margin-left: 0.25rem !important;
+}
+
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+
+.ml-3 {
+    margin-left: 1rem !important;
+}
+
+.ml-4 {
+    margin-left: 1.875rem !important;
+}
+
+.ml-5 {
+    margin-left: 3rem !important;
+}
+
+.ml-auto {
+    margin-left: auto !important;
+}
+
+.mx-0 {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.mr-0 {
+    margin-right: 0 !important;
+}
+
+.mr-1 {
+    margin-right: 0.25rem !important;
+}
+
+.mr-2 {
+    margin-right: 0.5rem !important;
+}
+
+.mr-3 {
+    margin-right: 1rem !important;
+}
+
+.mr-4 {
+    margin-right: 1.875rem !important;
+}
+
+.mr-5 {
+    margin-right: 3rem !important;
+}
+
+.mr-auto {
+    margin-right: auto !important;
+}
+
+.mx-1 {
+    margin-right: 0.25rem !important;
+    margin-left: 0.25rem !important;
+}
+
+.mx-2 {
+    margin-right: 0.5rem !important;
+    margin-left: 0.5rem !important;
+}
+
+.mx-3 {
+    margin-right: 1rem !important;
+    margin-left: 1rem !important;
+}
+
+.mx-4 {
+    margin-right: 1.875rem !important;
+    margin-left: 1.875rem !important;
+}
+
+.mx-5 {
+    margin-right: 3rem !important;
+    margin-left: 3rem !important;
+}
+
+.mx-auto {
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
+/* Paddings */
+.pt-0 {
+    padding-top: 0 !important;
+}
+
+.pt-1 {
+    padding-top: 0.25rem !important;
+}
+
+.pt-2 {
+    padding-top: 0.5rem !important;
+}
+
+.pt-3 {
+    padding-top: 1rem !important;
+}
+
+.pt-4 {
+    padding-top: 1.875rem !important;
+}
+
+.pt-5 {
+    padding-top: 3rem !important;
+}
+
+.pt-auto {
+    padding-top: auto !important;
+}
+
+.pl-0 {
+    padding-left: 0 !important;
+}
+
+.pl-1 {
+    padding-left: 0.25rem !important;
+}
+
+.pl-2 {
+    padding-left: 0.5rem !important;
+}
+
+.pl-3 {
+    padding-left: 1rem !important;
+}
+
+.pl-4 {
+    padding-left: 1.875rem !important;
+}
+
+.pl-5 {
+    padding-left: 3rem !important;
+}
+
+.pl-auto {
+    padding-left: auto !important;
+}
+
+.px-0 {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.px-1 {
+    padding-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+}
+
+.px-2 {
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+}
+
+.px-3 {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+}
+
+.px-4 {
+    padding-right: 1.875rem !important;
+    padding-left: 1.875rem !important;
+}
+
+.px-5 {
+    padding-right: 3rem !important;
+    padding-left: 3rem !important;
+}
+
+.px-auto {
+    padding-right: auto !important;
+    padding-left: auto !important;
+}
+
+:root {
+    /* Opacité */
+    --opacity: 0.1;
+    /* Couleur Jade sombre */
+    --color-Jade-sombre: 9, 152, 133;
+    /* Couleur rouge */
+    --color-red: 246, 17, 17;
+    /* Couleur Orange */
+    --color-orange: 255, 165, 0;
+    --color-wihte :#fff;
+}
+
+
+:root{
+    --btn-export : green;
+    --btn-rounded : 0.5rem;
+    --icon-margin-left : 0.2rem;
+    --btn-create : #099885;
+    --btn-delete :#fce8e4;
+    --btn-info :#299cdb;
+
+    --color-update : rgba(var(--color-orange));
+    --color-update-transparent :rgba(var(--color-orange), var(--opacity));
+    --bg-update-transparent :rgba(var(--color-orange), var(--opacity));
+    
+    --color-delete : rgba(var(--color-red));
+    --color-delete-transparent :rgba(var(--color-red), var(--opacity));
+    --bg-delete-transparent :rgba(var(--color-red), var(--opacity));
+
+    --color-create : rgba(var(--color-Jade-sombre));
+    --color-create-transparent :rgba(var(--color-Jade-sombre), var(--opacity));
+    --bg-create-transparent :rgba(var(--color-Jade-sombre), var(--opacity));
+}
+
+
+
+.crud-list-button-export{
+    background-color: var( --btn-export) !important;
+    border-color: var( --btn-export) !important;
+    /* color: var( --btn-export) !important; */
+}
+
+.crud-list-button-create{
+    background-color: var(--color-create) !important;
+    border-color: var(--color-create) !important;
+    /* color: var(--color-wihte) !important; */
+}
+
+.crud-list-button-update{
+    background-color: var(--bg-update-transparent) !important;
+    border-color: var(--bg-update-transparent) !important;
+    color: var( --color-update ) !important;
+}
+
+.crud-list-button-delete{
+    background-color: var(--bg-delete-transparent) !important;
+    border-color: var(--bg-delete-transparent) !important;
+    color: var(--color-delete) !important;
+}
+
+.ui-button{
+    margin-right: 0.5rem !important;
+    border-radius: var( --btn-rounded) !important;
+}
+
+.crud-list-button-export .ui-button-icon-left, .crud-list-button-create .ui-button-icon-left{
+
+    margin-left: var( --icon-margin-left) !important;
+}
+
+.crud-list-button-export:focus {
+    outline: none; /* Supprime la bordure par défaut du focus */
+    box-shadow: 0 0 5px #4CAF50; /* Ajoute une ombre autour du bouton lorsqu'il est en focus */
+}
+
+body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon {
+    overflow: visible !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 30% !important;
+    margin-left: -0.5rem;
+    margin-top: -0.5rem;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+    background: #daf4f0 !important;
+    color: #495057;
+    font-weight: 700;
+    border-bottom: 0 none;
+    padding: 1.5rem;
+}
+
+
+
+.app-form-input input{
+    display: block;
+    width: 100%;
+    padding: .5rem .9rem;
+    font-size: var(--vz-font-base);
+    font-weight: var(--vz-font-weight-normal);
+    line-height: 1.5;
+    color: var(--vz-body-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--vz-input-bg-custom);
+    background-image: var(--vz-form-select-bg-img),var(--vz-form-select-bg-icon,none);
+    background-clip: padding-box;
+    border: var(--vz-border-width) solid var(--vz-input-border-custom);
+    border-radius: var(--vz-border-radius);
+    -webkit-transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+}
+
+.app-form-input .ui-selectonemenu, .app-form-input .p-datepicker , .app-form-input .ui-outputlabel{
+	width: 100% !important;
+}
+.ui-datepicker{
+    min-width: 0px !important;
+}
+
+.app-form-input select {
+    --vz-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    display: block;
+    width: 100%;
+    padding: .5rem 2.7rem .5rem .9rem;
+    font-size: var(--vz-font-base);
+    font-weight: var(--vz-font-weight-normal);
+    line-height: 1.5;
+    color: var(--vz-body-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--vz-input-bg-custom);
+    background-image: var(--vz-form-select-bg-img),var(--vz-form-select-bg-icon,none);
+    background-repeat: no-repeat;
+    background-position: right .9rem center;
+    background-size: 16px 12px;
+    border: var(--vz-border-width) solid var(--vz-input-border-custom);
+    border-radius: var(--vz-border-radius);
+    -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out
+}
