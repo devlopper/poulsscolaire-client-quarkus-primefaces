@@ -6,16 +6,29 @@
     <h:outputText value="#{record.feeAsString}" />
   </p:column>
   
-  <p:column headerText="Inscription">
+  <p:column headerText="Inscription" rendered="#{listController.isReadControllerHasProjectionName('inscriptionChaine')}">
     <h:outputText value="#{record.registrationAsString}" />
   </p:column>
   
-  <p:column headerText="Valeur" width="100">
+  <p:column headerText="À payer" width="100">
     <h:outputText value="#{record.amountValueAsString}" />
+    <f:facet name="footer">
+      <h:outputText value="#{container.amountValueTotalAsString}"/>
+    </f:facet>
   </p:column>
 
-  <p:column headerText="Part Inscription" width="150">
+  <p:column headerText="Payé" width="100">
+    <h:outputText value="#{record.amountValuePaidAsString}" />
+    <f:facet name="footer">
+      <h:outputText value="#{container.amountValuePaidTotalAsString}"/>
+    </f:facet>
+  </p:column>
+
+  <p:column headerText="Montant Inscription" width="150">
     <h:outputText value="#{record.amountRegistrationValuePartAsString}" />
+    <f:facet name="footer">
+      <h:outputText value="#{container.amountRegistrationValuePartTotalAsString}"/>
+    </f:facet>
   </p:column>
 
   <p:column headerText="Facultatif" width="100">

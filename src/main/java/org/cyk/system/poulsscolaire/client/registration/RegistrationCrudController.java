@@ -84,11 +84,17 @@ public class RegistrationCrudController extends AbstractController {
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, RegistrationDto.JSON_STUDENT_AS_STRING,
         RegistrationDto.JSON_SCHOOLING_AS_STRING, RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING,
-        RegistrationDto.JSON_SENIORITY_AS_STRING);
+        RegistrationDto.JSON_SENIORITY_AS_STRING,
+        RegistrationDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_VALUE_AS_STRING,
+        RegistrationDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
 
+    listController.getGotoReadPageButton().setRendered(true);
+    listController.getGotoReadPageButton().setOutcome(RegistrationReadPage.OUTCOME);
+    listController.getDataTable().getActionColumn().setWidth("150px");
+    
     listController.getCreateController()
         .setFunction(entity -> client.create(((RegistrationDto) entity).getStudentIdentifier(),
             ((RegistrationDto) entity).getSchoolingIdentifier(),

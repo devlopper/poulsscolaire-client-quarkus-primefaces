@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <div class="ui-g-12">
+    <ui:decorate template="/extension/component/input/default.xhtml">
+      <ui:param name="width" value="6" />
+      <ui:define name="input-label">
+        <p:outputLabel value="Facultatif" for="optional" />
+      </ui:define>
+      <ui:define name="input-control">
+        <p:selectBooleanButton id="optional" value="#{controller.entity.amountOptional}"
+          onLabel="Oui" offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times" />
+      </ui:define>
+    </ui:decorate>
+
+    <ui:decorate template="/extension/component/input/default.xhtml">
+      <ui:param name="width" value="6" />
+      <ui:define name="input-label">
+        <p:outputLabel value="Reconductible" for="renewable" />
+      </ui:define>
+      <ui:define name="input-control">
+        <p:selectBooleanButton id="renewable" value="#{controller.entity.amountRenewable}"
+          onLabel="Oui" offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times" />
+      </ui:define>
+    </ui:decorate>
+  </div>
+
+  <div class="ui-g-12">
+    <ui:decorate template="/extension/component/input/default.xhtml">
+      <ui:param name="width" value="3" />
+      <ui:define name="input-label">
+        <p:outputLabel value="Valeur" for="value" />
+      </ui:define>
+      <ui:define name="input-control">
+        <p:inputNumber id="value" value="#{controller.entity.amountValue}" required="true" />
+      </ui:define>
+    </ui:decorate>
+
+    <ui:decorate template="/extension/component/input/default.xhtml">
+      <ui:param name="width" value="3" />
+      <ui:define name="input-label">
+        <p:outputLabel value="Part valeur à l'inscription" for="registrationPartValue" />
+      </ui:define>
+      <ui:define name="input-control">
+        <p:inputNumber id="registrationPartValue"
+          value="#{controller.entity.amountRegistrationValuePart}" />
+      </ui:define>
+    </ui:decorate>
+
+    <ui:decorate template="/extension/component/input/default.xhtml">
+      <ui:param name="width" value="2" />
+      <ui:define name="input-label">
+        <p:outputLabel value="Numéro d'ordre de paiement" for="paymentOrderNumber" />
+      </ui:define>
+      <ui:define name="input-control">
+        <p:inputNumber id="paymentOrderNumber" value="#{controller.entity.amountPaymentOrderNumber}"
+          required="true" />
+        <p:message id="paymentOrderNumberMessage" for="paymentOrderNumber" />
+      </ui:define>
+    </ui:decorate>
+
+    <ui:decorate template="/extension/component/input/default.xhtml">
+      <ui:param name="width" value="4" />
+      <ui:define name="input-label">
+        <p:outputLabel value="Échéance" for="deadline" />
+      </ui:define>
+      <ui:define name="input-control">
+        <p:selectOneMenu id="deadline" value="#{controller.entity.amountDeadlineIdentifier}">
+          <f:selectItems value="#{container.deadlines}" />
+        </p:selectOneMenu>
+      </ui:define>
+    </ui:decorate>
+  </div>
+</ui:composition>

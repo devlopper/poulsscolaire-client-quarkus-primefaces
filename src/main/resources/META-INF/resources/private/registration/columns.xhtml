@@ -23,10 +23,10 @@
   </p:column>
 
   <p:column headerText="Montant à payer" width="150">
-    
+    <h:outputText value="#{record.notOptionalFeeAmountValueAsString}" />
   </p:column>
 
   <p:column headerText="Payable à l'inscription" width="150">
-    
+    <h:outputText value="#{record.notOptionalFeeAmountRegistrationValuePartAsString}" />
   </p:column>
 </ui:composition>

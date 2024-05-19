@@ -1,36 +1,44 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
   <h:form>
-    <div class="ui-g">
-      <div class="ui-g-3">
-        <p:outputLabel value="Inscription" for="registration" />
-      </div>
-      <div class="ui-g-9">
-        <p:selectOneMenu id="registration" value="#{controller.entity.registrationIdentifier}" >
-          <f:selectItems value="#{container.registrations}" />
-        </p:selectOneMenu>
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Mode" for="mode" />
-      </div>
-      <div class="ui-g-9">
-        <p:selectOneMenu id="mode" value="#{controller.entity.modeIdentifier}" >
-          <f:selectItems value="#{container.modes}" />
-        </p:selectOneMenu>
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Montant" for="amount" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputNumber id="amount" value="#{controller.entity.amount}" />
-      </div>
-      <div class="ui-g-12">
-        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
-      </div>
-    </div>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="amountMessage" />
+
+      <ui:define name="form-save-inputs">
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Inscription" for="registration" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:selectOneMenu id="registration" value="#{controller.entity.registrationIdentifier}">
+              <f:selectItems value="#{container.registrations}" />
+            </p:selectOneMenu>
+          </ui:define>
+        </ui:decorate>
+
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Mode" for="mode" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:selectOneMenu id="mode" value="#{controller.entity.modeIdentifier}">
+              <f:selectItems value="#{container.modes}" />
+            </p:selectOneMenu>
+          </ui:define>
+        </ui:decorate>
+        
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Montant" for="amount" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputNumber id="amount" value="#{controller.entity.amount}" />
+            <p:message id="amountMessage" for="amount" />
+          </ui:define>
+        </ui:decorate>
+      </ui:define>
+    </ui:decorate>
   </h:form>
 </ui:composition>

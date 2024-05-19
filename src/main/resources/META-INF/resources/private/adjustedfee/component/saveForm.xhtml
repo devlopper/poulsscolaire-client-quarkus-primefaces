@@ -3,66 +3,42 @@
   xmlns:p="http://primefaces.org/ui">
 
   <h:form>
-    <div class="ui-g">
-      <div class="ui-g-3">
-        <p:outputLabel value="Frais" for="fee" />
-      </div>
-      <div class="ui-g-9">
-        <p:selectOneMenu id="fee" value="#{controller.entity.feeIdentifier}">
-          <f:selectItems value="#{container.fees}" />
-        </p:selectOneMenu>
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Inscription" for="registration" />
-      </div>
-      <div class="ui-g-9">
-        <p:selectOneMenu id="registration" value="#{controller.entity.registrationIdentifier}">
-          <f:selectItems value="#{container.registrations}" />
-        </p:selectOneMenu>
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Valeur" for="value" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputNumber id="value" value="#{controller.entity.amountValue}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Échéance" for="deadline" />
-      </div>
-      <div class="ui-g-9">
-        <p:selectOneMenu id="deadline" value="#{controller.entity.amountDeadlineIdentifier}">
-          <f:selectItems value="#{container.deadlines}" />
-        </p:selectOneMenu>
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Part valeur à l'inscription" for="registrationPartValue" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputNumber id="registrationPartValue" value="#{controller.entity.amountRegistrationValuePart}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Facultatif" for="optional" />
-      </div>
-      <div class="ui-g-9">
-        <p:selectBooleanButton id="optional" value="#{controller.entity.amountOptional}" onLabel="Oui"
-          offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Numéro d'ordre de paiement" for="paymentOrderNumber" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputNumber id="paymentOrderNumber" value="#{controller.entity.amountPaymentOrderNumber}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Reconductible" for="renewable" />
-      </div>
-      <div class="ui-g-9">
-        <p:selectBooleanButton id="renewable" value="#{controller.entity.amountRenewable}" onLabel="Oui"
-          offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times" />
-      </div>
-      <div class="ui-g-12">
-        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
-      </div>
-    </div>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="paymentOrderNumberMessage" />
+
+      <ui:define name="form-save-inputs">
+        <p:outputPanel styleClass="ui-g-12" rendered="#{empty container.feeIdentifier}">
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:define name="input-label">
+              <p:outputLabel value="Frais" for="fee" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:selectOneMenu id="fee" value="#{controller.entity.feeIdentifier}">
+                <f:selectItems value="#{container.fees}" />
+              </p:selectOneMenu>
+            </ui:define>
+          </ui:decorate>
+        </p:outputPanel>
+
+        <p:outputPanel styleClass="ui-g-12" rendered="#{empty container.registrationIdentifier}">
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:define name="input-label">
+              <p:outputLabel value="Inscription" for="registration" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:selectOneMenu id="registration" value="#{controller.entity.registrationIdentifier}">
+                <f:selectItems value="#{container.registrations}" />
+              </p:selectOneMenu>
+            </ui:define>
+          </ui:decorate>
+        </p:outputPanel>
+
+        <ui:include src="/private/fee/component/amount.xhtml">
+          <ui:param name="controller" value="#{controller}" />
+          <ui:param name="container" value="#{container}" />
+        </ui:include>
+
+      </ui:define>
+    </ui:decorate>
   </h:form>
 </ui:composition>

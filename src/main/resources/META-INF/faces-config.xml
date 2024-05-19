@@ -135,6 +135,13 @@
       <redirect />
     </navigation-case>
     
+    <navigation-case>
+      <description>page lecture d'inscriptions</description>
+      <from-outcome>registrationReadPage</from-outcome>
+      <to-view-id>/private/registration/administrator/read.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Cash Register -->
     
     <navigation-case>

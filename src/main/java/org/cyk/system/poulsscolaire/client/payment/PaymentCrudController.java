@@ -55,7 +55,7 @@ public class PaymentCrudController extends AbstractController {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    name = "Paiements";
+    name = PaymentDto.NAME;
 
     listController.setEntityClass(PaymentDto.class);
     listController.setClient(client);
@@ -86,7 +86,7 @@ public class PaymentCrudController extends AbstractController {
                 null, null, userIdentifier, null)
             .getDatas().stream()
             .map(dto -> new SelectItem(dto.getIdentifier(),
-                dto.getSchoolingAsString() + " - " + dto.getSchoolingAsString()))
+                dto.getSchoolingAsString() + " - " + dto.getStudentAsString()))
             .toList()).execute();
 
     modes = new ActionExecutor<>(this, PaymentModeService.GET_MANY_IDENTIFIER,
@@ -97,8 +97,5 @@ public class PaymentCrudController extends AbstractController {
                 null, null, userIdentifier, null)
             .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
             .toList()).execute();
-    
-    System.out.println("PaymentCrudController.postConstruct() : Modes : " + modes);
-
   }
 }
