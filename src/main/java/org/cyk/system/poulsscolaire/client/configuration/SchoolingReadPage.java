@@ -37,13 +37,13 @@ public class SchoolingReadPage extends AbstractPage {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    contentTitle = "Lecture de scolarité";
-
     String identifier = getRequestParameterIdentifier();
     schooling = schoolingClient.getByIdentifier(identifier,
-        new ProjectionDto().addNames(SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_VALUE_AS_STRING,
+        new ProjectionDto().addNames(SchoolingDto.JSON_BRANCH_AS_STRING,
+            SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_VALUE_AS_STRING,
             SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING),
         userIdentifier, null);
+    contentTitle = SchoolingDto.NAME + " - " + schooling.getBranchAsString();
     feeController.setSchoolingIdentifier(identifier);
     feeController.initialize();
     feeController.setAmountValueTotalAsString(schooling.getNotOptionalFeeAmountValueAsString());

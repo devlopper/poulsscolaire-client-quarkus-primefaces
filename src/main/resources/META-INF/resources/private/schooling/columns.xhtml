@@ -10,19 +10,19 @@
     <h:outputText value="#{record.schoolAsString}" />
   </p:column>
 
+  <p:column headerText="Période" width="150">
+    <h:outputText value="#{record.periodAsString}" />
+  </p:column>
+
   <p:column headerText="Branche">
     <h:outputText value="#{record.branchAsString}" />
   </p:column>
 
-  <p:column headerText="Période">
-    <h:outputText value="#{record.periodAsString}" />
-  </p:column>
-
-  <p:column headerText="Frais">
+  <p:column headerText="Montant à payer" width="150">
     <h:outputText value="#{record.notOptionalFeeAmountValueAsString}" />
   </p:column>
 
-  <p:column headerText="Payable à l'inscription">
+  <p:column headerText="Payable à l'inscription" width="150">
     <h:outputText value="#{record.notOptionalFeeAmountRegistrationValuePartAsString}" />
   </p:column>
 </ui:composition>

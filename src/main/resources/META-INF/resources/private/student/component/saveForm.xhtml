@@ -1,40 +1,53 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
   <h:form>
-    <div class="ui-g">
-      <div class="ui-g-3">
-        <p:outputLabel value="Matricule" for="registrationNumber" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="registrationNumber" value="#{controller.entity.registrationNumber}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Nom" for="firstName" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="firstName" value="#{controller.entity.firstName}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Prénoms" for="lastNames" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="lastNames" value="#{controller.entity.lastNames}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Genre" for="gender" />
-      </div>
-      <div class="ui-g-9">
-        <p:selectOneMenu id="gender" value="#{controller.entity.genderIdentifier}" >
-          <f:selectItems value="#{container.genders}" />
-        </p:selectOneMenu>
-      </div>
-      <div class="ui-g-12">
-        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
-      </div>
-    </div>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="firstNameMessage,lastNamesMessage,genderMessage" />
+
+      <ui:define name="form-save-inputs">
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Matricule" for="registrationNumber" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="registrationNumber" value="#{controller.entity.registrationNumber}" />
+          </ui:define>
+        </ui:decorate>
+
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Nom" for="firstName" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="firstName" value="#{controller.entity.firstName}" />
+            <p:message id="firstNameMessage" for="firstName" />
+          </ui:define>
+        </ui:decorate>
+
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Prénoms" for="lastNames" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="lastNames" value="#{controller.entity.lastNames}" />
+            <p:message id="lastNamesMessage" for="lastNames" />
+          </ui:define>
+        </ui:decorate>
+
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Genre" for="gender" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:selectOneMenu id="gender" value="#{controller.entity.genderIdentifier}">
+              <f:selectItems value="#{container.genders}" />
+            </p:selectOneMenu>
+            <p:message id="genderMessage" for="gender" />
+          </ui:define>
+        </ui:decorate>
+      </ui:define>
+    </ui:decorate>
   </h:form>
 </ui:composition>

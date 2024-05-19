@@ -11,6 +11,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.faces.model.SelectItem;
 import jakarta.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 import org.cyk.system.poulsscolaire.server.api.configuration.AssignmentTypeClient;
@@ -98,7 +99,7 @@ public class FeeCrudController extends AbstractController {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    name = "Frais";
+    name = FeeDto.NAME;
   }
 
   /**
@@ -111,7 +112,8 @@ public class FeeCrudController extends AbstractController {
 
     ProjectionDto projection = new ProjectionDto();
     if (Core.isStringBlank(schoolingIdentifier)) {
-      projection.addNames(FeeDto.JSON_SCHOOLING_AS_STRING);
+      projection.addNames(FeeDto.JSON_SCHOOLING_SCHOOL_AS_STRING,
+          FeeDto.JSON_SCHOOLING_PERIOD_AS_STRING, FeeDto.JSON_SCHOOLING_BRANCH_AS_STRING);
     }
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         FeeDto.JSON_ASSIGNMENT_TYPE_AS_STRING, FeeDto.JSON_SENIORITY_AS_STRING,
@@ -138,7 +140,6 @@ public class FeeCrudController extends AbstractController {
       request.setSchoolingIdentifier(((FeeDto) entity).getSchoolingIdentifier());
       request.setAssignmentTypeIdentifier(((FeeDto) entity).getAssignmentTypeIdentifier());
       request.setSeniorityIdentifier(((FeeDto) entity).getSeniorityIdentifier());
-      request.setAssignmentTypeIdentifier(((FeeDto) entity).getAssignmentTypeIdentifier());
       request.setCategoryIdentifier(((FeeDto) entity).getCategoryIdentifier());
       request.setValue(((FeeDto) entity).getAmountValue());
       request.setDeadlineIdentifier(((FeeDto) entity).getAmountDeadlineIdentifier());
@@ -153,14 +154,25 @@ public class FeeCrudController extends AbstractController {
     listController.getUpdateController().setFunction(entity -> {
       FeeUpdateRequestDto request = new FeeUpdateRequestDto();
       request.setIdentifier(((FeeDto) entity).getIdentifier());
+      request.setSchoolingIdentifier(Optional.ofNullable(schoolingIdentifier)
+          .orElse(((FeeDto) entity).getSchoolingIdentifier()));
       request.setAssignmentTypeIdentifier(((FeeDto) entity).getAssignmentTypeIdentifier());
+      request.setSeniorityIdentifier(((FeeDto) entity).getSeniorityIdentifier());
+      request.setCategoryIdentifier(((FeeDto) entity).getCategoryIdentifier());
       request.setValue(((FeeDto) entity).getAmountValue());
+      request.setDeadlineIdentifier(((FeeDto) entity).getAmountDeadlineIdentifier());
+      request.setRegistrationValuePart(((FeeDto) entity).getAmountRegistrationValuePart());
+      request.setOptional(((FeeDto) entity).getAmountOptional());
+      request.setPaymentOrderNumber(((FeeDto) entity).getAmountPaymentOrderNumber());
+      request.setRenewable(((FeeDto) entity).getAmountRenewable());
       request.setAuditWho(userIdentifier);
       return client.update(request);
     });
 
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+            FeeDto.JSON_SCHOOLING_IDENTIFIER, FeeDto.JSON_ASSIGNMENT_TYPE_IDENTIFIER,
+            FeeDto.JSON_SENIORITY_IDENTIFIER, FeeDto.JSON_CATEGORY_IDENTIFIER,
             AbstractAmountContainerDto.JSON_AMOUNT_VALUE,
             AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART,
             AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL,

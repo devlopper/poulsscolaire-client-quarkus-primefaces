@@ -41,7 +41,7 @@ public class StudentCrudController extends AbstractController {
   @Getter
   @Setter
   List<SelectItem> genders;
-  
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -66,11 +66,16 @@ public class StudentCrudController extends AbstractController {
             ((StudentDto) entity).getGenderIdentifier(), userIdentifier, null));
 
     listController.getUpdateController()
+        .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+            StudentDto.JSON_REGISTRATION_NUMBER, StudentDto.JSON_FIRST_NAME,
+            StudentDto.JSON_LAST_NAMES, StudentDto.JSON_GENDER_IDENTIFIER));
+
+    listController.getUpdateController()
         .setFunction(entity -> client.update(((StudentDto) entity).getIdentifier(),
             ((StudentDto) entity).getRegistrationNumber(), ((StudentDto) entity).getFirstName(),
             ((StudentDto) entity).getLastNames(), ((StudentDto) entity).getGenderIdentifier(),
             userIdentifier, null));
-    
+
     genders = new ActionExecutor<>(this, GenderService.GET_MANY_IDENTIFIER,
         () -> genderClient
             .getMany(

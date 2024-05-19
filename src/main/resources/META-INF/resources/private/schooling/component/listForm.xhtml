@@ -2,7 +2,11 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <ui:decorate template="/crud/list/default.xhtml">
+  <ui:decorate template="/extension/crud/list/default.xhtml">
     <ui:param name="listController" value="#{controller}" />
+    <ui:param name="container" value="#{container}" />
+    <ui:define name="datatable-actions-create-after">
+      <p:commandButton value="Générer" action="#{container.generate}" icon="pi pi-cloud-download"/>
+    </ui:define>
   </ui:decorate>
 </ui:composition>
