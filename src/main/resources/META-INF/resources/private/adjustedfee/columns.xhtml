@@ -1,48 +1,56 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
-  
+
   <p:column headerText="Frais">
     <h:outputText value="#{record.feeAsString}" />
   </p:column>
-  
-  <p:column headerText="Inscription" rendered="#{listController.isReadControllerHasProjectionName('inscriptionChaine')}">
+
+  <p:column headerText="Inscription"
+    rendered="#{listController.isReadControllerHasProjectionName('inscriptionChaine')}">
     <h:outputText value="#{record.registrationAsString}" />
   </p:column>
-  
+
   <p:column headerText="À payer" width="100">
     <h:outputText value="#{record.amountValueAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountValueTotalAsString}"/>
+      <h:outputText value="#{container.amountValueTotalAsString}" />
     </f:facet>
   </p:column>
 
   <p:column headerText="Payé" width="100">
     <h:outputText value="#{record.amountValuePaidAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountValuePaidTotalAsString}"/>
+      <h:outputText value="#{container.amountValuePaidTotalAsString}" />
+    </f:facet>
+  </p:column>
+
+  <p:column headerText="Reste à payer" width="100">
+    <h:outputText value="#{record.amountValueLeftToPayAsString}" />
+    <f:facet name="footer">
+      <h:outputText value="#{container.amountValueLeftToPayTotalAsString}" />
     </f:facet>
   </p:column>
 
   <p:column headerText="Montant Inscription" width="150">
     <h:outputText value="#{record.amountRegistrationValuePartAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountRegistrationValuePartTotalAsString}"/>
+      <h:outputText value="#{container.amountRegistrationValuePartTotalAsString}" />
     </f:facet>
   </p:column>
 
   <p:column headerText="Facultatif" width="100">
     <h:outputText value="#{record.amountOptionalAsString}" />
   </p:column>
-  
+
   <p:column headerText="Numéro d'ordre de paiement" width="150">
     <h:outputText value="#{record.amountPaymentOrderNumberAsString}" />
   </p:column>
-  
+
   <p:column headerText="Échéance">
     <h:outputText value="#{record.amountDeadlineAsString}" />
   </p:column>
-  
+
   <p:column headerText="Reconductible" width="100">
     <h:outputText value="#{record.amountRenewableAsString}" />
   </p:column>

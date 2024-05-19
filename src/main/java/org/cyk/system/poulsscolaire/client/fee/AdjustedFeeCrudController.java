@@ -56,6 +56,10 @@ public class AdjustedFeeCrudController extends AbstractController {
   @Getter
   @Setter
   String amountValuePaidTotalAsString;
+
+  @Getter
+  @Setter
+  String amountValueLeftToPayTotalAsString;
   
   @Getter
   @Setter
@@ -86,7 +90,7 @@ public class AdjustedFeeCrudController extends AbstractController {
   @Getter
   @Setter
   String feeIdentifier;
-  
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -108,6 +112,7 @@ public class AdjustedFeeCrudController extends AbstractController {
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER, AdjustedFeeDto.JSON_FEE_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_VALUE_AS_STRING,
         AdjustedFeeDto.JSON_AMOUNT_VALUE_PAID_AS_STRING,
+        AdjustedFeeDto.JSON_AMOUNT_VALUE_LEFT_TO_PAY_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE_AS_STRING,
@@ -198,5 +203,6 @@ public class AdjustedFeeCrudController extends AbstractController {
     amountValueTotalAsString = "---";
     amountRegistrationValuePartTotalAsString = "---";
     amountValuePaidTotalAsString = "---";
+    amountValueLeftToPayTotalAsString = "---";
   }
 }
