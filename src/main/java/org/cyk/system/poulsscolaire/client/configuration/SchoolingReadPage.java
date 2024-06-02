@@ -6,7 +6,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.client.fee.FeeCrudController;
+import org.cyk.system.poulsscolaire.client.fee.FeeController;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingClient;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingDto;
 
@@ -32,7 +32,7 @@ public class SchoolingReadPage extends AbstractPage {
 
   @Inject
   @Getter
-  FeeCrudController feeController;
+  FeeController feeController;
 
   @Override
   protected void postConstruct() {

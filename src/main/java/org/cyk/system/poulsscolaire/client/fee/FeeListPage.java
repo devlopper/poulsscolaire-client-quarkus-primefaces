@@ -19,7 +19,7 @@ public class FeeListPage extends AbstractPage {
 
   @Inject
   @Getter
-  FeeCrudController crudController;
+  FeeController crudController;
 
   @Override
   protected void postConstruct() {

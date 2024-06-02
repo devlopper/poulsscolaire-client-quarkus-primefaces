@@ -34,13 +34,13 @@ import org.cyk.system.poulsscolaire.server.api.fee.FeeService.FeeCreateRequestDt
 import org.cyk.system.poulsscolaire.server.api.fee.FeeService.FeeUpdateRequestDto;
 
 /**
- * Cette classe représente le contrôleur de CRUD de {@link FeeDto}.
+ * Cette classe représente le contrôleur de {@link FeeDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class FeeCrudController extends AbstractController {
+public class FeeController extends AbstractController {
 
   @Inject
   FeeClient client;

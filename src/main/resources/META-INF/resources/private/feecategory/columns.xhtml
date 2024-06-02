@@ -1,14 +1,36 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
 
-	<p:column headerText="Code" width="100">
-		<h:outputText value="#{record.code}" />
-	</p:column>
+  <p:column headerText="Code" width="100">
+    <h:outputText value="#{record.code}" />
+  </p:column>
 
-	<p:column headerText="Libellé">
-		<h:outputText value="#{record.name}" />
-	</p:column>
+  <p:column headerText="Libellé">
+    <h:outputText value="#{record.name}" />
+  </p:column>
+
+  <p:column headerText="Montant à payer" width="150">
+    <h:outputText value="#{record.totalAmountAsString}" />
+  </p:column>
+
+  <p:column headerText="Montant payé" width="150">
+    <h:outputText value="#{record.paidAmountAsString}" />
+  </p:column>
+
+  <p:column headerText="Montant reste à payer" width="150">
+    <h:outputText value="#{record.payableAmountAsString}" />
+  </p:column>
+
+  <p:column headerText="Payable à l'inscription" width="150">
+    <h:outputText value="#{record.totalRegistrationAmountAsString}" />
+  </p:column>
+
+  <p:column headerText="Payé à l'inscription" width="150">
+    <h:outputText value="#{record.paidRegistrationAmountAsString}" />
+  </p:column>
+
+  <p:column headerText="Reste à payer à l'inscription" width="150">
+    <h:outputText value="#{record.payableRegistrationAmountAsString}" />
+  </p:column>
 </ui:composition>

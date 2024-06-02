@@ -14,13 +14,13 @@ import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryDto;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryService;
 
 /**
- * Cette classe représente le contrôleur de CRUD de {@link FeeCategoryDto}.
+ * Cette classe représente le contrôleur de {@link FeeCategoryDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class FeeCategoryCrudController extends AbstractController {
+public class FeeCategoryController extends AbstractController {
 
   @Inject
   FeeCategoryClient client;
@@ -40,7 +40,12 @@ public class FeeCategoryCrudController extends AbstractController {
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME);
+        AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
+        FeeCategoryDto.JSON_TOTAL_AMOUNT_AS_STRING, FeeCategoryDto.JSON_PAID_AMOUNT_AS_STRING,
+        FeeCategoryDto.JSON_PAYABLE_AMOUNT_AS_STRING,
+        FeeCategoryDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING,
+        FeeCategoryDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
+        FeeCategoryDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
