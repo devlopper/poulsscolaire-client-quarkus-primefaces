@@ -28,13 +28,13 @@ import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentService;
 
 /**
- * Cette classe représente le contrôleur de CRUD de {@link RegistrationDto}.
+ * Cette classe représente le contrôleur de {@link RegistrationDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class RegistrationCrudController extends AbstractController {
+public class RegistrationController extends AbstractController {
 
   @Inject
   RegistrationClient client;
@@ -84,9 +84,9 @@ public class RegistrationCrudController extends AbstractController {
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, RegistrationDto.JSON_STUDENT_AS_STRING,
         RegistrationDto.JSON_SCHOOLING_AS_STRING, RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING,
-        RegistrationDto.JSON_SENIORITY_AS_STRING,
-        RegistrationDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_VALUE_AS_STRING,
-        RegistrationDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING);
+        RegistrationDto.JSON_SENIORITY_AS_STRING, RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_PAID_AMOUNT_AS_STRING, RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
@@ -94,7 +94,7 @@ public class RegistrationCrudController extends AbstractController {
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(RegistrationReadPage.OUTCOME);
     listController.getDataTable().getActionColumn().setWidth("150px");
-    
+
     listController.getCreateController()
         .setFunction(entity -> client.create(((RegistrationDto) entity).getStudentIdentifier(),
             ((RegistrationDto) entity).getSchoolingIdentifier(),

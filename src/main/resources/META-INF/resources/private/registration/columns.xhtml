@@ -6,27 +6,43 @@
     <h:outputText value="#{record.code}" />
   </p:column>
 
-  <p:column headerText="Eleve">
+  <p:column headerText="Eleve" visible="false">
     <h:outputText value="#{record.studentAsString}" />
   </p:column>
 
-  <p:column headerText="Scolarité">
+  <p:column headerText="Scolarité" visible="false">
     <h:outputText value="#{record.schoolingAsString}" />
   </p:column>
 
-  <p:column headerText="Type d'affectation">
+  <p:column headerText="Type d'affectation" visible="false">
     <h:outputText value="#{record.assignmentTypeAsString}" />
   </p:column>
 
-  <p:column headerText="Ancienneté">
+  <p:column headerText="Ancienneté" visible="false">
     <h:outputText value="#{record.seniorityAsString}" />
   </p:column>
 
   <p:column headerText="Montant à payer" width="150">
-    <h:outputText value="#{record.notOptionalFeeAmountValueAsString}" />
+    <h:outputText value="#{record.totalAmountAsString}" />
+  </p:column>
+  
+  <p:column headerText="Montant payé" width="150">
+    <h:outputText value="#{record.paidAmountAsString}" />
+  </p:column>
+  
+  <p:column headerText="Montant reste à payer" width="150">
+    <h:outputText value="#{record.payableAmountAsString}" />
   </p:column>
 
   <p:column headerText="Payable à l'inscription" width="150">
-    <h:outputText value="#{record.notOptionalFeeAmountRegistrationValuePartAsString}" />
+    <h:outputText value="#{record.totalRegistrationAmountAsString}" />
+  </p:column>
+  
+  <p:column headerText="Payé à l'inscription" width="150">
+    <h:outputText value="#{record.paidRegistrationAmountAsString}" />
+  </p:column>
+  
+  <p:column headerText="Reste à payer à l'inscription" width="150">
+    <h:outputText value="#{record.payableRegistrationAmountAsString}" />
   </p:column>
 </ui:composition>

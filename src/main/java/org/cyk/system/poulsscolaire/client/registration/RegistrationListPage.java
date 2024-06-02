@@ -18,7 +18,7 @@ public class RegistrationListPage extends AbstractPage {
 
   @Inject
   @Getter
-  RegistrationCrudController crudController;
+  RegistrationController crudController;
 
   @Override
   protected void postConstruct() {

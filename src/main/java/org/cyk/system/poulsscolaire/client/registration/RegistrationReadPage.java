@@ -29,7 +29,7 @@ public class RegistrationReadPage extends AbstractPage {
 
   @Inject
   @Getter
-  RegistrationCrudController crudController;
+  RegistrationController crudController;
 
   @Inject
   @Getter
@@ -44,16 +44,16 @@ public class RegistrationReadPage extends AbstractPage {
             RegistrationDto.JSON_STUDENT_AS_STRING, RegistrationDto.JSON_SCHOOLING_AS_STRING,
             RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING,
             RegistrationDto.JSON_SENIORITY_AS_STRING,
-            RegistrationDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_VALUE_AS_STRING,
-            RegistrationDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING),
+            RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
+            RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING),
         userIdentifier, null);
     contentTitle = RegistrationDto.NAME + " - " + registration.getCode();
     adjustedFeeController.setRegistrationIdentifier(identifier);
     adjustedFeeController.initialize();
     adjustedFeeController
-        .setAmountValueTotalAsString(registration.getNotOptionalFeeAmountValueAsString());
+        .setAmountValueTotalAsString(registration.getTotalAmountAsString());
     adjustedFeeController.setAmountRegistrationValuePartTotalAsString(
-        registration.getNotOptionalFeeAmountRegistrationValuePartAsString());
+        registration.getTotalRegistrationAmountAsString());
   }
 
   public static final String OUTCOME = "registrationReadPage";
