@@ -86,7 +86,9 @@ public class RegistrationController extends AbstractController {
         RegistrationDto.JSON_SCHOOLING_AS_STRING, RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING,
         RegistrationDto.JSON_SENIORITY_AS_STRING, RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
         RegistrationDto.JSON_PAID_AMOUNT_AS_STRING, RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING,
-        RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING);
+        RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
