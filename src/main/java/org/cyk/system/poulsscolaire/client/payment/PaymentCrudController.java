@@ -19,7 +19,6 @@ import org.cyk.system.poulsscolaire.server.api.payment.PaymentModeClient;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentModeService;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentService;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
-import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService;
 
 /**
@@ -82,11 +81,11 @@ public class PaymentCrudController extends AbstractController {
     registrations = new ActionExecutor<>(this, RegistrationService.GET_MANY_IDENTIFIER,
         () -> registrationClient
             .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-                RegistrationDto.JSON_STUDENT_AS_STRING, RegistrationDto.JSON_SCHOOLING_AS_STRING),
+                AbstractIdentifiableCodableDto.JSON_CODE),
                 null, null, userIdentifier, null)
             .getDatas().stream()
             .map(dto -> new SelectItem(dto.getIdentifier(),
-                dto.getSchoolingAsString() + " - " + dto.getStudentAsString()))
+                dto.getCode()))
             .toList()).execute();
 
     modes = new ActionExecutor<>(this, PaymentModeService.GET_MANY_IDENTIFIER,
