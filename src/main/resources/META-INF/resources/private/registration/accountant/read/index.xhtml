@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template/page.xhtml">
+
+  <ui:param name="page" value="#{registrationReadPage}" />
+
+  <ui:define name="content-body">
+    <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeFilter" var="AdjustedFeeFilter" />
+    <ui:param name="selectedTabIndexParameterName" value="sti" />
+
+    <p:tabMenu activeIndex="#{param[selectedTabIndexParameterName]}">
+      <p:menuitem value="Scolarité" outcome="registrationReadPage" icon="pi pi-fw pi-home">
+        <f:param name="#{selectedTabIndexParameterName}" value="0" />
+        <f:param name="#{registrationReadPage.requestParameterIdentifierName}"
+          value="#{param[registrationReadPage.requestParameterIdentifierName]}" />
+        <f:param name="#{AdjustedFeeFilter.JSON_AMOUNT_OPTIONAL}" value="false" />
+      </p:menuitem>
+      <p:menuitem value="Annexes" outcome="registrationReadPage" icon="pi pi-fw pi-link">
+        <f:param name="#{selectedTabIndexParameterName}" value="1" />
+        <f:param name="#{registrationReadPage.requestParameterIdentifierName}"
+          value="#{param[registrationReadPage.requestParameterIdentifierName]}" />
+        <f:param name="#{AdjustedFeeFilter.JSON_AMOUNT_OPTIONAL}" value="true" />
+      </p:menuitem>
+    </p:tabMenu>
+    
+    <ui:include src="../../../adjustedfee/component/listForm.xhtml">
+      <ui:param name="controller" value="#{registrationReadPage.adjustedFeeController.listController}" />
+      <ui:param name="container" value="#{registrationReadPage.adjustedFeeController}" />
+    </ui:include>
+  </ui:define>
+</ui:composition>

@@ -1,52 +1,67 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
-    
-  <p:column headerText="Scolarité" width="150" rendered="#{listController.isReadControllerHasProjectionName('brancheScolariteChaine')}">
-    <h:outputText value="#{record.schoolingSchoolAsString}" /><br/>
-    <h:outputText value="#{record.schoolingPeriodAsString}" /><br/>
+
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.FeeDto" var="FeeDto" />
+
+  <p:column headerText="Scolarité" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName('brancheScolariteChaine')}">
+    <h:outputText value="#{record.schoolingSchoolAsString}" />
+    <br />
+    <h:outputText value="#{record.schoolingPeriodAsString}" />
+    <br />
     <h:outputText value="#{record.schoolingBranchAsString}" />
   </p:column>
-  
-  <p:column headerText="Type d'affectation" width="100">
+
+  <p:column headerText="Type d'affectation" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_ASSIGNMENT_TYPE_AS_STRING)}">
     <h:outputText value="#{record.assignmentTypeAsString}" />
   </p:column>
-  
-  <p:column headerText="Ancienneté" width="100">
+
+  <p:column headerText="Ancienneté" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_SENIORITY_AS_STRING)}">
     <h:outputText value="#{record.seniorityAsString}" />
   </p:column>
-  
-  <p:column headerText="Rubrique">
+
+  <p:column headerText="Rubrique"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_CATEGORY_AS_STRING)}">
     <h:outputText value="#{record.categoryAsString}" />
   </p:column>
-  
-  <p:column headerText="Valeur" width="100">
+
+  <p:column headerText="Valeur" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_VALUE_AS_STRING)}">
     <h:outputText value="#{record.amountValueAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountValueTotalAsString}"/>
+      <h:outputText value="#{container.amountValueTotalAsString}" />
     </f:facet>
   </p:column>
 
-  <p:column headerText="Part Inscription" width="150">
+  <p:column headerText="Part Inscription" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING)}">
     <h:outputText value="#{record.amountRegistrationValuePartAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountRegistrationValuePartTotalAsString}"/>
+      <h:outputText value="#{container.amountRegistrationValuePartTotalAsString}" />
     </f:facet>
   </p:column>
 
-  <p:column headerText="Facultatif" width="100">
+  <p:column headerText="Facultatif" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_OPTIONAL_AS_STRING)}">
     <h:outputText value="#{record.amountOptionalAsString}" />
   </p:column>
-  
-  <p:column headerText="Numéro d'ordre de paiement" width="150">
+
+  <p:column headerText="Ordre paiement" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING)}">
     <h:outputText value="#{record.amountPaymentOrderNumberAsString}" />
   </p:column>
-  
-  <p:column headerText="Échéance">
+
+  <p:column headerText="Échéance" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_DEADLINE_AS_STRING)}">
     <h:outputText value="#{record.amountDeadlineAsString}" />
   </p:column>
-  
-  <p:column headerText="Reconductible" width="100">
+
+  <p:column headerText="Reconductible" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_RENEWABLE_AS_STRING)}"
+    visible="false">
     <h:outputText value="#{record.amountRenewableAsString}" />
   </p:column>
 </ui:composition>

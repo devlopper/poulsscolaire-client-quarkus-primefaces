@@ -14,7 +14,7 @@ import lombok.Getter;
  */
 @Named
 @ViewScoped
-public class RegistrationListPage extends AbstractPage {
+public class AdministratorRegistrationListPage extends AbstractPage {
 
   @Inject
   @Getter
@@ -26,5 +26,5 @@ public class RegistrationListPage extends AbstractPage {
     contentTitle = "Liste des inscriptions";
   }
   
-  public static final String OUTCOME = "registrationListPage";
+  public static final String OUTCOME = "administratorRegistrationListPage";
 }

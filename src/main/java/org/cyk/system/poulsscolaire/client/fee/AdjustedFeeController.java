@@ -18,7 +18,6 @@ import lombok.Setter;
 import org.cyk.system.poulsscolaire.server.api.fee.AbstractAmountContainerDto;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeClient;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeDto;
-import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeFilter;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeService;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeService.AdjustedFeeCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeService.AdjustedFeeUpdateRequestDto;
@@ -31,13 +30,13 @@ import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService;
 
 /**
- * Cette classe représente le contrôleur de CRUD de {@link AdjustedFeeDto}.
+ * Cette classe représente le contrôleur de {@link AdjustedFeeDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class AdjustedFeeCrudController extends AbstractController {
+public class AdjustedFeeController extends AbstractController {
 
   @Inject
   AdjustedFeeClient client;
@@ -86,10 +85,14 @@ public class AdjustedFeeCrudController extends AbstractController {
   @Getter
   @Setter
   String registrationIdentifier;
-
+  
   @Getter
   @Setter
   String feeIdentifier;
+
+  @Inject
+  @Getter
+  AdjustedFeeFilterController filterController;
 
   @Override
   protected void postConstruct() {
@@ -104,7 +107,8 @@ public class AdjustedFeeCrudController extends AbstractController {
     listController.setEntityClass(AdjustedFeeDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(AdjustedFeeService.PATH);
-
+    listController.setFilterController(filterController);
+    
     ProjectionDto projection = new ProjectionDto();
     if (Core.isStringBlank(registrationIdentifier)) {
       projection.addNames(AdjustedFeeDto.JSON_REGISTRATION_AS_STRING);
@@ -119,12 +123,6 @@ public class AdjustedFeeCrudController extends AbstractController {
         AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
     listController.getReadController().setProjection(projection);
-
-    if (!Core.isStringBlank(registrationIdentifier)) {
-      AdjustedFeeFilter adjustedFeeFilter = new AdjustedFeeFilter();
-      adjustedFeeFilter.setRegistrationIdentifier(registrationIdentifier);
-      listController.getReadController().setFilter(adjustedFeeFilter.toDto());
-    }
 
     listController.initialize();
 

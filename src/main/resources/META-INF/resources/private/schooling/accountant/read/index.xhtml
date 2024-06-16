@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template/page.xhtml">
+
+  <ui:param name="page" value="#{schoolingReadPage}" />
+
+  <ui:define name="content-body">
+    <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.FeeFilter" var="FeeFilter" />
+    <ui:param name="selectedTabIndexParameterName" value="sti" />
+
+    <p:tabMenu activeIndex="#{param[selectedTabIndexParameterName]}">
+      <p:menuitem value="Scolarité" outcome="schoolingReadPage" icon="pi pi-fw pi-home">
+        <f:param name="#{selectedTabIndexParameterName}" value="0" />
+        <f:param name="#{schoolingReadPage.requestParameterIdentifierName}"
+          value="#{param[schoolingReadPage.requestParameterIdentifierName]}" />
+        <f:param name="#{FeeFilter.JSON_AMOUNT_OPTIONAL}" value="false" />
+      </p:menuitem>
+      <p:menuitem value="Annexes" outcome="schoolingReadPage" icon="pi pi-fw pi-link">
+        <f:param name="#{selectedTabIndexParameterName}" value="1" />
+        <f:param name="#{schoolingReadPage.requestParameterIdentifierName}"
+          value="#{param[schoolingReadPage.requestParameterIdentifierName]}" />
+        <f:param name="#{FeeFilter.JSON_AMOUNT_OPTIONAL}" value="true" />
+      </p:menuitem>
+    </p:tabMenu>
+
+    <ui:include src="../../../fee/component/listForm.xhtml">
+      <ui:param name="controller" value="#{schoolingReadPage.feeController.listController}" />
+      <ui:param name="container" value="#{schoolingReadPage.feeController}" />
+    </ui:include>
+  </ui:define>
+</ui:composition>

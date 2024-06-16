@@ -28,7 +28,6 @@ import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryClient;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryService;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeClient;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeDto;
-import org.cyk.system.poulsscolaire.server.api.fee.FeeFilter;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeService;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeService.FeeCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeService.FeeUpdateRequestDto;
@@ -92,9 +91,9 @@ public class FeeController extends AbstractController {
   @Setter
   List<SelectItem> deadlines;
 
+  @Inject
   @Getter
-  @Setter
-  String schoolingIdentifier;
+  FeeFilterController filterController;
 
   @Override
   protected void postConstruct() {
@@ -109,9 +108,10 @@ public class FeeController extends AbstractController {
     listController.setEntityClass(FeeDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(FeeService.PATH);
+    listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
-    if (Core.isStringBlank(schoolingIdentifier)) {
+    if (Core.isStringBlank(filterController.getFilter().getSchoolingIdentifier())) {
       projection.addNames(FeeDto.JSON_SCHOOLING_SCHOOL_AS_STRING,
           FeeDto.JSON_SCHOOLING_PERIOD_AS_STRING, FeeDto.JSON_SCHOOLING_BRANCH_AS_STRING);
     }
@@ -124,16 +124,11 @@ public class FeeController extends AbstractController {
         AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
     listController.getReadController().setProjection(projection);
-    if (!Core.isStringBlank(schoolingIdentifier)) {
-      FeeFilter feeFilter = new FeeFilter();
-      feeFilter.setSchoolingIdentifier(schoolingIdentifier);
-      listController.getReadController().setFilter(feeFilter.toDto());
-    }
-
+    
     listController.initialize();
 
-    listController.getCreateController()
-        .addEntityConsumer(entity -> ((FeeDto) entity).setSchoolingIdentifier(schoolingIdentifier));
+    listController.getCreateController().addEntityConsumer(entity -> ((FeeDto) entity)
+        .setSchoolingIdentifier(filterController.getFilter().getSchoolingIdentifier()));
 
     listController.getCreateController().setFunction(entity -> {
       FeeCreateRequestDto request = new FeeCreateRequestDto();
@@ -154,8 +149,9 @@ public class FeeController extends AbstractController {
     listController.getUpdateController().setFunction(entity -> {
       FeeUpdateRequestDto request = new FeeUpdateRequestDto();
       request.setIdentifier(((FeeDto) entity).getIdentifier());
-      request.setSchoolingIdentifier(Optional.ofNullable(schoolingIdentifier)
-          .orElse(((FeeDto) entity).getSchoolingIdentifier()));
+      request.setSchoolingIdentifier(
+          Optional.ofNullable(filterController.getFilter().getSchoolingIdentifier())
+              .orElse(((FeeDto) entity).getSchoolingIdentifier()));
       request.setAssignmentTypeIdentifier(((FeeDto) entity).getAssignmentTypeIdentifier());
       request.setSeniorityIdentifier(((FeeDto) entity).getSeniorityIdentifier());
       request.setCategoryIdentifier(((FeeDto) entity).getCategoryIdentifier());
@@ -180,7 +176,7 @@ public class FeeController extends AbstractController {
             AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_IDENTIFIER,
             AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER));
 
-    if (Core.isStringBlank(schoolingIdentifier)) {
+    if (Core.isStringBlank(filterController.getFilter().getSchoolingIdentifier())) {
       schoolings =
           new ActionExecutor<>(this, SchoolingService.GET_MANY_IDENTIFIER,
               () -> schoolingClient

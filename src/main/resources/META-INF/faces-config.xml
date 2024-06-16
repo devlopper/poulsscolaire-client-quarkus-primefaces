@@ -115,14 +115,14 @@
     <navigation-case>
       <description>page liste des scolarités</description>
       <from-outcome>schoolingListPage</from-outcome>
-      <to-view-id>/private/schooling/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/schooling/accountant/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
       <description>page lecture de scolarité</description>
       <from-outcome>schoolingReadPage</from-outcome>
-      <to-view-id>/private/schooling/administrator/read.jsf</to-view-id>
+      <to-view-id>/private/schooling/accountant/read/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -131,14 +131,14 @@
     <navigation-case>
       <description>page liste des inscriptions</description>
       <from-outcome>registrationListPage</from-outcome>
-      <to-view-id>/private/registration/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/registration/accountant/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
       <description>page lecture d'inscriptions</description>
       <from-outcome>registrationReadPage</from-outcome>
-      <to-view-id>/private/registration/administrator/read.jsf</to-view-id>
+      <to-view-id>/private/registration/accountant/read/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     

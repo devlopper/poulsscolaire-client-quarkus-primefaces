@@ -9,6 +9,7 @@ import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.fee.FeeController;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingClient;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingDto;
+import org.cyk.system.poulsscolaire.server.api.fee.AbstractAmountContainerDto;
 
 /**
  * Cette classe représente la page de lecture de {@link SchoolingDto}.
@@ -28,10 +29,6 @@ public class SchoolingReadPage extends AbstractPage {
 
   @Inject
   @Getter
-  SchoolingCrudController crudController;
-
-  @Inject
-  @Getter
   FeeController feeController;
 
   @Override
@@ -44,11 +41,22 @@ public class SchoolingReadPage extends AbstractPage {
             SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING),
         userIdentifier, null);
     contentTitle = SchoolingDto.NAME + " - " + schooling.getBranchAsString();
-    feeController.setSchoolingIdentifier(identifier);
+    feeController.getFilterController().getFilter().setSchoolingIdentifier(identifier);
+    if (feeController.getFilterController().getFilter().getAmountOptional() == null) {
+      feeController.getFilterController().getFilter().setAmountOptional(false);
+    }
     feeController.initialize();
-    feeController.setAmountValueTotalAsString(schooling.getNotOptionalFeeAmountValueAsString());
-    feeController.setAmountRegistrationValuePartTotalAsString(
-        schooling.getNotOptionalFeeAmountRegistrationValuePartAsString());
+    if (Boolean.TRUE.equals(feeController.getFilterController().getFilter().getAmountOptional())) {
+      ((ProjectionDto) feeController.getListController().getReadController().getProjection())
+          .getNames().remove(AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
+    } else {
+      feeController.setAmountValueTotalAsString(schooling.getNotOptionalFeeAmountValueAsString());
+      feeController.setAmountRegistrationValuePartTotalAsString(
+          schooling.getNotOptionalFeeAmountRegistrationValuePartAsString());
+    }
+
+    ((ProjectionDto) feeController.getListController().getReadController().getProjection())
+        .getNames().remove(AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL_AS_STRING);
   }
 
   public static final String OUTCOME = "schoolingReadPage";

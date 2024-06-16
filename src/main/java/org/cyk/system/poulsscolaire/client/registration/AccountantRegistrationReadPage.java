@@ -8,7 +8,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.fee.AdjustedFeeController;
-import org.cyk.system.poulsscolaire.server.api.fee.AbstractAmountContainerDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 
@@ -20,7 +19,7 @@ import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
  */
 @Named
 @ViewScoped
-public class RegistrationReadPage extends AbstractPage {
+public class AccountantRegistrationReadPage extends AbstractPage {
 
   @Inject
   RegistrationClient registrationClient;
@@ -44,31 +43,17 @@ public class RegistrationReadPage extends AbstractPage {
         new ProjectionDto().addNames(AbstractIdentifiableCodableDto.JSON_CODE,
             RegistrationDto.JSON_STUDENT_AS_STRING, RegistrationDto.JSON_SCHOOLING_AS_STRING,
             RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING,
-            RegistrationDto.JSON_SENIORITY_AS_STRING, RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
+            RegistrationDto.JSON_SENIORITY_AS_STRING,
+            RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
             RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING),
         userIdentifier, null);
     contentTitle = RegistrationDto.NAME + " - " + registration.getCode();
     adjustedFeeController.setRegistrationIdentifier(identifier);
-
-    adjustedFeeController.getFilterController().getFilter().setRegistrationIdentifier(identifier);
-    if (adjustedFeeController.getFilterController().getFilter().getAmountOptional() == null) {
-      adjustedFeeController.getFilterController().getFilter().setAmountOptional(false);
-    }
-
     adjustedFeeController.initialize();
-    if (Boolean.TRUE
-        .equals(adjustedFeeController.getFilterController().getFilter().getAmountOptional())) {
-      ((ProjectionDto) adjustedFeeController.getListController().getReadController()
-          .getProjection()).getNames()
-              .remove(AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
-    } else {
-      adjustedFeeController.setAmountValueTotalAsString(registration.getTotalAmountAsString());
-      adjustedFeeController.setAmountRegistrationValuePartTotalAsString(
-          registration.getTotalRegistrationAmountAsString());
-    }
-
-    ((ProjectionDto) adjustedFeeController.getListController().getReadController().getProjection())
-        .getNames().remove(AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL_AS_STRING);
+    adjustedFeeController
+        .setAmountValueTotalAsString(registration.getTotalAmountAsString());
+    adjustedFeeController.setAmountRegistrationValuePartTotalAsString(
+        registration.getTotalRegistrationAmountAsString());
   }
 
   public static final String OUTCOME = "registrationReadPage";
