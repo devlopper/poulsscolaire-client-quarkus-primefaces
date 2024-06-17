@@ -118,7 +118,8 @@ public class AdjustedFeeController extends AbstractController {
     } else if (Boolean.FALSE.equals(filterController.getFilter().getAmountOptional())) {
       projection.addNames(AdjustedFeeDto.JSON_AMOUNT_VALUE_PAID_AS_STRING,
           AdjustedFeeDto.JSON_AMOUNT_VALUE_LEFT_TO_PAY_AS_STRING,
-          AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
+          AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING,
+          AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_OVER);
     }
 
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER, AdjustedFeeDto.JSON_FEE_AS_STRING,

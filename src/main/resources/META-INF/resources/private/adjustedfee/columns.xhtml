@@ -40,7 +40,8 @@
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_VALUE_LEFT_TO_PAY_AS_STRING)}">
     <h:outputText value="#{record.amountValueLeftToPayAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountValueLeftToPayTotalAsString}" />
+      <p:tag severity="warning"
+        value="#{container.amountValueLeftToPayTotalAsString}" />
     </f:facet>
   </p:column>
 
@@ -57,14 +58,17 @@
     <h:outputText value="#{record.amountOptionalAsString}" />
   </p:column>
 
-  <p:column headerText="Numéro d'ordre de paiement" width="150"
+  <p:column headerText="Ordre de paiement" width="120"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING)}">
     <h:outputText value="#{record.amountPaymentOrderNumberAsString}" />
   </p:column>
 
-  <p:column headerText="Échéance"
+  <p:column headerText="Échéance" width="150"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_DEADLINE_AS_STRING)}">
-    <h:outputText value="#{record.amountDeadlineAsString}" />
+    <h:outputText value="#{record.amountDeadlineAsString}"
+      rendered="#{not record.amountDeadlineOver}" />
+    <p:tag severity="danger" value="#{record.amountDeadlineAsString}"
+      rendered="#{record.amountDeadlineOver}" />
   </p:column>
 
   <p:column headerText="Reconductible" width="100" visible="false"

@@ -43,6 +43,7 @@ public class RegistrationReadPage extends AbstractPage {
     if (Boolean.FALSE
         .equals(adjustedFeeController.getFilterController().getFilter().getAmountOptional())) {
       projection.addNames(RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
+          RegistrationDto.JSON_PAID_AMOUNT_AS_STRING, RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING,
           RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING);
     }
     projection.addNames(AbstractIdentifiableCodableDto.JSON_CODE,
@@ -60,6 +61,9 @@ public class RegistrationReadPage extends AbstractPage {
     adjustedFeeController.initialize();
 
     adjustedFeeController.setAmountValueTotalAsString(registration.getTotalAmountAsString());
+    adjustedFeeController.setAmountValuePaidTotalAsString(registration.getPaidAmountAsString());
+    adjustedFeeController
+        .setAmountValueLeftToPayTotalAsString(registration.getPayableAmountAsString());
     adjustedFeeController.setAmountRegistrationValuePartTotalAsString(
         registration.getTotalRegistrationAmountAsString());
 
