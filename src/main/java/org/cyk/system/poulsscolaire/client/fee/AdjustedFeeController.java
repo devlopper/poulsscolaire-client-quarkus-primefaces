@@ -59,7 +59,7 @@ public class AdjustedFeeController extends AbstractController {
   @Getter
   @Setter
   String amountValueLeftToPayTotalAsString;
-  
+
   @Getter
   @Setter
   String amountRegistrationValuePartTotalAsString;
@@ -85,7 +85,7 @@ public class AdjustedFeeController extends AbstractController {
   @Getter
   @Setter
   String registrationIdentifier;
-  
+
   @Getter
   @Setter
   String feeIdentifier;
@@ -108,20 +108,24 @@ public class AdjustedFeeController extends AbstractController {
     listController.setClient(client);
     listController.setNotificationChannel(AdjustedFeeService.PATH);
     listController.setFilterController(filterController);
-    
+
     ProjectionDto projection = new ProjectionDto();
     if (Core.isStringBlank(registrationIdentifier)) {
       projection.addNames(AdjustedFeeDto.JSON_REGISTRATION_AS_STRING);
     }
+    if (filterController.getFilter().getAmountOptional() == null) {
+      projection.addNames(AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL_AS_STRING);
+    } else if (Boolean.FALSE.equals(filterController.getFilter().getAmountOptional())) {
+      projection.addNames(AdjustedFeeDto.JSON_AMOUNT_VALUE_PAID_AS_STRING,
+          AdjustedFeeDto.JSON_AMOUNT_VALUE_LEFT_TO_PAY_AS_STRING,
+          AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
+    }
+
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER, AdjustedFeeDto.JSON_FEE_AS_STRING,
-        AbstractAmountContainerDto.JSON_AMOUNT_VALUE_AS_STRING,
-        AdjustedFeeDto.JSON_AMOUNT_VALUE_PAID_AS_STRING,
-        AdjustedFeeDto.JSON_AMOUNT_VALUE_LEFT_TO_PAY_AS_STRING,
+        AdjustedFeeDto.JSON_FEE_OPTIONAL, AbstractAmountContainerDto.JSON_AMOUNT_VALUE_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING,
-        AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE_AS_STRING,
-        AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING,
-        AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
+        AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();

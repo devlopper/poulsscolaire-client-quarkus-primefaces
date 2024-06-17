@@ -6,7 +6,13 @@
 
   <p:column headerText="Frais"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_FEE_AS_STRING)}">
-    <h:outputText value="#{record.feeAsString}" />
+    <ui:fragment rendered="#{record.feeOptional}">
+      <p:tag severity="info" value="#{record.feeAsString}" rounded="true" />
+    </ui:fragment>
+    <ui:fragment rendered="#{not record.feeOptional}">
+      <h:outputText value="#{record.feeAsString}" />
+    </ui:fragment>
+
   </p:column>
 
   <p:column headerText="Inscription"

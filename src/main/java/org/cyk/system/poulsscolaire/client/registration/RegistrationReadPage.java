@@ -8,7 +8,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.fee.AdjustedFeeController;
-import org.cyk.system.poulsscolaire.server.api.fee.AbstractAmountContainerDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 
@@ -40,13 +39,16 @@ public class RegistrationReadPage extends AbstractPage {
   protected void postConstruct() {
     super.postConstruct();
     String identifier = getRequestParameterIdentifier();
-    registration = registrationClient.getByIdentifier(identifier,
-        new ProjectionDto().addNames(AbstractIdentifiableCodableDto.JSON_CODE,
-            RegistrationDto.JSON_STUDENT_AS_STRING, RegistrationDto.JSON_SCHOOLING_AS_STRING,
-            RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING,
-            RegistrationDto.JSON_SENIORITY_AS_STRING, RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
-            RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING),
-        userIdentifier, null);
+    ProjectionDto projection = new ProjectionDto();
+    if (Boolean.FALSE
+        .equals(adjustedFeeController.getFilterController().getFilter().getAmountOptional())) {
+      projection.addNames(RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
+          RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING);
+    }
+    projection.addNames(AbstractIdentifiableCodableDto.JSON_CODE,
+        RegistrationDto.JSON_STUDENT_AS_STRING, RegistrationDto.JSON_SCHOOLING_AS_STRING,
+        RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING, RegistrationDto.JSON_SENIORITY_AS_STRING);
+    registration = registrationClient.getByIdentifier(identifier, projection, userIdentifier, null);
     contentTitle = RegistrationDto.NAME + " - " + registration.getCode();
     adjustedFeeController.setRegistrationIdentifier(identifier);
 
@@ -56,19 +58,11 @@ public class RegistrationReadPage extends AbstractPage {
     }
 
     adjustedFeeController.initialize();
-    if (Boolean.TRUE
-        .equals(adjustedFeeController.getFilterController().getFilter().getAmountOptional())) {
-      ((ProjectionDto) adjustedFeeController.getListController().getReadController()
-          .getProjection()).getNames()
-              .remove(AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
-    } else {
-      adjustedFeeController.setAmountValueTotalAsString(registration.getTotalAmountAsString());
-      adjustedFeeController.setAmountRegistrationValuePartTotalAsString(
-          registration.getTotalRegistrationAmountAsString());
-    }
 
-    ((ProjectionDto) adjustedFeeController.getListController().getReadController().getProjection())
-        .getNames().remove(AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL_AS_STRING);
+    adjustedFeeController.setAmountValueTotalAsString(registration.getTotalAmountAsString());
+    adjustedFeeController.setAmountRegistrationValuePartTotalAsString(
+        registration.getTotalRegistrationAmountAsString());
+
   }
 
   public static final String OUTCOME = "registrationReadPage";
