@@ -61,7 +61,7 @@
     <navigation-case>
       <description>page liste des frais ajustés</description>
       <from-outcome>adjustedFeeListPage</from-outcome>
-      <to-view-id>/private/adjustedfee/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/adjustedfee/administrator/list/index.jsf</to-view-id>
       <redirect />
     </navigation-case>
     

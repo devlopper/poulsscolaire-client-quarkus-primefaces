@@ -7,7 +7,7 @@
       <ui:param name="saveCommandUpdate" value="paymentOrderNumberMessage" />
 
       <ui:define name="form-save-inputs">
-        <p:outputPanel styleClass="ui-g-12" rendered="#{empty container.feeIdentifier}">
+        <p:outputPanel styleClass="ui-g-12">
           <ui:decorate template="/extension/component/input/default.xhtml">
             <ui:define name="input-label">
               <p:outputLabel value="Frais" for="fee" />
@@ -20,7 +20,7 @@
           </ui:decorate>
         </p:outputPanel>
 
-        <p:outputPanel styleClass="ui-g-12" rendered="#{empty container.registrationIdentifier}">
+        <p:outputPanel styleClass="ui-g-12" rendered="#{empty container.filterController.filter.registrationIdentifier}">
           <ui:decorate template="/extension/component/input/default.xhtml">
             <ui:define name="input-label">
               <p:outputLabel value="Inscription" for="registration" />

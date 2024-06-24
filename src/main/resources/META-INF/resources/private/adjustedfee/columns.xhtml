@@ -2,9 +2,13 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryDto"
+    var="FeeCategoryDto" />
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto"
+    var="RegistrationDto" />
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeDto" var="Dto" />
 
-  <p:column headerText="Frais"
+  <p:column headerText="#{FeeCategoryDto.NAME}" width="150px"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_FEE_AS_STRING)}">
     <ui:fragment rendered="#{record.feeOptional}">
       <p:tag severity="info" value="#{record.feeAsString}" rounded="true" />
@@ -12,10 +16,9 @@
     <ui:fragment rendered="#{not record.feeOptional}">
       <h:outputText value="#{record.feeAsString}" />
     </ui:fragment>
-
   </p:column>
 
-  <p:column headerText="Inscription"
+  <p:column headerText="#{RegistrationDto.NAME}"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REGISTRATION_AS_STRING)}">
     <h:outputText value="#{record.registrationAsString}" />
   </p:column>
@@ -37,11 +40,13 @@
   </p:column>
 
   <p:column headerText="Reste à payer" width="100"
-    rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_VALUE_LEFT_TO_PAY_AS_STRING)}">
-    <h:outputText value="#{record.amountValueLeftToPayAsString}" />
+    rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_VALUE_PAYABLE_AS_STRING)}">
+    <h:outputText value="#{record.amountValuePayableAsString}"
+      rendered="#{record.amountValuePayable == null or record.amountValuePayable eq 0}" />
+    <p:tag severity="warning" value="#{record.amountValuePayableAsString}"
+      rendered="#{record.amountValuePayable > 0}" />
     <f:facet name="footer">
-      <p:tag severity="warning"
-        value="#{container.amountValueLeftToPayTotalAsString}" />
+      <p:tag severity="warning" value="#{container.amountValuePayableTotalAsString}" />
     </f:facet>
   </p:column>
 
@@ -59,7 +64,8 @@
   </p:column>
 
   <p:column headerText="Ordre de paiement" width="120"
-    rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING)}">
+    rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING)}"
+    visible="false">
     <h:outputText value="#{record.amountPaymentOrderNumberAsString}" />
   </p:column>
 

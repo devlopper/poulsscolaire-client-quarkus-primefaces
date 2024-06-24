@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <ui:decorate template="/extension/crud/list/filter/form/default.xhtml">
+      <ui:define name="form-filter-inputs">
+        <!-- Montant payable égale zéro -->
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Montant payable égal zéro" for="amountValuePayableEqualsZero" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:selectBooleanCheckbox id="amountValuePayableEqualsZero" value="#{filter.amountValuePayableEqualsZero}"/>
+          </ui:define>
+        </ui:decorate>
+        
+        <!-- Date d'écheance passée -->
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Date d'échéance passée" for="amountDeadlineDateOver" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:selectBooleanCheckbox id="amountDeadlineDateOver" value="#{filter.amountDeadlineDateOver}"/>
+          </ui:define>
+        </ui:decorate>
+
+      </ui:define>
+    </ui:decorate>
+  </h:form>
+</ui:composition>

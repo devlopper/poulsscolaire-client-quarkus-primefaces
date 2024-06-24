@@ -19,14 +19,19 @@ public class AdjustedFeeListPage extends AbstractPage {
 
   @Inject
   @Getter
-  AdjustedFeeController crudController;
+  AdjustedFeeController controller;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
     contentTitle = "Liste des frais ajustés";
-    crudController.initialize();
+    
+    if (controller.getFilterController().getFilter().getAmountOptional() == null) {
+      controller.getFilterController().getFilter().setAmountOptional(false);
+    }
+    
+    controller.initialize();
   }
   
-  public static final String OUTCOME = "feeAdjustedListPage";
+  public static final String OUTCOME = "adjustedFeeListPage";
 }

@@ -58,7 +58,7 @@ public class AdjustedFeeController extends AbstractController {
 
   @Getter
   @Setter
-  String amountValueLeftToPayTotalAsString;
+  String amountValuePayableTotalAsString;
 
   @Getter
   @Setter
@@ -82,14 +82,6 @@ public class AdjustedFeeController extends AbstractController {
   @Setter
   List<SelectItem> deadlines;
 
-  @Getter
-  @Setter
-  String registrationIdentifier;
-
-  @Getter
-  @Setter
-  String feeIdentifier;
-
   @Inject
   @Getter
   AdjustedFeeFilterController filterController;
@@ -110,14 +102,15 @@ public class AdjustedFeeController extends AbstractController {
     listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
-    if (Core.isStringBlank(registrationIdentifier)) {
+    if (Core.isStringBlank(filterController.getFilter().getRegistrationIdentifier())) {
       projection.addNames(AdjustedFeeDto.JSON_REGISTRATION_AS_STRING);
     }
     if (filterController.getFilter().getAmountOptional() == null) {
       projection.addNames(AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL_AS_STRING);
     } else if (Boolean.FALSE.equals(filterController.getFilter().getAmountOptional())) {
       projection.addNames(AdjustedFeeDto.JSON_AMOUNT_VALUE_PAID_AS_STRING,
-          AdjustedFeeDto.JSON_AMOUNT_VALUE_LEFT_TO_PAY_AS_STRING,
+          AdjustedFeeDto.JSON_AMOUNT_VALUE_PAYABLE,
+          AdjustedFeeDto.JSON_AMOUNT_VALUE_PAYABLE_AS_STRING,
           AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING,
           AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_OVER);
     }
@@ -128,11 +121,12 @@ public class AdjustedFeeController extends AbstractController {
         AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING);
     listController.getReadController().setProjection(projection);
-
+    listController.getDataTable().getFilterButton().setRendered(true);
+    
     listController.initialize();
 
-    listController.getCreateController().addEntityConsumer(
-        entity -> ((AdjustedFeeDto) entity).setRegistrationIdentifier(registrationIdentifier));
+    listController.getCreateController().addEntityConsumer(entity -> ((AdjustedFeeDto) entity)
+        .setRegistrationIdentifier(filterController.getFilter().getRegistrationIdentifier()));
 
     listController.getCreateController().setFunction(entity -> {
       AdjustedFeeCreateRequestDto request = new AdjustedFeeCreateRequestDto();
@@ -152,8 +146,9 @@ public class AdjustedFeeController extends AbstractController {
       AdjustedFeeUpdateRequestDto request = new AdjustedFeeUpdateRequestDto();
       request.setIdentifier(((AdjustedFeeDto) entity).getIdentifier());
       request.setFeeIdentifier(((AdjustedFeeDto) entity).getFeeIdentifier());
-      request.setRegistrationIdentifier(Optional.ofNullable(registrationIdentifier)
-          .orElse(((AdjustedFeeDto) entity).getRegistrationIdentifier()));
+      request.setRegistrationIdentifier(
+          Optional.ofNullable(filterController.getFilter().getRegistrationIdentifier())
+              .orElse(((AdjustedFeeDto) entity).getRegistrationIdentifier()));
       request.setValue(((AdjustedFeeDto) entity).getAmountValue());
       request.setDeadlineIdentifier(((AdjustedFeeDto) entity).getAmountDeadlineIdentifier());
       request.setRegistrationValuePart(((AdjustedFeeDto) entity).getAmountRegistrationValuePart());
@@ -181,7 +176,7 @@ public class AdjustedFeeController extends AbstractController {
         .map(dto -> new SelectItem(dto.getIdentifier(), dto.getCategoryAsString())).toList())
             .execute();
 
-    if (Core.isStringBlank(registrationIdentifier)) {
+    if (Core.isStringBlank(filterController.getFilter().getRegistrationIdentifier())) {
       registrations =
           new ActionExecutor<>(this, RegistrationService.GET_MANY_IDENTIFIER,
               () -> registrationClient
@@ -206,6 +201,6 @@ public class AdjustedFeeController extends AbstractController {
     amountValueTotalAsString = "---";
     amountRegistrationValuePartTotalAsString = "---";
     amountValuePaidTotalAsString = "---";
-    amountValueLeftToPayTotalAsString = "---";
+    amountValuePayableTotalAsString = "---";
   }
 }

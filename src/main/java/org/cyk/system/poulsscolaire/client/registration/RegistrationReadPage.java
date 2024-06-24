@@ -38,7 +38,9 @@ public class RegistrationReadPage extends AbstractPage {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    String identifier = getRequestParameterIdentifier();
+    if (adjustedFeeController.getFilterController().getFilter().getAmountOptional() == null) {
+      adjustedFeeController.getFilterController().getFilter().setAmountOptional(false);
+    }
     ProjectionDto projection = new ProjectionDto();
     if (Boolean.FALSE
         .equals(adjustedFeeController.getFilterController().getFilter().getAmountOptional())) {
@@ -49,21 +51,18 @@ public class RegistrationReadPage extends AbstractPage {
     projection.addNames(AbstractIdentifiableCodableDto.JSON_CODE,
         RegistrationDto.JSON_STUDENT_AS_STRING, RegistrationDto.JSON_SCHOOLING_AS_STRING,
         RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING, RegistrationDto.JSON_SENIORITY_AS_STRING);
+    String identifier = getRequestParameterIdentifier();
     registration = registrationClient.getByIdentifier(identifier, projection, userIdentifier, null);
     contentTitle = RegistrationDto.NAME + " - " + registration.getCode();
-    adjustedFeeController.setRegistrationIdentifier(identifier);
 
     adjustedFeeController.getFilterController().getFilter().setRegistrationIdentifier(identifier);
-    if (adjustedFeeController.getFilterController().getFilter().getAmountOptional() == null) {
-      adjustedFeeController.getFilterController().getFilter().setAmountOptional(false);
-    }
-
+    
     adjustedFeeController.initialize();
 
     adjustedFeeController.setAmountValueTotalAsString(registration.getTotalAmountAsString());
     adjustedFeeController.setAmountValuePaidTotalAsString(registration.getPaidAmountAsString());
     adjustedFeeController
-        .setAmountValueLeftToPayTotalAsString(registration.getPayableAmountAsString());
+        .setAmountValuePayableTotalAsString(registration.getPayableAmountAsString());
     adjustedFeeController.setAmountRegistrationValuePartTotalAsString(
         registration.getTotalRegistrationAmountAsString());
 

@@ -6,16 +6,17 @@
 
   <ui:define name="content-body">
     <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeFilter" var="AdjustedFeeFilter" />
+    <p:importConstants type="org.cyk.system.poulsscolaire.client.registration.RegistrationReadPage" var="RegistrationReadPage" />
     <ui:param name="selectedTabIndexParameterName" value="sti" />
 
     <p:tabMenu activeIndex="#{param[selectedTabIndexParameterName]}">
-      <p:menuitem value="Scolarité" outcome="registrationReadPage" icon="pi pi-fw pi-home">
+      <p:menuitem value="Scolarité" outcome="#{RegistrationReadPage.OUTCOME}" icon="pi pi-fw pi-home">
         <f:param name="#{selectedTabIndexParameterName}" value="0" />
         <f:param name="#{registrationReadPage.requestParameterIdentifierName}"
           value="#{param[registrationReadPage.requestParameterIdentifierName]}" />
         <f:param name="#{AdjustedFeeFilter.JSON_AMOUNT_OPTIONAL}" value="false" />
       </p:menuitem>
-      <p:menuitem value="Annexes" outcome="registrationReadPage" icon="pi pi-fw pi-link">
+      <p:menuitem value="Annexes" outcome="#{RegistrationReadPage.OUTCOME}" icon="pi pi-fw pi-link">
         <f:param name="#{selectedTabIndexParameterName}" value="1" />
         <f:param name="#{registrationReadPage.requestParameterIdentifierName}"
           value="#{param[registrationReadPage.requestParameterIdentifierName]}" />
