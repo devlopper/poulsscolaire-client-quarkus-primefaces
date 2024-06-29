@@ -5,26 +5,13 @@
   <h:form>
     <ui:decorate template="/extension/crud/list/filter/form/default.xhtml">
       <ui:define name="form-filter-inputs">
-        <!-- Montant payable égale zéro -->
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Montant payable égal zéro" for="amountValuePayableEqualsZero" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:selectBooleanCheckbox id="amountValuePayableEqualsZero" value="#{filter.amountValuePayableEqualsZero}"/>
-          </ui:define>
-        </ui:decorate>
+        <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+          <ui:param name="selectOneRadio" value="#{container.amountValuePayableEqualsZeroSelectOneRadio}"/>
+        </ui:include>
         
-        <!-- Date d'écheance passée -->
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Date d'échéance passée" for="amountDeadlineDateOver" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:selectBooleanCheckbox id="amountDeadlineDateOver" value="#{filter.amountDeadlineDateOver}"/>
-          </ui:define>
-        </ui:decorate>
-
+        <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+          <ui:param name="selectOneRadio" value="#{container.amountDeadlineDateOverSelectOneRadio}"/>
+        </ui:include>
       </ui:define>
     </ui:decorate>
   </h:form>

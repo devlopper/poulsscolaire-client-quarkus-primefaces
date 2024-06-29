@@ -3,6 +3,7 @@ package org.cyk.system.poulsscolaire.client.fee;
 import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
+import ci.gouv.dgbf.extension.primefaces.component.input.SelectOneBooleanRadio;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
@@ -86,10 +87,26 @@ public class AdjustedFeeController extends AbstractController {
   @Getter
   AdjustedFeeFilterController filterController;
 
+  @Getter
+  SelectOneBooleanRadio amountValuePayableEqualsZeroSelectOneRadio;
+
+  @Getter
+  SelectOneBooleanRadio amountDeadlineDateOverSelectOneRadio;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
     name = AdjustedFeeDto.NAME;
+    amountValuePayableEqualsZeroSelectOneRadio = new SelectOneBooleanRadio();
+    amountValuePayableEqualsZeroSelectOneRadio.outputLabel().setValue("Soldé");
+    amountValuePayableEqualsZeroSelectOneRadio.addTrueOrFalseChoices(true)
+        .addValueConsumer(value -> filterController.getFilter()
+            .setAmountValuePayableEqualsZero(value));
+
+    amountDeadlineDateOverSelectOneRadio = new SelectOneBooleanRadio().addTrueOrFalseChoices(true);
+    amountDeadlineDateOverSelectOneRadio.outputLabel().setValue("En retard");
+    amountDeadlineDateOverSelectOneRadio.addValueConsumer(value -> filterController.getFilter()
+        .setAmountDeadlineDateOver(value));
   }
 
   /**
@@ -122,7 +139,7 @@ public class AdjustedFeeController extends AbstractController {
         AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING);
     listController.getReadController().setProjection(projection);
     listController.getDataTable().getFilterButton().setRendered(true);
-    
+
     listController.initialize();
 
     listController.getCreateController().addEntityConsumer(entity -> ((AdjustedFeeDto) entity)
