@@ -3,11 +3,13 @@ package org.cyk.system.poulsscolaire.client.fee;
 import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
-import ci.gouv.dgbf.extension.primefaces.component.input.SelectOneBooleanRadio;
+import ci.gouv.dgbf.extension.primefaces.component.input.SelectOneMenuString;
+import ci.gouv.dgbf.extension.primefaces.component.input.SelectOneRadioBoolean;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableNamableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.faces.model.SelectItem;
@@ -16,6 +18,8 @@ import java.util.List;
 import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolService;
 import org.cyk.system.poulsscolaire.server.api.fee.AbstractAmountContainerDto;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeClient;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeDto;
@@ -48,6 +52,9 @@ public class AdjustedFeeController extends AbstractController {
 
   @Inject
   FeeClient feeClient;
+
+  @Inject
+  SchoolClient schoolClient;
 
   @Getter
   @Setter
@@ -88,25 +95,37 @@ public class AdjustedFeeController extends AbstractController {
   AdjustedFeeFilterController filterController;
 
   @Getter
-  SelectOneBooleanRadio amountValuePayableEqualsZeroSelectOneRadio;
+  SelectOneMenuString schoolSelectOneMenu;
 
   @Getter
-  SelectOneBooleanRadio amountDeadlineDateOverSelectOneRadio;
+  SelectOneMenuString branchSelectOneMenu;
+
+  @Getter
+  SelectOneMenuString periodSelectOneMenu;
+
+  @Getter
+  SelectOneRadioBoolean amountValuePayableEqualsZeroSelectOneRadio;
+
+  @Getter
+  SelectOneRadioBoolean amountDeadlineDateOverSelectOneRadio;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
     name = AdjustedFeeDto.NAME;
-    amountValuePayableEqualsZeroSelectOneRadio = new SelectOneBooleanRadio();
-    amountValuePayableEqualsZeroSelectOneRadio.outputLabel().setValue("Soldé");
-    amountValuePayableEqualsZeroSelectOneRadio.addTrueOrFalseChoices(true)
-        .addValueConsumer(value -> filterController.getFilter()
-            .setAmountValuePayableEqualsZero(value));
+    schoolSelectOneMenu = new SelectOneMenuString();
+    schoolSelectOneMenu.addValueConsumer(
+        value -> filterController.getFilter().setRegistrationSchoolingSchoolIdentifier(value));
 
-    amountDeadlineDateOverSelectOneRadio = new SelectOneBooleanRadio().addTrueOrFalseChoices(true);
+    amountValuePayableEqualsZeroSelectOneRadio = new SelectOneRadioBoolean();
+    amountValuePayableEqualsZeroSelectOneRadio.outputLabel().setValue("Soldé");
+    amountValuePayableEqualsZeroSelectOneRadio.addTrueOrFalseChoices(true).addValueConsumer(
+        value -> filterController.getFilter().setAmountValuePayableEqualsZero(value));
+
+    amountDeadlineDateOverSelectOneRadio = new SelectOneRadioBoolean().addTrueOrFalseChoices(true);
     amountDeadlineDateOverSelectOneRadio.outputLabel().setValue("En retard");
-    amountDeadlineDateOverSelectOneRadio.addValueConsumer(value -> filterController.getFilter()
-        .setAmountDeadlineDateOver(value));
+    amountDeadlineDateOverSelectOneRadio
+        .addValueConsumer(value -> filterController.getFilter().setAmountDeadlineDateOver(value));
   }
 
   /**
@@ -119,9 +138,13 @@ public class AdjustedFeeController extends AbstractController {
     listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
-    if (Core.isStringBlank(filterController.getFilter().getRegistrationIdentifier())) {
-      projection.addNames(AdjustedFeeDto.JSON_REGISTRATION_AS_STRING);
-    }
+
+    projection.addNames(AdjustedFeeDto.JSON_REGISTRATION_SCHOOLING_SCHOOL_AS_STRING,
+        AdjustedFeeDto.JSON_REGISTRATION_SCHOOLING_BRANCH_AS_STRING,
+        AdjustedFeeDto.JSON_REGISTRATION_SCHOOLING_PERIOD_AS_STRING,
+        AdjustedFeeDto.JSON_REGISTRATION_STUDENT_AS_STRING,
+        AdjustedFeeDto.JSON_FEE_CATEGORY_AS_STRING);
+
     if (filterController.getFilter().getAmountOptional() == null) {
       projection.addNames(AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL_AS_STRING);
     } else if (Boolean.FALSE.equals(filterController.getFilter().getAmountOptional())) {
@@ -185,6 +208,18 @@ public class AdjustedFeeController extends AbstractController {
             AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE,
             AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_IDENTIFIER,
             AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER));
+
+    schoolSelectOneMenu
+        .setChoices(
+            new ActionExecutor<>(this, SchoolService.GET_MANY_IDENTIFIER,
+                () -> schoolClient
+                    .getMany(
+                        new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+                            AbstractIdentifiableNamableDto.JSON_NAME),
+                        null, null, userIdentifier, null)
+                    .getDatas().stream()
+                    .map(dto -> new SelectItem(dto.getIdentifier(), dto.getName())).toList())
+                        .execute());
 
     fees = new ActionExecutor<>(this, FeeService.GET_MANY_IDENTIFIER, () -> feeClient
         .getMany(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,

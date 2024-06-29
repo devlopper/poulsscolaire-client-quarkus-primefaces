@@ -2,11 +2,37 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.configuration.SchoolDto"
+    var="SchoolDto" />
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.configuration.BranchDto"
+    var="BranchDto" />
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.configuration.PeriodDto"
+    var="PeriodDto" />
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.StudentDto"
+    var="StudentDto" />
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryDto"
     var="FeeCategoryDto" />
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto"
     var="RegistrationDto" />
+
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeDto" var="Dto" />
+
+  <p:column headerText="#{SchoolDto.NAME}"
+    rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REGISTRATION_SCHOOLING_SCHOOL_AS_STRING)}">
+    <h:outputText value="#{record.registrationSchoolingSchoolAsString}" />
+  </p:column>
+  <p:column headerText="#{BranchDto.NAME}"
+    rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REGISTRATION_SCHOOLING_BRANCH_AS_STRING)}">
+    <h:outputText value="#{record.registrationSchoolingBranchAsString}" />
+  </p:column>
+  <p:column headerText="#{PeriodDto.NAME}"
+    rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REGISTRATION_SCHOOLING_PERIOD_AS_STRING)}">
+    <h:outputText value="#{record.registrationSchoolingPeriodAsString}" />
+  </p:column>
+  <p:column headerText="#{StudentDto.NAME}"
+    rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REGISTRATION_STUDENT_AS_STRING)}">
+    <h:outputText value="#{record.registrationStudentAsString}" />
+  </p:column>
 
   <p:column headerText="#{FeeCategoryDto.NAME}" width="150px"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_FEE_AS_STRING)}">
@@ -52,7 +78,7 @@
 
   <p:column headerText="Montant Inscription" width="150"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING)}">
-    <h:outputText value="#{record.amountRegistrationValuePartAsString}" />
+    <h:outputText value="#{record.amountRegistrationValuePartAsString}" visible="false"/>
     <f:facet name="footer">
       <h:outputText value="#{container.amountRegistrationValuePartTotalAsString}" />
     </f:facet>

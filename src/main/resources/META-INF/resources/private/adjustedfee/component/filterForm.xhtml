@@ -5,12 +5,17 @@
   <h:form>
     <ui:decorate template="/extension/crud/list/filter/form/default.xhtml">
       <ui:define name="form-filter-inputs">
-        <ui:include src="/extension/component/input/selectOneRadio.xhtml">
-          <ui:param name="selectOneRadio" value="#{container.amountValuePayableEqualsZeroSelectOneRadio}"/>
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.schoolSelectOneMenu}" />
         </ui:include>
-        
+
         <ui:include src="/extension/component/input/selectOneRadio.xhtml">
-          <ui:param name="selectOneRadio" value="#{container.amountDeadlineDateOverSelectOneRadio}"/>
+          <ui:param name="selectOneRadio"
+            value="#{container.amountValuePayableEqualsZeroSelectOneRadio}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+          <ui:param name="selectOneRadio" value="#{container.amountDeadlineDateOverSelectOneRadio}" />
         </ui:include>
       </ui:define>
     </ui:decorate>
