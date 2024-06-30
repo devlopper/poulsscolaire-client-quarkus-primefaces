@@ -22,6 +22,13 @@ public class AdjustedFeeFilterController extends AbstractFilterController<Adjust
   @Override
   protected void postConstruct() {
     super.postConstruct();
+    filter.setRegistrationSchoolingSchoolIdentifier(
+        getRequestParameter(AdjustedFeeFilter.JSON_REGISTRATION_SCHOOLING_SCHOOL_IDENTIFIER));
+    filter.setRegistrationSchoolingBranchIdentifier(
+        getRequestParameter(AdjustedFeeFilter.JSON_REGISTRATION_SCHOOLING_BRANCH_IDENTIFIER));
+    filter.setRegistrationSchoolingPeriodIdentifier(
+        getRequestParameter(AdjustedFeeFilter.JSON_REGISTRATION_SCHOOLING_PERIOD_IDENTIFIER));
+    
     filter.setRegistrationIdentifier(
         getRequestParameter(AdjustedFeeFilter.JSON_REGISTRATION_IDENTIFIER));
     filter.setAmountOptional(

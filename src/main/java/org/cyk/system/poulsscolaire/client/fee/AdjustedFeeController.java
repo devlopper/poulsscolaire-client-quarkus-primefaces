@@ -19,10 +19,12 @@ import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolClient;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolService;
 import org.cyk.system.poulsscolaire.server.api.fee.AbstractAmountContainerDto;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeClient;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeDto;
+import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeFilter;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeService;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeService.AdjustedFeeCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeService.AdjustedFeeUpdateRequestDto;
@@ -96,6 +98,8 @@ public class AdjustedFeeController extends AbstractController {
 
   @Getter
   SelectOneMenuString schoolSelectOneMenu;
+
+  SchoolDto school;
 
   @Getter
   SelectOneMenuString branchSelectOneMenu;
@@ -254,5 +258,28 @@ public class AdjustedFeeController extends AbstractController {
     amountRegistrationValuePartTotalAsString = "---";
     amountValuePaidTotalAsString = "---";
     amountValuePayableTotalAsString = "---";
+
+    filterController.addFilterConsumer(this::listenFilter);
+  }
+
+  void listenFilter(AdjustedFeeFilter filter) {
+    computeTotalAmounts(filter);
+  }
+
+  void computeTotalAmounts(AdjustedFeeFilter filter) {
+    if (!Core.isStringBlank(filter.getRegistrationSchoolingSchoolIdentifier())) {
+      school = schoolClient.getByIdentifier(
+          filterController.getFilter().getRegistrationSchoolingSchoolIdentifier(),
+          new ProjectionDto().addNames(SchoolDto.JSON_TOTAL_AMOUNT_AS_STRING,
+              SchoolDto.JSON_PAID_AMOUNT_AS_STRING, SchoolDto.JSON_PAYABLE_AMOUNT_AS_STRING,
+              SchoolDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING,
+              SchoolDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
+              SchoolDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING),
+          userIdentifier, null);
+      amountValueTotalAsString = school.getTotalAmountAsString();
+      amountRegistrationValuePartTotalAsString = school.getTotalRegistrationAmountAsString();
+      amountValuePaidTotalAsString = school.getPaidAmountAsString();
+      amountValuePayableTotalAsString = school.getPayableAmountAsString();
+    }
   }
 }
