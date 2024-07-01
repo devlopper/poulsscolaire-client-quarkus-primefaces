@@ -12,25 +12,43 @@
 
   <p:column headerText="Montant à payer" width="150">
     <h:outputText value="#{record.totalAmountAsString}" />
+    <f:facet name="footer">
+      <h:outputText value="#{container.amountValueStatistics.totalAsString}" />
+    </f:facet>
   </p:column>
 
   <p:column headerText="Montant payé" width="150">
     <h:outputText value="#{record.paidAmountAsString}" />
+    <f:facet name="footer">
+      <h:outputText value="#{container.amountValueStatistics.paidAsString}" />
+    </f:facet>
   </p:column>
 
   <p:column headerText="Montant reste à payer" width="150">
     <h:outputText value="#{record.payableAmountAsString}" />
+    <f:facet name="footer">
+      <p:tag severity="warning" value="#{container.amountValueStatistics.payableAsString}" />
+    </f:facet>
   </p:column>
 
   <p:column headerText="Payable à l'inscription" width="150">
     <h:outputText value="#{record.totalRegistrationAmountAsString}" />
+    <f:facet name="footer">
+      <h:outputText value="#{container.amountRegistrationPartStatistics.totalAsString}" />
+    </f:facet>
   </p:column>
 
   <p:column headerText="Payé à l'inscription" width="150">
     <h:outputText value="#{record.paidRegistrationAmountAsString}" />
+    <f:facet name="footer">
+      <h:outputText value="#{container.amountRegistrationPartStatistics.paidAsString}" />
+    </f:facet>
   </p:column>
 
   <p:column headerText="Reste à payer à l'inscription" width="150">
     <h:outputText value="#{record.payableRegistrationAmountAsString}" />
+    <f:facet name="footer">
+      <h:outputText value="#{container.amountRegistrationPartStatistics.payableAsString}" />
+    </f:facet>
   </p:column>
 </ui:composition>

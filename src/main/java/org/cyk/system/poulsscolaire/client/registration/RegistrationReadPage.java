@@ -56,15 +56,12 @@ public class RegistrationReadPage extends AbstractPage {
     contentTitle = RegistrationDto.NAME + " - " + registration.getCode();
 
     adjustedFeeController.getFilterController().getFilter().setRegistrationIdentifier(identifier);
-    
+
     adjustedFeeController.initialize();
 
-    adjustedFeeController.setAmountValueTotalAsString(registration.getTotalAmountAsString());
-    adjustedFeeController.setAmountValuePaidTotalAsString(registration.getPaidAmountAsString());
-    adjustedFeeController
-        .setAmountValuePayableTotalAsString(registration.getPayableAmountAsString());
-    adjustedFeeController.setAmountRegistrationValuePartTotalAsString(
-        registration.getTotalRegistrationAmountAsString());
+    adjustedFeeController.getAmountValueStatistics().initializeWithValue(registration);
+    adjustedFeeController.getAmountRegistrationPartStatistics()
+        .initializeWithRegistration(registration);
 
   }
 

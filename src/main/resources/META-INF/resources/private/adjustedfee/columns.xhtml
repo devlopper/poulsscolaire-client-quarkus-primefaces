@@ -53,7 +53,7 @@
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_VALUE_AS_STRING)}">
     <h:outputText value="#{record.amountValueAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountValueTotalAsString}" />
+      <h:outputText value="#{container.amountValueStatistics.totalAsString}" />
     </f:facet>
   </p:column>
 
@@ -61,7 +61,7 @@
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_VALUE_PAID_AS_STRING)}">
     <h:outputText value="#{record.amountValuePaidAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountValuePaidTotalAsString}" />
+      <h:outputText value="#{container.amountValueStatistics.paidAsString}" />
     </f:facet>
   </p:column>
 
@@ -72,7 +72,7 @@
     <p:tag severity="warning" value="#{record.amountValuePayableAsString}"
       rendered="#{record.amountValuePayable > 0}" />
     <f:facet name="footer">
-      <p:tag severity="warning" value="#{container.amountValuePayableTotalAsString}" />
+      <p:tag severity="warning" value="#{container.amountValueStatistics.payableAsString}" />
     </f:facet>
   </p:column>
 
@@ -80,7 +80,7 @@
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING)}">
     <h:outputText value="#{record.amountRegistrationValuePartAsString}" visible="false"/>
     <f:facet name="footer">
-      <h:outputText value="#{container.amountRegistrationValuePartTotalAsString}" />
+      <h:outputText value="#{container.amountRegistrationPartStatistics.totalAsString}" />
     </f:facet>
   </p:column>
 

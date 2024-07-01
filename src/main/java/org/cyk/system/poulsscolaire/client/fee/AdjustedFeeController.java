@@ -28,6 +28,7 @@ import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeFilter;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeService;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeService.AdjustedFeeCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeService.AdjustedFeeUpdateRequestDto;
+import org.cyk.system.poulsscolaire.server.api.fee.AmountStatisticsDto;
 import org.cyk.system.poulsscolaire.server.api.fee.DeadlineClient;
 import org.cyk.system.poulsscolaire.server.api.fee.DeadlineService;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeClient;
@@ -60,19 +61,11 @@ public class AdjustedFeeController extends AbstractController {
 
   @Getter
   @Setter
-  String amountValueTotalAsString;
+  AmountStatisticsDto amountValueStatistics;
 
   @Getter
   @Setter
-  String amountValuePaidTotalAsString;
-
-  @Getter
-  @Setter
-  String amountValuePayableTotalAsString;
-
-  @Getter
-  @Setter
-  String amountRegistrationValuePartTotalAsString;
+  AmountStatisticsDto amountRegistrationPartStatistics;
 
   @Getter
   @Setter
@@ -130,6 +123,9 @@ public class AdjustedFeeController extends AbstractController {
     amountDeadlineDateOverSelectOneRadio.outputLabel().setValue("En retard");
     amountDeadlineDateOverSelectOneRadio
         .addValueConsumer(value -> filterController.getFilter().setAmountDeadlineDateOver(value));
+
+    amountValueStatistics = new AmountStatisticsDto();
+    amountRegistrationPartStatistics = new AmountStatisticsDto();
   }
 
   /**
@@ -254,10 +250,13 @@ public class AdjustedFeeController extends AbstractController {
             .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
             .toList()).execute();
 
-    amountValueTotalAsString = "---";
-    amountRegistrationValuePartTotalAsString = "---";
-    amountValuePaidTotalAsString = "---";
-    amountValuePayableTotalAsString = "---";
+    amountValueStatistics.setTotalAsString("---");
+    amountValueStatistics.setPaidAsString("---");
+    amountValueStatistics.setPayableAsString("---");
+
+    amountRegistrationPartStatistics.setTotalAsString("---");
+    amountRegistrationPartStatistics.setPaidAsString("---");
+    amountRegistrationPartStatistics.setPayableAsString("---");
 
     filterController.addFilterConsumer(this::listenFilter);
   }
@@ -276,10 +275,8 @@ public class AdjustedFeeController extends AbstractController {
               SchoolDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
               SchoolDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING),
           userIdentifier, null);
-      amountValueTotalAsString = school.getTotalAmountAsString();
-      amountRegistrationValuePartTotalAsString = school.getTotalRegistrationAmountAsString();
-      amountValuePaidTotalAsString = school.getPaidAmountAsString();
-      amountValuePayableTotalAsString = school.getPayableAmountAsString();
+      amountValueStatistics.initializeWithValue(school);
+      amountRegistrationPartStatistics.initializeWithRegistration(school);
     }
   }
 }
