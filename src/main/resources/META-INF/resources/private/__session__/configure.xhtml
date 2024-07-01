@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template/page.xhtml">
+
+  <ui:param name="page" value="#{sessionConfigurePage}" />
+
+  <ui:define name="content-body">
+    <h:form>
+      <ui:decorate template="/extension/crud/form/save/default.xhtml">
+        <ui:param name="controller" value="#{sessionConfigurePage}" />
+        <ui:define name="form-save-inputs">
+          <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+            <ui:param name="selectOneMenu" value="#{sessionConfigurePage.schoolSelectOneMenu}" />
+          </ui:include>
+        </ui:define>
+      </ui:decorate>
+    </h:form>
+  </ui:define>
+</ui:composition>

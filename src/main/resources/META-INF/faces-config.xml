@@ -20,6 +20,15 @@
       <redirect />
     </navigation-case>
     
+    <!-- Session -->
+    
+    <navigation-case>
+      <description>page de configuration de session</description>
+      <from-outcome>sessionConfigurePage</from-outcome>
+      <to-view-id>/private/__session__/configure.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Deadline group -->
     
     <navigation-case>
@@ -107,6 +116,22 @@
       <description>page liste des élèves</description>
       <from-outcome>studentListPage</from-outcome>
       <to-view-id>/private/student/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- School -->
+    
+    <navigation-case>
+      <description>page liste des écoles</description>
+      <from-outcome>schoolListPage</from-outcome>
+      <to-view-id>/private/school/accountant/list.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page lecture d'école</description>
+      <from-outcome>schoolReadPage</from-outcome>
+      <to-view-id>/private/school/accountant/read/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     

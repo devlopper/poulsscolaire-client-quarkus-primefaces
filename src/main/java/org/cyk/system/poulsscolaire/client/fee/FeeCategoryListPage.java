@@ -24,6 +24,7 @@ public class FeeCategoryListPage extends AbstractPage {
   protected void postConstruct() {
     super.postConstruct();
     contentTitle = "Liste des rubriques";
+    controller.initialize();
   }
   
   public static final String OUTCOME = "feeCategoryListPage";

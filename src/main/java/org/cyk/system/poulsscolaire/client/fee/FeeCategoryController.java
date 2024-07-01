@@ -41,6 +41,7 @@ public class FeeCategoryController extends AbstractController {
   ListController listController;
 
   @Inject
+  @Getter
   FeeCategoryFilterController filterController;
 
   @Inject
@@ -63,6 +64,12 @@ public class FeeCategoryController extends AbstractController {
   protected void postConstruct() {
     super.postConstruct();
     name = FeeCategoryDto.NAME;
+  }
+  
+  /**
+   * Cette méthode permet d'initialiser.
+   */
+  public void initialize() {
     schoolFilterSelectOneMenu = new SelectOneMenuString();
     schoolFilterSelectOneMenu.addValueConsumer(
         value -> filterController.getFilter().setRegistrationSchoolingSchoolIdentifier(value));
@@ -109,6 +116,7 @@ public class FeeCategoryController extends AbstractController {
     amountValueStatistics = new AmountStatisticsDto();
     amountRegistrationPartStatistics = new AmountStatisticsDto();
     
+    listenFilter(filterController.getFilter());
     filterController.addFilterConsumer(this::listenFilter);
   }
 
