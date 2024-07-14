@@ -20,13 +20,13 @@ import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentService;
 
 /**
- * Cette classe représente le contrôleur de CRUD de {@link StudentDto}.
+ * Cette classe représente le contrôleur de {@link StudentDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class StudentCrudController extends AbstractController {
+public class StudentController extends AbstractController {
 
   @Inject
   StudentClient client;

@@ -16,13 +16,13 @@ import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService.Sc
 import org.primefaces.PrimeFaces;
 
 /**
- * Cette classe représente le contrôleur de CRUD de {@link SchoolingDto}.
+ * Cette classe représente le contrôleur de {@link SchoolingDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class SchoolingCrudController extends AbstractController {
+public class SchoolingController extends AbstractController {
 
   @Inject
   SchoolingClient client;

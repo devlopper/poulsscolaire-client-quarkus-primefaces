@@ -4,12 +4,18 @@
 
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.FeeDto" var="FeeDto" />
 
-  <p:column headerText="Scolarité" width="150"
-    rendered="#{listController.isReadControllerHasProjectionName('brancheScolariteChaine')}">
+  <p:column headerText="École" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_SCHOOLING_SCHOOL_AS_STRING)}">
     <h:outputText value="#{record.schoolingSchoolAsString}" />
-    <br />
+  </p:column>
+
+  <p:column headerText="Période" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_SCHOOLING_PERIOD_AS_STRING)}">
     <h:outputText value="#{record.schoolingPeriodAsString}" />
-    <br />
+  </p:column>
+
+  <p:column headerText="Branche" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_SCHOOLING_BRANCH_AS_STRING)}">
     <h:outputText value="#{record.schoolingBranchAsString}" />
   </p:column>
 

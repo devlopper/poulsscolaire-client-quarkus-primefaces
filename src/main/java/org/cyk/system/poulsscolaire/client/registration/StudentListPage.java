@@ -18,7 +18,7 @@ public class StudentListPage extends AbstractPage {
 
   @Inject
   @Getter
-  StudentCrudController crudController;
+  StudentController controller;
 
   @Override
   protected void postConstruct() {

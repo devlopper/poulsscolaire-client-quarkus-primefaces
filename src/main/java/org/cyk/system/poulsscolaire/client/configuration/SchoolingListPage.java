@@ -18,15 +18,16 @@ public class SchoolingListPage extends AbstractPage {
 
   @Inject
   @Getter
-  SchoolingCrudController controller;
+  SchoolingController controller;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
     contentTitle = "Liste des scolarités";
-    
-    controller.getListController().getDataTable().getActionColumn().setWidth("150px");
+
+    controller.getListController().getDataTable().getActionColumn()
+        .computeWithForButtonsWithIconOnly(3);
   }
-  
+
   public static final String OUTCOME = "schoolingListPage";
 }
