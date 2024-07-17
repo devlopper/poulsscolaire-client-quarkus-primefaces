@@ -3,6 +3,7 @@ package org.cyk.system.poulsscolaire.client.fee;
 import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
+import ci.gouv.dgbf.extension.primefaces.component.input.SelectOneMenuString;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
@@ -95,6 +96,15 @@ public class FeeController extends AbstractController {
   @Getter
   FeeFilterController filterController;
 
+  @Getter
+  SelectOneMenuString schoolingFilterSelectOneMenu;
+
+  @Getter
+  SelectOneMenuString assignmentTypeFilterSelectOneMenu;
+
+  @Getter
+  SelectOneMenuString seniorityFilterSelectOneMenu;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -124,7 +134,8 @@ public class FeeController extends AbstractController {
         AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
     listController.getReadController().setProjection(projection);
-    
+    listController.getDataTable().getFilterButton().setRendered(true);
+
     listController.initialize();
 
     listController.getCreateController().addEntityConsumer(entity -> ((FeeDto) entity)
@@ -227,5 +238,23 @@ public class FeeController extends AbstractController {
 
     amountValueTotalAsString = "---";
     amountRegistrationValuePartTotalAsString = "---";
+
+    schoolingFilterSelectOneMenu = new SelectOneMenuString();
+    schoolingFilterSelectOneMenu.addNullChoice();
+    schoolingFilterSelectOneMenu.choices().addAll(schoolings);
+    schoolingFilterSelectOneMenu
+        .addValueConsumer(value -> filterController.getFilter().setSchoolingIdentifier(value));
+
+    assignmentTypeFilterSelectOneMenu = new SelectOneMenuString();
+    assignmentTypeFilterSelectOneMenu.addNullChoice();
+    assignmentTypeFilterSelectOneMenu.choices().addAll(assignmentTypes);
+    assignmentTypeFilterSelectOneMenu
+        .addValueConsumer(value -> filterController.getFilter().setAssignmentTypeIdentifier(value));
+
+    seniorityFilterSelectOneMenu = new SelectOneMenuString();
+    seniorityFilterSelectOneMenu.addNullChoice();
+    seniorityFilterSelectOneMenu.choices().addAll(seniorities);
+    seniorityFilterSelectOneMenu
+        .addValueConsumer(value -> filterController.getFilter().setSeniorityIdentifier(value));
   }
 }
