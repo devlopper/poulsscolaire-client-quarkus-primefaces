@@ -12,7 +12,9 @@ import lombok.Getter;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingClient;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService.SchoolingCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService.SchoolingGenerateResponseDto;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService.SchoolingUpdateRequestDto;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -44,6 +46,7 @@ public class SchoolingController extends AbstractController {
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, SchoolingDto.JSON_SCHOOL_AS_STRING,
         SchoolingDto.JSON_BRANCH_AS_STRING, SchoolingDto.JSON_PERIOD_AS_STRING,
+        SchoolingDto.JSON_PRE_REGISTRATION_AMOUNT_AS_STRING,
         SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_VALUE_AS_STRING,
         SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING);
     listController.getReadController().setProjection(projection);
@@ -53,16 +56,28 @@ public class SchoolingController extends AbstractController {
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(SchoolingReadPage.OUTCOME);
 
-    listController.getCreateController()
-        .setFunction(entity -> client.create(((SchoolingDto) entity).getSchoolIdentifier(),
-            ((SchoolingDto) entity).getBranchIdentifier(),
-            ((SchoolingDto) entity).getPeriodIdentifier(), userIdentifier, null));
+    listController.getShowCreateDialogButton().setRendered(false);
+    listController.getCreateController().setFunction(entity -> {
+      SchoolingCreateRequestDto request = new SchoolingCreateRequestDto();
+      request.setSchoolIdentifier(((SchoolingDto) entity).getSchoolIdentifier());
+      request.setPeriodIdentifier(((SchoolingDto) entity).getPeriodIdentifier());
+      request.setBranchIdentifier(((SchoolingDto) entity).getBranchIdentifier());
+      request.setAuditWho(userIdentifier);
+      return client.create(request);
+    });
 
-    listController.getUpdateController()
-        .setFunction(entity -> client.update(((SchoolingDto) entity).getIdentifier(),
-            ((SchoolingDto) entity).getSchoolIdentifier(),
-            ((SchoolingDto) entity).getBranchIdentifier(),
-            ((SchoolingDto) entity).getPeriodIdentifier(), userIdentifier, null));
+    listController.getUpdateController().setProjection(new ProjectionDto().addNames(
+        AbstractIdentifiableDto.JSON_IDENTIFIER, SchoolingDto.JSON_PRE_REGISTRATION_AMOUNT));
+    listController.getUpdateController().setFunction(entity -> {
+      SchoolingUpdateRequestDto request = new SchoolingUpdateRequestDto();
+      request.setIdentifier(((SchoolingDto) entity).getIdentifier());
+      request.setSchoolIdentifier(((SchoolingDto) entity).getSchoolIdentifier());
+      request.setPeriodIdentifier(((SchoolingDto) entity).getPeriodIdentifier());
+      request.setBranchIdentifier(((SchoolingDto) entity).getBranchIdentifier());
+      request.setPreRegistrationAmount(((SchoolingDto) entity).getPreRegistrationAmount());
+      request.setAuditWho(userIdentifier);
+      return client.update(request);
+    });
   }
 
   public void generate() {

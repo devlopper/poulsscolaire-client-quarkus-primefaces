@@ -1,32 +1,21 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
   <h:form>
-    <div class="ui-g">
-      <div class="ui-g-3">
-        <p:outputLabel value="Ecole" for="school" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="school" value="#{controller.entity.schoolIdentifier}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Branche" for="branch" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="branch" value="#{controller.entity.branchIdentifier}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Période" for="period" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="period" value="#{controller.entity.periodIdentifier}" />
-      </div>
-      <div class="ui-g-12">
-        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
-      </div>
-    </div>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="" />
+
+      <ui:define name="form-save-inputs">
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Montant" for="amount" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputNumber id="amount" value="#{controller.entity.preRegistrationAmount}" />
+          </ui:define>
+        </ui:decorate>
+      </ui:define>
+    </ui:decorate>
   </h:form>
 </ui:composition>

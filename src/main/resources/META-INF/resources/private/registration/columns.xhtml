@@ -45,4 +45,8 @@
   <p:column headerText="Reste à payer à l'inscription" width="150">
     <h:outputText value="#{record.payableRegistrationAmountAsString}" />
   </p:column>
+  
+  <p:column headerText="Montant pré-inscription">
+    <h:outputText value="#{record.preRegistrationAmountAsString}" />
+  </p:column>
 </ui:composition>
