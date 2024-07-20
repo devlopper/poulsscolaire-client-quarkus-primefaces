@@ -61,7 +61,14 @@
     <navigation-case>
       <description>page liste des frais</description>
       <from-outcome>feeListPage</from-outcome>
-      <to-view-id>/private/fee/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/fee/administrator/list/index.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page de lecture de frais</description>
+      <from-outcome>feeReadPage</from-outcome>
+      <to-view-id>/private/fee/administrator/read/index.jsf</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -80,6 +87,13 @@
       <description>page liste des montants</description>
       <from-outcome>amountListPage</from-outcome>
       <to-view-id>/private/amount/administrator/list.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page liste des échéances de montants</description>
+      <from-outcome>amountDeadlineListPage</from-outcome>
+      <to-view-id>/private/amountdeadline/administrator/list/index.jsf</to-view-id>
       <redirect />
     </navigation-case>
     

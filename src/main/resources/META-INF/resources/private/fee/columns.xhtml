@@ -4,22 +4,27 @@
 
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.FeeDto" var="FeeDto" />
 
-  <p:column headerText="École" width="150"
+  <p:column headerText="École" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_SCHOOLING_SCHOOL_AS_STRING)}">
     <h:outputText value="#{record.schoolingSchoolAsString}" />
   </p:column>
 
-  <p:column headerText="Période" width="150"
+  <p:column headerText="Période" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_SCHOOLING_PERIOD_AS_STRING)}">
     <h:outputText value="#{record.schoolingPeriodAsString}" />
   </p:column>
 
-  <p:column headerText="Branche" width="150"
+  <p:column headerText="Branche"
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_SCHOOLING_BRANCH_AS_STRING)}">
     <h:outputText value="#{record.schoolingBranchAsString}" />
   </p:column>
-
-  <p:column headerText="Type d'affectation" width="100"
+  
+  <p:column headerText="Rubrique"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_CATEGORY_AS_STRING)}">
+    <h:outputText value="#{record.categoryAsString}" />
+  </p:column>
+  
+  <p:column headerText="Type d'affectation" width="150"
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_ASSIGNMENT_TYPE_AS_STRING)}">
     <h:outputText value="#{record.assignmentTypeAsString}" />
   </p:column>
@@ -29,12 +34,7 @@
     <h:outputText value="#{record.seniorityAsString}" />
   </p:column>
 
-  <p:column headerText="Rubrique"
-    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_CATEGORY_AS_STRING)}">
-    <h:outputText value="#{record.categoryAsString}" />
-  </p:column>
-
-  <p:column headerText="Valeur" width="100"
+  <p:column headerText="Montant" width="100"
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_VALUE_AS_STRING)}">
     <h:outputText value="#{record.amountValueAsString}" />
     <f:facet name="footer">
@@ -42,7 +42,7 @@
     </f:facet>
   </p:column>
 
-  <p:column headerText="Part Inscription" width="150"
+  <p:column headerText="Minimum à l'inscription" width="150"
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING)}">
     <h:outputText value="#{record.amountRegistrationValuePartAsString}" />
     <f:facet name="footer">
@@ -55,17 +55,17 @@
     <h:outputText value="#{record.amountOptionalAsString}" />
   </p:column>
 
-  <p:column headerText="Ordre paiement" width="150"
+  <p:column headerText="Ordre paiement" width="100"
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING)}">
     <h:outputText value="#{record.amountPaymentOrderNumberAsString}" />
   </p:column>
-
-  <p:column headerText="Échéance" width="150"
-    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_DEADLINE_AS_STRING)}">
-    <h:outputText value="#{record.amountDeadlineAsString}" />
+  
+  <p:column headerText="#Échéance" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_DEADLINE_COUNT_AS_STRING)}">
+    <h:outputText value="#{record.amountDeadlineCountAsString}" />
   </p:column>
 
-  <p:column headerText="Reconductible" width="100"
+  <p:column headerText="Reconductible" width="100" 
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_RENEWABLE_AS_STRING)}"
     visible="false">
     <h:outputText value="#{record.amountRenewableAsString}" />

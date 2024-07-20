@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.configuration.BranchDto"
+    var="BranchDto" />
+
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryDto"
+    var="FeeCategoryDto" />
+
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.StudentDto"
+    var="StudentDto" />
+
+  <p:importConstants
+    type="org.cyk.system.poulsscolaire.server.api.fee.AmountDeadlineDto"
+    var="AmountDeadlineDto" />
+
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeDto"
+    var="AdjustedFeeDto" />
+
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.DeadlineDto"
+    var="DeadlineDto" />
+
+  <p:column headerText="#{StudentDto.NAME}"
+    rendered="#{listController.isReadControllerHasProjectionName(AmountDeadlineDto.JSON_STUDENT_AS_STRING)}">
+    <h:outputText value="#{record.studentAsString}" />
+  </p:column>
+
+  <p:column headerText="#{BranchDto.NAME}"
+    rendered="#{listController.isReadControllerHasProjectionName(AmountDeadlineDto.JSON_BRANCH_AS_STRING)}">
+    <h:outputText value="#{record.branchAsString}" />
+  </p:column>
+
+  <p:column headerText="#{FeeCategoryDto.NAME}"
+    rendered="#{listController.isReadControllerHasProjectionName(AmountDeadlineDto.JSON_FEE_CATEGORY_AS_STRING)}">
+    <h:outputText value="#{record.feeCategoryAsString}" />
+  </p:column>
+
+  <p:column headerText="Paiment"
+    rendered="#{listController.isReadControllerHasProjectionName(AmountDeadlineDto.JSON_PAYMENT_AS_STRING)}">
+    <h:outputText value="#{record.paymentAsString}" />
+  </p:column>
+
+  <p:column headerText="#{DeadlineDto.NAME}"
+    rendered="#{listController.isReadControllerHasProjectionName(AmountDeadlineDto.JSON_DEADLINE_AS_STRING)}">
+    <h:outputText value="#{record.deadlineAsString}" />
+  </p:column>
+</ui:composition>

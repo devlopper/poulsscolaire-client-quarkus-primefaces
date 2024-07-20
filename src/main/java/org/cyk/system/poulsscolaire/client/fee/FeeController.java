@@ -136,6 +136,9 @@ public class FeeController extends AbstractController {
     listController.getReadController().setProjection(projection);
     listController.getDataTable().getFilterButton().setRendered(true);
 
+    listController.getGotoReadPageButton().setRendered(true);
+    listController.getGotoReadPageButton().setOutcome(FeeReadPage.OUTCOME);
+    
     listController.initialize();
 
     listController.getCreateController().addEntityConsumer(entity -> ((FeeDto) entity)
@@ -241,7 +244,7 @@ public class FeeController extends AbstractController {
 
     schoolingFilterSelectOneMenu = new SelectOneMenuString();
     schoolingFilterSelectOneMenu.addNullChoice();
-    schoolingFilterSelectOneMenu.choices().addAll(schoolings);
+    schoolingFilterSelectOneMenu.addChoices(schoolings);
     schoolingFilterSelectOneMenu
         .addValueConsumer(value -> filterController.getFilter().setSchoolingIdentifier(value));
 
