@@ -164,6 +164,9 @@ public class AdjustedFeeController extends AbstractController {
     listController.getReadController().setProjection(projection);
     listController.getDataTable().getFilterButton().setRendered(true);
 
+    listController.getGotoReadPageButton().setRendered(true);
+    listController.getGotoReadPageButton().setOutcome(AdjustedFeeReadPage.OUTCOME);
+    
     listController.initialize();
 
     listController.getCreateController().addEntityConsumer(entity -> ((AdjustedFeeDto) entity)

@@ -81,6 +81,13 @@
       <redirect />
     </navigation-case>
     
+    <navigation-case>
+      <description>page de lecture des frais ajustés</description>
+      <from-outcome>adjustedFeeReadPage</from-outcome>
+      <to-view-id>/private/adjustedfee/administrator/read/index.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Amount -->
     
     <navigation-case>
