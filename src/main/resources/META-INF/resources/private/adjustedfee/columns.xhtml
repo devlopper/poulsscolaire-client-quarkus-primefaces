@@ -17,19 +17,19 @@
 
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeDto" var="Dto" />
 
-  <p:column headerText="#{SchoolDto.NAME}"
+  <p:column headerText="#{SchoolDto.NAME}" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REGISTRATION_SCHOOLING_SCHOOL_AS_STRING)}">
     <h:outputText value="#{record.registrationSchoolingSchoolAsString}" />
   </p:column>
-  <p:column headerText="#{BranchDto.NAME}"
+  <p:column headerText="#{BranchDto.NAME}" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REGISTRATION_SCHOOLING_BRANCH_AS_STRING)}">
     <h:outputText value="#{record.registrationSchoolingBranchAsString}" />
   </p:column>
-  <p:column headerText="#{PeriodDto.NAME}"
+  <p:column headerText="#{PeriodDto.NAME}" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REGISTRATION_SCHOOLING_PERIOD_AS_STRING)}">
     <h:outputText value="#{record.registrationSchoolingPeriodAsString}" />
   </p:column>
-  <p:column headerText="#{StudentDto.NAME}"
+  <p:column headerText="#{StudentDto.NAME}" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REGISTRATION_STUDENT_AS_STRING)}">
     <h:outputText value="#{record.registrationStudentAsString}" />
   </p:column>
