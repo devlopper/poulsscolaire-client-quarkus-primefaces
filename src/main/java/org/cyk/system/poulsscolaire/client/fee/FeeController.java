@@ -151,7 +151,6 @@ public class FeeController extends AbstractController {
       request.setSeniorityIdentifier(((FeeDto) entity).getSeniorityIdentifier());
       request.setCategoryIdentifier(((FeeDto) entity).getCategoryIdentifier());
       request.setValue(((FeeDto) entity).getAmountValue());
-      request.setDeadlineIdentifier(((FeeDto) entity).getAmountDeadlineIdentifier());
       request.setRegistrationValuePart(((FeeDto) entity).getAmountRegistrationValuePart());
       request.setOptional(((FeeDto) entity).getAmountOptional());
       request.setPaymentOrderNumber(((FeeDto) entity).getAmountPaymentOrderNumber());
@@ -170,7 +169,6 @@ public class FeeController extends AbstractController {
       request.setSeniorityIdentifier(((FeeDto) entity).getSeniorityIdentifier());
       request.setCategoryIdentifier(((FeeDto) entity).getCategoryIdentifier());
       request.setValue(((FeeDto) entity).getAmountValue());
-      request.setDeadlineIdentifier(((FeeDto) entity).getAmountDeadlineIdentifier());
       request.setRegistrationValuePart(((FeeDto) entity).getAmountRegistrationValuePart());
       request.setOptional(((FeeDto) entity).getAmountOptional());
       request.setPaymentOrderNumber(((FeeDto) entity).getAmountPaymentOrderNumber());
@@ -187,7 +185,6 @@ public class FeeController extends AbstractController {
             AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART,
             AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL,
             AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE,
-            AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_IDENTIFIER,
             AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER));
 
     if (Core.isStringBlank(filterController.getFilter().getSchoolingIdentifier())) {

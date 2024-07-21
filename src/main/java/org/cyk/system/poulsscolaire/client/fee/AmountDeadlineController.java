@@ -7,7 +7,6 @@ import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
-import java.util.Optional;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.server.api.fee.AmountDeadlineClient;
 import org.cyk.system.poulsscolaire.server.api.fee.AmountDeadlineDto;

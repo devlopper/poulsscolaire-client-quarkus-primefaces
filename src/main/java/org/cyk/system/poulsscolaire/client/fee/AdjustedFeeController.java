@@ -173,7 +173,6 @@ public class AdjustedFeeController extends AbstractController {
       request.setFeeIdentifier(((AdjustedFeeDto) entity).getFeeIdentifier());
       request.setRegistrationIdentifier(((AdjustedFeeDto) entity).getRegistrationIdentifier());
       request.setValue(((AdjustedFeeDto) entity).getAmountValue());
-      request.setDeadlineIdentifier(((AdjustedFeeDto) entity).getAmountDeadlineIdentifier());
       request.setRegistrationValuePart(((AdjustedFeeDto) entity).getAmountRegistrationValuePart());
       request.setOptional(((AdjustedFeeDto) entity).getAmountOptional());
       request.setPaymentOrderNumber(((AdjustedFeeDto) entity).getAmountPaymentOrderNumber());
@@ -190,7 +189,6 @@ public class AdjustedFeeController extends AbstractController {
           Optional.ofNullable(filterController.getFilter().getRegistrationIdentifier())
               .orElse(((AdjustedFeeDto) entity).getRegistrationIdentifier()));
       request.setValue(((AdjustedFeeDto) entity).getAmountValue());
-      request.setDeadlineIdentifier(((AdjustedFeeDto) entity).getAmountDeadlineIdentifier());
       request.setRegistrationValuePart(((AdjustedFeeDto) entity).getAmountRegistrationValuePart());
       request.setOptional(((AdjustedFeeDto) entity).getAmountOptional());
       request.setPaymentOrderNumber(((AdjustedFeeDto) entity).getAmountPaymentOrderNumber());
@@ -206,7 +204,6 @@ public class AdjustedFeeController extends AbstractController {
             AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART,
             AbstractAmountContainerDto.JSON_AMOUNT_OPTIONAL,
             AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE,
-            AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_IDENTIFIER,
             AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER));
 
     schoolSelectOneMenu
