@@ -60,7 +60,8 @@ public class AmountDeadlineController extends AbstractController {
     ProjectionDto projection = new ProjectionDto();
 
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        AmountDeadlineDto.JSON_PAYMENT_AS_STRING, AmountDeadlineDto.JSON_DEADLINE_AS_STRING);
+        AmountDeadlineDto.JSON_PAYMENT_AS_STRING, AmountDeadlineDto.JSON_DEADLINE_AS_STRING,
+        AmountDeadlineDto.JSON_DEADLINE_PASSED, AmountDeadlineDto.JSON_DEADLINE_RUNNING);
 
     listController.getReadController().setProjection(projection);
 

@@ -36,13 +36,15 @@
     <h:outputText value="#{record.feeCategoryAsString}" />
   </p:column>
 
-  <p:column headerText="Paiment"
+  <p:column headerText="Paiement"
     rendered="#{listController.isReadControllerHasProjectionName(AmountDeadlineDto.JSON_PAYMENT_AS_STRING)}">
     <h:outputText value="#{record.paymentAsString}" />
   </p:column>
 
   <p:column headerText="#{DeadlineDto.NAME}"
     rendered="#{listController.isReadControllerHasProjectionName(AmountDeadlineDto.JSON_DEADLINE_AS_STRING)}">
-    <h:outputText value="#{record.deadlineAsString}" />
+    <p:tag severity="success" value="#{record.deadlineAsString}" rendered="#{record.deadlinePassed}"/>
+    <p:tag severity="warning" value="#{record.deadlineAsString}" rendered="#{record.deadlineRunning}"/>
+    <p:tag severity="info" value="#{record.deadlineAsString}" rendered="#{not record.deadlinePassed and not record.deadlineRunning}"/>
   </p:column>
 </ui:composition>

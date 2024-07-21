@@ -2,25 +2,44 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
+  <ui:include src="/extension/component/input/selectOneBooleanButton.xhtml">
+    <ui:param name="selectOneBooleanButton" value="#{container.optionalSelectOneBooleanButton}" />
+  </ui:include>
+
+  <ui:include src="/extension/component/input/selectOneBooleanButton.xhtml">
+    <ui:param name="selectOneBooleanButton" value="#{container.renewableSelectOneBooleanButton}" />
+  </ui:include>
+
+  <ui:include src="/extension/component/input/inputNumber.xhtml">
+    <ui:param name="inputNumber" value="#{container.valueInputInteger}" />
+  </ui:include>
+
+  <ui:include src="/extension/component/input/inputNumber.xhtml">
+    <ui:param name="inputNumber" value="#{container.registrationPartInputInteger}" />
+  </ui:include>
+
+  <ui:include src="/extension/component/input/inputNumber.xhtml">
+    <ui:param name="inputNumber" value="#{container.orderNumberInputInteger}" />
+  </ui:include>
+
+  <!--
   <div class="ui-g-12">
     <ui:decorate template="/extension/component/input/default.xhtml">
-      <ui:param name="width" value="6" />
       <ui:define name="input-label">
         <p:outputLabel value="Facultatif" for="optional" />
       </ui:define>
       <ui:define name="input-control">
-        <p:selectBooleanButton id="optional" value="#{controller.entity.amountOptional}"
+        <p:selectBooleanButton id="optional" value="#{controller.entity.optional}"
           onLabel="Oui" offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times" />
       </ui:define>
     </ui:decorate>
 
     <ui:decorate template="/extension/component/input/default.xhtml">
-      <ui:param name="width" value="6" />
       <ui:define name="input-label">
         <p:outputLabel value="Reconductible" for="renewable" />
       </ui:define>
       <ui:define name="input-control">
-        <p:selectBooleanButton id="renewable" value="#{controller.entity.amountRenewable}"
+        <p:selectBooleanButton id="renewable" value="#{controller.entity.renewable}"
           onLabel="Oui" offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times" />
       </ui:define>
     </ui:decorate>
@@ -28,38 +47,34 @@
 
   <div class="ui-g-12">
     <ui:decorate template="/extension/component/input/default.xhtml">
-      <ui:param name="width" value="3" />
       <ui:define name="input-label">
         <p:outputLabel value="Valeur" for="value" />
       </ui:define>
       <ui:define name="input-control">
-        <p:inputNumber id="value" value="#{controller.entity.amountValue}" required="true" />
+        <p:inputNumber id="value" value="#{controller.entity.value}" required="true" />
       </ui:define>
     </ui:decorate>
 
     <ui:decorate template="/extension/component/input/default.xhtml">
-      <ui:param name="width" value="3" />
       <ui:define name="input-label">
         <p:outputLabel value="Part valeur à l'inscription" for="registrationPartValue" />
       </ui:define>
       <ui:define name="input-control">
         <p:inputNumber id="registrationPartValue"
-          value="#{controller.entity.amountRegistrationValuePart}" />
+          value="#{controller.entity.registrationValuePart}" />
       </ui:define>
     </ui:decorate>
 
     <ui:decorate template="/extension/component/input/default.xhtml">
-      <ui:param name="width" value="2" />
       <ui:define name="input-label">
         <p:outputLabel value="Numéro d'ordre de paiement" for="paymentOrderNumber" />
       </ui:define>
       <ui:define name="input-control">
-        <p:inputNumber id="paymentOrderNumber" value="#{controller.entity.amountPaymentOrderNumber}"
+        <p:inputNumber id="paymentOrderNumber" value="#{controller.entity.paymentOrderNumber}"
           required="true" />
         <p:message id="paymentOrderNumberMessage" for="paymentOrderNumber" />
       </ui:define>
     </ui:decorate>
-
-    
   </div>
+  -->
 </ui:composition>

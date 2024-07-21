@@ -5,9 +5,9 @@
   <ui:param name="page" value="#{amountListPage}" />
 
   <ui:define name="content-body">
-    <ui:include src="../component/listForm.xhtml">
-      <ui:param name="controller" value="#{amountListPage.crudController.listController}" />
-      <ui:param name="container" value="#{amountListPage.crudController}" />
+    <ui:include src="../../component/listForm.xhtml">
+      <ui:param name="controller" value="#{amountListPage.controller.listController}" />
+      <ui:param name="container" value="#{amountListPage.controller}" />
     </ui:include>
   </ui:define>
 </ui:composition>

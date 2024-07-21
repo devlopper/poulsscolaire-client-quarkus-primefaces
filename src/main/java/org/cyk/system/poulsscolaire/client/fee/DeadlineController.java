@@ -20,13 +20,13 @@ import org.cyk.system.poulsscolaire.server.api.fee.DeadlineGroupService;
 import org.cyk.system.poulsscolaire.server.api.fee.DeadlineService;
 
 /**
- * Cette classe représente le contrôleur de CRUD de {@link DeadlineDto}.
+ * Cette classe représente le contrôleur de {@link DeadlineDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class DeadlineCrudController extends AbstractController {
+public class DeadlineController extends AbstractController {
 
   @Inject
   DeadlineClient client;

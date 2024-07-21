@@ -119,7 +119,8 @@ public class AdjustedFeeController extends AbstractController {
     amountValuePayableEqualsZeroSelectOneRadio.addTrueOrFalseChoices(true).addValueConsumer(
         value -> filterController.getFilter().setAmountValuePayableLessThanOrEqualsZero(value));
 
-    amountDeadlineDateOverSelectOneRadio = new SelectOneRadioBoolean().addTrueOrFalseChoices(true);
+    amountDeadlineDateOverSelectOneRadio = new SelectOneRadioBoolean();
+    amountDeadlineDateOverSelectOneRadio.addTrueOrFalseChoices(true);
     amountDeadlineDateOverSelectOneRadio.outputLabel().setValue("En retard");
     amountDeadlineDateOverSelectOneRadio
         .addValueConsumer(value -> filterController.getFilter().setAmountDeadlineDateOver(value));

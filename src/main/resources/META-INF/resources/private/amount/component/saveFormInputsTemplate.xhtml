@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <ui:decorate template="/extension/component/input/default.xhtml">
+    <ui:define name="input-label">
+      <p:outputLabel value="Facultatif" for="optional" />
+    </ui:define>
+    <ui:define name="input-control">
+      <p:selectBooleanButton id="optional" value="#{controller.entity.optional}" onLabel="Oui"
+        offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times" />
+    </ui:define>
+  </ui:decorate>
+
+  <ui:decorate template="/extension/component/input/default.xhtml">
+    <ui:define name="input-label">
+      <p:outputLabel value="Reconductible" for="renewable" />
+    </ui:define>
+    <ui:define name="input-control">
+      <p:selectBooleanButton id="renewable" value="#{controller.entity.renewable}" onLabel="Oui"
+        offLabel="Non" onIcon="pi pi-check" offIcon="pi pi-times" />
+    </ui:define>
+  </ui:decorate>
+
+  <ui:decorate template="/extension/component/input/default.xhtml">
+    <ui:define name="input-label">
+      <p:outputLabel value="Valeur" for="value" />
+    </ui:define>
+    <ui:define name="input-control">
+      <p:inputNumber id="value" value="#{controller.entity.value}" required="true" />
+    </ui:define>
+  </ui:decorate>
+
+  <ui:decorate template="/extension/component/input/default.xhtml">
+    <ui:define name="input-label">
+      <p:outputLabel value="Part valeur à l'inscription" for="registrationPartValue" />
+    </ui:define>
+    <ui:define name="input-control">
+      <p:inputNumber id="registrationPartValue" value="#{controller.entity.registrationValuePart}" />
+    </ui:define>
+  </ui:decorate>
+
+  <ui:decorate template="/extension/component/input/default.xhtml">
+    <ui:define name="input-label">
+      <p:outputLabel value="Numéro d'ordre de paiement" for="paymentOrderNumber" />
+    </ui:define>
+    <ui:define name="input-control">
+      <p:inputNumber id="paymentOrderNumber" value="#{controller.entity.paymentOrderNumber}"
+        required="true" />
+      <p:message id="paymentOrderNumberMessage" for="paymentOrderNumber" />
+    </ui:define>
+  </ui:decorate>
+</ui:composition>

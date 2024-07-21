@@ -19,7 +19,7 @@ public class DeadlineListPage extends AbstractPage {
 
   @Inject
   @Getter
-  DeadlineCrudController crudController;
+  DeadlineController controller;
 
   @Override
   protected void postConstruct() {

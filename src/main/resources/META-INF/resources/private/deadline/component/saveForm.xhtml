@@ -3,36 +3,36 @@
   xmlns:p="http://primefaces.org/ui">
 
   <h:form>
-    <div class="ui-g">
-      <div class="ui-g-3">
-        <p:outputLabel value="Groupe" for="group" />
-      </div>
-      <div class="ui-g-9">
-        <p:selectOneMenu id="group" value="#{controller.entity.groupIdentifier}">
-          <f:selectItems value="#{container.groups}" />
-        </p:selectOneMenu>
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Code" for="code" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="code" value="#{controller.entity.code}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Libellé" for="name" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="name" value="#{controller.entity.name}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Date" for="date" />
-      </div>
-      <div class="ui-g-9">
-        <p:datePicker id="date" value="#{controller.entity.date}" />
-      </div>
-      <div class="ui-g-12">
-        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
-      </div>
-    </div>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+
+      <ui:define name="form-save-inputs">
+        <div class="ui-g-3">
+          <p:outputLabel value="Groupe" for="group" />
+        </div>
+        <div class="ui-g-9">
+          <p:selectOneMenu id="group" value="#{controller.entity.groupIdentifier}">
+            <f:selectItems value="#{container.groups}" />
+          </p:selectOneMenu>
+        </div>
+        <div class="ui-g-3">
+          <p:outputLabel value="Code" for="code" />
+        </div>
+        <div class="ui-g-9">
+          <p:inputText id="code" value="#{controller.entity.code}" />
+        </div>
+        <div class="ui-g-3">
+          <p:outputLabel value="Libellé" for="name" />
+        </div>
+        <div class="ui-g-9">
+          <p:inputText id="name" value="#{controller.entity.name}" />
+        </div>
+        <div class="ui-g-3">
+          <p:outputLabel value="Date" for="date" />
+        </div>
+        <div class="ui-g-9">
+          <p:datePicker id="date" value="#{controller.entity.date}" />
+        </div>
+      </ui:define>
+    </ui:decorate>
   </h:form>
 </ui:composition>

@@ -19,13 +19,13 @@ public class AmountListPage extends AbstractPage {
 
   @Inject
   @Getter
-  AmountCrudController crudController;
+  AmountController controller;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    contentTitle = "Liste des montants";
+    contentTitle = "Liste " + AmountDto.NAME;
   }
-  
+
   public static final String OUTCOME = "amountListPage";
 }

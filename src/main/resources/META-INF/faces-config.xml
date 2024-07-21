@@ -86,7 +86,14 @@
     <navigation-case>
       <description>page liste des montants</description>
       <from-outcome>amountListPage</from-outcome>
-      <to-view-id>/private/amount/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/amount/administrator/list/index.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page de lecture de montant</description>
+      <from-outcome>amountReadPage</from-outcome>
+      <to-view-id>/private/amount/administrator/read/index.jsf</to-view-id>
       <redirect />
     </navigation-case>
     
