@@ -33,10 +33,10 @@ public class AdjustedFeeFilterController extends AbstractFilterController<Adjust
         getRequestParameter(AdjustedFeeFilter.JSON_REGISTRATION_IDENTIFIER));
     filter.setAmountOptional(
         getRequestParameterAsBoolean(AbstractAmountContainerFilter.JSON_AMOUNT_OPTIONAL));
-    filter.setAmountDeadlineDateOver(
-        getRequestParameterAsBoolean(AbstractAmountContainerFilter.JSON_AMOUNT_DEADLINE_DATE_OVER));
-    filter.setAmountValuePayableEqualsZero(getRequestParameterAsBoolean(
-        AbstractAmountContainerFilter.JSON_AMOUNT_VALUE_PAYABLE_EQUALS_ZERO));
+    filter.setLatePayment(
+        getRequestParameterAsBoolean(AdjustedFeeFilter.JSON_LATE_PAYMENT));
+    filter.setAmountValuePayableLessThanOrEqualsZero(getRequestParameterAsBoolean(
+        AbstractAmountContainerFilter.JSON_AMOUNT_VALUE_PAYABLE_LESS_THAN_OR_EQUALS_ZERO));
 
     filterStringifier =
         filter -> String.format("Inscription %s", filter.getRegistrationIdentifier());
