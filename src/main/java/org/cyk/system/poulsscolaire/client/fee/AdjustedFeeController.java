@@ -153,20 +153,20 @@ public class AdjustedFeeController extends AbstractController {
           AdjustedFeeDto.JSON_AMOUNT_VALUE_PAYABLE,
           AdjustedFeeDto.JSON_AMOUNT_VALUE_PAYABLE_AS_STRING,
           AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING,
-          AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_OVER);
+          AdjustedFeeDto.JSON_LATE_PAYMENT, AdjustedFeeDto.JSON_EXPECTED_PAYMENT_AS_STRING,
+          AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING);
     }
 
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER, AdjustedFeeDto.JSON_FEE_AS_STRING,
         AdjustedFeeDto.JSON_FEE_OPTIONAL, AbstractAmountContainerDto.JSON_AMOUNT_VALUE_AS_STRING,
         AbstractAmountContainerDto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING,
-        AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE_AS_STRING,
-        AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING);
+        AbstractAmountContainerDto.JSON_AMOUNT_RENEWABLE_AS_STRING);
     listController.getReadController().setProjection(projection);
     listController.getDataTable().getFilterButton().setRendered(true);
 
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(AdjustedFeeReadPage.OUTCOME);
-    
+
     listController.initialize();
 
     listController.getCreateController().addEntityConsumer(entity -> ((AdjustedFeeDto) entity)
