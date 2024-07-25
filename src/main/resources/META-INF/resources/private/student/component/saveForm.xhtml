@@ -35,7 +35,25 @@
             <p:message id="lastNamesMessage" for="lastNames" />
           </ui:define>
         </ui:decorate>
-
+        
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Date de naissance" for="birthDate" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:datePicker id="birthDate" value="#{controller.entity.birthDate}" />
+          </ui:define>
+        </ui:decorate>
+        
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Lieu de naissance" for="birthPlace" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="birthPlace" value="#{controller.entity.birthPlace}" />
+          </ui:define>
+        </ui:decorate>
+        
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
             <p:outputLabel value="Genre" for="gender" />

@@ -18,6 +18,8 @@ import org.cyk.system.poulsscolaire.server.api.configuration.GenderService;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentClient;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentService;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentService.StudentCreateRequestDto;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentService.StudentUpdateRequestDto;
 
 /**
  * Cette classe représente le contrôleur de {@link StudentDto}.
@@ -45,7 +47,7 @@ public class StudentController extends AbstractController {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    name = "Élèves";
+    name = StudentDto.NAME;
 
     listController.setEntityClass(StudentDto.class);
     listController.setClient(client);
@@ -55,26 +57,42 @@ public class StudentController extends AbstractController {
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, StudentDto.JSON_REGISTRATION_NUMBER,
         StudentDto.JSON_FIRST_NAME, StudentDto.JSON_LAST_NAMES, StudentDto.JSON_GENDER_AS_STRING,
+        StudentDto.JSON_BIRTH_DATE_AS_STRING, StudentDto.JSON_BIRTH_PLACE,
         StudentDto.JSON_EMAIL_ADDRESS, StudentDto.JSON_PHONE_NUMBER);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
 
-    listController.getCreateController()
-        .setFunction(entity -> client.create(((StudentDto) entity).getRegistrationNumber(),
-            ((StudentDto) entity).getFirstName(), ((StudentDto) entity).getLastNames(),
-            ((StudentDto) entity).getGenderIdentifier(), userIdentifier, null));
+    listController.getCreateController().setFunction(entity -> {
+      StudentCreateRequestDto request = new StudentCreateRequestDto();
+      request.setRegistrationNumber(((StudentDto) entity).getRegistrationNumber());
+      request.setFirstName(((StudentDto) entity).getFirstName());
+      request.setLastNames(((StudentDto) entity).getLastNames());
+      request.setGenderIdentifier(((StudentDto) entity).getGenderIdentifier());
+      request.setBirthDate(((StudentDto) entity).getBirthDate());
+      request.setBirthPlace(((StudentDto) entity).getBirthPlace());
+      request.setSchoolIdentifier(((StudentDto) entity).getSchoolIdentifier());
+      request.setAuditWho(userIdentifier);
+      return client.create(request);
+    });
 
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
             StudentDto.JSON_REGISTRATION_NUMBER, StudentDto.JSON_FIRST_NAME,
             StudentDto.JSON_LAST_NAMES, StudentDto.JSON_GENDER_IDENTIFIER));
 
-    listController.getUpdateController()
-        .setFunction(entity -> client.update(((StudentDto) entity).getIdentifier(),
-            ((StudentDto) entity).getRegistrationNumber(), ((StudentDto) entity).getFirstName(),
-            ((StudentDto) entity).getLastNames(), ((StudentDto) entity).getGenderIdentifier(),
-            userIdentifier, null));
+    listController.getUpdateController().setFunction(entity -> {
+      StudentUpdateRequestDto request = new StudentUpdateRequestDto();
+      request.setRegistrationNumber(((StudentDto) entity).getRegistrationNumber());
+      request.setFirstName(((StudentDto) entity).getFirstName());
+      request.setLastNames(((StudentDto) entity).getLastNames());
+      request.setGenderIdentifier(((StudentDto) entity).getGenderIdentifier());
+      request.setBirthDate(((StudentDto) entity).getBirthDate());
+      request.setBirthPlace(((StudentDto) entity).getBirthPlace());
+      request.setSchoolIdentifier(((StudentDto) entity).getSchoolIdentifier());
+      request.setAuditWho(userIdentifier);
+      return client.update(request);
+    });
 
     genders = new ActionExecutor<>(this, GenderService.GET_MANY_IDENTIFIER,
         () -> genderClient

@@ -1,26 +1,42 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
 
-	<p:column headerText="Code" width="150">
-		<h:outputText value="#{record.code}" />
-	</p:column>
-	
-	<p:column headerText="Matricule" width="100">
-		<h:outputText value="#{record.registrationNumber}" />
-	</p:column>
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.StudentDto"
+    var="StudentDto" />
 
-	<p:column headerText="Nom">
-		<h:outputText value="#{record.firstName}" />
-	</p:column>
-	
-	<p:column headerText="Prénoms">
-		<h:outputText value="#{record.lastNames}" />
-	</p:column>
-	
-	<p:column headerText="Genre" width="80">
-		<h:outputText value="#{record.genderAsString}" />
-	</p:column>
+  <p:column headerText="Code" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_CODE)}">
+    <h:outputText value="#{record.code}" />
+  </p:column>
+
+  <p:column headerText="Matricule national" width="200"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_REGISTRATION_NUMBER)}">
+    <h:outputText value="#{record.registrationNumber}" />
+  </p:column>
+
+  <p:column headerText="Nom"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_FIRST_NAME)}">
+    <h:outputText value="#{record.firstName}" />
+  </p:column>
+
+  <p:column headerText="Prénoms"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_LAST_NAMES)}">
+    <h:outputText value="#{record.lastNames}" />
+  </p:column>
+
+  <p:column headerText="Genre" width="80"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_GENDER_AS_STRING)}">
+    <h:outputText value="#{record.genderAsString}" />
+  </p:column>
+
+  <p:column headerText="Date de naissance" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_BIRTH_DATE_AS_STRING)}">
+    <h:outputText value="#{record.birthDateAsString}" />
+  </p:column>
+
+  <p:column headerText="Lieu de naissance" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_BIRTH_PLACE)}">
+    <h:outputText value="#{record.birthPlace}" />
+  </p:column>
 </ui:composition>
