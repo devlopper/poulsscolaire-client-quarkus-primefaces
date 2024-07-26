@@ -38,7 +38,7 @@
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_VALUE_AS_STRING)}">
     <h:outputText value="#{record.amountValueAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountValueTotalAsString}" />
+      <h:outputText value="#{container.sum.amountValueSumAsString}" />
     </f:facet>
   </p:column>
 
@@ -46,7 +46,7 @@
     rendered="#{listController.isReadControllerHasProjectionName(FeeDto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING)}">
     <h:outputText value="#{record.amountRegistrationValuePartAsString}" />
     <f:facet name="footer">
-      <h:outputText value="#{container.amountRegistrationValuePartTotalAsString}" />
+      <h:outputText value="#{container.sum.amountRegistrationSumAsString}" />
     </f:facet>
   </p:column>
 

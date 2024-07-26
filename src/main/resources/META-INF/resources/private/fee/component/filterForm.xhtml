@@ -6,15 +6,15 @@
     <ui:decorate template="/extension/crud/list/filter/form/default.xhtml">
       <ui:define name="form-filter-inputs">
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.schoolingFilterSelectOneMenu}" />
+          <ui:param name="selectOneMenu" value="#{container.schoolingFilterSelectOne.selectOneMenu}" />
         </ui:include>
-        
+
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.assignmentTypeFilterSelectOneMenu}" />
+          <ui:param name="selectOneMenu" value="#{container.assignmentTypeFilterSelectOne.selectOneMenu}" />
         </ui:include>
-        
+
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.seniorityFilterSelectOneMenu}" />
+          <ui:param name="selectOneMenu" value="#{container.seniorityFilterSelectOne.selectOneMenu}" />
         </ui:include>
 
       </ui:define>

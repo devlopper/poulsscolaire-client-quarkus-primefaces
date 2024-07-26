@@ -41,6 +41,7 @@ public class SchoolingReadPage extends AbstractPage {
             SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING),
         userIdentifier, null);
     contentTitle = SchoolingDto.NAME + " - " + schooling.getBranchAsString();
+    
     feeController.getFilterController().getFilter().setSchoolingIdentifier(identifier);
     if (feeController.getFilterController().getFilter().getAmountOptional() == null) {
       feeController.getFilterController().getFilter().setAmountOptional(false);
@@ -49,10 +50,6 @@ public class SchoolingReadPage extends AbstractPage {
     if (Boolean.TRUE.equals(feeController.getFilterController().getFilter().getAmountOptional())) {
       ((ProjectionDto) feeController.getListController().getReadController().getProjection())
           .getNames().remove(AbstractAmountContainerDto.JSON_AMOUNT_PAYMENT_ORDER_NUMBER_AS_STRING);
-    } else {
-      feeController.setAmountValueTotalAsString(schooling.getNotOptionalFeeAmountValueAsString());
-      feeController.setAmountRegistrationValuePartTotalAsString(
-          schooling.getNotOptionalFeeAmountRegistrationValuePartAsString());
     }
 
     ((ProjectionDto) feeController.getListController().getReadController().getProjection())

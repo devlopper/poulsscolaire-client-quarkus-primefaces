@@ -7,63 +7,27 @@
       <ui:param name="saveCommandUpdate" value="paymentOrderNumberMessage" />
 
       <ui:define name="form-save-inputs">
-        <p:outputPanel styleClass="ui-g-12" rendered="#{empty controller.entity.schoolingIdentifier}">
-          <ui:decorate template="/extension/component/input/default.xhtml">
-            <ui:define name="input-label">
-              <p:outputLabel value="Scolarité" for="schooling" />
-            </ui:define>
-            <ui:define name="input-control">
-              <p:selectOneMenu id="schooling" value="#{controller.entity.schoolingIdentifier}">
-                <f:selectItems value="#{container.schoolings}" />
-              </p:selectOneMenu>
-            </ui:define>
-          </ui:decorate>
-        </p:outputPanel>
-
-        <div class="ui-g-12">
-          <ui:decorate template="/extension/component/input/default.xhtml">
-            <ui:param name="width" value="8" />
-            <ui:define name="input-label">
-              <p:outputLabel value="Rubrique" for="category" />
-            </ui:define>
-            <ui:define name="input-control">
-              <p:selectOneMenu id="category" value="#{controller.entity.categoryIdentifier}">
-                <f:selectItems value="#{container.categories}" />
-              </p:selectOneMenu>
-            </ui:define>
-          </ui:decorate>
-
-          <ui:decorate template="/extension/component/input/default.xhtml">
-            <ui:param name="width" value="2" />
-            <ui:define name="input-label">
-              <p:outputLabel value="Type d'affectation" for="assignmentType" />
-            </ui:define>
-            <ui:define name="input-control">
-              <p:selectOneMenu id="assignmentType"
-                value="#{controller.entity.assignmentTypeIdentifier}">
-                <f:selectItems value="#{container.assignmentTypes}" />
-              </p:selectOneMenu>
-            </ui:define>
-          </ui:decorate>
-
-          <ui:decorate template="/extension/component/input/default.xhtml">
-            <ui:param name="width" value="2" />
-            <ui:define name="input-label">
-              <p:outputLabel value="Ancienneté" for="seniority" />
-            </ui:define>
-            <ui:define name="input-control">
-              <p:selectOneMenu id="seniority" value="#{controller.entity.seniorityIdentifier}">
-                <f:selectItems value="#{container.seniorities}" />
-              </p:selectOneMenu>
-            </ui:define>
-          </ui:decorate>
-        </div>
-        
-        <ui:include src="amount.xhtml">
-          <ui:param name="controller" value="#{controller}"/>
-          <ui:param name="container" value="#{container}"/>
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.schoolingSelectOne.selectOneMenu}" />
         </ui:include>
         
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.categorySelectOne.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.assignmentTypeSelectOne.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.senioritySelectOne.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="amount.xhtml">
+          <ui:param name="controller" value="#{controller}" />
+          <ui:param name="container" value="#{container}" />
+        </ui:include>
+
       </ui:define>
     </ui:decorate>
   </h:form>
