@@ -1,7 +1,6 @@
 package org.cyk.system.poulsscolaire.client.configuration;
 
 import ci.gouv.dgbf.extension.primefaces.component.input.AbstractSelectOneIdentifiableController;
-import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
@@ -25,8 +24,7 @@ public class SchoolingSelectOne extends AbstractSelectOneIdentifiableController<
 
   protected SchoolingSelectOne() {
     super(SchoolingDto.class);
-    projection.addNames(AbstractIdentifiableCodableDto.JSON_CODE,
-        SchoolingDto.JSON_BRANCH_AS_STRING);
+    projection.addNames(SchoolingDto.JSON_BRANCH_AS_STRING);
   }
 
   @Override

@@ -1,7 +1,6 @@
 package org.cyk.system.poulsscolaire.client.fee;
 
 import ci.gouv.dgbf.extension.primefaces.component.input.AbstractSelectOneIdentifiableController;
-import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
@@ -25,11 +24,5 @@ public class FeeCategorySelectOne extends AbstractSelectOneIdentifiableControlle
 
   protected FeeCategorySelectOne() {
     super(FeeCategoryDto.class);
-    projection.addNames(AbstractIdentifiableCodableNamableDto.JSON_NAME);
-  }
-
-  @Override
-  protected String buildSelectItemLabel(FeeCategoryDto dto) {
-    return dto.getName();
   }
 }

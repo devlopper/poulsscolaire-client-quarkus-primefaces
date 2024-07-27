@@ -1,8 +1,7 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
-import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.component.input.AbstractSelectOneIdentifiableController;
-import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
@@ -26,15 +25,11 @@ public class StudentSelectOne extends
 
   protected StudentSelectOne() {
     super(StudentDto.class);
-    projection.addNames(AbstractIdentifiableCodableDto.JSON_CODE,
-        StudentDto.JSON_REGISTRATION_NUMBER, StudentDto.JSON_FIRST_NAME,
-        StudentDto.JSON_LAST_NAMES);
+    projection.addNames(AbstractIdentifiableDto.JSON_AS_STRING);
   }
 
   @Override
   protected String buildSelectItemLabel(StudentDto dto) {
-    return String.format("%s - %s %s",
-        Core.getOrDefaultIfNull(dto.getRegistrationNumber(), dto.getCode()), dto.getFirstName(),
-        dto.getLastNames());
+    return dto.getAsString();
   }
 }

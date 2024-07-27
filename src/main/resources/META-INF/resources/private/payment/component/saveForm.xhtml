@@ -7,28 +7,14 @@
       <ui:param name="saveCommandUpdate" value="amountMessage" />
 
       <ui:define name="form-save-inputs">
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Inscription" for="registration" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:selectOneMenu id="registration" value="#{controller.entity.registrationIdentifier}">
-              <f:selectItems value="#{container.registrations}" />
-            </p:selectOneMenu>
-          </ui:define>
-        </ui:decorate>
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.registrationSelectOne.selectOneMenu}" />
+        </ui:include>
 
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Mode" for="mode" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:selectOneMenu id="mode" value="#{controller.entity.modeIdentifier}">
-              <f:selectItems value="#{container.modes}" />
-            </p:selectOneMenu>
-          </ui:define>
-        </ui:decorate>
-        
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.modeSelectOne.selectOneMenu}" />
+        </ui:include>
+
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
             <p:outputLabel value="Montant" for="amount" />

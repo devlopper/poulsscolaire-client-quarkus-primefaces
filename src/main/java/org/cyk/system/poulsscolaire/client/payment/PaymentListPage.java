@@ -18,7 +18,7 @@ public class PaymentListPage extends AbstractPage {
 
   @Inject
   @Getter
-  PaymentCrudController crudController;
+  PaymentController crudController;
 
   @Override
   protected void postConstruct() {
