@@ -218,7 +218,7 @@
     <navigation-case>
       <description>page liste des paiements</description>
       <from-outcome>paymentListPage</from-outcome>
-      <to-view-id>/private/payment/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/payment/administrator/list/index.jsf</to-view-id>
       <redirect />
     </navigation-case>
     

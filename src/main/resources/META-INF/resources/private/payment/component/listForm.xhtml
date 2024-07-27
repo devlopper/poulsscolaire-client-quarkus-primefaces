@@ -11,7 +11,8 @@
       <p:commandButton icon="#{container.cancelButton.icon}" value="#{container.cancelButton.value}"
         title="#{container.cancelButton.title}"
         action="#{container.cancelController.execute(record.identifier)}"
-        styleClass="#{container.cancelButton.styleClass}" update="#{container.cancelButton.update}">
+        styleClass="#{container.cancelButton.styleClass}" update="#{container.cancelButton.update}" 
+        rendered="#{not container.filterController.filter.canceled}">
         <p:confirm header="#{container.cancelButton.confirm.header}"
           message="#{container.cancelButton.confirm.message}"
           icon="#{container.cancelButton.confirm.icon}" />
