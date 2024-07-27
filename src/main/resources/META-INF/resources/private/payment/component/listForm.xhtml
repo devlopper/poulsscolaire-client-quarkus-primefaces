@@ -5,5 +5,18 @@
   <ui:decorate template="/extension/crud/list/default.xhtml">
     <ui:param name="listController" value="#{controller}" />
     <ui:param name="container" value="#{container}" />
+
+    <ui:define name="datatable-columns-action-column-body-before">
+
+      <p:commandButton icon="#{container.cancelButton.icon}" value="#{container.cancelButton.value}"
+        title="#{container.cancelButton.title}"
+        action="#{container.cancelController.execute(record.identifier)}"
+        styleClass="#{container.cancelButton.styleClass}" update="#{container.cancelButton.update}">
+        <p:confirm header="#{container.cancelButton.confirm.header}"
+          message="#{container.cancelButton.confirm.message}"
+          icon="#{container.cancelButton.confirm.icon}" />
+      </p:commandButton>
+
+    </ui:define>
   </ui:decorate>
 </ui:composition>

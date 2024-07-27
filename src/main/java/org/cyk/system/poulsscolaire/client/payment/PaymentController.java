@@ -1,6 +1,8 @@
 package org.cyk.system.poulsscolaire.client.payment;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
+import ci.gouv.dgbf.extension.primefaces.IdentifiableActionController;
+import ci.gouv.dgbf.extension.primefaces.component.Button;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
@@ -37,6 +39,15 @@ public class PaymentController extends AbstractController {
   @Getter
   PaymentModeSelectOne modeSelectOne;
 
+  /* Cancel */
+
+  @Inject
+  @Getter
+  IdentifiableActionController cancelController;
+
+  @Getter
+  Button cancelButton;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -51,9 +62,11 @@ public class PaymentController extends AbstractController {
         AbstractIdentifiableCodableDto.JSON_CODE, PaymentDto.JSON_MODE_AS_STRING,
         PaymentDto.JSON_AMOUNT_AS_STRING);
     listController.getReadController().setProjection(projection);
-
+    
     listController.initialize();
 
+    listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
+    
     listController.getCreateController()
         .setFunction(entity -> client.create(((PaymentDto) entity).getRegistrationIdentifier(),
             ((PaymentDto) entity).getModeIdentifier(), ((PaymentDto) entity).getAmount(),
@@ -64,12 +77,20 @@ public class PaymentController extends AbstractController {
             ((PaymentDto) entity).getModeIdentifier(), ((PaymentDto) entity).getAmount(),
             userIdentifier, null));
 
+    cancelController.setFunction(identifier -> client.cancel(identifier, userIdentifier, null));
+
     registrationSelectOne.getSelectOneMenu().addValueConsumer(
         identifier -> ((PaymentDto) listController.getCreateControllerOrUpdateControllerEntity())
             .setRegistrationIdentifier(identifier));
-    
+
     modeSelectOne.getSelectOneMenu().addValueConsumer(
         identifier -> ((PaymentDto) listController.getCreateControllerOrUpdateControllerEntity())
             .setModeIdentifier(identifier));
+
+    cancelButton = new Button();
+    cancelButton.initializeConfirm("annuler");
+    cancelButton.setIcon("pi pi-times");
+    cancelButton.setValue(null);
+    cancelController.setName("Annulation paiement");
   }
 }
