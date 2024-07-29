@@ -33,14 +33,25 @@ public class SchoolingController extends AbstractController {
   @Getter
   ListController listController;
 
+  @Inject
+  @Getter
+  SchoolingFilterController filterController;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
     name = "Scolarités";
+    initialize();
+  }
 
+  /**
+   * Cette méthode permet d'initialiser.
+   */
+  public void initialize() {
     listController.setEntityClass(SchoolingDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(SchoolingService.PATH);
+    listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
@@ -52,6 +63,8 @@ public class SchoolingController extends AbstractController {
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
+
+    listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
 
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(SchoolingReadPage.OUTCOME);

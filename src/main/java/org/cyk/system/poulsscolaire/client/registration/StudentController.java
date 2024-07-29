@@ -44,21 +44,32 @@ public class StudentController extends AbstractController {
   @Setter
   List<SelectItem> genders;
 
+  @Inject
+  @Getter
+  StudentFilterController filterController;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
     name = StudentDto.NAME;
+  }
 
+  /**
+   * Cette méthode permet d'initialiser.
+   */
+  public void initialize() {
     listController.setEntityClass(StudentDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(StudentService.PATH);
+    listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, StudentDto.JSON_REGISTRATION_NUMBER,
         StudentDto.JSON_FIRST_NAME, StudentDto.JSON_LAST_NAMES, StudentDto.JSON_GENDER_AS_STRING,
         StudentDto.JSON_BIRTH_DATE_AS_STRING, StudentDto.JSON_BIRTH_PLACE,
-        StudentDto.JSON_EMAIL_ADDRESS, StudentDto.JSON_PHONE_NUMBER);
+        StudentDto.JSON_EMAIL_ADDRESS, StudentDto.JSON_PHONE_NUMBER,
+        StudentDto.JSON_SCHOOL_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();

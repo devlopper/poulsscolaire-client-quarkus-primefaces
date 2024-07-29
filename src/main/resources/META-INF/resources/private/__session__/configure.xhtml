@@ -10,7 +10,13 @@
         <ui:param name="controller" value="#{sessionConfigurePage}" />
         <ui:define name="form-save-inputs">
           <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-            <ui:param name="selectOneMenu" value="#{sessionConfigurePage.schoolSelectOneMenu}" />
+            <ui:param name="selectOneMenu"
+              value="#{sessionConfigurePage.schoolSelectOne.selectOneMenu}" />
+          </ui:include>
+
+          <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+            <ui:param name="selectOneMenu"
+              value="#{sessionConfigurePage.periodSelectOne.selectOneMenu}" />
           </ui:include>
         </ui:define>
       </ui:decorate>

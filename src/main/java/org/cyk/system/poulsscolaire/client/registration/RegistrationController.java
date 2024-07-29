@@ -47,6 +47,10 @@ public class RegistrationController extends AbstractController {
   @Getter
   AssignmentTypeSelectOne assignmentTypeSelectOne;
 
+  @Inject
+  @Getter
+  RegistrationFilterController filterController;
+  
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -55,7 +59,8 @@ public class RegistrationController extends AbstractController {
     listController.setEntityClass(RegistrationDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(RegistrationService.PATH);
-
+    listController.setFilterController(filterController);
+    
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, RegistrationDto.JSON_STUDENT_AS_STRING,
@@ -71,7 +76,7 @@ public class RegistrationController extends AbstractController {
 
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(RegistrationReadPage.OUTCOME);
-    listController.getDataTable().getActionColumn().setWidth("150px");
+    listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
 
     listController.getCreateController()
         .setFunction(entity -> client.create(((RegistrationDto) entity).getStudentIdentifier(),

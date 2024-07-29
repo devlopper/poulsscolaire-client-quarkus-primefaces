@@ -25,6 +25,7 @@ public class SchoolingListPage extends AbstractPage {
     super.postConstruct();
     contentTitle = "Liste des scolarités";
 
+    controller.initialize();
     controller.getListController().getDataTable().getActionColumn()
         .computeWithForButtonsWithIconOnly(3);
   }

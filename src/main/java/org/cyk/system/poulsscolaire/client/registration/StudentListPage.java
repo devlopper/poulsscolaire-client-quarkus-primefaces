@@ -24,6 +24,7 @@ public class StudentListPage extends AbstractPage {
   protected void postConstruct() {
     super.postConstruct();
     contentTitle = "Liste des élèves";
+    controller.initialize();
   }
   
   public static final String OUTCOME = "studentListPage";
