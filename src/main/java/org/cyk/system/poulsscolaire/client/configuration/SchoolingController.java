@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client.configuration;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
@@ -35,6 +36,18 @@ public class SchoolingController extends AbstractController {
 
   @Inject
   @Getter
+  SchoolSelectOne schoolSelectOne;
+
+  @Inject
+  @Getter
+  PeriodSelectOne periodSelectOne;
+  /*
+   * @Inject
+   * 
+   * @Getter BranchSelectOne branchSelectOne;
+   */
+  @Inject
+  @Getter
   SchoolingFilterController filterController;
 
   @Override
@@ -54,9 +67,14 @@ public class SchoolingController extends AbstractController {
     listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
+    Core.runIfNull(filterController.getFilter().getSchoolIdentifier(), () -> {
+      projection.addNames(SchoolingDto.JSON_SCHOOL_AS_STRING);
+    });
+    Core.runIfNull(filterController.getFilter().getPeriodIdentifier(), () -> {
+      projection.addNames(SchoolingDto.JSON_PERIOD_AS_STRING);
+    });
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        AbstractIdentifiableCodableDto.JSON_CODE, SchoolingDto.JSON_SCHOOL_AS_STRING,
-        SchoolingDto.JSON_BRANCH_AS_STRING, SchoolingDto.JSON_PERIOD_AS_STRING,
+        AbstractIdentifiableCodableDto.JSON_CODE, SchoolingDto.JSON_BRANCH_AS_STRING,
         SchoolingDto.JSON_PRE_REGISTRATION_AMOUNT_AS_STRING,
         SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_VALUE_AS_STRING,
         SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING);
@@ -69,12 +87,12 @@ public class SchoolingController extends AbstractController {
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(SchoolingReadPage.OUTCOME);
 
-    listController.getShowCreateDialogButton().setRendered(false);
     listController.getCreateController().setFunction(entity -> {
       SchoolingCreateRequestDto request = new SchoolingCreateRequestDto();
       request.setSchoolIdentifier(((SchoolingDto) entity).getSchoolIdentifier());
       request.setPeriodIdentifier(((SchoolingDto) entity).getPeriodIdentifier());
       request.setBranchIdentifier(((SchoolingDto) entity).getBranchIdentifier());
+      request.setPreRegistrationAmount(((SchoolingDto) entity).getPreRegistrationAmount());
       request.setAuditWho(userIdentifier);
       return client.create(request);
     });

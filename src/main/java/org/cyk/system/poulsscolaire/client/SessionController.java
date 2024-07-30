@@ -51,10 +51,12 @@ public class SessionController extends AbstractController {
     school.setName(schoolName);
     session.setAttribute(schoolIdentifierName, school);
 
-    PeriodDto period = new PeriodDto();
-    period.setIdentifier(periodIdentifier);
-    period.setName(periodName);
-    session.setAttribute(periodIdentifierName, period);
+    if (periodIdentifier != null) {
+      PeriodDto period = new PeriodDto();
+      period.setIdentifier(periodIdentifier);
+      period.setName(periodName);
+      session.setAttribute(periodIdentifierName, period);
+    }
   }
 
   /**

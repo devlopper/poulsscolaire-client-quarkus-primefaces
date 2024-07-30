@@ -15,13 +15,19 @@
           <ui:param name="selectOneMenu" value="#{container.categorySelectOne.selectOneMenu}" />
         </ui:include>
 
-        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.assignmentTypeSelectOne.selectOneMenu}" />
-        </ui:include>
-
-        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.senioritySelectOne.selectOneMenu}" />
-        </ui:include>
+        <div class="ui-g-12">
+          <div class="ui-g-6">
+            <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+              <ui:param name="selectOneRadio"
+                value="#{container.assignmentTypeSelectOne.selectOneRadio}" />
+            </ui:include>
+          </div>
+          <div class="ui-g-6">
+            <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+              <ui:param name="selectOneRadio" value="#{container.senioritySelectOne.selectOneRadio}" />
+            </ui:include>
+          </div>
+        </div>
 
         <ui:include src="amount.xhtml">
           <ui:param name="controller" value="#{controller}" />

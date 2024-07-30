@@ -1,7 +1,10 @@
 package org.cyk.system.poulsscolaire.client.payment;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractFilterController;
 import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import org.cyk.system.poulsscolaire.client.SessionController;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentDto;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentFilter;
 
@@ -14,6 +17,9 @@ import org.cyk.system.poulsscolaire.server.api.payment.PaymentFilter;
 @Dependent
 public class PaymentFilterController extends AbstractFilterController<PaymentFilter> {
 
+  @Inject
+  SessionController sessionController;
+
   public PaymentFilterController() {
     super(PaymentFilter.class);
   }
@@ -21,6 +27,9 @@ public class PaymentFilterController extends AbstractFilterController<PaymentFil
   @Override
   protected void postConstruct() {
     super.postConstruct();
+    filter.setSchoolIdentifier(
+        Core.getOrDefaultIfNull(getRequestParameter(PaymentFilter.JSON_SCHOOL_IDENTIFIER),
+            sessionController.getSchoolIdentifier()));
     filter
         .setRegistrationIdentifier(getRequestParameter(PaymentFilter.JSON_REGISTRATION_IDENTIFIER));
     filter.setCanceled(getRequestParameterAsBoolean(PaymentFilter.JSON_CANCELED));

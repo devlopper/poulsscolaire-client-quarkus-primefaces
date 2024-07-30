@@ -42,7 +42,7 @@ public class RegistrationController extends AbstractController {
   @Inject
   @Getter
   SenioritySelectOne senioritySelectOne;
-  
+
   @Inject
   @Getter
   AssignmentTypeSelectOne assignmentTypeSelectOne;
@@ -50,7 +50,7 @@ public class RegistrationController extends AbstractController {
   @Inject
   @Getter
   RegistrationFilterController filterController;
-  
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -60,7 +60,7 @@ public class RegistrationController extends AbstractController {
     listController.setClient(client);
     listController.setNotificationChannel(RegistrationService.PATH);
     listController.setFilterController(filterController);
-    
+
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, RegistrationDto.JSON_STUDENT_AS_STRING,
@@ -91,5 +91,21 @@ public class RegistrationController extends AbstractController {
             ((RegistrationDto) entity).getAssignmentTypeIdentifier(),
             ((RegistrationDto) entity).getSeniorityIdentifier(), userIdentifier, null));
 
+    studentSelectOne.getSelectOneMenu()
+        .addValueConsumer(identifier -> ((RegistrationDto) listController
+            .getCreateControllerOrUpdateControllerEntity()).setStudentIdentifier(identifier));
+
+    schoolingSelectOne.getSelectOneMenu()
+        .addValueConsumer(identifier -> ((RegistrationDto) listController
+            .getCreateControllerOrUpdateControllerEntity()).setSchoolingIdentifier(identifier));
+
+    senioritySelectOne.getSelectOneRadio()
+        .addValueConsumer(identifier -> ((RegistrationDto) listController
+            .getCreateControllerOrUpdateControllerEntity()).setSeniorityIdentifier(identifier));
+
+    assignmentTypeSelectOne.getSelectOneRadio()
+        .addValueConsumer(identifier -> ((RegistrationDto) listController
+            .getCreateControllerOrUpdateControllerEntity())
+                .setAssignmentTypeIdentifier(identifier));
   }
 }

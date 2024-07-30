@@ -2,23 +2,31 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <p:column headerText="Code" width="100">
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.configuration.SchoolingDto"
+    var="SchoolingDto" />
+
+  <p:column headerText="Code" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(SchoolingDto.JSON_CODE)}">
     <h:outputText value="#{record.code}" />
   </p:column>
 
-  <p:column headerText="Ecole">
+  <p:column headerText="Ecole"
+    rendered="#{listController.isReadControllerHasProjectionName(SchoolingDto.JSON_SCHOOL_AS_STRING)}">
     <h:outputText value="#{record.schoolAsString}" />
   </p:column>
 
-  <p:column headerText="Période" width="150">
+  <p:column headerText="Période" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(SchoolingDto.JSON_PERIOD_AS_STRING)}">
     <h:outputText value="#{record.periodAsString}" />
   </p:column>
 
-  <p:column headerText="Branche">
+  <p:column headerText="Branche"
+    rendered="#{listController.isReadControllerHasProjectionName(SchoolingDto.JSON_BRANCH_AS_STRING)}">
     <h:outputText value="#{record.branchAsString}" />
   </p:column>
-  
-  <p:column headerText="Montant pré-inscription">
+
+  <p:column headerText="Montant pré-inscription"
+    rendered="#{listController.isReadControllerHasProjectionName(SchoolingDto.JSON_PRE_REGISTRATION_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.preRegistrationAmountAsString}" />
   </p:column>
 </ui:composition>

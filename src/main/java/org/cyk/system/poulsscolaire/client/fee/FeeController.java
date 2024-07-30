@@ -109,8 +109,11 @@ public class FeeController extends AbstractController {
 
     listController.initialize();
 
-    listController.getCreateController().addEntityConsumer(entity -> ((FeeDto) entity)
-        .setSchoolingIdentifier(filterController.getFilter().getSchoolingIdentifier()));
+    listController.getCreateController().addEntityConsumer(entity -> {
+      ((FeeDto) entity)
+          .setSchoolingIdentifier(filterController.getFilter().getSchoolingIdentifier());
+      ((FeeDto) entity).setAmountOptional(filterController.getFilter().getAmountOptional());
+    });
 
     listController.getCreateController().setFunction(entity -> {
       FeeCreateRequestDto request = new FeeCreateRequestDto();
@@ -170,7 +173,7 @@ public class FeeController extends AbstractController {
       schoolingSelectOne.getSelectOneMenu().addValueConsumer(
           identifier -> ((FeeDto) listController.getCreateControllerOrUpdateControllerEntity())
               .setSchoolingIdentifier(identifier));
-      
+
       schoolingFilterSelectOne.getSelectOneMenu().addValueConsumer(
           identifier -> filterController.getFilter().setSchoolingIdentifier(identifier));
     } else {
@@ -179,11 +182,11 @@ public class FeeController extends AbstractController {
     }
 
 
-    assignmentTypeSelectOne.getSelectOneMenu().addValueConsumer(
+    assignmentTypeSelectOne.getSelectOneRadio().addValueConsumer(
         identifier -> ((FeeDto) listController.getCreateControllerOrUpdateControllerEntity())
             .setAssignmentTypeIdentifier(identifier));
 
-    senioritySelectOne.getSelectOneMenu().addValueConsumer(
+    senioritySelectOne.getSelectOneRadio().addValueConsumer(
         identifier -> ((FeeDto) listController.getCreateControllerOrUpdateControllerEntity())
             .setSeniorityIdentifier(identifier));
 
@@ -192,8 +195,6 @@ public class FeeController extends AbstractController {
             .setCategoryIdentifier(identifier));
 
     /* Filter */
-
-    
 
     assignmentTypeFilterSelectOne.getSelectOneMenu().addValueConsumer(
         identifier -> filterController.getFilter().setAssignmentTypeIdentifier(identifier));

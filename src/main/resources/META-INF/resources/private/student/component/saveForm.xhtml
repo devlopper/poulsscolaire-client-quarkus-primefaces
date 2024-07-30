@@ -4,9 +4,14 @@
 
   <h:form>
     <ui:decorate template="/extension/crud/form/save/default.xhtml">
-      <ui:param name="saveCommandUpdate" value="firstNameMessage,lastNamesMessage,genderMessage" />
+      <ui:param name="saveCommandUpdate" value="firstNameMessage,lastNamesMessage" />
 
       <ui:define name="form-save-inputs">
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.schoolSelectOne.selectOneMenu}" />
+        </ui:include>
+
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
             <p:outputLabel value="Matricule" for="registrationNumber" />
@@ -35,7 +40,7 @@
             <p:message id="lastNamesMessage" for="lastNames" />
           </ui:define>
         </ui:decorate>
-        
+
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
             <p:outputLabel value="Date de naissance" for="birthDate" />
@@ -44,7 +49,7 @@
             <p:datePicker id="birthDate" value="#{controller.entity.birthDate}" />
           </ui:define>
         </ui:decorate>
-        
+
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
             <p:outputLabel value="Lieu de naissance" for="birthPlace" />
@@ -53,18 +58,10 @@
             <p:inputText id="birthPlace" value="#{controller.entity.birthPlace}" />
           </ui:define>
         </ui:decorate>
-        
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Genre" for="gender" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:selectOneMenu id="gender" value="#{controller.entity.genderIdentifier}">
-              <f:selectItems value="#{container.genders}" />
-            </p:selectOneMenu>
-            <p:message id="genderMessage" for="gender" />
-          </ui:define>
-        </ui:decorate>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.genderSelectOne.selectOneMenu}" />
+        </ui:include>
       </ui:define>
     </ui:decorate>
   </h:form>

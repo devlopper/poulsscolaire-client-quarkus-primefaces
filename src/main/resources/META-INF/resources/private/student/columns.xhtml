@@ -39,4 +39,9 @@
     rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_BIRTH_PLACE)}">
     <h:outputText value="#{record.birthPlace}" />
   </p:column>
+  
+  <p:column headerText="école" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_SCHOOL_AS_STRING)}">
+    <h:outputText value="#{record.schoolAsString}" />
+  </p:column>
 </ui:composition>

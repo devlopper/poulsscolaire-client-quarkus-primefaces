@@ -1,20 +1,16 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
-import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
-import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
-import jakarta.faces.model.SelectItem;
 import jakarta.inject.Inject;
-import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
-import org.cyk.system.poulsscolaire.server.api.configuration.GenderClient;
-import org.cyk.system.poulsscolaire.server.api.configuration.GenderService;
+import org.cyk.system.poulsscolaire.client.configuration.GenderSelectOne;
+import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOne;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentClient;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentService;
@@ -38,11 +34,12 @@ public class StudentController extends AbstractController {
   ListController listController;
 
   @Inject
-  GenderClient genderClient;
-
   @Getter
-  @Setter
-  List<SelectItem> genders;
+  SchoolSelectOne schoolSelectOne;
+
+  @Inject
+  @Getter
+  GenderSelectOne genderSelectOne;
 
   @Inject
   @Getter
@@ -64,12 +61,14 @@ public class StudentController extends AbstractController {
     listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
+    Core.runIfNull(filterController.getFilter().getSchoolIdentifier(), () -> {
+      projection.addNames(StudentDto.JSON_SCHOOL_AS_STRING);
+    });
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, StudentDto.JSON_REGISTRATION_NUMBER,
         StudentDto.JSON_FIRST_NAME, StudentDto.JSON_LAST_NAMES, StudentDto.JSON_GENDER_AS_STRING,
         StudentDto.JSON_BIRTH_DATE_AS_STRING, StudentDto.JSON_BIRTH_PLACE,
-        StudentDto.JSON_EMAIL_ADDRESS, StudentDto.JSON_PHONE_NUMBER,
-        StudentDto.JSON_SCHOOL_AS_STRING);
+        StudentDto.JSON_EMAIL_ADDRESS, StudentDto.JSON_PHONE_NUMBER);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
@@ -105,13 +104,12 @@ public class StudentController extends AbstractController {
       return client.update(request);
     });
 
-    genders = new ActionExecutor<>(this, GenderService.GET_MANY_IDENTIFIER,
-        () -> genderClient
-            .getMany(
-                new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-                    AbstractIdentifiableCodableNamableDto.JSON_NAME),
-                null, null, userIdentifier, null)
-            .getDatas().stream().map(dto -> new SelectItem(dto.getIdentifier(), dto.getName()))
-            .toList()).execute();
+    schoolSelectOne.getSelectOneMenu().addValueConsumer(
+        identifier -> ((StudentDto) listController.getCreateControllerOrUpdateControllerEntity())
+            .setSchoolIdentifier(identifier));
+
+    genderSelectOne.getSelectOneMenu().addValueConsumer(
+        identifier -> ((StudentDto) listController.getCreateControllerOrUpdateControllerEntity())
+            .setGenderIdentifier(identifier));
   }
 }
