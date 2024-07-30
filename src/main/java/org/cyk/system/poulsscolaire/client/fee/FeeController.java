@@ -115,6 +115,13 @@ public class FeeController extends AbstractController {
       ((FeeDto) entity).setAmountOptional(filterController.getFilter().getAmountOptional());
     });
 
+    listController.getUpdateController().addEntityConsumer(entity -> {
+      categorySelectOne.getSelectOneMenu().useValue(((FeeDto) entity).getCategoryIdentifier());
+      assignmentTypeSelectOne.getSelectOneRadio()
+          .useValue(((FeeDto) entity).getAssignmentTypeIdentifier());
+      senioritySelectOne.getSelectOneRadio().useValue(((FeeDto) entity).getSeniorityIdentifier());
+    });
+
     listController.getCreateController().setFunction(entity -> {
       FeeCreateRequestDto request = new FeeCreateRequestDto();
       request.setSchoolingIdentifier(((FeeDto) entity).getSchoolingIdentifier());
@@ -180,7 +187,6 @@ public class FeeController extends AbstractController {
       schoolingSelectOne = null;
       schoolingFilterSelectOne = null;
     }
-
 
     assignmentTypeSelectOne.getSelectOneRadio().addValueConsumer(
         identifier -> ((FeeDto) listController.getCreateControllerOrUpdateControllerEntity())
