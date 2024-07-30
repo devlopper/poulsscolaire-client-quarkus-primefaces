@@ -8,6 +8,7 @@ import jakarta.inject.Named;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.PeriodSelectOne;
 import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOne;
+import org.cyk.system.poulsscolaire.client.fee.FeeCategoryListPage;
 
 /**
  * Cette classe représente la page de configuration de session.
@@ -48,7 +49,7 @@ public class SessionConfigurePage extends AbstractPage {
         periodSelectOne.getSelectOneMenu().getValue(), periodSelectOne.getSelectOneMenu()
             .getChoiceByValue(periodSelectOne.getSelectOneMenu().getValue()).getLabel());
     
-    navigationManager.navigate("indexPage");
+    navigationManager.navigate(FeeCategoryListPage.OUTCOME);
   }
 
   static final String OUTCOME = "sessionConfigurePage";

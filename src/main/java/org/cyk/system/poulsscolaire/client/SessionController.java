@@ -31,7 +31,7 @@ public class SessionController extends AbstractController {
 
   boolean configured(HttpSession session) {
     return session != null && session.getAttribute(schoolIdentifierName) != null
-        && session.getAttribute(periodIdentifierName) != null;
+        /*&& session.getAttribute(periodIdentifierName) != null*/;
   }
 
   /**

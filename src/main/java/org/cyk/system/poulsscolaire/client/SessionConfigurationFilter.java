@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author Christian
  *
  */
-//@jakarta.servlet.annotation.WebFilter("/private/*")
+@jakarta.servlet.annotation.WebFilter("/private/*")
 public class SessionConfigurationFilter implements Filter {
 
   @Inject
