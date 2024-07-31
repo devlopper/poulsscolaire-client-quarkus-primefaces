@@ -3,7 +3,8 @@
   xmlns:p="http://primefaces.org/ui">
 
   <ui:decorate template="/extension/component/input/default.xhtml">
-    <ui:param name="rendered" value="#{container.filterController.filter.amountOptional == null}" />
+    <ui:param name="rendered"
+      value="#{!controller.isCreate() or container.filterController.filter.amountOptional == null}" />
     <ui:define name="input-label">
       <p:outputLabel value="Facultatif" for="optional" />
     </ui:define>
@@ -49,7 +50,7 @@
 
   <ui:decorate template="/extension/component/input/default.xhtml">
     <ui:param name="rendered"
-      value="#{container.filterController.filter.amountOptional == null or not container.filterController.filter.amountOptional}" />
+      value="#{!controller.isCreate() or container.filterController.filter.amountOptional == null or not container.filterController.filter.amountOptional}" />
     <ui:define name="input-label">
       <p:outputLabel value="Numéro d'ordre de paiement" for="paymentOrderNumber" />
     </ui:define>
