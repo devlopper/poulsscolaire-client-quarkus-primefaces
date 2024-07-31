@@ -18,13 +18,17 @@ public class PaymentListPage extends AbstractPage {
 
   @Inject
   @Getter
-  PaymentController crudController;
+  PaymentController controller;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
     contentTitle = "Liste des paiements";
+    if (controller.getFilterController().getFilter().getCanceled() == null) {
+      controller.getFilterController().getFilter().setCanceled(false);
+    }
+    controller.initialize();
   }
-  
+
   public static final String OUTCOME = "paymentListPage";
 }

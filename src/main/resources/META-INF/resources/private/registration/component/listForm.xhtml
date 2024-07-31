@@ -1,9 +1,21 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
-
+  
+  <p:importConstants type="org.cyk.system.poulsscolaire.client.payment.PaymentListPage"
+    var="PaymentListPage" />
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.payment.PaymentFilter"
+    var="PaymentFilter" />
+  
   <ui:decorate template="/extension/crud/list/default.xhtml">
     <ui:param name="listController" value="#{controller}" />
     <ui:param name="container" value="#{container}" />
+
+    <ui:define name="datatable-columns-action-column-body-before">
+      <p:button title="Payer" outcome="#{PaymentListPage.OUTCOME}" icon="pi pi-money-bill">
+        <f:param name="#{PaymentFilter.JSON_REGISTRATION_IDENTIFIER}" value="#{record.identifier}" />
+        <f:param name="showCreateDialog" value="true" />
+      </p:button>
+    </ui:define>
   </ui:decorate>
 </ui:composition>

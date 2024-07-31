@@ -2,11 +2,11 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <p:column headerText="Code" width="100">
+  <p:column headerText="Code" width="200" visible="false">
     <h:outputText value="#{record.code}" />
   </p:column>
 
-  <p:column headerText="Eleve" visible="false">
+  <p:column headerText="Eleve">
     <h:outputText value="#{record.studentAsString}" />
   </p:column>
 
@@ -34,19 +34,19 @@
     <h:outputText value="#{record.payableAmountAsString}" />
   </p:column>
 
-  <p:column headerText="Payable à l'inscription" width="150">
+  <p:column headerText="Payable à l'inscription" width="150" visible="false">
     <h:outputText value="#{record.totalRegistrationAmountAsString}" />
   </p:column>
   
-  <p:column headerText="Payé à l'inscription" width="150">
+  <p:column headerText="Payé à l'inscription" width="150" visible="false">
     <h:outputText value="#{record.paidRegistrationAmountAsString}" />
   </p:column>
   
-  <p:column headerText="Reste à payer à l'inscription" width="150">
+  <p:column headerText="Reste à payer à l'inscription" width="150" visible="false">
     <h:outputText value="#{record.payableRegistrationAmountAsString}" />
   </p:column>
   
-  <p:column headerText="Montant pré-inscription">
+  <p:column headerText="Montant pré-inscription" visible="false">
     <h:outputText value="#{record.preRegistrationAmountAsString}" />
   </p:column>
 </ui:composition>

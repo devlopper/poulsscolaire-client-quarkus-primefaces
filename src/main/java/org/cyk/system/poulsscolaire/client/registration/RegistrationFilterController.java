@@ -30,5 +30,6 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
     filter.setSchoolIdentifier(
         Core.getOrDefaultIfNull(getRequestParameter(RegistrationFilter.JSON_SCHOOL_IDENTIFIER),
             sessionController.getSchoolIdentifier()));
+    filter.setStudentIdentifier(getRequestParameter(RegistrationFilter.JSON_STUDENT_IDENTIFIER));
   }
 }

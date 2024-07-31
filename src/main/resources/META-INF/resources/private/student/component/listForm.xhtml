@@ -2,8 +2,20 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
+  <p:importConstants type="org.cyk.system.poulsscolaire.client.registration.RegistrationListPage"
+    var="RegistrationListPage" />
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.RegistrationFilter"
+    var="RegistrationFilter" />
+
   <ui:decorate template="/extension/crud/list/default.xhtml">
     <ui:param name="listController" value="#{controller}" />
     <ui:param name="container" value="#{container}" />
+
+    <ui:define name="datatable-columns-action-column-body-before">
+      <p:button title="Inscrire" outcome="#{RegistrationListPage.OUTCOME}" icon="pi pi-sign-in">
+        <f:param name="#{RegistrationFilter.JSON_STUDENT_IDENTIFIER}" value="#{record.identifier}" />
+        <f:param name="showCreateDialog" value="true" />
+      </p:button>
+    </ui:define>
   </ui:decorate>
 </ui:composition>

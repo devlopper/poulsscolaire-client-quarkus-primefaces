@@ -76,7 +76,12 @@ public class RegistrationController extends AbstractController {
 
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(RegistrationReadPage.OUTCOME);
-    listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
+    listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(4);
+
+    listController.getCreateController().addEntityConsumer(entity -> {
+      ((RegistrationDto) entity)
+          .setStudentIdentifier(filterController.getFilter().getStudentIdentifier());
+    });
 
     listController.getCreateController()
         .setFunction(entity -> client.create(((RegistrationDto) entity).getStudentIdentifier(),
@@ -91,10 +96,6 @@ public class RegistrationController extends AbstractController {
             ((RegistrationDto) entity).getAssignmentTypeIdentifier(),
             ((RegistrationDto) entity).getSeniorityIdentifier(), userIdentifier, null));
 
-    studentSelectOne.getSelectOneMenu()
-        .addValueConsumer(identifier -> ((RegistrationDto) listController
-            .getCreateControllerOrUpdateControllerEntity()).setStudentIdentifier(identifier));
-
     schoolingSelectOne.getSelectOneMenu()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSchoolingIdentifier(identifier));
@@ -107,5 +108,16 @@ public class RegistrationController extends AbstractController {
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity())
                 .setAssignmentTypeIdentifier(identifier));
+
+    if (filterController.getFilter().getStudentIdentifier() == null) {
+      studentSelectOne.getSelectOneMenu()
+          .addValueConsumer(identifier -> ((RegistrationDto) listController
+              .getCreateControllerOrUpdateControllerEntity()).setStudentIdentifier(identifier));
+    } else {
+      studentSelectOne.getSelectOneMenu()
+          .useValue(filterController.getFilter().getStudentIdentifier());
+      listController.showCreateDialog();
+    }
+
   }
 }

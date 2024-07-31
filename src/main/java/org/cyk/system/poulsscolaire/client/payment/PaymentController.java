@@ -34,7 +34,7 @@ public class PaymentController extends AbstractController {
   @Inject
   @Getter
   PaymentFilterController filterController;
-  
+
   @Inject
   @Getter
   RegistrationSelectOne registrationSelectOne;
@@ -56,18 +56,24 @@ public class PaymentController extends AbstractController {
   protected void postConstruct() {
     super.postConstruct();
     name = PaymentDto.NAME;
+  }
+
+  /**
+   * Cette méthode permet d'initialiser.
+   */
+  public void initialize() {
 
     listController.setEntityClass(PaymentDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(PaymentService.PATH);
     listController.setFilterController(filterController);
-    
+
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, PaymentDto.JSON_MODE_AS_STRING,
         PaymentDto.JSON_AMOUNT_AS_STRING);
     listController.getReadController().setProjection(projection);
-    
+
     listController.initialize();
 
     if (Boolean.TRUE.equals(filterController.getFilter().getCanceled())) {
@@ -75,7 +81,11 @@ public class PaymentController extends AbstractController {
     } else {
       listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(1);
     }
-    
+
+    listController.getCreateController().addEntityConsumer(entity -> {
+      ((PaymentDto) entity)
+          .setRegistrationIdentifier(filterController.getFilter().getRegistrationIdentifier());
+    });
     listController.getCreateController()
         .setFunction(entity -> client.create(((PaymentDto) entity).getRegistrationIdentifier(),
             ((PaymentDto) entity).getModeIdentifier(), ((PaymentDto) entity).getAmount(),
@@ -83,12 +93,8 @@ public class PaymentController extends AbstractController {
 
     listController.getShowUpdateDialogButton().setRendered(false);
     listController.getDeleteButton().setRendered(false);
-    
-    cancelController.setFunction(identifier -> client.cancel(identifier, userIdentifier, null));
 
-    registrationSelectOne.getSelectOneMenu().addValueConsumer(
-        identifier -> ((PaymentDto) listController.getCreateControllerOrUpdateControllerEntity())
-            .setRegistrationIdentifier(identifier));
+    cancelController.setFunction(identifier -> client.cancel(identifier, userIdentifier, null));
 
     modeSelectOne.getSelectOneMenu().addValueConsumer(
         identifier -> ((PaymentDto) listController.getCreateControllerOrUpdateControllerEntity())
@@ -99,5 +105,15 @@ public class PaymentController extends AbstractController {
     cancelButton.setIcon("pi pi-times");
     cancelButton.setValue(null);
     cancelController.setName("Annulation paiement");
+
+    if (filterController.getFilter().getRegistrationIdentifier() == null) {
+      registrationSelectOne.getSelectOneMenu().addValueConsumer(
+          identifier -> ((PaymentDto) listController.getCreateControllerOrUpdateControllerEntity())
+              .setRegistrationIdentifier(identifier));
+    } else {
+      registrationSelectOne.getSelectOneMenu()
+          .useValue(filterController.getFilter().getRegistrationIdentifier());
+      listController.showCreateDialog();
+    }
   }
 }

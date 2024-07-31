@@ -73,6 +73,12 @@ public class StudentController extends AbstractController {
 
     listController.initialize();
 
+    listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
+
+    listController.getCreateController().addEntityConsumer(entity -> {
+      ((StudentDto) entity).setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
+    });
+
     listController.getCreateController().setFunction(entity -> {
       StudentCreateRequestDto request = new StudentCreateRequestDto();
       request.setRegistrationNumber(((StudentDto) entity).getRegistrationNumber());
@@ -104,9 +110,14 @@ public class StudentController extends AbstractController {
       return client.update(request);
     });
 
-    schoolSelectOne.getSelectOneMenu().addValueConsumer(
-        identifier -> ((StudentDto) listController.getCreateControllerOrUpdateControllerEntity())
-            .setSchoolIdentifier(identifier));
+    if (filterController.getFilter().getSchoolIdentifier() == null) {
+      schoolSelectOne.getSelectOneMenu().addValueConsumer(
+          identifier -> ((StudentDto) listController.getCreateControllerOrUpdateControllerEntity())
+              .setSchoolIdentifier(identifier));
+    } else {
+      schoolSelectOne.getSelectOneMenu()
+          .useValue(filterController.getFilter().getSchoolIdentifier());
+    }
 
     genderSelectOne.getSelectOneMenu().addValueConsumer(
         identifier -> ((StudentDto) listController.getCreateControllerOrUpdateControllerEntity())
