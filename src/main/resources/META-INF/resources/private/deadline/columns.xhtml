@@ -2,11 +2,11 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <p:column headerText="Code" width="100">
+  <p:column headerText="Code" width="200">
     <h:outputText value="#{record.code}" />
   </p:column>
 
-  <p:column headerText="Groupe">
+  <p:column headerText="Groupe" width="200">
     <h:outputText value="#{record.groupAsString}" />
   </p:column>
 
@@ -14,7 +14,11 @@
     <h:outputText value="#{record.name}" />
   </p:column>
 
-  <p:column headerText="Date">
+  <p:column headerText="Date" width="200">
     <h:outputText value="#{record.dateAsString}" />
+  </p:column>
+  
+  <p:column headerText="Ecole">
+    <h:outputText value="#{record.schoolAsString}" />
   </p:column>
 </ui:composition>
