@@ -1,18 +1,22 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
 
-	<p:column headerText="Code" width="200">
-		<h:outputText value="#{record.code}" />
-	</p:column>
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.payment.PaymentDto"
+    var="PaymentDto" />
 
-	<p:column headerText="Mode">
-		<h:outputText value="#{record.modeAsString}" />
-	</p:column>
-	
-	<p:column headerText="Montant" width="200">
-		<h:outputText value="#{record.amountAsString}" />
-	</p:column>
+  <p:column headerText="Code" width="200"
+    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_CODE)}">
+    <h:outputText value="#{record.code}" />
+  </p:column>
+
+  <p:column headerText="Mode"
+    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_MODE_AS_STRING)}">
+    <h:outputText value="#{record.modeAsString}" />
+  </p:column>
+
+  <p:column headerText="Montant" width="200"
+    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_AMOUNT_AS_STRING)}">
+    <h:outputText value="#{record.amountAsString}" />
+  </p:column>
 </ui:composition>

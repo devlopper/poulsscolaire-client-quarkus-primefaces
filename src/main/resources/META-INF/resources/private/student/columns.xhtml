@@ -5,7 +5,7 @@
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.StudentDto"
     var="StudentDto" />
 
-  <p:column headerText="Code" width="150"
+  <p:column headerText="ID" width="150"
     rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_CODE)}">
     <h:outputText value="#{record.code}" />
   </p:column>

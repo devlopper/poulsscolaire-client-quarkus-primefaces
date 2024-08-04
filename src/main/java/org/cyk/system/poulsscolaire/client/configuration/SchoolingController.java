@@ -7,16 +7,13 @@ import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCoda
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
-import jakarta.faces.application.FacesMessage;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingClient;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService.SchoolingCreateRequestDto;
-import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService.SchoolingGenerateResponseDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingService.SchoolingUpdateRequestDto;
-import org.primefaces.PrimeFaces;
 
 /**
  * Cette classe représente le contrôleur de {@link SchoolingDto}.
@@ -41,11 +38,7 @@ public class SchoolingController extends AbstractController {
   @Inject
   @Getter
   PeriodSelectOne periodSelectOne;
-  /*
-   * @Inject
-   * 
-   * @Getter BranchSelectOne branchSelectOne;
-   */
+
   @Inject
   @Getter
   SchoolingFilterController filterController;
@@ -109,10 +102,5 @@ public class SchoolingController extends AbstractController {
       request.setAuditWho(userIdentifier);
       return client.update(request);
     });
-  }
-
-  public void generate() {
-    SchoolingGenerateResponseDto response = client.generate(userIdentifier, null);
-    PrimeFaces.current().dialog().showMessageDynamic(new FacesMessage(response.getMessage()));
   }
 }

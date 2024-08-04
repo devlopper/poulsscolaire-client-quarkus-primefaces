@@ -112,7 +112,7 @@ public class PaymentController extends AbstractController {
               .setRegistrationIdentifier(identifier));
     } else {
       registrationSelectOne.getSelectOneMenu()
-          .useValue(filterController.getFilter().getRegistrationIdentifier());
+          .writeValue(filterController.getFilter().getRegistrationIdentifier());
       listController.showCreateDialog();
     }
   }

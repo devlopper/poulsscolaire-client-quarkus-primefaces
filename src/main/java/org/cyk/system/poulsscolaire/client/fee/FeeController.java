@@ -116,10 +116,10 @@ public class FeeController extends AbstractController {
     });
 
     listController.getUpdateController().addEntityConsumer(entity -> {
-      categorySelectOne.getSelectOneMenu().useValue(((FeeDto) entity).getCategoryIdentifier());
+      categorySelectOne.getSelectOneMenu().writeValue(((FeeDto) entity).getCategoryIdentifier());
       assignmentTypeSelectOne.getSelectOneRadio()
-          .useValue(((FeeDto) entity).getAssignmentTypeIdentifier());
-      senioritySelectOne.getSelectOneRadio().useValue(((FeeDto) entity).getSeniorityIdentifier());
+          .writeValue(((FeeDto) entity).getAssignmentTypeIdentifier());
+      senioritySelectOne.getSelectOneRadio().writeValue(((FeeDto) entity).getSeniorityIdentifier());
     });
 
     listController.getCreateController().setFunction(entity -> {

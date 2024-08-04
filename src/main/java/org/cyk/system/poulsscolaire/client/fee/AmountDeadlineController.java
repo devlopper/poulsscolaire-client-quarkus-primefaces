@@ -95,9 +95,9 @@ public class AmountDeadlineController extends AbstractController {
 
     listController.getUpdateController().addEntityConsumer(entity -> {
       amountSelectOneController.getSelectOneMenu()
-          .useValue(((AmountDeadlineDto) entity).getAmountIdentifier());
+          .writeValue(((AmountDeadlineDto) entity).getAmountIdentifier());
       deadlineSelectOneController.getSelectOneMenu()
-          .useValue(((AmountDeadlineDto) entity).getDeadlineIdentifier());
+          .writeValue(((AmountDeadlineDto) entity).getDeadlineIdentifier());
     });
 
     amountSelectOneController.initialize();

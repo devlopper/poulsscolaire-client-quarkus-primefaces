@@ -116,7 +116,7 @@ public class StudentController extends AbstractController {
               .setSchoolIdentifier(identifier));
     } else {
       schoolSelectOne.getSelectOneMenu()
-          .useValue(filterController.getFilter().getSchoolIdentifier());
+          .writeValue(filterController.getFilter().getSchoolIdentifier());
     }
 
     genderSelectOne.getSelectOneMenu().addValueConsumer(

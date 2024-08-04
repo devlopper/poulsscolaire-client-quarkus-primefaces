@@ -11,6 +11,7 @@ import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.AssignmentTypeSelectOne;
 import org.cyk.system.poulsscolaire.client.configuration.SchoolingSelectOne;
 import org.cyk.system.poulsscolaire.client.configuration.SenioritySelectOne;
+import org.cyk.system.poulsscolaire.server.api.configuration.BranchDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService;
@@ -115,9 +116,10 @@ public class RegistrationController extends AbstractController {
               .getCreateControllerOrUpdateControllerEntity()).setStudentIdentifier(identifier));
     } else {
       studentSelectOne.getSelectOneMenu()
-          .useValue(filterController.getFilter().getStudentIdentifier());
+          .writeValue(filterController.getFilter().getStudentIdentifier());
       listController.showCreateDialog();
     }
 
+    schoolingSelectOne.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME);
   }
 }
