@@ -15,19 +15,34 @@
     <h:outputText value="#{record.registrationNumber}" />
   </p:column>
 
-  <p:column headerText="Nom"
+  <p:column headerText="Nom" width="200"
     rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_FIRST_NAME)}">
     <h:outputText value="#{record.firstName}" />
   </p:column>
+  
+  <p:column headerText="اسم" width="200"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_ARABIC_FIRST_NAME)}">
+    <h:outputText value="#{record.arabicFirstName}" />
+  </p:column>
 
-  <p:column headerText="Prénoms"
+  <p:column headerText="Prénoms" width="200"
     rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_LAST_NAMES)}">
     <h:outputText value="#{record.lastNames}" />
+  </p:column>
+  
+  <p:column headerText="الأسماء الأولى" width="200"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_ARABIC_LAST_NAMES)}">
+    <h:outputText value="#{record.arabicLastNames}" />
   </p:column>
 
   <p:column headerText="Genre" width="80"
     rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_GENDER_AS_STRING)}">
     <h:outputText value="#{record.genderAsString}" />
+  </p:column>
+  
+  <p:column headerText="Groupe Sanguin" width="80"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_BLOOD_GROUP_AS_STRING)}">
+    <h:outputText value="#{record.bloodGroupAsString}" />
   </p:column>
 
   <p:column headerText="Date de naissance" visible="false"
@@ -38,6 +53,26 @@
   <p:column headerText="Lieu de naissance" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_BIRTH_PLACE)}">
     <h:outputText value="#{record.birthPlace}" />
+  </p:column>
+  
+  <p:column headerText="Référence extrait de naissance" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_BIRTH_CERTIFICATE_REFERENCE)}">
+    <h:outputText value="#{record.birthCertificateReference}" />
+  </p:column>
+  
+  <p:column headerText="Nationalité" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_NATIONALITY)}">
+    <h:outputText value="#{record.nationality}" />
+  </p:column>
+  
+  <p:column headerText="Établissement d'origine" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_ORIGIN_SCHOOL)}">
+    <h:outputText value="#{record.originSchool}" />
+  </p:column>
+  
+  <p:column headerText="Résidence" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_RESIDENCE)}">
+    <h:outputText value="#{record.residence}" />
   </p:column>
   
   <p:column headerText="école" visible="false"

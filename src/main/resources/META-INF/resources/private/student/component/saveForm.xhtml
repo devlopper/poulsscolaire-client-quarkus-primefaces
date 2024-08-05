@@ -12,56 +12,139 @@
           <ui:param name="selectOneMenu" value="#{container.schoolSelectOne.selectOneMenu}" />
         </ui:include>
 
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Matricule" for="registrationNumber" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:inputText id="registrationNumber" value="#{controller.entity.registrationNumber}" />
-          </ui:define>
-        </ui:decorate>
+        <div class="ui-g-12">
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="4" />
+            <ui:define name="input-label">
+              <p:outputLabel value="Matricule" for="registrationNumber" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="registrationNumber" value="#{controller.entity.registrationNumber}" />
+            </ui:define>
+          </ui:decorate>
 
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Nom" for="firstName" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:inputText id="firstName" value="#{controller.entity.firstName}" />
-            <p:message id="firstNameMessage" for="firstName" />
-          </ui:define>
-        </ui:decorate>
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="4" />
+            <ui:define name="input-label">
+              <p:outputLabel value="Nom" for="firstName" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="firstName" value="#{controller.entity.firstName}" />
+              <p:message id="firstNameMessage" for="firstName" />
+            </ui:define>
+          </ui:decorate>
 
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Prénoms" for="lastNames" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:inputText id="lastNames" value="#{controller.entity.lastNames}" />
-            <p:message id="lastNamesMessage" for="lastNames" />
-          </ui:define>
-        </ui:decorate>
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="4" />
+            <ui:define name="input-label">
+              <p:outputLabel value="Prénoms" for="lastNames" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="lastNames" value="#{controller.entity.lastNames}" />
+              <p:message id="lastNamesMessage" for="lastNames" />
+            </ui:define>
+          </ui:decorate>
+        </div>
 
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Date de naissance" for="birthDate" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:datePicker id="birthDate" value="#{controller.entity.birthDate}" />
-          </ui:define>
-        </ui:decorate>
+        <div class="ui-g-12">
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="6" />
+            <ui:define name="input-label">
+              <p:outputLabel value="اسم" for="arabicFirstName" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="arabicFirstName" value="#{controller.entity.arabicFirstName}" />
+            </ui:define>
+          </ui:decorate>
 
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Lieu de naissance" for="birthPlace" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:inputText id="birthPlace" value="#{controller.entity.birthPlace}" />
-          </ui:define>
-        </ui:decorate>
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="6" />
+            <ui:define name="input-label">
+              <p:outputLabel value="الأسماء الأولى" for="arabicLastNames" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="arabicLastNames" value="#{controller.entity.arabicLastNames}" />
+            </ui:define>
+          </ui:decorate>
+        </div>
 
-        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.genderSelectOne.selectOneMenu}" />
-        </ui:include>
+        <div class="ui-g-12">
+          <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+            <ui:param name="width" value="6" />
+            <ui:param name="selectOneRadio" value="#{container.genderSelectOne.selectOneRadio}" />
+          </ui:include>
+
+          <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+            <ui:param name="width" value="6" />
+            <ui:param name="selectOneRadio" value="#{container.bloodGroupSelectOne.selectOneRadio}" />
+          </ui:include>
+        </div>
+
+        <div class="ui-g-12">
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="4" />
+            <ui:define name="input-label">
+              <p:outputLabel value="Date de naissance" for="birthDate" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:datePicker id="birthDate" value="#{controller.entity.birthDate}" />
+            </ui:define>
+          </ui:decorate>
+
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="4" />
+            <ui:define name="input-label">
+              <p:outputLabel value="Lieu de naissance" for="birthPlace" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="birthPlace" value="#{controller.entity.birthPlace}" />
+            </ui:define>
+          </ui:decorate>
+
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="4" />
+            <ui:define name="input-label">
+              <p:outputLabel value="Référence extrait de naissance" for="birthCertificateReference" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="birthCertificateReference"
+                value="#{controller.entity.birthCertificateReference}" />
+            </ui:define>
+          </ui:decorate>
+        </div>
+
+        <div class="ui-g-12">
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="4" />
+            <ui:define name="input-label">
+              <p:outputLabel value="Nationalité" for="nationality" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="nationality" value="#{controller.entity.nationality}" />
+            </ui:define>
+          </ui:decorate>
+
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="4" />
+            <ui:define name="input-label">
+              <p:outputLabel value="Établissement d'origine" for="originSchool" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="originSchool" value="#{controller.entity.originSchool}" />
+            </ui:define>
+          </ui:decorate>
+
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:param name="width" value="4" />
+            <ui:define name="input-label">
+              <p:outputLabel value="Résidence" for="residence" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="residence" value="#{controller.entity.residence}" />
+            </ui:define>
+          </ui:decorate>
+        </div>
+
       </ui:define>
     </ui:decorate>
   </h:form>

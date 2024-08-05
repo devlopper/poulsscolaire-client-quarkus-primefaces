@@ -9,8 +9,10 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
+import org.cyk.system.poulsscolaire.client.configuration.BloodGroupSelectOne;
 import org.cyk.system.poulsscolaire.client.configuration.GenderSelectOne;
 import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOne;
+import org.cyk.system.poulsscolaire.server.api.registration.BloodGroup;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentClient;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentService;
@@ -43,6 +45,10 @@ public class StudentController extends AbstractController {
 
   @Inject
   @Getter
+  BloodGroupSelectOne bloodGroupSelectOne;
+
+  @Inject
+  @Getter
   StudentFilterController filterController;
 
   @Override
@@ -66,8 +72,11 @@ public class StudentController extends AbstractController {
     });
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, StudentDto.JSON_REGISTRATION_NUMBER,
-        StudentDto.JSON_FIRST_NAME, StudentDto.JSON_LAST_NAMES, StudentDto.JSON_GENDER_AS_STRING,
-        StudentDto.JSON_BIRTH_DATE_AS_STRING, StudentDto.JSON_BIRTH_PLACE,
+        StudentDto.JSON_FIRST_NAME, StudentDto.JSON_ARABIC_FIRST_NAME, StudentDto.JSON_LAST_NAMES,
+        StudentDto.JSON_ARABIC_LAST_NAMES, StudentDto.JSON_GENDER_AS_STRING,
+        StudentDto.JSON_BLOOD_GROUP_AS_STRING, StudentDto.JSON_BIRTH_DATE_AS_STRING,
+        StudentDto.JSON_BIRTH_PLACE, StudentDto.JSON_BIRTH_CERTIFICATE_REFERENCE,
+        StudentDto.JSON_NATIONALITY, StudentDto.JSON_ORIGIN_SCHOOL, StudentDto.JSON_RESIDENCE,
         StudentDto.JSON_EMAIL_ADDRESS, StudentDto.JSON_PHONE_NUMBER);
     listController.getReadController().setProjection(projection);
 
@@ -119,8 +128,12 @@ public class StudentController extends AbstractController {
           .writeValue(filterController.getFilter().getSchoolIdentifier());
     }
 
-    genderSelectOne.getSelectOneMenu().addValueConsumer(
+    genderSelectOne.getSelectOneRadio().addValueConsumer(
         identifier -> ((StudentDto) listController.getCreateControllerOrUpdateControllerEntity())
             .setGenderIdentifier(identifier));
+
+    bloodGroupSelectOne.getSelectOneRadio().addValueConsumer(
+        name -> ((StudentDto) listController.getCreateControllerOrUpdateControllerEntity())
+            .setBloodGroup(Core.getEnumerationValueByName(BloodGroup.class, name)));
   }
 }
