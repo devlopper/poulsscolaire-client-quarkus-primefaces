@@ -100,8 +100,21 @@ public class StudentController extends AbstractController {
 
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-            StudentDto.JSON_REGISTRATION_NUMBER, StudentDto.JSON_FIRST_NAME,
-            StudentDto.JSON_LAST_NAMES, StudentDto.JSON_GENDER_IDENTIFIER));
+            StudentDto.JSON_SCHOOL_IDENTIFIER, StudentDto.JSON_REGISTRATION_NUMBER,
+            StudentDto.JSON_FIRST_NAME, StudentDto.JSON_ARABIC_FIRST_NAME,
+            StudentDto.JSON_LAST_NAMES, StudentDto.JSON_ARABIC_LAST_NAMES,
+            StudentDto.JSON_GENDER_IDENTIFIER, StudentDto.JSON_BLOOD_GROUP,
+            StudentDto.JSON_BIRTH_DATE, StudentDto.JSON_BIRTH_PLACE,
+            StudentDto.JSON_BIRTH_CERTIFICATE_REFERENCE, StudentDto.JSON_NATIONALITY,
+            StudentDto.JSON_ORIGIN_SCHOOL, StudentDto.JSON_RESIDENCE, StudentDto.JSON_EMAIL_ADDRESS,
+            StudentDto.JSON_PHONE_NUMBER));
+
+    listController.getUpdateController().addEntityConsumer(entity -> {
+      schoolSelectOne.getSelectOneMenu().writeValue(((StudentDto) entity).getSchoolIdentifier());
+      genderSelectOne.getSelectOneRadio().writeValue(((StudentDto) entity).getGenderIdentifier());
+      Core.runIfNotNull(((StudentDto) entity).getBloodGroup(), () -> bloodGroupSelectOne
+          .getSelectOneRadio().writeValue(((StudentDto) entity).getBloodGroup().name()));
+    });
 
     listController.getUpdateController().setFunction(entity -> {
       StudentUpdateRequestDto request = studentRequestMapper.mapUpdate((StudentDto) entity);
