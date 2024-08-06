@@ -15,6 +15,7 @@ import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOne;
 import org.cyk.system.poulsscolaire.server.api.registration.BloodGroup;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentClient;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentRequestMapper;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentService;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentService.StudentCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentService.StudentUpdateRequestDto;
@@ -50,6 +51,9 @@ public class StudentController extends AbstractController {
   @Inject
   @Getter
   StudentFilterController filterController;
+
+  @Inject
+  StudentRequestMapper studentRequestMapper;
 
   @Override
   protected void postConstruct() {
@@ -89,14 +93,7 @@ public class StudentController extends AbstractController {
     });
 
     listController.getCreateController().setFunction(entity -> {
-      StudentCreateRequestDto request = new StudentCreateRequestDto();
-      request.setRegistrationNumber(((StudentDto) entity).getRegistrationNumber());
-      request.setFirstName(((StudentDto) entity).getFirstName());
-      request.setLastNames(((StudentDto) entity).getLastNames());
-      request.setGenderIdentifier(((StudentDto) entity).getGenderIdentifier());
-      request.setBirthDate(((StudentDto) entity).getBirthDate());
-      request.setBirthPlace(((StudentDto) entity).getBirthPlace());
-      request.setSchoolIdentifier(((StudentDto) entity).getSchoolIdentifier());
+      StudentCreateRequestDto request = studentRequestMapper.mapCreate((StudentDto) entity);
       request.setAuditWho(userIdentifier);
       return client.create(request);
     });
@@ -107,14 +104,7 @@ public class StudentController extends AbstractController {
             StudentDto.JSON_LAST_NAMES, StudentDto.JSON_GENDER_IDENTIFIER));
 
     listController.getUpdateController().setFunction(entity -> {
-      StudentUpdateRequestDto request = new StudentUpdateRequestDto();
-      request.setRegistrationNumber(((StudentDto) entity).getRegistrationNumber());
-      request.setFirstName(((StudentDto) entity).getFirstName());
-      request.setLastNames(((StudentDto) entity).getLastNames());
-      request.setGenderIdentifier(((StudentDto) entity).getGenderIdentifier());
-      request.setBirthDate(((StudentDto) entity).getBirthDate());
-      request.setBirthPlace(((StudentDto) entity).getBirthPlace());
-      request.setSchoolIdentifier(((StudentDto) entity).getSchoolIdentifier());
+      StudentUpdateRequestDto request = studentRequestMapper.mapUpdate((StudentDto) entity);
       request.setAuditWho(userIdentifier);
       return client.update(request);
     });
