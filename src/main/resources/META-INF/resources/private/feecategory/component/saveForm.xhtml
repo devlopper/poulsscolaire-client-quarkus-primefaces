@@ -7,6 +7,10 @@
       <ui:param name="saveCommandUpdate" value="codeMessage,nameMessage" />
 
       <ui:define name="form-save-inputs">
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.schoolSelectOne.selectOneMenu}" />
+        </ui:include>
+
         <!-- Code -->
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">

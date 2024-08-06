@@ -29,17 +29,7 @@
 			<artifactId>poulsscolaire-server-api</artifactId>
 			<version>0.0.0-SNAPSHOT</version>
 		</dependency>
-		
-		<dependency>
-		    <groupId>io.quarkus</groupId>
-		    <artifactId>quarkus-security-jpa</artifactId>
-		</dependency>
-		
-		<dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-mysql</artifactId>
-        </dependency>
-		
+				
 		<dependency>
 	      <groupId>io.quarkus</groupId>
 	      <artifactId>quarkus-websockets</artifactId>

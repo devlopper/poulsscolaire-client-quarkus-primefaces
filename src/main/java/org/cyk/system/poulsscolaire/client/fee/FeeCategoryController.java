@@ -15,6 +15,7 @@ import jakarta.faces.model.SelectItem;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
+import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOne;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolClient;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolService;
@@ -22,7 +23,10 @@ import org.cyk.system.poulsscolaire.server.api.fee.AmountStatisticsDto;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryClient;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryDto;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryFilter;
+import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryRequestMapper;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryService;
+import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryService.FeeCategoryCreateRequestDto;
+import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryService.FeeCategoryUpdateRequestDto;
 
 /**
  * Cette classe représente le contrôleur de {@link FeeCategoryDto}.
@@ -52,6 +56,10 @@ public class FeeCategoryController extends AbstractController {
 
   SchoolDto school;
 
+  @Inject
+  @Getter
+  SchoolSelectOne schoolSelectOne;
+
   @Getter
   @Setter
   AmountStatisticsDto amountValueStatistics;
@@ -59,13 +67,16 @@ public class FeeCategoryController extends AbstractController {
   @Getter
   @Setter
   AmountStatisticsDto amountRegistrationPartStatistics;
-  
+
+  @Inject
+  FeeCategoryRequestMapper requestMapper;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
     name = FeeCategoryDto.NAME;
   }
-  
+
   /**
    * Cette méthode permet d'initialiser.
    */
@@ -82,8 +93,8 @@ public class FeeCategoryController extends AbstractController {
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
-        FeeCategoryDto.JSON_TOTAL_AMOUNT_AS_STRING, FeeCategoryDto.JSON_PAID_AMOUNT_AS_STRING,
-        FeeCategoryDto.JSON_PAYABLE_AMOUNT_AS_STRING,
+        FeeCategoryDto.JSON_SCHOOL_AS_STRING, FeeCategoryDto.JSON_TOTAL_AMOUNT_AS_STRING,
+        FeeCategoryDto.JSON_PAID_AMOUNT_AS_STRING, FeeCategoryDto.JSON_PAYABLE_AMOUNT_AS_STRING,
         FeeCategoryDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING,
         FeeCategoryDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
         FeeCategoryDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING);
@@ -92,14 +103,25 @@ public class FeeCategoryController extends AbstractController {
 
     listController.initialize();
 
-    listController.getCreateController()
-        .setFunction(entity -> client.create(((FeeCategoryDto) entity).getCode(),
-            ((FeeCategoryDto) entity).getName(), userIdentifier, null));
+    listController.getCreateController().setFunction(entity -> {
+      FeeCategoryCreateRequestDto request = requestMapper.mapCreate((FeeCategoryDto) entity);
+      request.setAuditWho(userIdentifier);
+      return client.create(request);
+    });
 
     listController.getUpdateController()
-        .setFunction(entity -> client.update(((FeeCategoryDto) entity).getIdentifier(),
-            ((FeeCategoryDto) entity).getCode(), ((FeeCategoryDto) entity).getName(),
-            userIdentifier, null));
+        .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+            FeeCategoryDto.JSON_SCHOOL_IDENTIFIER, AbstractIdentifiableCodableDto.JSON_CODE,
+            AbstractIdentifiableCodableNamableDto.JSON_NAME));
+
+    listController.getUpdateController().addEntityConsumer(entity -> schoolSelectOne
+        .getSelectOneMenu().writeValue(((FeeCategoryDto) entity).getSchoolIdentifier()));
+
+    listController.getUpdateController().setFunction(entity -> {
+      FeeCategoryUpdateRequestDto request = requestMapper.mapUpdate((FeeCategoryDto) entity);
+      request.setAuditWho(userIdentifier);
+      return client.update(request);
+    });
 
     schoolFilterSelectOneMenu
         .setChoices(
@@ -112,12 +134,16 @@ public class FeeCategoryController extends AbstractController {
                     .getDatas().stream()
                     .map(dto -> new SelectItem(dto.getIdentifier(), dto.getName())).toList())
                         .execute());
-    
+
     amountValueStatistics = new AmountStatisticsDto();
     amountRegistrationPartStatistics = new AmountStatisticsDto();
-    
+
     listenFilter(filterController.getFilter());
     filterController.addFilterConsumer(this::listenFilter);
+
+    schoolSelectOne.getSelectOneMenu()
+        .addValueConsumer(identifier -> ((FeeCategoryDto) listController
+            .getCreateControllerOrUpdateControllerEntity()).setSchoolIdentifier(identifier));
   }
 
   void listenFilter(FeeCategoryFilter filter) {
