@@ -7,6 +7,18 @@
       <ui:param name="saveCommandUpdate" value="" />
 
       <ui:define name="form-save-inputs">
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.schoolSelectOne.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.periodSelectOne.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.branchSelectOne.selectOneMenu}" />
+        </ui:include>
+
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
             <p:outputLabel value="Montant" for="amount" />
