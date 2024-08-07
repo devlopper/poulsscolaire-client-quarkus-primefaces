@@ -88,9 +88,8 @@ public class StudentController extends AbstractController {
 
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
 
-    listController.getCreateController().addEntityConsumer(entity -> {
-      ((StudentDto) entity).setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
-    });
+    listController.getCreateController().addEntityConsumer(entity -> ((StudentDto) entity)
+        .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier()));
 
     listController.getCreateController().setFunction(entity -> {
       StudentCreateRequestDto request = studentRequestMapper.mapCreate((StudentDto) entity);
@@ -122,13 +121,12 @@ public class StudentController extends AbstractController {
       return client.update(request);
     });
 
-    if (filterController.getFilter().getSchoolIdentifier() == null) {
+    if (Core.isStringBlank(filterController.getFilter().getSchoolIdentifier())) {
       schoolSelectOne.getSelectOneMenu().addValueConsumer(
           identifier -> ((StudentDto) listController.getCreateControllerOrUpdateControllerEntity())
               .setSchoolIdentifier(identifier));
     } else {
-      schoolSelectOne.getSelectOneMenu()
-          .writeValue(filterController.getFilter().getSchoolIdentifier());
+      schoolSelectOne.getSelectOneMenu().setRendered(false);
     }
 
     genderSelectOne.getSelectOneRadio().addValueConsumer(

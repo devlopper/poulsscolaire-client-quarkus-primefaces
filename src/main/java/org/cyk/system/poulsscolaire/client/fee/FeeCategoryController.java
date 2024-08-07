@@ -91,10 +91,12 @@ public class FeeCategoryController extends AbstractController {
     listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
+    projection.addNamesIfStringBlank(filterController.getFilter().getSchoolIdentifier(),
+        FeeCategoryDto.JSON_SCHOOL_AS_STRING);
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
-        FeeCategoryDto.JSON_SCHOOL_AS_STRING, FeeCategoryDto.JSON_TOTAL_AMOUNT_AS_STRING,
-        FeeCategoryDto.JSON_PAID_AMOUNT_AS_STRING, FeeCategoryDto.JSON_PAYABLE_AMOUNT_AS_STRING,
+        FeeCategoryDto.JSON_TOTAL_AMOUNT_AS_STRING, FeeCategoryDto.JSON_PAID_AMOUNT_AS_STRING,
+        FeeCategoryDto.JSON_PAYABLE_AMOUNT_AS_STRING,
         FeeCategoryDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING,
         FeeCategoryDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
         FeeCategoryDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING);
@@ -103,6 +105,8 @@ public class FeeCategoryController extends AbstractController {
 
     listController.initialize();
 
+    listController.getCreateController().addEntityConsumer(entity -> ((FeeCategoryDto) entity)
+        .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier()));
     listController.getCreateController().setFunction(entity -> {
       FeeCategoryCreateRequestDto request = requestMapper.mapCreate((FeeCategoryDto) entity);
       request.setAuditWho(userIdentifier);
@@ -144,6 +148,9 @@ public class FeeCategoryController extends AbstractController {
     schoolSelectOne.getSelectOneMenu()
         .addValueConsumer(identifier -> ((FeeCategoryDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSchoolIdentifier(identifier));
+
+    schoolSelectOne.getSelectOneMenu()
+        .setRendered(Core.isStringBlank(filterController.getFilter().getSchoolIdentifier()));
   }
 
   void listenFilter(FeeCategoryFilter filter) {

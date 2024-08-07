@@ -27,6 +27,9 @@ public class FeeCategoryFilterController extends AbstractFilterController<FeeCat
   @Override
   protected void postConstruct() {
     super.postConstruct();
+    filter.setSchoolIdentifier(
+        Core.getOrDefaultIfNull(getRequestParameter(FeeCategoryFilter.JSON_SCHOOL_IDENTIFIER),
+            sessionController.getSchoolIdentifier()));
 
     filter.setRegistrationSchoolingSchoolIdentifier(Core.getOrDefaultIfNull(
         getRequestParameter(FeeCategoryFilter.JSON_REGISTRATION_SCHOOLING_SCHOOL_IDENTIFIER),

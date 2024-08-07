@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client.configuration;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
@@ -86,6 +87,9 @@ public class SchoolingController extends AbstractController {
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(SchoolingReadPage.OUTCOME);
 
+    listController.getCreateController().addEntityConsumer(entity -> ((SchoolingDto) entity)
+        .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier()));
+    
     listController.getCreateController().setFunction(entity -> {
       SchoolingCreateRequestDto request = requestMapper.mapCreate((SchoolingDto) entity);
       request.setAuditWho(userIdentifier);
@@ -124,6 +128,15 @@ public class SchoolingController extends AbstractController {
     schoolSelectOne.getSelectOneMenu().valueChangeAjax()
         .setUpdate(periodSelectOne.getSelectOneMenu().getIdentifier() + ","
             + branchSelectOne.getSelectOneMenu().getIdentifier());
+
+    if (!Core.isStringBlank(filterController.getFilter().getSchoolIdentifier())) {
+      schoolSelectOne.getSelectOneMenu().setRendered(false);
+      PeriodFilter periodFilter = new PeriodFilter();
+      periodFilter.setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
+      periodFilter.setOpened(true);
+      periodSelectOne.setFilter(periodFilter.toDto());
+      periodSelectOne.computeSelectOneMenuChoices();
+    }
 
     periodSelectOne.getSelectOneMenu()
         .addValueConsumer(identifier -> listController

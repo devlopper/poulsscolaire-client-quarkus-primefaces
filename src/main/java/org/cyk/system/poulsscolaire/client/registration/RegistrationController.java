@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
@@ -12,9 +13,11 @@ import org.cyk.system.poulsscolaire.client.configuration.AssignmentTypeSelectOne
 import org.cyk.system.poulsscolaire.client.configuration.SchoolingSelectOne;
 import org.cyk.system.poulsscolaire.client.configuration.SenioritySelectOne;
 import org.cyk.system.poulsscolaire.server.api.configuration.BranchDto;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingFilter;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService;
+import org.cyk.system.poulsscolaire.server.api.registration.StudentFilter;
 
 /**
  * Cette classe représente le contrôleur de {@link RegistrationDto}.
@@ -100,6 +103,7 @@ public class RegistrationController extends AbstractController {
     schoolingSelectOne.getSelectOneMenu()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSchoolingIdentifier(identifier));
+    schoolingSelectOne.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME);
 
     senioritySelectOne.getSelectOneRadio()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
@@ -120,6 +124,16 @@ public class RegistrationController extends AbstractController {
       listController.showCreateDialog();
     }
 
-    schoolingSelectOne.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME);
+    if (!Core.isStringBlank(filterController.getFilter().getSchoolIdentifier())) {
+      StudentFilter studentFilter = new StudentFilter();
+      studentFilter.setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
+      studentSelectOne.setFilter(studentFilter.toDto());
+      studentSelectOne.computeSelectOneMenuChoices();
+      
+      SchoolingFilter schoolingFilter = new SchoolingFilter();
+      schoolingFilter.setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
+      schoolingSelectOne.setFilter(schoolingFilter.toDto());
+      schoolingSelectOne.computeSelectOneMenuChoices();
+    }
   }
 }
