@@ -10,10 +10,10 @@ For /f "tokens=1-2 delims=/:" %%a in ("%TIME%") do (set mytime=%%a%%b)
 set mytime=%mytime: =0%
 SET timestamp=v0.0.0-%mydate%%mytime%
 
-SET commit_message="Publication du client du module de formulaire basé sur Quarkus et Primefaces %timestamp%"
+SET commit_message="Publication du client du module de pouls-scolaire basé sur Quarkus et Primefaces %timestamp%"
 
 echo #### %commit_message%
 git add .
 git commit --all -m %commit_message%
 git push origin %1:%2
-git push mic-form %1:%2
+git push mic-pouls-scolaire %1:%2
