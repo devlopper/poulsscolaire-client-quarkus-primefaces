@@ -1,12 +1,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
-  
+
   <p:importConstants type="org.cyk.system.poulsscolaire.client.payment.PaymentListPage"
     var="PaymentListPage" />
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.payment.PaymentFilter"
     var="PaymentFilter" />
-  
+
   <ui:decorate template="/extension/crud/list/default.xhtml">
     <ui:param name="listController" value="#{controller}" />
     <ui:param name="container" value="#{container}" />
@@ -16,6 +16,14 @@
         <f:param name="#{PaymentFilter.JSON_REGISTRATION_IDENTIFIER}" value="#{record.identifier}" />
         <f:param name="showCreateDialog" value="true" />
       </p:button>
+
+      <p:commandButton icon="pi pi-eraser" title="Réduire tous les montants à zéro"
+        action="#{container.updateAmountsToZeroController.execute(record.identifier)}">
+        <p:confirm header="Confirmation"
+          message="Êtes vous sur de vouloir mettre à zéro tous les montants"
+          icon="pi pi-exclamation-triangle" />
+      </p:commandButton>
+
     </ui:define>
   </ui:decorate>
 </ui:composition>
