@@ -20,18 +20,28 @@ import org.cyk.system.poulsscolaire.server.api.configuration.SchoolDto;
 @Getter
 public class SessionController extends AbstractController {
 
+  String userIdentifierName;
+
   String schoolIdentifierName;
 
   String periodIdentifierName;
 
+  /**
+   * Cette méthode permet de construire un objet.
+   */
   public SessionController() {
+    userIdentifierName = "user";
     schoolIdentifierName = "school";
     periodIdentifierName = "period";
+  }
+  
+  boolean loggedIn(HttpSession session) {
+    return session != null && session.getAttribute(userIdentifierName) != null;
   }
 
   boolean configured(HttpSession session) {
     return session != null && session.getAttribute(schoolIdentifierName) != null
-        /*&& session.getAttribute(periodIdentifierName) != null*/;
+    /* && session.getAttribute(periodIdentifierName) != null */;
   }
 
   /**

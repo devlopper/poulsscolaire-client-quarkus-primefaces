@@ -13,7 +13,9 @@ import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.registration.RegistrationSelectOne;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentClient;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentDto;
+import org.cyk.system.poulsscolaire.server.api.payment.PaymentRequestMapper;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentService;
+import org.cyk.system.poulsscolaire.server.api.payment.PaymentService.PaymentCreateRequestDto;
 
 /**
  * Cette classe représente le contrôleur de {@link PaymentDto}.
@@ -42,6 +44,9 @@ public class PaymentController extends AbstractController {
   @Inject
   @Getter
   PaymentModeSelectOne modeSelectOne;
+
+  @Inject
+  PaymentRequestMapper requestMapper;
 
   /* Cancel */
 
@@ -82,14 +87,14 @@ public class PaymentController extends AbstractController {
       listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(1);
     }
 
-    listController.getCreateController().addEntityConsumer(entity -> {
-      ((PaymentDto) entity)
-          .setRegistrationIdentifier(filterController.getFilter().getRegistrationIdentifier());
+    listController.getCreateController().addEntityConsumer(entity -> ((PaymentDto) entity)
+        .setRegistrationIdentifier(filterController.getFilter().getRegistrationIdentifier()));
+    
+    listController.getCreateController().setFunction(entity -> {
+      PaymentCreateRequestDto request = requestMapper.mapCreate((PaymentDto) entity);
+      request.setAuditWho(userIdentifier);
+      return client.create(request);
     });
-    listController.getCreateController()
-        .setFunction(entity -> client.create(((PaymentDto) entity).getRegistrationIdentifier(),
-            ((PaymentDto) entity).getModeIdentifier(), ((PaymentDto) entity).getAmount(),
-            userIdentifier, null));
 
     listController.getShowUpdateDialogButton().setRendered(false);
     listController.getDeleteButton().setRendered(false);
