@@ -73,16 +73,18 @@ body {
       <h2>Connexion</h2>
       <h3>Pouls-Paid</h3>
       <h:form>
+        <p:messages id="messages" globalOnly="true" />
+        
         <p:outputLabel for="username" value="Nom d'utilisateur" />
         <p:inputText id="username" value="#{userLoginPage.username}" required="true" />
         <p:message id="usernameMessage" for="username" />
 
         <p:outputLabel for="password" value="Mot de passe" />
-        <p:inputText id="password" value="#{userLoginPage.pass}" required="true" />
+        <p:password id="password" value="#{userLoginPage.pass}" required="true" />
         <p:message id="passwordMessage" for="password" />
 
         <p:commandButton styleClass="loginCommand" value="Se connecter" action="#{userLoginPage.login}"
-          update="usernameMessage,passwordMessage" />
+          update="usernameMessage,passwordMessage,messages" />
       </h:form>
     </div>
   </ui:define>

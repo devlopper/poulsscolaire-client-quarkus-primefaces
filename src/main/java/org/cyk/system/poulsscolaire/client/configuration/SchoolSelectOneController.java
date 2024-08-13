@@ -15,14 +15,14 @@ import org.cyk.system.poulsscolaire.server.api.configuration.SchoolService.Schoo
  *
  */
 @Dependent
-public class SchoolSelectOne extends
+public class SchoolSelectOneController extends
     AbstractSelectOneIdentifiableController<SchoolDto, SchoolGetManyResponseDto, SchoolClient> {
 
   @Inject
   @Getter
   SchoolClient client;
 
-  protected SchoolSelectOne() {
+  protected SchoolSelectOneController() {
     super(SchoolDto.class);
   }
 }

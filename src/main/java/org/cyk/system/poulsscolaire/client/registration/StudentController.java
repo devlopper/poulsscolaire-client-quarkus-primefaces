@@ -11,7 +11,7 @@ import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.BloodGroupSelectOne;
 import org.cyk.system.poulsscolaire.client.configuration.GenderSelectOne;
-import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOne;
+import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.registration.BloodGroup;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentClient;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
@@ -38,7 +38,7 @@ public class StudentController extends AbstractController {
 
   @Inject
   @Getter
-  SchoolSelectOne schoolSelectOne;
+  SchoolSelectOneController schoolSelectOne;
 
   @Inject
   @Getter

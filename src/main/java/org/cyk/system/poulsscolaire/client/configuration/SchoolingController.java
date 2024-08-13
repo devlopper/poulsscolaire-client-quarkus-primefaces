@@ -36,7 +36,7 @@ public class SchoolingController extends AbstractController {
 
   @Inject
   @Getter
-  SchoolSelectOne schoolSelectOne;
+  SchoolSelectOneController schoolSelectOne;
 
   @Inject
   @Getter

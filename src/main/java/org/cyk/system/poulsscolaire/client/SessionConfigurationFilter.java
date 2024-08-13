@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client;
 
+import jakarta.annotation.Priority;
 import jakarta.inject.Inject;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -16,7 +17,8 @@ import java.io.IOException;
  * @author Christian
  *
  */
-//@jakarta.servlet.annotation.WebFilter("/private/*")
+@jakarta.servlet.annotation.WebFilter("/private/*")
+@Priority(SessionConfigurationFilter.PRIORITY)
 public class SessionConfigurationFilter implements Filter {
 
   @Inject
@@ -36,4 +38,6 @@ public class SessionConfigurationFilter implements Filter {
     }
     chain.doFilter(request, response);
   }
+  
+  public static final int PRIORITY = UserLoginFilter.PRIORITY + 1;
 }

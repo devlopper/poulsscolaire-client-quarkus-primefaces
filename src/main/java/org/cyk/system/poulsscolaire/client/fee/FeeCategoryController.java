@@ -15,7 +15,7 @@ import jakarta.faces.model.SelectItem;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
-import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOne;
+import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolClient;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolService;
@@ -58,7 +58,7 @@ public class FeeCategoryController extends AbstractController {
 
   @Inject
   @Getter
-  SchoolSelectOne schoolSelectOne;
+  SchoolSelectOneController schoolSelectOne;
 
   @Getter
   @Setter

@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.server.api.configuration.PeriodDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolDto;
+import org.cyk.system.poulsscolaire.server.api.configuration.UserDto;
 
 /**
  * Cette classe représente un contrôleur de session.
@@ -34,9 +35,31 @@ public class SessionController extends AbstractController {
     schoolIdentifierName = "school";
     periodIdentifierName = "period";
   }
-  
+
   boolean loggedIn(HttpSession session) {
     return session != null && session.getAttribute(userIdentifierName) != null;
+  }
+
+  /**
+   * Cette méthode permet de connecter un utilisateur.
+   *
+   * @param user utilisateur
+   */
+  public void login(UserDto user) {
+    HttpSession session =
+        (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+    session.setAttribute(userIdentifierName, user);
+  }
+  
+  /**
+   * Cette méthode permet d'obtenir l'utilisateur.
+   *
+   * @return utilisateur
+   */
+  public UserDto getUser() {
+    HttpSession session =
+        (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+    return (UserDto) session.getAttribute(userIdentifierName);
   }
 
   boolean configured(HttpSession session) {

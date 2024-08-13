@@ -9,7 +9,7 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOne;
+import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.fee.DeadlineClient;
 import org.cyk.system.poulsscolaire.server.api.fee.DeadlineDto;
 import org.cyk.system.poulsscolaire.server.api.fee.DeadlineGroupDto;
@@ -39,7 +39,7 @@ public class DeadlineController extends AbstractController {
 
   @Inject
   @Getter
-  SchoolSelectOne schoolSelectOne;
+  SchoolSelectOneController schoolSelectOne;
 
   @Override
   protected void postConstruct() {
