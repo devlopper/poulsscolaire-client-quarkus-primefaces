@@ -1,6 +1,5 @@
 package org.cyk.system.poulsscolaire.client;
 
-import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.NavigationManager;
 import ci.gouv.dgbf.extension.primefaces.User;
 import ci.gouv.dgbf.extension.primefaces.UserSession;
@@ -9,7 +8,6 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpSession;
-import java.util.Set;
 import org.cyk.system.poulsscolaire.client.fee.FeeCategoryListPage;
 import org.cyk.system.poulsscolaire.server.api.configuration.UserDto;
 
@@ -44,8 +42,7 @@ public class UserSessionImpl implements UserSession {
     }
     user = new User();
     user.setIdentifier(dto.getIdentifier());
-    Core.runIfStringNotBlank(dto.getRoles(),
-        () -> user.setRoles(Set.of(dto.getRoles().split(","))));
+    user.setRoles(dto.getRoles());
     return user;
   }
 
