@@ -11,6 +11,4 @@ REM build new image
 call docker build -f ../../src/main/docker/Dockerfile.jvm --tag "cykcorp/poulsscolaire:latest" ../../
 call docker tag poulsscolaireapi cykcorp/poulsscolaire
 
-call docker login -u "kycdev@gmail.com" -p "P@sSw0rd@2O18" docker.io
-
-call docker push cykcorp/poulsscolaire:latest
+call push-to-docker-hub-latest.bat
