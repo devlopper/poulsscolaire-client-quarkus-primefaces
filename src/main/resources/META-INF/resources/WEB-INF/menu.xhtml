@@ -2,6 +2,30 @@
   xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui" xmlns:pa="http://primefaces.org/atlantis">
 
+  <ui:param name="rootRoleCode" value="0" />
+  <ui:param name="founderRoleCode" value="7" />
+  <ui:param name="educatorRoleCode" value="9" />
+  <ui:param name="studiesDirectorRoleCode" value="11" />
+  <ui:param name="managerRoleCode" value="12" />
+  <ui:param name="accountantRoleCode" value="13" />
+  <ui:param name="cashierRoleCode" value="14" />
+  <ui:param name="debtCollectorRoleCode" value="15" />
+
+  <ui:param name="administrationModuleVisible" value="#{sessionController.hasRole(rootRoleCode)}" />
+
+  <ui:param name="feeModuleVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
+
+  <ui:param name="registrationModuleVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode,studiesDirectorRoleCode,cashierRoleCode])}" />
+  <ui:param name="studentVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode,studiesDirectorRoleCode,cashierRoleCode])}" />
+  <ui:param name="registrationVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode,studiesDirectorRoleCode])}" />
+
+  <ui:param name="paymentModuleVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
+
   <!-- ========== App Menu ========== -->
   <div class="app-menu navbar-menu">
     <!-- LOGO -->
@@ -76,144 +100,163 @@
         <ul class="navbar-nav" id="navbar-nav">
           <li class="menu-title"><span data-key="t-menu">Menu</span></li>
 
-          <li class="nav-item"><a class="nav-link menu-link" href="#Administration"
-            data-bs-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="sidebarApps"> <i class="ri-apps-2-line"></i> <span data-key="t-apps">Administration</span>
-          </a>
-            <div class="collapse menu-dropdown" id="Administration">
-              <ul class="nav nav-sm flex-column">
-                <li class="nav-item"><p:link outcome="deadlineGroupListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Groupe échéance" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="deadlineListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Échéance" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="feeCategoryListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Rubrique" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="genderListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Genre" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="assignmentTypeListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Type d'affectation" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="seniorityListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Ancienneté" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="studentListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Élève" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="schoolingListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Scolarité" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="registrationListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Inscription" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="feeListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Frais" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="adjustedFeeListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Frais ajusté" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="amountDeadlineListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Échéance de montant" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="amountListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Montant" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="paymentModeListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Mode de paiement" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="paymentListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Paiement" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="paymentAdjustedFeeListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Paiement frais ajusté" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="schoolListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="École" styleClass="nav-link nav-text" />
-                  </p:link></li>
+          <ui:fragment rendered="#{administrationModuleVisible}">
+            <li class="nav-item"><a class="nav-link menu-link" href="#Administration"
+              data-bs-toggle="collapse" role="button" aria-expanded="false"
+              aria-controls="sidebarApps"> <i class="ri-apps-2-line"></i> <span
+                data-key="t-apps">Administration</span>
+            </a>
+              <div class="collapse menu-dropdown" id="Administration">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item"><p:link outcome="deadlineGroupListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Groupe échéance" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="deadlineListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Échéance" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="feeCategoryListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Rubrique" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="genderListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Genre" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="assignmentTypeListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Type d'affectation" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="seniorityListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Ancienneté" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="studentListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Élève" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="schoolingListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Scolarité" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="registrationListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Inscription" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="feeListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Frais" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="adjustedFeeListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Frais ajusté" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="amountDeadlineListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Échéance de montant" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="amountListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Montant" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="paymentModeListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Mode de paiement" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="paymentListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Paiement" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="paymentAdjustedFeeListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Paiement frais ajusté" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="schoolListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="École" styleClass="nav-link nav-text" />
+                    </p:link></li>
 
-                <li class="nav-item"><p:link outcome="sessionConfigurePage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Session" styleClass="nav-link nav-text" />
-                  </p:link></li>
-              </ul>
-            </div></li>
+                  <li class="nav-item"><p:link outcome="sessionConfigurePage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Session" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                </ul>
+              </div></li>
+          </ui:fragment>
 
-          <li class="nav-item"><a class="nav-link menu-link" href="#GrilleFrais"
-            data-bs-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="sidebarApps"> <i class="ri-file-list-3-line"></i> <span
-              data-key="t-apps">Grille de frais</span>
-          </a>
-            <div class="collapse menu-dropdown" id="GrilleFrais">
-              <ul class="nav nav-sm flex-column">
+          <ui:fragment rendered="#{feeModuleVisible}">
+            <li class="nav-item"><a class="nav-link menu-link" href="#GrilleFrais"
+              data-bs-toggle="collapse" role="button" aria-expanded="false"
+              aria-controls="sidebarApps"> <i class="ri-file-list-3-line"></i> <span
+                data-key="t-apps">Grille de frais</span>
+            </a>
+              <div class="collapse menu-dropdown" id="GrilleFrais">
+                <ul class="nav nav-sm flex-column">
 
-                <li class="nav-item"><p:link outcome="schoolingListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Scolarité" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="feeCategoryListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Rubrique" styleClass="nav-link nav-text" />
-                  </p:link></li>
-              </ul>
-            </div></li>
+                  <li class="nav-item"><p:link outcome="schoolingListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Scolarité" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                  <li class="nav-item"><p:link outcome="feeCategoryListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Rubrique" styleClass="nav-link nav-text" />
+                    </p:link></li>
 
-          <li class="nav-item"><a class="nav-link menu-link" href="#Inscription"
-            data-bs-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="sidebarApps"> <i class="ri-dashboard-2-line"></i> <span
-              data-key="t-apps">Inscription</span>
-          </a>
-            <div class="collapse menu-dropdown" id="Inscription">
-              <ul class="nav nav-sm flex-column">
+                  <li class="nav-item"><p:link outcome="amountDeadlineListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Échéance" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                </ul>
+              </div></li>
+          </ui:fragment>
 
-                <li class="nav-item"><p:link outcome="studentListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Élève" styleClass="nav-link nav-text" />
-                  </p:link></li>
+          <ui:fragment rendered="#{registrationModuleVisible}">
+            <li class="nav-item"><a class="nav-link menu-link" href="#Inscription"
+              data-bs-toggle="collapse" role="button" aria-expanded="false"
+              aria-controls="sidebarApps"> <i class="ri-dashboard-2-line"></i> <span
+                data-key="t-apps">Inscription</span>
+            </a>
+              <div class="collapse menu-dropdown" id="Inscription">
+                <ul class="nav nav-sm flex-column">
+                  <ui:fragment rendered="#{studentVisible}">
+                    <li class="nav-item"><p:link outcome="studentListPage"
+                        styleClass="has-arrow ai-icon">
+                        <h:outputText value="Élève" styleClass="nav-link nav-text" />
+                      </p:link></li>
+                  </ui:fragment>
 
-                <li class="nav-item"><p:link outcome="registrationListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Inscription" styleClass="nav-link nav-text" />
-                  </p:link></li>
-              </ul>
-            </div></li>
+                  <ui:fragment rendered="#{registrationVisible}">
+                    <li class="nav-item"><p:link outcome="registrationListPage"
+                        styleClass="has-arrow ai-icon">
+                        <h:outputText value="Inscription" styleClass="nav-link nav-text" />
+                      </p:link></li>
+                  </ui:fragment>
+                </ul>
+              </div></li>
+          </ui:fragment>
 
-          <li class="nav-item"><a class="nav-link menu-link" href="#Paiement"
-            data-bs-toggle="collapse" role="button" aria-expanded="false"
-            aria-controls="sidebarApps"> <i class="ri-layout-3-line"></i> <span
-              data-key="t-apps">Paiement</span>
-          </a>
-            <div class="collapse menu-dropdown" id="Paiement">
-              <ul class="nav nav-sm flex-column">
-                <li class="nav-item"><p:link outcome="paymentListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Paiement" styleClass="nav-link nav-text" />
-                  </p:link></li>
-                <li class="nav-item"><p:link outcome="paymentModeListPage"
-                    styleClass="has-arrow ai-icon">
-                    <h:outputText value="Mode de paiement" styleClass="nav-link nav-text" />
-                  </p:link></li>
-              </ul>
-            </div></li>
+          <ui:fragment rendered="#{paymentModuleVisible}">
+            <li class="nav-item"><a class="nav-link menu-link" href="#Paiement"
+              data-bs-toggle="collapse" role="button" aria-expanded="false"
+              aria-controls="sidebarApps"> <i class="ri-layout-3-line"></i> <span
+                data-key="t-apps">Paiement</span>
+            </a>
+              <div class="collapse menu-dropdown" id="Paiement">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item"><p:link outcome="paymentListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Paiement" styleClass="nav-link nav-text" />
+                    </p:link></li>
+
+                  <li class="nav-item"><p:link outcome="adjustedFeeListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Frais" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                </ul>
+              </div></li>
+          </ui:fragment>
+
         </ul>
       </div>
       <!-- Sidebar -->

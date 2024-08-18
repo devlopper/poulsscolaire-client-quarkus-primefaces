@@ -12,7 +12,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
-import org.cyk.system.poulsscolaire.client.fee.FeeCategoryListPage;
 import org.cyk.system.poulsscolaire.server.api.configuration.UserClient;
 import org.cyk.system.poulsscolaire.server.api.configuration.UserDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.UserFilter;
@@ -65,7 +64,7 @@ public class UserLoginPage extends AbstractPage {
             "Nom d'utilisateur ou mot de passe incorrect", ""));
       } else {
         sessionController.login(user);
-        navigationManager.navigate(FeeCategoryListPage.OUTCOME);
+        navigationManager.navigate(SessionConfigurePage.OUTCOME);
       }
       return user;
     }).execute();

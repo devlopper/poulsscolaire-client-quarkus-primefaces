@@ -39,5 +39,5 @@ public class SessionConfigurationFilter implements Filter {
     chain.doFilter(request, response);
   }
   
-  public static final int PRIORITY = UserLoginFilter.PRIORITY + 1;
+  public static final int PRIORITY = AuthenticationFilter.PRIORITY + 1;
 }

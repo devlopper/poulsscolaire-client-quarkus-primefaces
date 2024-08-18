@@ -12,14 +12,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Cette classe représente le filtre de connexion d'utilisateur.
+ * Cette classe représente le filtre d'authentification.
  *
  * @author Christian
  *
  */
 @jakarta.servlet.annotation.WebFilter("/private/*")
-@Priority(UserLoginFilter.PRIORITY)
-public class UserLoginFilter implements Filter {
+@Priority(AuthenticationFilter.PRIORITY)
+public class AuthenticationFilter implements Filter {
 
   @Inject
   SessionController sessionController;

@@ -5,6 +5,7 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.server.api.configuration.PeriodDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolDto;
@@ -50,7 +51,7 @@ public class SessionController extends AbstractController {
         (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
     session.setAttribute(userIdentifierName, user);
   }
-  
+
   /**
    * Cette méthode permet d'obtenir l'utilisateur.
    *
@@ -120,5 +121,33 @@ public class SessionController extends AbstractController {
       return null;
     }
     return period.getIdentifier();
+  }
+
+  /**
+   * Cette méthode permet de savoir si la role est possédé.
+   *
+   * @param role role
+   * @return oui ou non si la role est possédé
+   */
+  public boolean hasRole(String role) {
+    UserDto user = getUser();
+    if (user == null) {
+      return false;
+    }
+    return user.hasOneOfRolesArray(role);
+  }
+
+  /**
+   * Cette méthode permet de savoir si un des roles est possédé.
+   *
+   * @param roles roles
+   * @return oui ou non si un des roles est possédé
+   */
+  public boolean hasOneOfRoles(ArrayList<String>  roles) {
+    UserDto user = getUser();
+    if (user == null) {
+      return false;
+    }
+    return user.hasOneOfRolesArray(roles.toArray(new String[] {}));
   }
 }

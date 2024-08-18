@@ -16,7 +16,7 @@
     <navigation-case>
       <description>page d'accueil</description>
       <from-outcome>indexPage</from-outcome>
-      <to-view-id>/private/index.jsf</to-view-id>
+      <to-view-id>/private/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -25,7 +25,7 @@
     <navigation-case>
       <description>page de configuration de session</description>
       <from-outcome>sessionConfigurePage</from-outcome>
-      <to-view-id>/private/__session__/configure.jsf</to-view-id>
+      <to-view-id>/private/__session__/configure.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -34,7 +34,7 @@
     <navigation-case>
       <description>page liste des groupes d'échéances</description>
       <from-outcome>deadlineGroupListPage</from-outcome>
-      <to-view-id>/private/deadlinegroup/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/deadlinegroup/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -43,7 +43,7 @@
     <navigation-case>
       <description>page liste des échéances</description>
       <from-outcome>deadlineListPage</from-outcome>
-      <to-view-id>/private/deadline/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/deadline/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -52,7 +52,7 @@
     <navigation-case>
       <description>page liste des rubriques</description>
       <from-outcome>feeCategoryListPage</from-outcome>
-      <to-view-id>/private/feecategory/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/feecategory/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -61,14 +61,14 @@
     <navigation-case>
       <description>page liste des frais</description>
       <from-outcome>feeListPage</from-outcome>
-      <to-view-id>/private/fee/administrator/list/index.jsf</to-view-id>
+      <to-view-id>/private/fee/administrator/list/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
       <description>page de lecture de frais</description>
       <from-outcome>feeReadPage</from-outcome>
-      <to-view-id>/private/fee/administrator/read/index.jsf</to-view-id>
+      <to-view-id>/private/fee/administrator/read/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -77,14 +77,14 @@
     <navigation-case>
       <description>page liste des frais ajustés</description>
       <from-outcome>adjustedFeeListPage</from-outcome>
-      <to-view-id>/private/adjustedfee/administrator/list/index.jsf</to-view-id>
+      <to-view-id>/private/adjustedfee/administrator/list/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
       <description>page de lecture des frais ajustés</description>
       <from-outcome>adjustedFeeReadPage</from-outcome>
-      <to-view-id>/private/adjustedfee/administrator/read/index.jsf</to-view-id>
+      <to-view-id>/private/adjustedfee/administrator/read/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -93,21 +93,21 @@
     <navigation-case>
       <description>page liste des montants</description>
       <from-outcome>amountListPage</from-outcome>
-      <to-view-id>/private/amount/administrator/list/index.jsf</to-view-id>
+      <to-view-id>/private/amount/administrator/list/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
       <description>page de lecture de montant</description>
       <from-outcome>amountReadPage</from-outcome>
-      <to-view-id>/private/amount/administrator/read/index.jsf</to-view-id>
+      <to-view-id>/private/amount/administrator/read/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
     <navigation-case>
       <description>page liste des échéances de montants</description>
       <from-outcome>amountDeadlineListPage</from-outcome>
-      <to-view-id>/private/amountdeadline/administrator/list/index.jsf</to-view-id>
+      <to-view-id>/private/amountdeadline/administrator/list/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -116,7 +116,7 @@
     <navigation-case>
       <description>page liste des types d'affectation</description>
       <from-outcome>assignmentTypeListPage</from-outcome>
-      <to-view-id>/private/assignmenttype/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/assignmenttype/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -125,7 +125,7 @@
     <navigation-case>
       <description>page liste des anciennetés</description>
       <from-outcome>seniorityListPage</from-outcome>
-      <to-view-id>/private/seniority/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/seniority/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -134,7 +134,7 @@
     <navigation-case>
       <description>page liste des genres</description>
       <from-outcome>genderListPage</from-outcome>
-      <to-view-id>/private/gender/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/gender/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -143,7 +143,7 @@
     <navigation-case>
       <description>page liste des élèves</description>
       <from-outcome>studentListPage</from-outcome>
-      <to-view-id>/private/student/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/student/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -200,7 +200,7 @@
     <navigation-case>
       <description>page liste des caisses enregistreuses</description>
       <from-outcome>cashRegisterListPage</from-outcome>
-      <to-view-id>/private/cashregister/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/cashregister/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -209,7 +209,7 @@
     <navigation-case>
       <description>page liste des modes de paiement</description>
       <from-outcome>paymentModeListPage</from-outcome>
-      <to-view-id>/private/paymentmode/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/paymentmode/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -218,7 +218,7 @@
     <navigation-case>
       <description>page liste des paiements</description>
       <from-outcome>paymentListPage</from-outcome>
-      <to-view-id>/private/payment/administrator/list/index.jsf</to-view-id>
+      <to-view-id>/private/payment/administrator/list/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     
@@ -227,7 +227,7 @@
     <navigation-case>
       <description>page liste des paiements de frais ajusté</description>
       <from-outcome>paymentAdjustedFeeListPage</from-outcome>
-      <to-view-id>/private/paymentadjustedfee/administrator/list.jsf</to-view-id>
+      <to-view-id>/private/paymentadjustedfee/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>

@@ -49,6 +49,10 @@ public class RegistrationController extends AbstractController {
 
   @Inject
   @Getter
+  SchoolingSelectOne schooling2SelectOne;
+
+  @Inject
+  @Getter
   SenioritySelectOne senioritySelectOne;
 
   @Inject
@@ -100,6 +104,7 @@ public class RegistrationController extends AbstractController {
 
     listController.getCreateController().setFunction(entity -> {
       RegistrationCreateRequestDto request = requestMapper.mapCreate((RegistrationDto) entity);
+      request.setSchooling2Identifier(((RegistrationDto) entity).getSchooling2Identifier());
       request.setAuditWho(userIdentifier);
       return client.create(request);
     });
@@ -119,7 +124,12 @@ public class RegistrationController extends AbstractController {
     schoolingSelectOne.getSelectOneMenu()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSchoolingIdentifier(identifier));
-    schoolingSelectOne.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME);
+    schoolingSelectOne.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME + " 1");
+
+    schooling2SelectOne.getSelectOneMenu()
+        .addValueConsumer(identifier -> ((RegistrationDto) listController
+            .getCreateControllerOrUpdateControllerEntity()).setSchooling2Identifier(identifier));
+    schooling2SelectOne.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME + " 2");
 
     senioritySelectOne.getSelectOneRadio()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
@@ -150,6 +160,9 @@ public class RegistrationController extends AbstractController {
       schoolingFilter.setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
       schoolingSelectOne.setFilter(schoolingFilter.toDto());
       schoolingSelectOne.computeSelectOneMenuChoices();
+      
+      schooling2SelectOne.setFilter(schoolingFilter.toDto());
+      schooling2SelectOne.computeSelectOneMenuChoices();
     }
 
     updateAmountsToZeroController
