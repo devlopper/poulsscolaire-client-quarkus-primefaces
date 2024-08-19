@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client.fee;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
@@ -35,11 +36,15 @@ public class DeadlineController extends AbstractController {
 
   @Inject
   @Getter
-  DeadlineGroupSelectOne groupSelectOne;
+  DeadlineFilterController filterController;
 
   @Inject
   @Getter
-  SchoolSelectOneController schoolSelectOne;
+  DeadlineGroupSelectOneController groupSelectOneController;
+
+  @Inject
+  @Getter
+  SchoolSelectOneController schoolSelectOneController;
 
   @Override
   protected void postConstruct() {
@@ -49,16 +54,20 @@ public class DeadlineController extends AbstractController {
     listController.setEntityClass(DeadlineDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(DeadlineService.PATH);
+    listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
+    projection.addNamesIfStringBlank(filterController.getFilter().getSchoolIdentifier(),
+        DeadlineDto.JSON_SCHOOL_AS_STRING);
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
-        DeadlineDto.JSON_GROUP_AS_STRING, DeadlineDto.JSON_DATE_AS_STRING,
-        DeadlineDto.JSON_SCHOOL_AS_STRING);
+        DeadlineDto.JSON_GROUP_AS_STRING, DeadlineDto.JSON_DATE_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
 
+    listController.getCreateController().addEntityConsumer(entity -> ((DeadlineDto) entity)
+        .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier()));
     listController.getCreateController().setFunction(entity -> {
       DeadlineCreateRequestDto request = new DeadlineCreateRequestDto();
       request.setGroupIdentifier(((DeadlineDto) entity).getGroupIdentifier());
@@ -80,11 +89,13 @@ public class DeadlineController extends AbstractController {
       return client.update(request);
     });
 
-    schoolSelectOne.getSelectOneMenu().addValueConsumer(
+    schoolSelectOneController.getSelectOneMenu().addValueConsumer(
         identifier -> ((DeadlineDto) listController.getCreateControllerOrUpdateControllerEntity())
             .setSchoolIdentifier(identifier));
+    schoolSelectOneController.getSelectOneMenu()
+        .setRendered(Core.isStringBlank(filterController.getFilter().getSchoolIdentifier()));
 
-    groupSelectOne.getSelectOneMenu().addValueConsumer(
+    groupSelectOneController.getSelectOneMenu().addValueConsumer(
         identifier -> ((DeadlineDto) listController.getCreateControllerOrUpdateControllerEntity())
             .setGroupIdentifier(identifier));
   }

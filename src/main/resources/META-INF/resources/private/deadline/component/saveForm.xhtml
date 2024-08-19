@@ -8,11 +8,11 @@
 
       <ui:define name="form-save-inputs">
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.schoolSelectOne.selectOneMenu}" />
+          <ui:param name="selectOneMenu" value="#{container.schoolSelectOneController.selectOneMenu}" />
         </ui:include>
         
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.groupSelectOne.selectOneMenu}" />
+          <ui:param name="selectOneMenu" value="#{container.groupSelectOneController.selectOneMenu}" />
         </ui:include>
         
         <ui:decorate template="/extension/component/input/default.xhtml">

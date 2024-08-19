@@ -15,14 +15,14 @@ import org.cyk.system.poulsscolaire.server.api.fee.DeadlineGroupService.Deadline
  *
  */
 @Dependent
-public class DeadlineGroupSelectOne extends AbstractSelectOneIdentifiableController<
+public class DeadlineGroupSelectOneController extends AbstractSelectOneIdentifiableController<
     DeadlineGroupDto, DeadlineGroupGetManyResponseDto, DeadlineGroupClient> {
 
   @Inject
   @Getter
   DeadlineGroupClient client;
 
-  protected DeadlineGroupSelectOne() {
+  protected DeadlineGroupSelectOneController() {
     super(DeadlineGroupDto.class);
   }
 }

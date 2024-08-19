@@ -56,7 +56,7 @@ public class AuthorizationFilter implements Filter {
     
     allowFeeCategory(founderRoleCode, managerRoleCode, accountantRoleCode);
     allowFee(founderRoleCode, managerRoleCode, accountantRoleCode);
-    allowAmountDeadline(founderRoleCode, managerRoleCode, accountantRoleCode);
+    allowDeadline(founderRoleCode, managerRoleCode, accountantRoleCode);
     allowSchooling(founderRoleCode, managerRoleCode, accountantRoleCode);
     
     allowStudent(founderRoleCode, managerRoleCode, accountantRoleCode);
@@ -89,6 +89,11 @@ public class AuthorizationFilter implements Filter {
 
   void allowFee(String... rolesCodes) {
     allow("/private/fee/administrator/list/index.xhtml", rolesCodes);
+    allow("/private/fee/administrator/read/index.xhtml", rolesCodes);
+  }
+  
+  void allowDeadline(String... rolesCodes) {
+    allow("/private/deadline/administrator/list.xhtml", rolesCodes);
   }
   
   void allowAmountDeadline(String... rolesCodes) {
@@ -97,6 +102,7 @@ public class AuthorizationFilter implements Filter {
   
   void allowSchooling(String... rolesCodes) {
     allow("/private/schooling/accountant/list.xhtml", rolesCodes);
+    allow("/private/schooling/accountant/read/index.xhtml", rolesCodes);
   }
 
   void allowStudent(String... rolesCodes) {
@@ -105,6 +111,7 @@ public class AuthorizationFilter implements Filter {
 
   void allowRegistration(String... rolesCodes) {
     allow("/private/registration/accountant/list.xhtml", rolesCodes);
+    allow("/private/registration/accountant/read/index.xhtml", rolesCodes);
   }
 
   void allowAdjustedFee(String... rolesCodes) {
