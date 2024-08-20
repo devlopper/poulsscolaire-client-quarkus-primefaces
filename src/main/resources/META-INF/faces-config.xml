@@ -147,6 +147,13 @@
       <redirect />
     </navigation-case>
     
+    <navigation-case>
+      <description>page lecture d'un élève</description>
+      <from-outcome>studentReadPage</from-outcome>
+      <to-view-id>/private/student/administrator/read/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- School -->
     
     <navigation-case>

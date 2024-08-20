@@ -107,6 +107,7 @@ public class AuthorizationFilter implements Filter {
 
   void allowStudent(String... rolesCodes) {
     allow("/private/student/administrator/list.xhtml", rolesCodes);
+    allow("/private/student/administrator/read/index.xhtml", rolesCodes);
   }
 
   void allowRegistration(String... rolesCodes) {

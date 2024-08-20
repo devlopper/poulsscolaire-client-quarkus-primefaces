@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="" />
+
+      <ui:define name="form-save-inputs">
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Nom" for="firstName" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="firstName" value="#{controller.entity.firstName}" />
+            <p:message id="firstNameMessage" for="firstName" />
+          </ui:define>
+        </ui:decorate>
+
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Prénoms" for="lastNames" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="lastNames" value="#{controller.entity.lastNames}" />
+            <p:message id="lastNamesMessage" for="lastNames" />
+          </ui:define>
+        </ui:decorate>
+        
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Numéro de téléphone" for="phoneNumber" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="phoneNumber" value="#{controller.entity.phoneNumber}" />
+            <p:message id="phoneNumberMessage" for="phoneNumber" />
+          </ui:define>
+        </ui:decorate>
+      </ui:define>
+    </ui:decorate>
+  </h:form>
+</ui:composition>
