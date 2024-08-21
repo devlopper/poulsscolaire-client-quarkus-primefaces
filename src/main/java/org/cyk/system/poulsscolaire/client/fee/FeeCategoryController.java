@@ -101,7 +101,7 @@ public class FeeCategoryController extends AbstractController {
         FeeCategoryDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
         FeeCategoryDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING);
     listController.getReadController().setProjection(projection);
-    listController.getDataTable().getFilterButton().setRendered(true);
+    //listController.getDataTable().getFilterButton().setRendered(true);
 
     listController.initialize();
 

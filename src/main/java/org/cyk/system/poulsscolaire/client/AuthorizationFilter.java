@@ -117,6 +117,7 @@ public class AuthorizationFilter implements Filter {
 
   void allowAdjustedFee(String... rolesCodes) {
     allow("/private/adjustedfee/administrator/list/index.xhtml", rolesCodes);
+    allow("/private/adjustedfee/administrator/read/index.xhtml", rolesCodes);
   }
 
   void allowPayment(String... rolesCodes) {
