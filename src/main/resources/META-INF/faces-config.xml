@@ -138,6 +138,31 @@
       <redirect />
     </navigation-case>
     
+    <!-- Identity -->
+    
+    <navigation-case>
+      <description>page liste des identités</description>
+      <from-outcome>identityListPage</from-outcome>
+      <to-view-id>/private/identity/administrator/list.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page lecture d'une identité</description>
+      <from-outcome>identityReadPage</from-outcome>
+      <to-view-id>/private/identity/administrator/read/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Identity Relation -->
+    
+    <navigation-case>
+      <description>page liste des relations d'identités</description>
+      <from-outcome>identityRelationListPage</from-outcome>
+      <to-view-id>/private/identityrelationship/administrator/list.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Student -->
     
     <navigation-case>

@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.IdentityDto"
+    var="IdentityDto" />
+
+  <p:column headerText="Nom"
+    rendered="#{listController.isReadControllerHasProjectionName(IdentityDto.JSON_FIRST_NAME)}">
+    <h:outputText value="#{record.firstName}" />
+  </p:column>
+
+  <p:column headerText="Prénoms"
+    rendered="#{listController.isReadControllerHasProjectionName(IdentityDto.JSON_LAST_NAMES)}">
+    <h:outputText value="#{record.lastNames}" />
+  </p:column>
+</ui:composition>

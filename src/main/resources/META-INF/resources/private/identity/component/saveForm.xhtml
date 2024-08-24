@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="firstNameMessage,lastNamesMessage" />
+
+      <ui:define name="form-save-inputs">
+
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Nom" for="firstName" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="firstName" value="#{controller.entity.firstName}" />
+            <p:message id="firstNameMessage" for="firstName" />
+          </ui:define>
+        </ui:decorate>
+
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Prénoms" for="lastNames" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="lastNames" value="#{controller.entity.lastNames}" />
+            <p:message id="lastNamesMessage" for="lastNames" />
+          </ui:define>
+        </ui:decorate>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{container.relationshipParentSelectOneController.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+          <ui:param name="selectOneRadio"
+            value="#{container.relationshipTypeSelectOneController.selectOneRadio}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{container.relationshipChildSelectOneController.selectOneMenu}" />
+        </ui:include>
+      </ui:define>
+    </ui:decorate>
+  </h:form>
+</ui:composition>
