@@ -15,6 +15,11 @@
     <h:outputText value="#{record.lastNames}" />
   </p:column>
   
+  <p:column headerText="Numéro de téléphone"
+    rendered="#{listController.isReadControllerHasProjectionName(IdentityDto.JSON_PHONE_NUMBER)}">
+    <h:outputText value="#{record.phoneNumber}" />
+  </p:column>
+  
   <p:column headerText="Relation" width="200"
     rendered="#{listController.isReadControllerHasProjectionName(IdentityDto.JSON_RELATIONSHIP_TYPE_PARENT_AS_STRING)}">
     <h:outputText value="#{record.relationshipTypeParentAsString}" />

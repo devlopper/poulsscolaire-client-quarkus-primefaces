@@ -11,7 +11,7 @@
   <ui:param name="cashierRoleCode" value="14" />
   <ui:param name="debtCollectorRoleCode" value="15" />
 
-  <ui:param name="administrationModuleVisible" value="#{true or sessionController.hasRole(rootRoleCode)}" />
+  <ui:param name="administrationModuleVisible" value="#{sessionController.hasRole(rootRoleCode)}" />
 
   <ui:param name="feeModuleVisible"
     value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />

@@ -2,109 +2,12 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template/page.xhtml">
 
-  <p:importEnum
-    type="org.cyk.system.poulsscolaire.server.api.registration.StudentService.StudentCreateParentRequestDto.Link"
-    var="Link" />
-
   <ui:param name="page" value="#{studentReadPage}" />
 
   <ui:define name="content-body">
-    <h:form id="form">
-      <div class="ui-g-12">
-        <div class="ui-g-6">Nom</div>
-        <div class="ui-g-6">#{studentReadPage.student.firstName}</div>
-
-        <div class="ui-g-6">Prénoms</div>
-        <div class="ui-g-6">#{studentReadPage.student.lastNames}</div>
-      </div>
-
-      <p:separator />
-      <p:outputPanel id="fatherOutputPanel" styleClass="ui-g-12">
-        <div class="ui-g-6">Nom du père</div>
-        <div class="ui-g-6">#{studentReadPage.student.fatherFirstName}</div>
-
-        <div class="ui-g-6">Prénoms du père</div>
-        <div class="ui-g-6">#{studentReadPage.student.fatherLastNames}</div>
-        
-        <div class="ui-g-6">Téléphone du père</div>
-        <div class="ui-g-6">#{studentReadPage.student.fatherPhoneNumber}</div>
-
-        <div class="ui-g-12">
-          <p:commandButton value="Créer"
-            action="#{studentReadPage.showCreateParentDialog('FATHER')}"
-            rendered="#{empty studentReadPage.student.fatherIdentifier}" />
-          <p:commandButton value="Modifier"
-            action="#{studentReadPage.showUpdateParentDialog('FATHER')}"
-            rendered="#{not empty studentReadPage.student.fatherIdentifier}" />
-          <p:commandButton value="Supprimer"
-            action="#{studentReadPage.deleteParentController.deleteByIdentifier(studentReadPage.student.fatherIdentifier)}"
-            rendered="#{not empty studentReadPage.student.fatherIdentifier}"
-            update=":form:fatherOutputPanel" />
-        </div>
-      </p:outputPanel>
-
-
-      <p:separator />
-
-      <p:outputPanel id="motherOutputPanel" styleClass="ui-g-12">
-        <div class="ui-g-6">Nom de la mère</div>
-        <div class="ui-g-6">#{studentReadPage.student.motherFirstName}</div>
-
-        <div class="ui-g-6">Prénoms de la mère</div>
-        <div class="ui-g-6">#{studentReadPage.student.motherLastNames}</div>
-        
-        <div class="ui-g-6">Téléphone de la mère</div>
-        <div class="ui-g-6">#{studentReadPage.student.motherPhoneNumber}</div>
-        
-        <div class="ui-g-12">
-          <p:commandButton value="Créer"
-            action="#{studentReadPage.showCreateParentDialog('MOTHER')}"
-            rendered="#{empty studentReadPage.student.motherIdentifier}" />
-          <p:commandButton value="Modifier"
-            action="#{studentReadPage.showUpdateParentDialog('MOTHER')}"
-            rendered="#{not empty studentReadPage.student.motherIdentifier}" />
-          <p:commandButton value="Supprimer"
-            action="#{studentReadPage.deleteParentController.deleteByIdentifier(studentReadPage.student.motherIdentifier)}"
-            rendered="#{not empty studentReadPage.student.motherIdentifier}" update=":form:motherOutputPanel"/>
-        </div>
-      </p:outputPanel>
-
-
-      <p:separator />
-
-      <p:outputPanel id="tutorOutputPanel" styleClass="ui-g-12">
-        <div class="ui-g-6">Nom du tuteur</div>
-        <div class="ui-g-6">#{studentReadPage.student.tutorFirstName}</div>
-
-        <div class="ui-g-6">Prénoms du tuteur</div>
-        <div class="ui-g-6">#{studentReadPage.student.tutorLastNames}</div>
-        
-        <div class="ui-g-6">Téléphone du tuteur</div>
-        <div class="ui-g-6">#{studentReadPage.student.tutorPhoneNumber}</div>
-
-        <div class="ui-g-12">
-          <p:commandButton value="Créer" action="#{studentReadPage.showCreateParentDialog('TUTOR')}"
-            rendered="#{empty studentReadPage.student.tutorIdentifier}" />
-          <p:commandButton value="Modifier"
-            action="#{studentReadPage.showUpdateParentDialog('TUTOR')}"
-            rendered="#{not empty studentReadPage.student.tutorIdentifier}" />
-          <p:commandButton value="Supprimer"
-            action="#{studentReadPage.deleteParentController.deleteByIdentifier(studentReadPage.student.tutorIdentifier)}"
-            rendered="#{not empty studentReadPage.student.tutorIdentifier}" update=":form:tutorOutputPanel"/>
-        </div>
-      </p:outputPanel>
-
-    </h:form>
-
-    <ui:decorate template="/extension/dialog.xhtml">
-      <ui:param name="dialogController" value="#{studentReadPage.saveParentDialog}" />
-      <ui:define name="dialog-content">
-        <ui:include src="#{studentReadPage.saveParentDialog.contentFilePath}">
-          <ui:param name="controller" value="#{studentReadPage.saveParentController}" />
-          <ui:param name="container" value="#{studentReadPage}" />
-        </ui:include>
-      </ui:define>
-    </ui:decorate>
-
+    <ui:include src="../../../identity/component/listForm.xhtml">
+      <ui:param name="controller" value="#{studentReadPage.parentController.listController}" />
+      <ui:param name="container" value="#{studentReadPage.parentController}" />
+    </ui:include>
   </ui:define>
 </ui:composition>

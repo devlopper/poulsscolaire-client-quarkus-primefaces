@@ -1,29 +1,15 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractPage;
-import ci.gouv.dgbf.extension.primefaces.ComponentManager;
-import ci.gouv.dgbf.extension.primefaces.MessageManager;
-import ci.gouv.dgbf.extension.primefaces.ScriptManager;
-import ci.gouv.dgbf.extension.primefaces.component.Dialog;
-import ci.gouv.dgbf.extension.primefaces.crud.CreateController;
-import ci.gouv.dgbf.extension.primefaces.crud.DeleteController;
-import ci.gouv.dgbf.extension.primefaces.crud.UpdateController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
-import ci.gouv.dgbf.extension.server.service.api.response.IdentifiableResponseDto;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
-import lombok.Setter;
-import org.cyk.system.poulsscolaire.server.api.registration.IdentityClient;
-import org.cyk.system.poulsscolaire.server.api.registration.IdentityDto;
-import org.cyk.system.poulsscolaire.server.api.registration.IdentityService.IdentityUpdateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentClient;
 import org.cyk.system.poulsscolaire.server.api.registration.StudentDto;
-import org.cyk.system.poulsscolaire.server.api.registration.StudentService.StudentCreateParentRequestDto;
-import org.cyk.system.poulsscolaire.server.api.registration.StudentService.StudentCreateParentRequestDto.ParentalLink;
 
 /**
  * Cette classe représente la page de lecture de {@link StudentDto}.
@@ -42,44 +28,16 @@ public class StudentReadPage extends AbstractPage {
   StudentDto student;
 
   @Inject
-  IdentityClient identityClient;
-
-  ParentalLink parentalLink;
-
   @Getter
-  @Setter
-  Dialog saveParentDialog;
-
-  @Inject
-  @Getter
-  CreateController createParentController;
-
-  @Inject
-  @Getter
-  UpdateController updateParentController;
-
-  @Inject
-  @Getter
-  DeleteController deleteParentController;
-
-  @Getter
-  Object saveParentController;
-
-  @Inject
-  ScriptManager scriptManager;
-
-  @Inject
-  ComponentManager componentManager;
-
-  @Inject
-  MessageManager messageManager;
+  IdentityController parentController;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
 
     ProjectionDto projection = new ProjectionDto();
-    projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER, StudentDto.JSON_SCHOOL_AS_STRING,
+    projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+        StudentDto.JSON_IDENTITY_IDENTIFIER, StudentDto.JSON_SCHOOL_AS_STRING,
         AbstractIdentifiableCodableDto.JSON_CODE, StudentDto.JSON_REGISTRATION_NUMBER,
         StudentDto.JSON_FIRST_NAME, StudentDto.JSON_ARABIC_FIRST_NAME, StudentDto.JSON_LAST_NAMES,
         StudentDto.JSON_ARABIC_LAST_NAMES, StudentDto.JSON_GENDER_AS_STRING,
@@ -99,165 +57,14 @@ public class StudentReadPage extends AbstractPage {
     student = studentClient.getByIdentifier(identifier, projection, userIdentifier, null);
     contentTitle = StudentDto.NAME + " - " + student.getCode();
 
-    saveParentDialog = new Dialog();
-    saveParentDialog.setIdentifier("saveParentDialog");
-    saveParentDialog.setWidgetVar("saveParentDialogWidgetVar");
-    saveParentDialog.setContentFilePath("/private/student/component/saveParentForm.xhtml");
-    saveParentDialog.setHeader("Informations parent");
+    parentController.getListController().getDataTable().setTitle("Tableau de responsables");
 
-    createParentController.setName("Création parent");
-    createParentController.getNotificationPublishController().setEnabled(false);
-    createParentController.addResponseConsumer(response -> {
-      scriptManager.hide(saveParentDialog);
-      componentManager.update(":form:fatherOutputPanel", ":form:motherOutputPanel",
-          ":form:tutorOutputPanel");
-      messageManager.addGrowlMessageFromResponse(response);
-      componentManager.update(messageManager.getGrowlContainerIdentifier());
-    });
-    createParentController.setEntityClass(IdentityDto.class);
-    createParentController.setFunction(entity -> {
-      StudentCreateParentRequestDto request = new StudentCreateParentRequestDto();
-      request.setIdentifier(student.getIdentifier());
-      request.setFirstName(((IdentityDto) entity).getFirstName());
-      request.setLastNames(((IdentityDto) entity).getLastNames());
-      request.setPhoneNumber(((IdentityDto) entity).getPhoneNumber());
-      request.setLink(parentalLink);
-      request.setAuditWho(userIdentifier);
-      final IdentifiableResponseDto response = studentClient.createParent(request);
-      if (ParentalLink.FATHER.equals(parentalLink)) {
-        student.setFatherIdentifier(response.getIdentifier());
-        student.setFatherFirstName(request.getFirstName());
-        student.setFatherLastNames(request.getLastNames());
-        student.setFatherPhoneNumber(request.getPhoneNumber());
-      } else if (ParentalLink.MOTHER.equals(parentalLink)) {
-        student.setMotherIdentifier(response.getIdentifier());
-        student.setMotherFirstName(request.getFirstName());
-        student.setMotherLastNames(request.getLastNames());
-        student.setMotherPhoneNumber(request.getPhoneNumber());
-      } else if (ParentalLink.TUTOR.equals(parentalLink)) {
-        student.setTutorIdentifier(response.getIdentifier());
-        student.setTutorFirstName(request.getFirstName());
-        student.setTutorLastNames(request.getLastNames());
-        student.setTutorPhoneNumber(request.getPhoneNumber());
-      }
-      return response;
-    });
+    parentController.filterController.getFilter()
+        .setRelationshipChildIdentifier(student.getIdentityIdentifier());
+    parentController.initialize();
 
-    updateParentController.setName("Mise à jour parent");
-    updateParentController.getNotificationPublishController().setEnabled(false);
-    updateParentController.addResponseConsumer(response -> {
-      scriptManager.hide(saveParentDialog);
-      componentManager.update(":form:fatherOutputPanel", ":form:motherOutputPanel",
-          ":form:tutorOutputPanel");
-      messageManager.addGrowlMessageFromResponse(response);
-      componentManager.update(messageManager.getGrowlContainerIdentifier());
-    });
-    updateParentController.setFunction(entity -> {
-      IdentityUpdateRequestDto request = new IdentityUpdateRequestDto();
-      request.setIdentifier(((IdentityDto) entity).getIdentifier());
-      request.setFirstName(((IdentityDto) entity).getFirstName());
-      request.setLastNames(((IdentityDto) entity).getLastNames());
-      request.setPhoneNumber(((IdentityDto) entity).getPhoneNumber());
-      request.setAuditWho(userIdentifier);
-      final IdentifiableResponseDto response = identityClient.update(request);
-      if (ParentalLink.FATHER.equals(parentalLink)) {
-        student.setFatherFirstName(request.getFirstName());
-        student.setFatherLastNames(request.getLastNames());
-        student.setFatherPhoneNumber(request.getPhoneNumber());
-      } else if (ParentalLink.MOTHER.equals(parentalLink)) {
-        student.setMotherFirstName(request.getFirstName());
-        student.setMotherLastNames(request.getLastNames());
-        student.setMotherPhoneNumber(request.getPhoneNumber());
-      } else if (ParentalLink.TUTOR.equals(parentalLink)) {
-        student.setTutorFirstName(request.getFirstName());
-        student.setTutorLastNames(request.getLastNames());
-        student.setTutorPhoneNumber(request.getPhoneNumber());
-      }
-      return response;
-    });
-
-    deleteParentController.setName("Suppression parent");
-    deleteParentController.setClient(identityClient);
-    deleteParentController.getNotificationPublishController().setEnabled(false);
-    deleteParentController.addResponseConsumer(response -> {
-      messageManager.addGrowlMessageFromResponse(response);
-      componentManager.update(messageManager.getGrowlContainerIdentifier());
-      if (response.getIdentifier().equals(student.getFatherIdentifier())) {
-        student.setFatherIdentifier(null);
-      } else if (response.getIdentifier().equals(student.getMotherIdentifier())) {
-        student.setMotherIdentifier(null);
-      } else if (response.getIdentifier().equals(student.getTutorIdentifier())) {
-        student.setTutorIdentifier(null);
-      }
-    });
-  }
-
-  /**
-   * Cette méthode permet d'afficher le dialogue de création de parent.
-   *
-   * @param parentalLinkName {@link ParentalLink}
-   */
-  public void showCreateParentDialog(String parentalLinkName) {
-    parentalLink = ParentalLink.valueOf(parentalLinkName);
-    createParentController.instantiateEntity();
-    IdentityDto identity = (IdentityDto) createParentController.getEntity();
-    switch (parentalLink) {
-      case FATHER:
-        identity.setFirstName(student.getFatherFirstName());
-        identity.setLastNames(student.getFatherLastNames());
-        break;
-      case MOTHER:
-        identity.setFirstName(student.getMotherFirstName());
-        identity.setLastNames(student.getMotherLastNames());
-        break;
-      case TUTOR:
-        identity.setFirstName(student.getTutorFirstName());
-        identity.setLastNames(student.getTutorLastNames());
-        break;
-      default:
-        break;
-    }
-    componentManager.update(saveParentDialog);
-    scriptManager.show(saveParentDialog);
-    saveParentController = createParentController;
-  }
-
-  /**
-   * Cette méthode permet d'afficher le dialogue de mise à jour de parent.
-   *
-   * @param parentalLinkName {@link ParentalLink}
-   */
-  public void showUpdateParentDialog(String parentalLinkName) {
-    parentalLink = ParentalLink.valueOf(parentalLinkName);
-    IdentityDto identity = null;
-    switch (parentalLink) {
-      case FATHER:
-        identity = new IdentityDto();
-        identity.setIdentifier(student.getFatherIdentifier());
-        identity.setFirstName(student.getFatherFirstName());
-        identity.setLastNames(student.getFatherLastNames());
-        updateParentController.setEntity(identity);
-        break;
-      case MOTHER:
-        identity = new IdentityDto();
-        identity.setIdentifier(student.getMotherIdentifier());
-        identity.setFirstName(student.getMotherFirstName());
-        identity.setLastNames(student.getMotherLastNames());
-        updateParentController.setEntity(identity);
-        break;
-      case TUTOR:
-        identity = new IdentityDto();
-        identity.setIdentifier(student.getTutorIdentifier());
-        identity.setFirstName(student.getTutorFirstName());
-        identity.setLastNames(student.getTutorLastNames());
-        updateParentController.setEntity(identity);
-        break;
-      default:
-        break;
-    }
-    componentManager.update(saveParentDialog);
-    scriptManager.show(saveParentDialog);
-    saveParentController = updateParentController;
+    parentController.getListController().getGotoReadPageButton().setRendered(false);
+    parentController.getListController().getDataTable().getFilterButton().setRendered(false);
   }
 
   public static final String OUTCOME = "studentReadPage";

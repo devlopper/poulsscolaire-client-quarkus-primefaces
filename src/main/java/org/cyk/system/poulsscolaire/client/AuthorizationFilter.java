@@ -22,7 +22,7 @@ import org.cyk.system.poulsscolaire.server.api.configuration.UserDto;
  * @author Christian
  *
  */
-//@jakarta.servlet.annotation.WebFilter("/private/*")
+@jakarta.servlet.annotation.WebFilter("/private/*")
 @Priority(AuthorizationFilter.PRIORITY)
 @Getter
 @Named
