@@ -1,7 +1,6 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractPage;
-import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.faces.view.ViewScoped;
@@ -27,20 +26,30 @@ public class IdentityReadPage extends AbstractPage {
   @Getter
   IdentityDto identity;
 
+  @Inject
+  @Getter
+  IdentityController parentController;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        AbstractIdentifiableCodableDto.JSON_CODE, IdentityDto.JSON_REGISTRATION_NUMBER,
-        IdentityDto.JSON_FIRST_NAME, IdentityDto.JSON_ARABIC_FIRST_NAME,
-        IdentityDto.JSON_LAST_NAMES, IdentityDto.JSON_ARABIC_LAST_NAMES,
-        IdentityDto.JSON_GENDER_AS_STRING);
+        AbstractIdentifiableDto.JSON_AS_STRING);
 
     String identifier = getRequestParameterIdentifier();
     identity = identityClient.getByIdentifier(identifier, projection, userIdentifier, null);
-    contentTitle = IdentityDto.NAME + " - " + identity.getFirstName();
+    contentTitle = IdentityDto.NAME + " - " + identity.getAsString();
+
+    parentController.getListController().getDataTable().setTitle("Tableau de responsables");
+    
+    parentController.filterController.getFilter()
+        .setRelationshipChildIdentifier(identity.getIdentifier());
+    parentController.initialize();
+    
+    parentController.getListController().getGotoReadPageButton().setRendered(false);
+    parentController.getListController().getDataTable().getFilterButton().setRendered(false);
   }
 
   public static final String OUTCOME = "identityReadPage";

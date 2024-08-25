@@ -5,6 +5,9 @@
   <ui:param name="page" value="#{identityReadPage}" />
 
   <ui:define name="content-body">
-
+    <ui:include src="../../component/listForm.xhtml">
+      <ui:param name="controller" value="#{identityReadPage.parentController.listController}" />
+      <ui:param name="container" value="#{identityReadPage.parentController}" />
+    </ui:include>
   </ui:define>
 </ui:composition>

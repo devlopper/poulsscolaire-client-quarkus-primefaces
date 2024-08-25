@@ -28,17 +28,13 @@
           </ui:define>
         </ui:decorate>
 
-        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu"
-            value="#{container.relationshipParentSelectOneController.selectOneMenu}" />
-        </ui:include>
-
         <ui:include src="/extension/component/input/selectOneRadio.xhtml">
           <ui:param name="selectOneRadio"
             value="#{container.relationshipTypeSelectOneController.selectOneRadio}" />
         </ui:include>
 
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="rendered" value="#{listController.isCurrentShowingDialogCreate}" />
           <ui:param name="selectOneMenu"
             value="#{container.relationshipChildSelectOneController.selectOneMenu}" />
         </ui:include>

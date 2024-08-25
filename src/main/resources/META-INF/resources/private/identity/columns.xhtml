@@ -14,4 +14,9 @@
     rendered="#{listController.isReadControllerHasProjectionName(IdentityDto.JSON_LAST_NAMES)}">
     <h:outputText value="#{record.lastNames}" />
   </p:column>
+  
+  <p:column headerText="Relation" width="200"
+    rendered="#{listController.isReadControllerHasProjectionName(IdentityDto.JSON_RELATIONSHIP_TYPE_PARENT_AS_STRING)}">
+    <h:outputText value="#{record.relationshipTypeParentAsString}" />
+  </p:column>
 </ui:composition>
