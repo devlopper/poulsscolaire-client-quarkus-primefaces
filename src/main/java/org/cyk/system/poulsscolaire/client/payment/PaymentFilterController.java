@@ -4,7 +4,9 @@ import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractFilterController;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.SessionController;
+import org.cyk.system.poulsscolaire.client.registration.RegistrationSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentDto;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentFilter;
 
@@ -20,6 +22,10 @@ public class PaymentFilterController extends AbstractFilterController<PaymentFil
   @Inject
   SessionController sessionController;
 
+  @Inject
+  @Getter
+  RegistrationSelectOneController registrationSelectOneController;
+  
   public PaymentFilterController() {
     super(PaymentFilter.class);
   }
@@ -33,5 +39,8 @@ public class PaymentFilterController extends AbstractFilterController<PaymentFil
     filter
         .setRegistrationIdentifier(getRequestParameter(PaymentFilter.JSON_REGISTRATION_IDENTIFIER));
     filter.setCanceled(getRequestParameterAsBoolean(PaymentFilter.JSON_CANCELED));
+
+    registrationSelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> filter.setRegistrationIdentifier(identifier));
   }
 }

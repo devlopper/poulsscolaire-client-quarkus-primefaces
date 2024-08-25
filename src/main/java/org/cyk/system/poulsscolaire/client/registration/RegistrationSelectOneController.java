@@ -15,20 +15,21 @@ import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.
  *
  */
 @Dependent
-public class RegistrationSelectOne extends AbstractSelectOneIdentifiableController<RegistrationDto,
-    RegistrationGetManyResponseDto, RegistrationClient> {
+public class RegistrationSelectOneController extends AbstractSelectOneIdentifiableController<
+    RegistrationDto, RegistrationGetManyResponseDto, RegistrationClient> {
 
   @Inject
   @Getter
   RegistrationClient client;
 
-  protected RegistrationSelectOne() {
+  protected RegistrationSelectOneController() {
     super(RegistrationDto.class);
-    projection.addNames(RegistrationDto.JSON_STUDENT_AS_STRING);
+    projection.addNames(RegistrationDto.JSON_STUDENT_AS_STRING,
+        RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING);
   }
 
   @Override
   protected String buildSelectItemLabel(RegistrationDto dto) {
-    return dto.getStudentAsString();
+    return dto.getStudentAsString() + " - " + dto.getPayableAmountAsString();
   }
 }

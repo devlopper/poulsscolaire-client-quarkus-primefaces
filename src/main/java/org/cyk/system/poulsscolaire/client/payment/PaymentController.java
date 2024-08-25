@@ -10,7 +10,7 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.client.registration.RegistrationSelectOne;
+import org.cyk.system.poulsscolaire.client.registration.RegistrationSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentClient;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentDto;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentRequestMapper;
@@ -39,11 +39,11 @@ public class PaymentController extends AbstractController {
 
   @Inject
   @Getter
-  RegistrationSelectOne registrationSelectOne;
+  RegistrationSelectOneController registrationSelectOneController;
 
   @Inject
   @Getter
-  PaymentModeSelectOne modeSelectOne;
+  PaymentModeSelectOneController modeSelectOneController;
 
   @Inject
   PaymentRequestMapper requestMapper;
@@ -76,9 +76,15 @@ public class PaymentController extends AbstractController {
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, PaymentDto.JSON_MODE_AS_STRING,
-        PaymentDto.JSON_AMOUNT_AS_STRING);
+        PaymentDto.JSON_AMOUNT_AS_STRING, PaymentDto.JSON_CREATION_DATE_AS_STRING,
+        PaymentDto.JSON_CREATION_ACTOR);
+    if (Boolean.TRUE.equals(filterController.getFilter().getCanceled())) {
+      projection.addNames(PaymentDto.JSON_CANCELLATION_DATE_AS_STRING,
+          PaymentDto.JSON_CANCELLATION_ACTOR);
+    }
     listController.getReadController().setProjection(projection);
-
+    listController.getDataTable().getFilterButton().setRendered(true);
+    
     listController.initialize();
 
     if (Boolean.TRUE.equals(filterController.getFilter().getCanceled())) {
@@ -86,10 +92,10 @@ public class PaymentController extends AbstractController {
     } else {
       listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(1);
     }
-
+    
     listController.getCreateController().addEntityConsumer(entity -> ((PaymentDto) entity)
         .setRegistrationIdentifier(filterController.getFilter().getRegistrationIdentifier()));
-    
+
     listController.getCreateController().setFunction(entity -> {
       PaymentCreateRequestDto request = requestMapper.mapCreate((PaymentDto) entity);
       request.setAuditWho(userIdentifier);
@@ -101,7 +107,9 @@ public class PaymentController extends AbstractController {
 
     cancelController.setFunction(identifier -> client.cancel(identifier, userIdentifier, null));
 
-    modeSelectOne.getSelectOneMenu().addValueConsumer(
+    listController.configureAction(cancelController);
+    
+    modeSelectOneController.getSelectOneMenu().addValueConsumer(
         identifier -> ((PaymentDto) listController.getCreateControllerOrUpdateControllerEntity())
             .setModeIdentifier(identifier));
 
@@ -112,11 +120,11 @@ public class PaymentController extends AbstractController {
     cancelController.setName("Annulation paiement");
 
     if (filterController.getFilter().getRegistrationIdentifier() == null) {
-      registrationSelectOne.getSelectOneMenu().addValueConsumer(
+      registrationSelectOneController.getSelectOneMenu().addValueConsumer(
           identifier -> ((PaymentDto) listController.getCreateControllerOrUpdateControllerEntity())
               .setRegistrationIdentifier(identifier));
     } else {
-      registrationSelectOne.getSelectOneMenu()
+      registrationSelectOneController.getSelectOneMenu()
           .writeValue(filterController.getFilter().getRegistrationIdentifier());
       listController.showCreateDialog();
     }

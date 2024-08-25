@@ -3,36 +3,31 @@
   xmlns:p="http://primefaces.org/ui">
 
   <h:form>
-    <ui:decorate template="/extension/crud/form/save/default.xhtml">
-      <ui:param name="saveCommandUpdate" value="amountMessage" />
-
-      <ui:define name="form-save-inputs">
+    <ui:decorate template="/extension/crud/list/filter/form/default.xhtml">
+      <ui:define name="form-filter-inputs">
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.registrationSelectOneController.selectOneMenu}" />
-        </ui:include>
-
-        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.modeSelectOneController.selectOneMenu}" />
+          <ui:param name="selectOneMenu"
+            value="#{controller.registrationSelectOneController.selectOneMenu}" />
         </ui:include>
 
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
-            <p:outputLabel value="Montant" for="amount" />
+            <p:outputLabel value="Date début" for="fromDate" />
           </ui:define>
           <ui:define name="input-control">
-            <p:inputNumber id="amount" value="#{controller.entity.amount}" />
-            <p:message id="amountMessage" for="amount" />
+            <p:datePicker id="fromDate" value="#{filter.fromDate}" />
           </ui:define>
         </ui:decorate>
-        
+
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
-            <p:outputLabel value="Initiateur" for="initiator" />
+            <p:outputLabel value="Date fin" for="toDate" />
           </ui:define>
           <ui:define name="input-control">
-            <p:inputText id="initiator" value="#{controller.entity.initiator}" />
+            <p:datePicker id="toDate" value="#{filter.toDate}" />
           </ui:define>
         </ui:decorate>
+
       </ui:define>
     </ui:decorate>
   </h:form>

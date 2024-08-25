@@ -15,14 +15,14 @@ import org.cyk.system.poulsscolaire.server.api.payment.PaymentModeService.Paymen
  *
  */
 @Dependent
-public class PaymentModeSelectOne extends AbstractSelectOneIdentifiableController<
+public class PaymentModeSelectOneController extends AbstractSelectOneIdentifiableController<
     PaymentModeDto, PaymentModeGetManyResponseDto, PaymentModeClient> {
 
   @Inject
   @Getter
   PaymentModeClient client;
 
-  protected PaymentModeSelectOne() {
+  protected PaymentModeSelectOneController() {
     super(PaymentModeDto.class);
   }
 }
