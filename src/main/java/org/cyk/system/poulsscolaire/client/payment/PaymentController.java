@@ -4,6 +4,7 @@ import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.IdentifiableActionController;
 import ci.gouv.dgbf.extension.primefaces.component.Button;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableAuditableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
@@ -76,23 +77,22 @@ public class PaymentController extends AbstractController {
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, PaymentDto.JSON_MODE_AS_STRING,
-        PaymentDto.JSON_AMOUNT_AS_STRING, PaymentDto.JSON_CREATION_DATE_AS_STRING,
-        PaymentDto.JSON_CREATION_ACTOR);
+        PaymentDto.JSON_AMOUNT_AS_STRING,
+        AbstractIdentifiableCodableAuditableDto.JSON_AUDIT_CREATION_AS_STRING);
     if (Boolean.TRUE.equals(filterController.getFilter().getCanceled())) {
-      projection.addNames(PaymentDto.JSON_CANCELLATION_DATE_AS_STRING,
-          PaymentDto.JSON_CANCELLATION_ACTOR);
+      projection.addNames(PaymentDto.JSON_AUDIT_CANCELLATION_AS_STRING);
     }
     listController.getReadController().setProjection(projection);
     listController.getDataTable().getFilterButton().setRendered(true);
-    
+
     listController.initialize();
 
     if (Boolean.TRUE.equals(filterController.getFilter().getCanceled())) {
       listController.getDataTable().getActionColumn().setRendered(false);
     } else {
-      listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(1);
+      listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(2);
     }
-    
+
     listController.getCreateController().addEntityConsumer(entity -> ((PaymentDto) entity)
         .setRegistrationIdentifier(filterController.getFilter().getRegistrationIdentifier()));
 
@@ -108,7 +108,7 @@ public class PaymentController extends AbstractController {
     cancelController.setFunction(identifier -> client.cancel(identifier, userIdentifier, null));
 
     listController.configureAction(cancelController);
-    
+
     modeSelectOneController.getSelectOneMenu().addValueConsumer(
         identifier -> ((PaymentDto) listController.getCreateControllerOrUpdateControllerEntity())
             .setModeIdentifier(identifier));
@@ -128,5 +128,17 @@ public class PaymentController extends AbstractController {
           .writeValue(filterController.getFilter().getRegistrationIdentifier());
       listController.showCreateDialog();
     }
+  }
+
+  /**
+   * Cette méthode permet d'obtenir le script d'ouveture du dialogue du reçu de paiement.
+   *
+   * @param payment paiement
+   * @return script d'ouveture du dialogue du reçu de paiement
+   */
+  public String getEditReportOnlickScript(PaymentDto payment) {
+    return String.format(
+        "window.open('https://pouls-scolaire.com/api/imprimer-etats/recu-paiement/1/%s', 'Popup', 'width=600,height=400');",
+        payment.getIdentifier());
   }
 }

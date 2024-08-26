@@ -20,25 +20,14 @@
     <h:outputText value="#{record.amountAsString}" />
   </p:column>
   
-  <p:column headerText="Date création"
-    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_CREATION_DATE_AS_STRING)}">
-    <h:outputText value="#{record.creationDateAsString}" />
+  <p:column headerText="Création"
+    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_AUDIT_CREATION_AS_STRING)}">
+    <h:outputText value="#{record.auditCreationAsString}" />
   </p:column>
   
-  <p:column headerText="Créé par"
-    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_CREATION_ACTOR)}">
-    <h:outputText value="#{record.creationActor}" />
+  <p:column headerText="Annulation"
+    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_AUDIT_CANCELLATION_AS_STRING)}">
+    <h:outputText value="#{record.auditCancellationAsString}" />
   </p:column>
-  
-  <p:column headerText="Date annulation"
-    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_CANCELLATION_DATE_AS_STRING)}">
-    <h:outputText value="#{record.cancellationDateAsString}" />
-  </p:column>
-  
-  <p:column headerText="Annulé par"
-    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_CANCELLATION_ACTOR)}">
-    <h:outputText value="#{record.cancellationActor}" />
-  </p:column>
-  
   
 </ui:composition>
