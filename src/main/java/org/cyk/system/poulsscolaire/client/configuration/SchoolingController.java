@@ -136,6 +136,11 @@ public class SchoolingController extends AbstractController {
       periodFilter.setOpened(true);
       periodSelectOne.setFilter(periodFilter.toDto());
       periodSelectOne.computeSelectOneMenuChoices();
+      
+      BranchFilter branchFilter = new BranchFilter();
+      branchFilter.setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
+      branchSelectOne.setFilter(branchFilter.toDto());
+      branchSelectOne.computeSelectOneMenuChoices();
     }
 
     periodSelectOne.getSelectOneMenu()
