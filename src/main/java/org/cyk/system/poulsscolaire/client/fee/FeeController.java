@@ -52,7 +52,7 @@ public class FeeController extends AbstractController {
 
   @Inject
   @Getter
-  FeeCategorySelectOne categorySelectOne;
+  FeeCategorySelectOneController categorySelectOne;
 
   @Inject
   @Getter

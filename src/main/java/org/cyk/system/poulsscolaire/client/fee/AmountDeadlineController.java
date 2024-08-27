@@ -107,7 +107,6 @@ public class AmountDeadlineController extends AbstractController {
     amountSelectOneController.getSelectOneMenu()
         .setRendered(Core.isStringBlank(filterController.getFilter().getAmountIdentifier()));
 
-    deadlineSelectOneController.initialize();
     deadlineSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> ((AmountDeadlineDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setDeadlineIdentifier(identifier));

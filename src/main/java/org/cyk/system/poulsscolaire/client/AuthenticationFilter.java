@@ -27,13 +27,15 @@ public class AuthenticationFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    HttpServletRequest httpRequest = (HttpServletRequest) request;
-    HttpServletResponse httpResponse = (HttpServletResponse) response;
-    if (!sessionController.loggedIn(httpRequest.getSession())) {
-      String uri = httpRequest.getRequestURI();
-      if (!uri.contains(UserLoginPage.PATH)) {
-        httpResponse.sendRedirect(httpRequest.getContextPath() + "/" + UserLoginPage.PATH);
-        return;
+    if (sessionController.isAuthentifiable()) {
+      HttpServletRequest httpRequest = (HttpServletRequest) request;
+      HttpServletResponse httpResponse = (HttpServletResponse) response;
+      if (!sessionController.loggedIn(httpRequest.getSession())) {
+        String uri = httpRequest.getRequestURI();
+        if (!uri.contains(UserLoginPage.PATH)) {
+          httpResponse.sendRedirect(httpRequest.getContextPath() + "/" + UserLoginPage.PATH);
+          return;
+        }
       }
     }
     chain.doFilter(request, response);

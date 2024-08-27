@@ -4,7 +4,6 @@ import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
 import ci.gouv.dgbf.extension.primefaces.component.input.SelectOneMenuString;
-import ci.gouv.dgbf.extension.primefaces.component.input.SelectOneRadioBoolean;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
@@ -100,11 +99,7 @@ public class AdjustedFeeController extends AbstractController {
   @Getter
   SelectOneMenuString periodSelectOneMenu;
 
-  @Getter
-  SelectOneRadioBoolean amountValuePayableEqualsZeroSelectOneRadio;
-
-  @Getter
-  SelectOneRadioBoolean amountDeadlineDateOverSelectOneRadio;
+  
 
   @Override
   protected void postConstruct() {
@@ -113,17 +108,6 @@ public class AdjustedFeeController extends AbstractController {
     schoolSelectOneMenu = new SelectOneMenuString();
     schoolSelectOneMenu.addValueConsumer(
         value -> filterController.getFilter().setRegistrationSchoolingSchoolIdentifier(value));
-
-    amountValuePayableEqualsZeroSelectOneRadio = new SelectOneRadioBoolean();
-    amountValuePayableEqualsZeroSelectOneRadio.outputLabel().setValue("Soldé");
-    amountValuePayableEqualsZeroSelectOneRadio.addTrueOrFalseChoices(true).addValueConsumer(
-        value -> filterController.getFilter().setAmountValuePayableLessThanOrEqualsZero(value));
-
-    amountDeadlineDateOverSelectOneRadio = new SelectOneRadioBoolean();
-    amountDeadlineDateOverSelectOneRadio.addTrueOrFalseChoices(true);
-    amountDeadlineDateOverSelectOneRadio.outputLabel().setValue("En retard");
-    amountDeadlineDateOverSelectOneRadio
-        .addValueConsumer(value -> filterController.getFilter().setAmountDeadlineDateOver(value));
 
     amountValueStatistics = new AmountStatisticsDto();
     amountRegistrationPartStatistics = new AmountStatisticsDto();

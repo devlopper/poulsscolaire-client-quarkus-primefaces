@@ -27,15 +27,18 @@ public class SessionConfigurationFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    HttpServletRequest httpRequest = (HttpServletRequest) request;
-    HttpServletResponse httpResponse = (HttpServletResponse) response;
-    if (!sessionController.configured(httpRequest.getSession())) {
-      String uri = httpRequest.getRequestURI();
-      if (!uri.contains(SessionConfigurePage.PATH)) {
-        httpResponse.sendRedirect(httpRequest.getContextPath() + "/" + SessionConfigurePage.PATH);
-        return;
+    if (sessionController.isAuthentifiable()) {
+      HttpServletRequest httpRequest = (HttpServletRequest) request;
+      HttpServletResponse httpResponse = (HttpServletResponse) response;
+      if (!sessionController.configured(httpRequest.getSession())) {
+        String uri = httpRequest.getRequestURI();
+        if (!uri.contains(SessionConfigurePage.PATH)) {
+          httpResponse.sendRedirect(httpRequest.getContextPath() + "/" + SessionConfigurePage.PATH);
+          return;
+        }
       }
     }
+    
     chain.doFilter(request, response);
   }
   

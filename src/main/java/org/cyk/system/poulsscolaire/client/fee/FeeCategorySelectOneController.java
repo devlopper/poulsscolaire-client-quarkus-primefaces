@@ -15,14 +15,14 @@ import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryService.FeeCategor
  *
  */
 @Dependent
-public class FeeCategorySelectOne extends AbstractSelectOneIdentifiableController<
+public class FeeCategorySelectOneController extends AbstractSelectOneIdentifiableController<
     FeeCategoryDto, FeeCategoryGetManyResponseDto, FeeCategoryClient> {
 
   @Inject
   @Getter
   FeeCategoryClient client;
 
-  protected FeeCategorySelectOne() {
+  protected FeeCategorySelectOneController() {
     super(FeeCategoryDto.class);
   }
 }

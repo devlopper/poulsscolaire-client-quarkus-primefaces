@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
@@ -28,6 +29,8 @@ public class SessionController extends AbstractController {
 
   String periodIdentifierName;
 
+  boolean authentifiable;
+  
   /**
    * Cette méthode permet de construire un objet.
    */
@@ -35,6 +38,9 @@ public class SessionController extends AbstractController {
     userIdentifierName = "user";
     schoolIdentifierName = "school";
     periodIdentifierName = "period";
+    
+    String value = System.getProperty("authentifiable");
+    authentifiable = Core.isStringBlank(value) || Boolean.parseBoolean(value);
   }
 
   boolean loggedIn(HttpSession session) {
@@ -130,6 +136,9 @@ public class SessionController extends AbstractController {
    * @return oui ou non si la role est possédé
    */
   public boolean hasRole(String role) {
+    if (!authentifiable) {
+      return true;
+    }
     UserDto user = getUser();
     if (user == null) {
       return false;
@@ -144,6 +153,9 @@ public class SessionController extends AbstractController {
    * @return oui ou non si un des roles est possédé
    */
   public boolean hasOneOfRoles(ArrayList<String>  roles) {
+    if (!authentifiable) {
+      return true;
+    }
     UserDto user = getUser();
     if (user == null) {
       return false;

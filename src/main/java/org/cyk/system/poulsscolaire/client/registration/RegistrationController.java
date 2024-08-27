@@ -41,7 +41,7 @@ public class RegistrationController extends AbstractController {
 
   @Inject
   @Getter
-  StudentSelectOne studentSelectOne;
+  StudentSelectOneController studentSelectOne;
 
   @Inject
   @Getter

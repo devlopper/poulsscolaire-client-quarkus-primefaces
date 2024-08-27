@@ -1,6 +1,7 @@
 package org.cyk.system.poulsscolaire.client;
 
 import jakarta.annotation.Priority;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -28,6 +29,9 @@ import org.cyk.system.poulsscolaire.server.api.configuration.UserDto;
 @Named
 public class AuthorizationFilter implements Filter {
 
+  @Inject
+  SessionController sessionController;
+  
   Map<String, Set<String>> map;
   String rootRoleCode;
   String founderRoleCode;
@@ -69,12 +73,14 @@ public class AuthorizationFilter implements Filter {
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
-    HttpServletRequest httpRequest = (HttpServletRequest) request;
-    HttpServletResponse httpResponse = (HttpServletResponse) response;
-    UserDto user = (UserDto) httpRequest.getSession(true).getAttribute("user");
-    if (isNotAllowed(user, httpRequest.getRequestURI())) {
-      httpResponse.sendRedirect(httpRequest.getContextPath() + "/" + UnauthorizedPage.PATH);
-      return;
+    if (sessionController.isAuthentifiable()) {
+      HttpServletRequest httpRequest = (HttpServletRequest) request;
+      HttpServletResponse httpResponse = (HttpServletResponse) response;
+      UserDto user = (UserDto) httpRequest.getSession(true).getAttribute("user");
+      if (isNotAllowed(user, httpRequest.getRequestURI())) {
+        httpResponse.sendRedirect(httpRequest.getContextPath() + "/" + UnauthorizedPage.PATH);
+        return;
+      }
     }
     chain.doFilter(request, response);
   }
