@@ -99,8 +99,6 @@ public class AdjustedFeeController extends AbstractController {
   @Getter
   SelectOneMenuString periodSelectOneMenu;
 
-  
-
   @Override
   protected void postConstruct() {
     super.postConstruct();

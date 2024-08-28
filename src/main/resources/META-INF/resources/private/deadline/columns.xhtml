@@ -2,23 +2,31 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <p:column headerText="Code" width="200">
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.DeadlineDto"
+    var="DeadlineDto" />
+
+  <p:column headerText="Code" width="200"
+    rendered="#{listController.isReadControllerHasProjectionName(DeadlineDto.JSON_CODE)}">
     <h:outputText value="#{record.code}" />
   </p:column>
 
-  <p:column headerText="Groupe" width="200">
+  <p:column headerText="Groupe" width="200"
+    rendered="#{listController.isReadControllerHasProjectionName(DeadlineDto.JSON_GROUP_AS_STRING)}">
     <h:outputText value="#{record.groupAsString}" />
   </p:column>
 
-  <p:column headerText="Libellé">
+  <p:column headerText="Libellé"
+    rendered="#{listController.isReadControllerHasProjectionName(DeadlineDto.JSON_NAME)}">
     <h:outputText value="#{record.name}" />
   </p:column>
 
-  <p:column headerText="Date" width="200">
+  <p:column headerText="Date" width="200"
+    rendered="#{listController.isReadControllerHasProjectionName(DeadlineDto.JSON_DATE_AS_STRING)}">
     <h:outputText value="#{record.dateAsString}" />
   </p:column>
-  
-  <p:column headerText="Ecole">
+
+  <p:column headerText="Ecole"
+    rendered="#{listController.isReadControllerHasProjectionName(DeadlineDto.JSON_SCHOOL_AS_STRING)}">
     <h:outputText value="#{record.schoolAsString}" />
   </p:column>
 </ui:composition>

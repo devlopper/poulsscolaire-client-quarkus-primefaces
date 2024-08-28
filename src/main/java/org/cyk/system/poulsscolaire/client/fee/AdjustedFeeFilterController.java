@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client.fee;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractFilterController;
 import ci.gouv.dgbf.extension.primefaces.component.input.SelectOneRadioBoolean;
 import jakarta.enterprise.context.Dependent;
@@ -45,8 +46,9 @@ public class AdjustedFeeFilterController extends AbstractFilterController<Adjust
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    filter.setRegistrationSchoolingSchoolIdentifier(
-        getRequestParameter(AdjustedFeeFilter.JSON_REGISTRATION_SCHOOLING_SCHOOL_IDENTIFIER));
+    filter.setRegistrationSchoolingSchoolIdentifier(Core.getOrDefaultIfNull(
+        getRequestParameter(AdjustedFeeFilter.JSON_REGISTRATION_SCHOOLING_SCHOOL_IDENTIFIER),
+        sessionController.getSchoolIdentifier()));
     filter.setRegistrationSchoolingBranchIdentifier(
         getRequestParameter(AdjustedFeeFilter.JSON_REGISTRATION_SCHOOLING_BRANCH_IDENTIFIER));
     filter.setRegistrationSchoolingPeriodIdentifier(
