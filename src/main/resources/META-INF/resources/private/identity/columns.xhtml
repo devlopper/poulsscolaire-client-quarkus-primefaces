@@ -20,6 +20,16 @@
     <h:outputText value="#{record.phoneNumber}" />
   </p:column>
   
+  <p:column headerText="Profession"
+    rendered="#{listController.isReadControllerHasProjectionName(IdentityDto.JSON_PROFESSION)}">
+    <h:outputText value="#{record.profession}" />
+  </p:column>
+  
+  <p:column headerText="Résidence"
+    rendered="#{listController.isReadControllerHasProjectionName(IdentityDto.JSON_RESIDENCE)}">
+    <h:outputText value="#{record.residence}" />
+  </p:column>
+  
   <p:column headerText="Relation" width="200"
     rendered="#{listController.isReadControllerHasProjectionName(IdentityDto.JSON_RELATIONSHIP_TYPE_PARENT_AS_STRING)}">
     <h:outputText value="#{record.relationshipTypeParentAsString}" />

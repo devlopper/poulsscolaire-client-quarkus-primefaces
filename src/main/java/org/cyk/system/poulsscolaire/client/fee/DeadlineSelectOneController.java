@@ -1,13 +1,14 @@
 package org.cyk.system.poulsscolaire.client.fee;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.component.input.AbstractSelectOneIdentifiableController;
-import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
-import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
+import org.cyk.system.poulsscolaire.client.SessionController;
 import org.cyk.system.poulsscolaire.server.api.fee.DeadlineClient;
 import org.cyk.system.poulsscolaire.server.api.fee.DeadlineDto;
+import org.cyk.system.poulsscolaire.server.api.fee.DeadlineFilter;
 import org.cyk.system.poulsscolaire.server.api.fee.DeadlineService.DeadlineGetManyResponseDto;
 
 /**
@@ -16,7 +17,7 @@ import org.cyk.system.poulsscolaire.server.api.fee.DeadlineService.DeadlineGetMa
  * @author Christian
  *
  */
-@Getter
+@Getter 
 @Dependent
 public class DeadlineSelectOneController extends AbstractSelectOneIdentifiableController<
     DeadlineDto, DeadlineGetManyResponseDto, DeadlineClient> {
@@ -25,14 +26,20 @@ public class DeadlineSelectOneController extends AbstractSelectOneIdentifiableCo
   @Getter
   DeadlineClient client;
 
+  @Inject
+  SessionController sessionController;
+  
   protected DeadlineSelectOneController() {
-    super(DeadlineDto.class);
-    projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        AbstractIdentifiableCodableNamableDto.JSON_NAME, DeadlineDto.JSON_DATE_AS_STRING);
+    super(DeadlineDto.class, SelectItemLabelStrategy.AS_STRING);
   }
 
   @Override
-  protected String buildSelectItemLabel(DeadlineDto dto) {
-    return String.format("%s(%s)", dto.getName(), dto.getDateAsString());
+  protected void postConstruct() {
+    super.postConstruct();
+    Core.runIfStringNotBlank(sessionController.getSchoolIdentifier(), () -> {
+      DeadlineFilter deadlineFilter = new DeadlineFilter();
+      deadlineFilter.setSchoolIdentifier(sessionController.getSchoolIdentifier());
+      filter = deadlineFilter.toDto();
+    });
   }
 }

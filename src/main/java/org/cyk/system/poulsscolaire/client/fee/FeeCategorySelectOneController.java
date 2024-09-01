@@ -40,6 +40,5 @@ public class FeeCategorySelectOneController extends AbstractSelectOneIdentifiabl
       feeCategoryFilter.setSchoolIdentifier(sessionController.getSchoolIdentifier());
       filter = feeCategoryFilter.toDto();
     });
-
   }
 }

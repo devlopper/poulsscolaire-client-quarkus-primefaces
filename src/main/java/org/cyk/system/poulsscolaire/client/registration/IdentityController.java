@@ -64,7 +64,8 @@ public class IdentityController extends AbstractController {
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER, IdentityDto.JSON_FIRST_NAME,
-        IdentityDto.JSON_LAST_NAMES, IdentityDto.JSON_PHONE_NUMBER, IdentityDto.JSON_EMAIL_ADDRESS,
+        IdentityDto.JSON_LAST_NAMES, IdentityDto.JSON_PHONE_NUMBER, IdentityDto.JSON_PROFESSION,
+        IdentityDto.JSON_RESIDENCE, IdentityDto.JSON_EMAIL_ADDRESS,
         IdentityDto.JSON_RELATIONSHIP_TYPE_PARENT_AS_STRING);
     listController.getReadController().setProjection(projection);
     listController.getDataTable().getFilterButton().setRendered(true);
@@ -92,6 +93,7 @@ public class IdentityController extends AbstractController {
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
             IdentityDto.JSON_FIRST_NAME, IdentityDto.JSON_LAST_NAMES, IdentityDto.JSON_PHONE_NUMBER,
+            IdentityDto.JSON_PROFESSION, IdentityDto.JSON_RESIDENCE,
             IdentityDto.JSON_EMAIL_ADDRESS));
 
     listController.getUpdateController().setFunction(entity -> {

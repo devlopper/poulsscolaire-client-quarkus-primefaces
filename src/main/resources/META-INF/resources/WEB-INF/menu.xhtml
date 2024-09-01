@@ -193,6 +193,21 @@
               </div></li>
           </ui:fragment>
 
+          <li class="nav-item"><a class="nav-link menu-link" href="#Parametrage"
+            data-bs-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="sidebarApps"> <i class="ri-file-list-3-line"></i> <span
+              data-key="t-apps">Paramétrage</span>
+          </a>
+            <div class="collapse menu-dropdown" id="GrilleFrais">
+              <ul class="nav nav-sm flex-column">
+
+                <li class="nav-item"><p:link outcome="sessionConfigurePage"
+                    styleClass="has-arrow ai-icon">
+                    <h:outputText value="Session" styleClass="nav-link nav-text" />
+                  </p:link></li>
+              </ul>
+            </div></li>
+
           <ui:fragment rendered="#{feeModuleVisible}">
             <li class="nav-item"><a class="nav-link menu-link" href="#GrilleFrais"
               data-bs-toggle="collapse" role="button" aria-expanded="false"

@@ -37,6 +37,24 @@
           </ui:define>
         </ui:decorate>
         
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Profession" for="profession" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="profession" value="#{controller.entity.profession}"/>
+          </ui:define>
+        </ui:decorate>
+        
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Résidence" for="residence" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="residence" value="#{controller.entity.residence}"/>
+          </ui:define>
+        </ui:decorate>
+        
         <ui:fragment rendered="#{container.listController.isCurrentShowingDialogCreate()}">
           <ui:include src="/extension/component/input/selectOneRadio.xhtml">
             <ui:param name="selectOneRadio"
