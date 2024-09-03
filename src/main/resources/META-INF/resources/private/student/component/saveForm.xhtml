@@ -44,6 +44,15 @@
               <p:message id="lastNamesMessage" for="lastNames" />
             </ui:define>
           </ui:decorate>
+          
+          <ui:decorate template="/extension/component/input/default.xhtml">
+            <ui:define name="input-label">
+              <p:outputLabel value="Etat de santé" for="healthStatus" />
+            </ui:define>
+            <ui:define name="input-control">
+              <p:inputText id="healthStatus" value="#{controller.entity.healthStatus}" />
+            </ui:define>
+          </ui:decorate>
         </div>
 
         <div class="ui-g-12">

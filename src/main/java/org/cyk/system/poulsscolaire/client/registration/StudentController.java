@@ -81,7 +81,7 @@ public class StudentController extends AbstractController {
         StudentDto.JSON_BLOOD_GROUP_AS_STRING, StudentDto.JSON_BIRTH_DATE_AS_STRING,
         StudentDto.JSON_BIRTH_PLACE, StudentDto.JSON_BIRTH_CERTIFICATE_REFERENCE,
         StudentDto.JSON_NATIONALITY, StudentDto.JSON_ORIGIN_SCHOOL, StudentDto.JSON_RESIDENCE,
-        StudentDto.JSON_EMAIL_ADDRESS, StudentDto.JSON_PHONE_NUMBER);
+        StudentDto.JSON_EMAIL_ADDRESS, StudentDto.JSON_PHONE_NUMBER, StudentDto.JSON_HEALTH_STATUS);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
@@ -108,7 +108,7 @@ public class StudentController extends AbstractController {
             StudentDto.JSON_BIRTH_DATE, StudentDto.JSON_BIRTH_PLACE,
             StudentDto.JSON_BIRTH_CERTIFICATE_REFERENCE, StudentDto.JSON_NATIONALITY,
             StudentDto.JSON_ORIGIN_SCHOOL, StudentDto.JSON_RESIDENCE, StudentDto.JSON_EMAIL_ADDRESS,
-            StudentDto.JSON_PHONE_NUMBER));
+            StudentDto.JSON_PHONE_NUMBER, StudentDto.JSON_HEALTH_STATUS));
 
     listController.getUpdateController().addEntityConsumer(entity -> {
       schoolSelectOne.getSelectOneMenu().writeValue(((StudentDto) entity).getSchoolIdentifier());

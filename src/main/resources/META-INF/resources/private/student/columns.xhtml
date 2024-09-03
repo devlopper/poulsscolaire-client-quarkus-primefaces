@@ -75,6 +75,11 @@
     <h:outputText value="#{record.residence}" />
   </p:column>
   
+  <p:column headerText="Etat de santé" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_HEALTH_STATUS)}">
+    <h:outputText value="#{record.healthStatus}" />
+  </p:column>
+  
   <p:column headerText="école" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(StudentDto.JSON_SCHOOL_AS_STRING)}">
     <h:outputText value="#{record.schoolAsString}" />
