@@ -5,27 +5,32 @@
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.payment.PaymentDto"
     var="PaymentDto" />
 
-  <p:column headerText="Code" width="200"
+  <p:column headerText="Code" width="200" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_CODE)}">
     <h:outputText value="#{record.code}" />
   </p:column>
-
-  <p:column headerText="Mode"
+  
+  <p:column headerText="Inscription"
+    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_REGISTRATION_AS_STRING)}">
+    <h:outputText value="#{record.registrationAsString}" />
+  </p:column>
+  
+  <p:column headerText="Mode" width="120"
     rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_MODE_AS_STRING)}">
     <h:outputText value="#{record.modeAsString}" />
   </p:column>
 
-  <p:column headerText="Montant" width="200"
+  <p:column headerText="Montant" width="120"
     rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.amountAsString}" />
   </p:column>
   
-  <p:column headerText="Création"
+  <p:column headerText="Création" width="350"
     rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_AUDIT_CREATION_AS_STRING)}">
     <h:outputText value="#{record.auditCreationAsString}" />
   </p:column>
   
-  <p:column headerText="Annulation"
+  <p:column headerText="Annulation" width="350"
     rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_AUDIT_CANCELLATION_AS_STRING)}">
     <h:outputText value="#{record.auditCancellationAsString}" />
   </p:column>

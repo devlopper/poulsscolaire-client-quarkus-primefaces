@@ -13,6 +13,10 @@
   <p:column headerText="Scolarité" visible="false">
     <h:outputText value="#{record.schoolingAsString}" />
   </p:column>
+  
+  <p:column headerText="Classe" width="150">
+    <h:outputText value="#{record.branchInstanceAsString}" />
+  </p:column>
 
   <p:column headerText="Type d'affectation" visible="false">
     <h:outputText value="#{record.assignmentTypeAsString}" />

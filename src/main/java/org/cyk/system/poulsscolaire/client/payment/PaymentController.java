@@ -76,8 +76,8 @@ public class PaymentController extends AbstractController {
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        AbstractIdentifiableCodableDto.JSON_CODE, PaymentDto.JSON_MODE_AS_STRING,
-        PaymentDto.JSON_AMOUNT_AS_STRING,
+        AbstractIdentifiableCodableDto.JSON_CODE, PaymentDto.JSON_REGISTRATION_AS_STRING,
+        PaymentDto.JSON_MODE_AS_STRING, PaymentDto.JSON_AMOUNT_AS_STRING,
         AbstractIdentifiableCodableAuditableDto.JSON_AUDIT_CREATION_AS_STRING);
     if (Boolean.TRUE.equals(filterController.getFilter().getCanceled())) {
       projection.addNames(PaymentDto.JSON_AUDIT_CANCELLATION_AS_STRING);

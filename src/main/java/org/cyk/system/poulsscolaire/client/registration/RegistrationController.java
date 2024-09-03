@@ -88,16 +88,17 @@ public class RegistrationController extends AbstractController {
         RegistrationDto.JSON_PAID_AMOUNT_AS_STRING, RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING,
         RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING,
         RegistrationDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
-        RegistrationDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING);
+        RegistrationDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_BRANCH_INSTANCE_AS_STRING);
     listController.getReadController().setProjection(projection);
     listController.getDataTable().getFilterButton().setRendered(true);
-    
+
     listController.initialize();
 
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(RegistrationReadPage.OUTCOME);
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(4);
-    
+
     listController.getCreateController().addEntityConsumer(entity -> ((RegistrationDto) entity)
         .setStudentIdentifier(filterController.getFilter().getStudentIdentifier()));
 

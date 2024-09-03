@@ -2,7 +2,7 @@ package org.cyk.system.poulsscolaire.client.registration;
 
 import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.component.input.AbstractSelectOneIdentifiableController;
-import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
@@ -42,14 +42,14 @@ public class RegistrationSelectOneController extends AbstractSelectOneIdentifiab
 
   protected RegistrationSelectOneController() {
     super(RegistrationDto.class);
-    projection.addNames(AbstractIdentifiableCodableDto.JSON_CODE,
-        RegistrationDto.JSON_STUDENT_AS_STRING, RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING);
+    projection.addNames(AbstractIdentifiableDto.JSON_AS_STRING,
+        RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING);
   }
 
   @Override
   protected String buildSelectItemLabel(RegistrationDto dto) {
-    return dto.getCode() + " / " + dto.getStudentAsString()
-        + (Core.isStringBlank(dto.getPayableAmountAsString()) ? ""
+    return String.format("%s%s", dto.getAsString(),
+        Core.isStringBlank(dto.getPayableAmountAsString()) ? ""
             : " - " + dto.getPayableAmountAsString());
   }
 }
