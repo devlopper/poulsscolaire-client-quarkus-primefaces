@@ -105,6 +105,8 @@ public class FeeCategoryController extends AbstractController {
 
     listController.initialize();
 
+    listController.getDataTable().getOrderNumberColumn().setVisible(false);
+    
     listController.getCreateController().addEntityConsumer(entity -> ((FeeCategoryDto) entity)
         .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier()));
     listController.getCreateController().setFunction(entity -> {

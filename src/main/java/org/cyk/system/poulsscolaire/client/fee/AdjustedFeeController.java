@@ -125,7 +125,7 @@ public class AdjustedFeeController extends AbstractController {
     projection.addNames(AdjustedFeeDto.JSON_REGISTRATION_SCHOOLING_SCHOOL_AS_STRING,
         AdjustedFeeDto.JSON_REGISTRATION_SCHOOLING_BRANCH_AS_STRING,
         AdjustedFeeDto.JSON_REGISTRATION_SCHOOLING_PERIOD_AS_STRING,
-        AdjustedFeeDto.JSON_REGISTRATION_STUDENT_AS_STRING,
+        AdjustedFeeDto.JSON_REGISTRATION_AS_STRING,
         AdjustedFeeDto.JSON_FEE_CATEGORY_AS_STRING);
 
     if (filterController.getFilter().getAmountOptional() == null) {
