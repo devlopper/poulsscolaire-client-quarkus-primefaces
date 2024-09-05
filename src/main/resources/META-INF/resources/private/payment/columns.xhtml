@@ -15,6 +15,11 @@
     <h:outputText value="#{record.registrationAsString}" />
   </p:column>
   
+  <p:column headerText="Classe" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_BRANCH_INSTANCE_AS_STRING)}">
+    <h:outputText value="#{record.branchInstanceAsString}" />
+  </p:column>
+  
   <p:column headerText="Mode" width="120"
     rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_MODE_AS_STRING)}">
     <h:outputText value="#{record.modeAsString}" />
