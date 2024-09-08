@@ -9,9 +9,9 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.Setter;
-import org.cyk.system.poulsscolaire.client.configuration.AssignmentTypeSelectOne;
-import org.cyk.system.poulsscolaire.client.configuration.SchoolingSelectOne;
-import org.cyk.system.poulsscolaire.client.configuration.SenioritySelectOne;
+import org.cyk.system.poulsscolaire.client.configuration.AssignmentTypeSelectOneController;
+import org.cyk.system.poulsscolaire.client.configuration.SchoolingSelectOneController;
+import org.cyk.system.poulsscolaire.client.configuration.SenioritySelectOneController;
 import org.cyk.system.poulsscolaire.server.api.fee.AbstractAmountContainerDto;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeCategoryFilter;
 import org.cyk.system.poulsscolaire.server.api.fee.FeeClient;
@@ -40,15 +40,15 @@ public class FeeController extends AbstractController {
 
   @Inject
   @Getter
-  SchoolingSelectOne schoolingSelectOne;
+  SchoolingSelectOneController schoolingSelectOne;
 
   @Inject
   @Getter
-  AssignmentTypeSelectOne assignmentTypeSelectOne;
+  AssignmentTypeSelectOneController assignmentTypeSelectOne;
 
   @Inject
   @Getter
-  SenioritySelectOne senioritySelectOne;
+  SenioritySelectOneController senioritySelectOne;
 
   @Inject
   @Getter
@@ -60,15 +60,15 @@ public class FeeController extends AbstractController {
 
   @Inject
   @Getter
-  SchoolingSelectOne schoolingFilterSelectOne;
+  SchoolingSelectOneController schoolingFilterSelectOne;
 
   @Inject
   @Getter
-  AssignmentTypeSelectOne assignmentTypeFilterSelectOne;
+  AssignmentTypeSelectOneController assignmentTypeFilterSelectOne;
 
   @Inject
   @Getter
-  SenioritySelectOne seniorityFilterSelectOne;
+  SenioritySelectOneController seniorityFilterSelectOne;
 
   @Inject
   FeeRequestMapper requestMapper;

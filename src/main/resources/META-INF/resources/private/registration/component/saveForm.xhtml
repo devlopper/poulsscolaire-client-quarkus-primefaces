@@ -6,27 +6,51 @@
     <ui:decorate template="/extension/crud/form/save/default.xhtml">
       <ui:define name="form-save-inputs">
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.studentSelectOne.selectOneMenu}" />
+          <ui:param name="selectOneMenu"
+            value="#{container.studentSelectOneController.selectOneMenu}" />
         </ui:include>
 
-        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.schoolingSelectOne.selectOneMenu}" />
-        </ui:include>
-        
-        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.schooling2SelectOne.selectOneMenu}" />
-        </ui:include>
+        <div class="ui-g-12">
+          <div class="ui-g-6">
+            <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+              <ui:param name="selectOneMenu"
+                value="#{container.schoolingSelectOneController.selectOneMenu}" />
+            </ui:include>
+          </div>
+          <div class="ui-g-6">
+            <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+              <ui:param name="selectOneMenu"
+                value="#{container.branchInstanceSelectOneController.selectOneMenu}" />
+            </ui:include>
+          </div>
+        </div>
+
+        <div class="ui-g-12">
+          <div class="ui-g-6">
+            <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+              <ui:param name="selectOneMenu"
+                value="#{container.schooling2SelectOneController.selectOneMenu}" />
+            </ui:include>
+          </div>
+          <div class="ui-g-6">
+            <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+              <ui:param name="selectOneMenu"
+                value="#{container.branchInstance2SelectOneController.selectOneMenu}" />
+            </ui:include>
+          </div>
+        </div>
 
         <div class="ui-g-12">
           <div class="ui-g-6">
             <ui:include src="/extension/component/input/selectOneRadio.xhtml">
               <ui:param name="selectOneRadio"
-                value="#{container.assignmentTypeSelectOne.selectOneRadio}" />
+                value="#{container.assignmentTypeSelectOneController.selectOneRadio}" />
             </ui:include>
           </div>
           <div class="ui-g-6">
             <ui:include src="/extension/component/input/selectOneRadio.xhtml">
-              <ui:param name="selectOneRadio" value="#{container.senioritySelectOne.selectOneRadio}" />
+              <ui:param name="selectOneRadio"
+                value="#{container.senioritySelectOneController.selectOneRadio}" />
             </ui:include>
           </div>
         </div>

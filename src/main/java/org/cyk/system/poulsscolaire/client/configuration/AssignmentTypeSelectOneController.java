@@ -15,14 +15,14 @@ import org.cyk.system.poulsscolaire.server.api.configuration.AssignmentTypeServi
  *
  */
 @Dependent
-public class AssignmentTypeSelectOne extends AbstractSelectOneIdentifiableController<
+public class AssignmentTypeSelectOneController extends AbstractSelectOneIdentifiableController<
     AssignmentTypeDto, AssignmentTypeGetManyResponseDto, AssignmentTypeClient> {
 
   @Inject
   @Getter
   AssignmentTypeClient client;
 
-  protected AssignmentTypeSelectOne() {
+  protected AssignmentTypeSelectOneController() {
     super(AssignmentTypeDto.class);
   }
 }

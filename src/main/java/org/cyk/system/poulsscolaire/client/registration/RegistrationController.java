@@ -1,6 +1,5 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
-import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.IdentifiableActionController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
@@ -10,18 +9,18 @@ import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.client.configuration.AssignmentTypeSelectOne;
-import org.cyk.system.poulsscolaire.client.configuration.SchoolingSelectOne;
-import org.cyk.system.poulsscolaire.client.configuration.SenioritySelectOne;
+import org.cyk.system.poulsscolaire.client.configuration.AssignmentTypeSelectOneController;
+import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOneController;
+import org.cyk.system.poulsscolaire.client.configuration.SchoolingSelectOneController;
+import org.cyk.system.poulsscolaire.client.configuration.SenioritySelectOneController;
 import org.cyk.system.poulsscolaire.server.api.configuration.BranchDto;
-import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingFilter;
+import org.cyk.system.poulsscolaire.server.api.configuration.BranchInstanceFilter;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationRequestMapper;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.RegistrationCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.RegistrationUpdateRequestDto;
-import org.cyk.system.poulsscolaire.server.api.registration.StudentFilter;
 
 /**
  * Cette classe représente le contrôleur de {@link RegistrationDto}.
@@ -41,23 +40,31 @@ public class RegistrationController extends AbstractController {
 
   @Inject
   @Getter
-  StudentSelectOneController studentSelectOne;
+  StudentSelectOneController studentSelectOneController;
 
   @Inject
   @Getter
-  SchoolingSelectOne schoolingSelectOne;
+  SchoolingSelectOneController schoolingSelectOneController;
 
   @Inject
   @Getter
-  SchoolingSelectOne schooling2SelectOne;
+  BranchInstanceSelectOneController branchInstanceSelectOneController;
 
   @Inject
   @Getter
-  SenioritySelectOne senioritySelectOne;
+  SchoolingSelectOneController schooling2SelectOneController;
 
   @Inject
   @Getter
-  AssignmentTypeSelectOne assignmentTypeSelectOne;
+  BranchInstanceSelectOneController branchInstance2SelectOneController;
+
+  @Inject
+  @Getter
+  SenioritySelectOneController senioritySelectOneController;
+
+  @Inject
+  @Getter
+  AssignmentTypeSelectOneController assignmentTypeSelectOneController;
 
   @Inject
   RegistrationRequestMapper requestMapper;
@@ -121,48 +128,43 @@ public class RegistrationController extends AbstractController {
       return client.update(request);
     });
 
-    schoolingSelectOne.getSelectOneMenu()
+    schoolingSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSchoolingIdentifier(identifier));
-    schoolingSelectOne.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME + " 1");
+    schoolingSelectOneController.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME + " 1");
+    schoolingSelectOneController.getSelectOneMenu().valueChangeAjax().setRunnable(() -> {
+      BranchInstanceFilter branchInstanceFilter = new BranchInstanceFilter();
+      branchInstanceFilter
+          .setSchoolingIdentifier(schoolingSelectOneController.getSelectOneMenu().getValue());
+      branchInstanceSelectOneController.setFilter(branchInstanceFilter.toDto());
+      branchInstanceSelectOneController.computeSelectOneMenuChoices();
+    });
+    schoolingSelectOneController.getSelectOneMenu().valueChangeAjax().setDisabled(false);
+    schoolingSelectOneController.getSelectOneMenu().valueChangeAjax()
+        .setUpdate(branchInstanceSelectOneController.getSelectOneMenu().getIdentifier());
 
-    schooling2SelectOne.getSelectOneMenu()
+    schooling2SelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSchooling2Identifier(identifier));
-    schooling2SelectOne.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME + " 2");
+    schooling2SelectOneController.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME + " 2");
 
-    senioritySelectOne.getSelectOneRadio()
+    senioritySelectOneController.getSelectOneRadio()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSeniorityIdentifier(identifier));
 
-    assignmentTypeSelectOne.getSelectOneRadio()
+    assignmentTypeSelectOneController.getSelectOneRadio()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity())
                 .setAssignmentTypeIdentifier(identifier));
 
     if (filterController.getFilter().getStudentIdentifier() == null) {
-      studentSelectOne.getSelectOneMenu()
+      studentSelectOneController.getSelectOneMenu()
           .addValueConsumer(identifier -> ((RegistrationDto) listController
               .getCreateControllerOrUpdateControllerEntity()).setStudentIdentifier(identifier));
     } else {
-      studentSelectOne.getSelectOneMenu()
+      studentSelectOneController.getSelectOneMenu()
           .writeValue(filterController.getFilter().getStudentIdentifier());
       listController.showCreateDialog();
-    }
-
-    if (!Core.isStringBlank(filterController.getFilter().getSchoolIdentifier())) {
-      StudentFilter studentFilter = new StudentFilter();
-      studentFilter.setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
-      studentSelectOne.setFilter(studentFilter.toDto());
-      studentSelectOne.computeSelectOneMenuChoices();
-
-      SchoolingFilter schoolingFilter = new SchoolingFilter();
-      schoolingFilter.setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
-      schoolingSelectOne.setFilter(schoolingFilter.toDto());
-      schoolingSelectOne.computeSelectOneMenuChoices();
-
-      schooling2SelectOne.setFilter(schoolingFilter.toDto());
-      schooling2SelectOne.computeSelectOneMenuChoices();
     }
 
     updateAmountsToZeroController

@@ -15,14 +15,14 @@ import org.cyk.system.poulsscolaire.server.api.configuration.SeniorityService.Se
  *
  */
 @Dependent
-public class SenioritySelectOne extends AbstractSelectOneIdentifiableController<
+public class SenioritySelectOneController extends AbstractSelectOneIdentifiableController<
     SeniorityDto, SeniorityGetManyResponseDto, SeniorityClient> {
 
   @Inject
   @Getter
   SeniorityClient client;
 
-  protected SenioritySelectOne() {
+  protected SenioritySelectOneController() {
     super(SeniorityDto.class);
   }
 }
