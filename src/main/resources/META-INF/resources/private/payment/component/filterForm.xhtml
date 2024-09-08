@@ -9,6 +9,11 @@
           <ui:param name="selectOneMenu"
             value="#{controller.registrationSelectOneController.selectOneMenu}" />
         </ui:include>
+        
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{controller.branchInstanceSelectOneController.selectOneMenu}" />
+        </ui:include>
 
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">

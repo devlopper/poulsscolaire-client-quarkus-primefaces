@@ -6,13 +6,19 @@
     <ui:decorate template="/extension/crud/list/filter/form/default.xhtml">
       <ui:define name="form-filter-inputs">
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{controller.registrationSelectOneController.selectOneMenu}" />
+          <ui:param name="selectOneMenu"
+            value="#{controller.registrationSelectOneController.selectOneMenu}" />
         </ui:include>
-        
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{controller.branchInstanceSelectOneController.selectOneMenu}" />
+        </ui:include>
+
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
           <ui:param name="selectOneMenu" value="#{controller.feeCategoryController.selectOneMenu}" />
         </ui:include>
-        
+
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
             <p:outputLabel value="Montant début" for="fromAmount" />
@@ -30,7 +36,7 @@
             <p:inputNumber id="toAmount" value="#{filter.toAmount}" />
           </ui:define>
         </ui:decorate>
-        
+
         <ui:include src="/extension/component/input/selectOneRadio.xhtml">
           <ui:param name="selectOneRadio"
             value="#{controller.amountValuePayableEqualsZeroSelectOneRadio}" />

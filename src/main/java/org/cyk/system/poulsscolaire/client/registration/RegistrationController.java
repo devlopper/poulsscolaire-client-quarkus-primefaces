@@ -14,6 +14,7 @@ import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOne
 import org.cyk.system.poulsscolaire.client.configuration.SchoolingSelectOneController;
 import org.cyk.system.poulsscolaire.client.configuration.SenioritySelectOneController;
 import org.cyk.system.poulsscolaire.server.api.configuration.BranchDto;
+import org.cyk.system.poulsscolaire.server.api.configuration.BranchInstanceDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.BranchInstanceFilter;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
@@ -143,10 +144,34 @@ public class RegistrationController extends AbstractController {
     schoolingSelectOneController.getSelectOneMenu().valueChangeAjax()
         .setUpdate(branchInstanceSelectOneController.getSelectOneMenu().getIdentifier());
 
+    branchInstanceSelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> ((RegistrationDto) listController
+            .getCreateControllerOrUpdateControllerEntity())
+                .setBranchInstanceIdentifier(identifier));
+    branchInstanceSelectOneController.getSelectOneMenu().outputLabel()
+        .setValue(BranchInstanceDto.NAME + " 1");
+
     schooling2SelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSchooling2Identifier(identifier));
     schooling2SelectOneController.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME + " 2");
+    schooling2SelectOneController.getSelectOneMenu().valueChangeAjax().setRunnable(() -> {
+      BranchInstanceFilter branchInstanceFilter = new BranchInstanceFilter();
+      branchInstanceFilter
+          .setSchoolingIdentifier(schooling2SelectOneController.getSelectOneMenu().getValue());
+      branchInstance2SelectOneController.setFilter(branchInstanceFilter.toDto());
+      branchInstance2SelectOneController.computeSelectOneMenuChoices();
+    });
+    schooling2SelectOneController.getSelectOneMenu().valueChangeAjax().setDisabled(false);
+    schooling2SelectOneController.getSelectOneMenu().valueChangeAjax()
+        .setUpdate(branchInstance2SelectOneController.getSelectOneMenu().getIdentifier());
+
+    branchInstance2SelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> ((RegistrationDto) listController
+            .getCreateControllerOrUpdateControllerEntity())
+                .setBranchInstance2Identifier(identifier));
+    branchInstance2SelectOneController.getSelectOneMenu().outputLabel()
+        .setValue(BranchInstanceDto.NAME + " 2");
 
     senioritySelectOneController.getSelectOneRadio()
         .addValueConsumer(identifier -> ((RegistrationDto) listController

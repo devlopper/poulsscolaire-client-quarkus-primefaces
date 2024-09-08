@@ -6,6 +6,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.SessionController;
+import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOneController;
 import org.cyk.system.poulsscolaire.client.registration.RegistrationSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentDto;
 import org.cyk.system.poulsscolaire.server.api.payment.PaymentFilter;
@@ -25,7 +26,11 @@ public class PaymentFilterController extends AbstractFilterController<PaymentFil
   @Inject
   @Getter
   RegistrationSelectOneController registrationSelectOneController;
-  
+
+  @Inject
+  @Getter
+  BranchInstanceSelectOneController branchInstanceSelectOneController;
+
   public PaymentFilterController() {
     super(PaymentFilter.class);
   }
@@ -42,5 +47,8 @@ public class PaymentFilterController extends AbstractFilterController<PaymentFil
 
     registrationSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setRegistrationIdentifier(identifier));
+
+    branchInstanceSelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> filter.setBranchInstanceIdentifier(identifier));
   }
 }

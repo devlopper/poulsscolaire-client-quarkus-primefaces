@@ -81,7 +81,7 @@
     </f:facet>
   </p:column>
 
-  <p:column headerText="Montant Inscription" width="150"
+  <p:column headerText="Montant Inscription" width="150" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING)}">
     <h:outputText value="#{record.amountRegistrationValuePartAsString}" visible="false" />
     <f:facet name="footer">
@@ -109,7 +109,7 @@
   <p:column headerText="Échéance" width="150"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_DEADLINE_AS_STRING)}">
     <p:tag severity="warning" value="#{record.amountDeadlineAsString}"
-      rendered="#{not record.latePayment}" />
+      rendered="#{not empty record.amountDeadlineAsString and not record.latePayment}" />
     <p:tag severity="danger" value="#{record.amountDeadlineAsString}"
       rendered="#{record.latePayment}" />
   </p:column>

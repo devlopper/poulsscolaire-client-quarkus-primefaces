@@ -7,6 +7,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.SessionController;
+import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOneController;
 import org.cyk.system.poulsscolaire.client.registration.RegistrationSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.fee.AbstractAmountContainerFilter;
 import org.cyk.system.poulsscolaire.server.api.fee.AdjustedFeeDto;
@@ -38,6 +39,10 @@ public class AdjustedFeeFilterController extends AbstractFilterController<Adjust
 
   @Getter
   SelectOneRadioBoolean amountDeadlineDateOverSelectOneRadio;
+
+  @Inject
+  @Getter
+  BranchInstanceSelectOneController branchInstanceSelectOneController;
 
   public AdjustedFeeFilterController() {
     super(AdjustedFeeFilter.class);
@@ -81,5 +86,8 @@ public class AdjustedFeeFilterController extends AbstractFilterController<Adjust
     amountDeadlineDateOverSelectOneRadio.outputLabel().setValue("En retard");
     amountDeadlineDateOverSelectOneRadio
         .addValueConsumer(value -> filter.setAmountDeadlineDateOver(value));
+
+    branchInstanceSelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> filter.setBranchInstanceIdentifier(identifier));
   }
 }
