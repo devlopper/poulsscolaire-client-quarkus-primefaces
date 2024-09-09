@@ -80,12 +80,15 @@ public class AdjustedFeeFilterController extends AbstractFilterController<Adjust
     amountValuePayableEqualsZeroSelectOneRadio.outputLabel().setValue("Soldé");
     amountValuePayableEqualsZeroSelectOneRadio.addTrueOrFalseChoices(true)
         .addValueConsumer(value -> filter.setAmountValuePayableLessThanOrEqualsZero(value));
+    amountValuePayableEqualsZeroSelectOneRadio
+        .writeValue(filter.getAmountValuePayableLessThanOrEqualsZero());
 
     amountDeadlineDateOverSelectOneRadio = new SelectOneRadioBoolean();
     amountDeadlineDateOverSelectOneRadio.addTrueOrFalseChoices(true);
     amountDeadlineDateOverSelectOneRadio.outputLabel().setValue("En retard");
     amountDeadlineDateOverSelectOneRadio
         .addValueConsumer(value -> filter.setAmountDeadlineDateOver(value));
+    amountDeadlineDateOverSelectOneRadio.writeValue(filter.getLatePayment());
 
     branchInstanceSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setBranchInstanceIdentifier(identifier));
