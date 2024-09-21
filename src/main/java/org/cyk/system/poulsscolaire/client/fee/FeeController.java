@@ -174,7 +174,7 @@ public class FeeController extends AbstractController {
               .setSchoolingIdentifier(identifier));
 
       schoolingSelectOne.getSelectOneMenu().valueChangeAjax().setDisabled(false);
-      schoolingSelectOne.getSelectOneMenu().valueChangeAjax().setRunnable(() -> {
+      schoolingSelectOne.getSelectOneMenu().valueChangeAjax().setConsumer(e -> {
         FeeCategoryFilter feeCategoryFilter = new FeeCategoryFilter();
         feeCategoryFilter.setSchoolingIdentifier(schoolingSelectOne.getSelectOneMenu().getValue());
         categorySelectOne.setFilter(feeCategoryFilter.toDto());

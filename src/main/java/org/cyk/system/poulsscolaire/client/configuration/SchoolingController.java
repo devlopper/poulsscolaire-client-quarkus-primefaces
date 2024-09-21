@@ -112,7 +112,7 @@ public class SchoolingController extends AbstractController {
             .getCreateControllerOrUpdateControllerEntityAs(SchoolingDto.class)
             .setSchoolIdentifier(identifier));
 
-    schoolSelectOne.getSelectOneMenu().valueChangeAjax().setRunnable(() -> {
+    schoolSelectOne.getSelectOneMenu().valueChangeAjax().setConsumer(e -> {
       PeriodFilter periodFilter = new PeriodFilter();
       periodFilter.setSchoolIdentifier(schoolSelectOne.getSelectOneMenu().getValue());
       periodFilter.setOpened(true);

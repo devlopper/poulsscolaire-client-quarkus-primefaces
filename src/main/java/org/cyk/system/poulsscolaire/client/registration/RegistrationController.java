@@ -8,6 +8,7 @@ import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import java.util.Set;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.AssignmentTypeSelectOneController;
 import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOneController;
@@ -16,6 +17,7 @@ import org.cyk.system.poulsscolaire.client.configuration.SenioritySelectOneContr
 import org.cyk.system.poulsscolaire.server.api.configuration.BranchDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.BranchInstanceDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.BranchInstanceFilter;
+import org.cyk.system.poulsscolaire.server.api.configuration.SchoolingFilter;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationClient;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationRequestMapper;
@@ -129,20 +131,34 @@ public class RegistrationController extends AbstractController {
       return client.update(request);
     });
 
+    schooling2SelectOneController.setChoicable(false);
+    branchInstance2SelectOneController.setChoicable(false);
+    branchInstanceSelectOneController.setChoicable(false);
+
     schoolingSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSchoolingIdentifier(identifier));
     schoolingSelectOneController.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME + " 1");
-    schoolingSelectOneController.getSelectOneMenu().valueChangeAjax().setRunnable(() -> {
+    schoolingSelectOneController.getSelectOneMenu().valueChangeAjax().setConsumer(e -> {
       BranchInstanceFilter branchInstanceFilter = new BranchInstanceFilter();
       branchInstanceFilter
           .setSchoolingIdentifier(schoolingSelectOneController.getSelectOneMenu().getValue());
+      branchInstanceSelectOneController.setChoicable(true);
       branchInstanceSelectOneController.setFilter(branchInstanceFilter.toDto());
       branchInstanceSelectOneController.computeSelectOneMenuChoices();
+
+      schooling2SelectOneController.setChoicable(true);
+      SchoolingFilter schoolingFilter = new SchoolingFilter();
+      schoolingFilter.setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
+      schoolingFilter.setExcludedIdentifiers(
+          Set.of(schoolingSelectOneController.getSelectOneMenu().getValue()));
+      schooling2SelectOneController.setFilter(schoolingFilter.toDto());
+      schooling2SelectOneController.computeSelectOneMenuChoices();
     });
     schoolingSelectOneController.getSelectOneMenu().valueChangeAjax().setDisabled(false);
     schoolingSelectOneController.getSelectOneMenu().valueChangeAjax()
-        .setUpdate(branchInstanceSelectOneController.getSelectOneMenu().getIdentifier());
+        .setUpdate(schooling2SelectOneController.getSelectOneMenu().getIdentifier() + ","
+            + branchInstanceSelectOneController.getSelectOneMenu().getIdentifier());
 
     branchInstanceSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
@@ -155,10 +171,11 @@ public class RegistrationController extends AbstractController {
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSchooling2Identifier(identifier));
     schooling2SelectOneController.getSelectOneMenu().outputLabel().setValue(BranchDto.NAME + " 2");
-    schooling2SelectOneController.getSelectOneMenu().valueChangeAjax().setRunnable(() -> {
+    schooling2SelectOneController.getSelectOneMenu().valueChangeAjax().setConsumer(e -> {
       BranchInstanceFilter branchInstanceFilter = new BranchInstanceFilter();
       branchInstanceFilter
           .setSchoolingIdentifier(schooling2SelectOneController.getSelectOneMenu().getValue());
+      branchInstance2SelectOneController.setChoicable(true);
       branchInstance2SelectOneController.setFilter(branchInstanceFilter.toDto());
       branchInstance2SelectOneController.computeSelectOneMenuChoices();
     });

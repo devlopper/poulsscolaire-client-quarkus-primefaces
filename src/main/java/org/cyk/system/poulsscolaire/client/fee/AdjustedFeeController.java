@@ -139,6 +139,10 @@ public class AdjustedFeeController extends AbstractController {
           AdjustedFeeDto.JSON_LATE_PAYMENT, AdjustedFeeDto.JSON_EXPECTED_PAYMENT_AS_STRING,
           AbstractAmountContainerDto.JSON_AMOUNT_DEADLINE_AS_STRING);
     }
+    
+    if (filterController.getFilter().getReducedAmountIsZero() != null) {
+      projection.addNames(AdjustedFeeDto.JSON_REDUCED_AMOUNT_AS_STRING);
+    }
 
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER, AdjustedFeeDto.JSON_FEE_AS_STRING,
         AdjustedFeeDto.JSON_FEE_OPTIONAL, AbstractAmountContainerDto.JSON_AMOUNT_VALUE_AS_STRING,

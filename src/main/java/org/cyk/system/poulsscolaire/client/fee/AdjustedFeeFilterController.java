@@ -66,6 +66,8 @@ public class AdjustedFeeFilterController extends AbstractFilterController<Adjust
     filter.setLatePayment(getRequestParameterAsBoolean(AdjustedFeeFilter.JSON_LATE_PAYMENT));
     filter.setAmountValuePayableLessThanOrEqualsZero(getRequestParameterAsBoolean(
         AbstractAmountContainerFilter.JSON_AMOUNT_VALUE_PAYABLE_LESS_THAN_OR_EQUALS_ZERO));
+    filter.setReducedAmountIsZero(
+        getRequestParameterAsBoolean(AdjustedFeeFilter.JSON_REDUCED_AMOUNT_IS_ZERO));
 
     registrationSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setRegistrationIdentifier(identifier));

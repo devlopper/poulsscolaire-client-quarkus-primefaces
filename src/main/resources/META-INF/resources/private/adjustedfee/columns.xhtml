@@ -53,6 +53,11 @@
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_BRANCH_INSTANCE_AS_STRING)}">
     <h:outputText value="#{record.branchInstanceAsString}" />
   </p:column>
+  
+  <p:column headerText="Réduction" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_REDUCED_AMOUNT_AS_STRING)}">
+    <h:outputText value="#{record.reducedAmountAsString}" />
+  </p:column>
 
   <p:column headerText="À payer" width="100"
     rendered="#{listController.isReadControllerHasProjectionName(Dto.JSON_AMOUNT_VALUE_AS_STRING)}">
