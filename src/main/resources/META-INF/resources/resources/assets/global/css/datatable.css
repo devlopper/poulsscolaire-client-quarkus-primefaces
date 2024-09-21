@@ -1,0 +1,60 @@
+
+body .ui-datatable .ui-datatable-data>tr>td{
+    font-size: 0.850rem !important;
+    font-family: var(--vz-body-font-family) !important;
+    padding: 1rem 1rem !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    /* border: 1px solid rgba(0, 0, 0, .08); */
+    /* border-width: 0 0 1px 0; */
+}
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem  a {
+    color: #000 !important;
+    font-size: 0.850rem !important;
+    font-family: var(--vz-body-font-family) !important;
+    font-weight: 200 !important;
+    text-align: center !important;
+    border-right: 1px solid #dee2e64b;
+}
+
+body .ui-datatable thead th {
+    background:  inherit !important;;
+    color: inherit;
+    padding: 1rem 1rem;
+    border: 1px solid inherit;
+    border-width: 0 0 1px 0;
+    text-align: left;
+    box-sizing: content-box;
+    font-size: 0.850rem !important;
+    font-family: var(--vz-body-font-family) !important;
+    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s, opacity .2s;
+}
+
+body .ui-datatable .ui-datatable-data>tr {
+    background-color: transparent !important;
+    background: transparent !important;
+    color:  var(--vz-heading-color)!important;
+}
+
+
+body .ui-datatable .ui-datatable-data>tr>td .ui-tag {
+    font-size: 0.850rem !important;
+    font-family: var(--vz-body-font-family) !important;
+    font-weight: 200;
+    text-align: center !important;
+}
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active a {
+    color: #2196f3 !important;
+    font-weight: bold !important;
+    background-color: var(--vz-body-bg) !important;
+}
+
+
+
+body .ui-datatable .ui-paginator.ui-paginator-bottom, body .ui-datatable .ui-paginator.ui-paginator-top {
+    border-width: 0 0 0 0 !important;
+    border-radius: 0;
+    background: inherit !important;
+}

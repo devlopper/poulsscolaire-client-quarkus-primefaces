@@ -1,0 +1,120 @@
+/* Button Styles */
+.crud-list-button-export,
+.crud-list-button-create,
+.crud-list-button-columntoggler,
+.crud-list-button-update,
+.crud-list-button-read,
+.crud-list-button-delete {
+    background-color: var(--bg-update-transparent) !important;
+    border-color: var(--bg-update-transparent) !important;
+    color: var(--vz-info) !important;
+}
+
+.crud-list-button-export {
+    background-color: var(--btn-export-bg-subtle) !important;
+    border-color: var(--btn-export-bg-subtle) !important;
+    color: var(--vz-primary) !important;
+}
+
+.crud-list-button-export:hover {
+    background-color: var(--vz-primary) !important;
+    border-color: var(--vz-primary) !important;
+    color: var(--color-white) !important;
+}
+
+.crud-list-button-create {
+    background-color: var(--vz-success-bg-subtle) !important;
+    border-color: var(--vz-success-bg-subtle) !important;
+    color: var(--vz-success) !important;
+}
+
+.crud-list-button-create:hover {
+    background-color: var(--vz-success) !important;
+    border-color: var(--vz-success) !important;
+    color: var(--color-white) !important;
+}
+
+.crud-list-button-columntoggler {
+    background-color: var(--vz-info-bg-subtle) !important;
+    border-color: var(--vz-info-bg-subtle) !important;
+    color: var(--vz-info) !important;
+}
+
+.crud-list-button-columntoggler:hover {
+    background-color: var(--vz-info) !important;
+    border-color: var(--vz-info) !important;
+    color: var(--color-white) !important;
+}
+
+.crud-list-button-update {
+    background-color: var(--bg-update-transparent) !important;
+    border-color: var(--bg-update-transparent) !important;
+    color: var(--color-update) !important;
+}
+
+.crud-list-button-read {
+    background-color: var(--vz-info-bg-subtle) !important;
+    border-color: var(--vz-info-bg-subtle) !important;
+    color: var(--vz-info) !important;
+}
+
+.crud-list-button-delete {
+    background-color: var(--bg-delete-transparent) !important;
+    border-color: var(--bg-delete-transparent) !important;
+    color: var(--color-delete) !important;
+}
+
+/* UI Button Styles */
+.ui-button {
+    margin-right: 0.5rem !important;
+    border-radius: var(--btn-rounded) !important;
+}
+
+.crud-list-button-export .ui-button-icon-left,
+.crud-list-button-create .ui-button-icon-left {
+    margin-left: var(--icon-margin-left) !important;
+}
+
+.crud-list-button-export:focus {
+    outline: none;
+    box-shadow: 0 0 5px #4CAF50;
+}
+
+body .ui-button.ui-button-info.button-transmettre {
+    background-color: var(--vz-dark-bg-subtle) !important;
+    border-color: var(--vz-dark-bg-subtle) !important;
+    color: var(--vz-dark) !important;
+}
+
+body .ui-button.ui-button-info.button-transmettre:hover {
+    background-color: var(--vz-dark) !important;
+    border-color: var(--vz-dark) !important;
+    color: var(--color-white) !important;
+}
+
+
+#updateDialog_content button{
+    background-color: var(--bg-update-transparent) !important;
+    border-color: var(--bg-update-transparent) !important;
+    color: var(--color-update) !important;
+}
+
+#updateDialog_content button:hover{
+    background-color: var(--bg-update) !important;
+    border-color: var(--bg-update) !important;
+    color: var(--color-update) !important;
+}
+
+
+
+#createDialog button{
+    background-color: var(--vz-success-bg-subtle) !important;
+    border-color: var(--vz-success-bg-subtle) !important;
+    color: var(--vz-success) !important;
+}
+
+#createDialog button:hover{
+    background-color: var(--vz-success) !important;
+    border-color: var(--vz-success) !important;
+    color: var(--color-white) !important;
+}

@@ -1,0 +1,22 @@
+.dropdown-menu .dropdown-item{
+    font-weight: 300;
+    font-size: 15px !important;
+    color: var(--vz-dropdown-link-color);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.dropdown-menu .dropdown-item:hover{
+    text-decoration: none !important;
+    color: var(--vz-dropdown-link-color);
+}
+
+.nav .nav-item a {
+color: var(--vz-vertical-menu-sub-item-color);
+font-size: var(--vz-vertical-menu-sub-item-font-size);
+font-family: var(--vz-vertical-menu-sub-item-font-family);
+}
+
+.nav .nav-item a:hover {
+color: var(--vz-vertical-menu-item-active-color);
+text-decoration: none !important;
+}

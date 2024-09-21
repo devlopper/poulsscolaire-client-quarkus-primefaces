@@ -1,0 +1,28 @@
+:root {
+    --opacity: 0.1;
+    --color-Jade-sombre: 9, 152, 133;
+    --color-red: 246, 17, 17;
+    --color-orange: 255, 165, 0;
+    --color-white: #fff;
+
+    --btn-export: green;
+    --btn-rounded: 0.5rem;
+    --icon-margin-left: 0.2rem;
+    --btn-create: #099885;
+    --btn-delete: #fce8e4;
+    --btn-info: #299cdb;
+
+    --color-update: rgba(var(--color-orange));
+    --color-update-transparent: rgba(var(--color-orange), var(--opacity));
+    --bg-update-transparent: rgba(var(--color-orange), var(--opacity));
+
+    --color-delete: rgba(var(--color-red));
+    --color-delete-transparent: rgba(var(--color-red), var(--opacity));
+    --bg-delete-transparent: rgba(var(--color-red), var(--opacity));
+
+    --color-create: rgba(var(--color-Jade-sombre));
+    --color-create-transparent: rgba(var(--color-Jade-sombre), var(--opacity));
+    --bg-create-transparent: rgba(var(--color-Jade-sombre), var(--opacity));
+}
+
+

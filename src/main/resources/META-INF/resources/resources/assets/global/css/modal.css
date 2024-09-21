@@ -1,0 +1,163 @@
+/* Styles des barres de titre des dialogues */
+body #createDialog .ui-dialog-titlebar,
+body #updateDialog .ui-dialog-titlebar,
+body .ui-confirm-dialog .ui-dialog-titlebar {
+    color: #fff;
+    font-weight: 700;
+    border-bottom: 0 none;
+    padding: 1.5rem;
+}
+
+body #createDialog .ui-dialog-titlebar {
+    background: #14c56b !important;
+}
+
+body #updateDialog .ui-dialog-titlebar {
+    background: #FFA505 !important;
+    color: #FFF !important;
+}
+
+body .ui-confirm-dialog .ui-dialog-titlebar {
+    background: #f61011 !important;
+    color: #FFF !important;
+}
+
+/* Styles des icônes de fermeture */
+body #createDialog .ui-dialog-titlebar .ui-icon-closethick,
+body #updateDialog .ui-dialog-titlebar .ui-icon-closethick,
+body .ui-confirm-dialog .ui-dialog-titlebar .ui-icon-closethick {
+    color: #fff !important;
+}
+
+/* Styles des boutons de sauvegarde dans les dialogues */
+#createDialog_content .crud-form-save-button,
+#updateDialog_content .crud-form-save-button {
+    border: 1px solid !important;
+}
+
+
+
+
+
+/* Styles généraux des dialogues */
+#createDialog,
+#updateDialog {
+    max-width: 60% !important;
+}
+
+#createDialog_content,
+#updateDialog_content {
+    max-width: 100% !important;
+}
+
+/* Media Queries pour les tailles d'écran */
+@media (min-width: 1200px) {
+    #createDialog,
+    #updateDialog {
+        max-width: 50% !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    #createDialog,
+    #updateDialog {
+        max-width: 70% !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #createDialog,
+    #updateDialog {
+        max-width: 80% !important;
+    }
+}
+
+@media (max-width: 767px) {
+    #createDialog,
+    #updateDialog {
+        max-width: 90% !important;
+    }
+}
+
+
+.p-dialog {
+    border-radius: 24px !important;
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0%), 0 4px 5px 0 rgb(0 0 0 / 5%), 0 1px 10px 0 rgb(0 0 0 / 0%) !important;
+    border: 0 none;
+}
+
+body .ui-dialog{
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0%), 0 4px 5px 0 rgb(0 0 0 / 5%), 0 1px 10px 0 rgb(0 0 0 / 0%) !important;
+    border-radius: 15px !important;
+        background: var(--vz-secondary-bg) !important;
+    color: var(--vz-secondary-color) !important;
+}
+
+
+.p-datepicker:not(.p-datepicker-inline) {
+    background: #ffffff;
+    border: 0 none;
+    border-radius: 24px !important;
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0%), 0 4px 5px 0 rgb(0 0 0 / 5%), 0 1px 10px 0 rgb(0 0 0 / 0%) !important;
+}
+
+
+body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item.ui-state-highlight {
+    background: var(--vz-success-bg-subtle) !important;
+    color: #495057;
+    overflow: auto;
+    border-radius: 12px !important;
+}
+
+body .ui-selectonemenu-panel{
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0%), 0 4px 5px 0 rgb(0 0 0 / 5%), 0 1px 10px 0 rgb(0 0 0 / 0%) !important;
+    padding: 10px !important;
+    border-radius: 14px !important;
+    background: var(--vz-secondary-bg) !important;
+    border-right: 1px solid var(--vz-secondary-bg)  !important;
+}
+
+
+body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+    background: var(--vz-success-bg-subtle) !important;
+    color: #495057;
+    border-radius: 14px !important;
+}
+
+
+.ui-corner-all{
+    border-radius: 10px !important;
+}
+
+body .ui-dialog .ui-dialog-content {
+    background: var(--vz-secondary-bg) !important;
+    color: var(--vz-secondary-color) !important;
+    border: 0 none;
+    padding: .2rem 1.5rem 2rem 1.5rem;
+    border: 0 none;
+    max-height: 700px !important;
+}
+
+
+body .ui-selectonemenu, body .ui-inputfield {
+    background: inherit !important;
+    color: var(--vz-body-color) !important;
+    background-color: var(--vz-input-bg-custom) !important;
+    background-clip: padding-box;
+    border-color : var(--vz-input-border-custom) !important;
+    /* border-radius: var(--vz-border-radius) !important; */
+}
+
+
+body #filterDialog .ui-dialog-titlebar {
+    background: #2196f3 !important;
+    color: #fff;
+    font-weight: 700;
+    border-bottom: 0 none;
+    padding: 1.5rem;
+}
+
+
+body .ui-selectonemenu-panel{
+    width: 20.5% !important;
+}

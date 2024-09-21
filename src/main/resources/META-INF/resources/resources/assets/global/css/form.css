@@ -1,0 +1,76 @@
+/* Form Styles */
+.app-form-input input,
+.app-form-input textarea {
+    display: block;
+    width: 100%;
+    padding: .5rem .9rem;
+    font-size: var(--vz-font-base);
+    font-weight: var(--vz-font-weight-normal) !important;
+    line-height: 1.5;
+    color: var(--vz-body-color);
+    background-color: var(--vz-input-bg-custom);
+    background-clip: padding-box;
+    border: var(--vz-border-width) solid var(--vz-input-border-custom);
+    border-radius: var(--vz-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.app-form-input .ui-selectonemenu {
+    width: 100% !important;
+}
+
+
+body .ui-autocomplete{
+    width: 100% !important;
+    display: flex !important;
+}
+
+body .ui-autocomplete .ui-autocomplete-dropdown {
+    position: absolute !important;
+    height: auto !important;
+    width: 2.357rem ;
+    right: 0 !important;
+    margin: 0 !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: none !important;
+    border: none !important;
+    color: #6c757d !important;
+}
+
+body .ui-autocomplete .ui-autocomplete-input.ui-autocomplete-dd-input {
+    padding: .5rem .5rem;
+    border-radius: 10px !important;
+}
+
+.app-form-input select {
+    display: block;
+    width: 100%;
+    padding: .5rem 2.7rem .5rem .9rem;
+    font-size: var(--vz-font-base);
+    font-weight: var(--vz-font-weight-normal);
+    line-height: 1.5;
+    color: var(--vz-body-color);
+    background-color: var(--vz-input-bg-custom);
+    background-repeat: no-repeat;
+    background-position: right .9rem center;
+    background-size: 16px 12px;
+    border: var(--vz-border-width) solid var(--vz-input-border-custom);
+    border-radius: var(--vz-border-radius);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+
+body #createDialog .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+    border-color: #14c56b !important;
+    background: #14c56b !important;
+    color: #fff;
+}
+
+
+body #updateDialog .ui-radiobutton .ui-radiobutton-box.ui-state-active {
+    border-color: #ffa503 !important;
+    background: #ffa503 !important;
+    color: #fff;
+}

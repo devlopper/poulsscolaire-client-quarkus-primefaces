@@ -29,6 +29,12 @@
 			<artifactId>poulsscolaire-server-api</artifactId>
 			<version>0.0.0-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>ci.gouv.dgbf.poulsscolaire.client</groupId>
+			<artifactId>primefaces-template-poulspaid-extension</artifactId>
+			<version>0.0.0-SNAPSHOT</version>
+		</dependency>
 				
 		<dependency>
 	      <groupId>io.quarkus</groupId>
