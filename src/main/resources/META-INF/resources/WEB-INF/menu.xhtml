@@ -26,6 +26,9 @@
   <ui:param name="paymentModuleVisible"
     value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
 
+  <ui:param name="accountingModuleVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
+
   <!-- ========== App Menu ========== -->
   <div class="app-menu navbar-menu">
     <!-- LOGO -->
@@ -275,6 +278,22 @@
                   <li class="nav-item"><p:link outcome="adjustedFeeListPage"
                       styleClass="has-arrow ai-icon">
                       <h:outputText value="Frais" styleClass="nav-link nav-text" />
+                    </p:link></li>
+                </ul>
+              </div></li>
+          </ui:fragment>
+
+          <ui:fragment rendered="#{accountingModuleVisible}">
+            <li class="nav-item"><a class="nav-link menu-link" href="#Comptabilite"
+              data-bs-toggle="collapse" role="button" aria-expanded="false"
+              aria-controls="sidebarApps"> <i class="ri-layout-3-line"></i> <span
+                data-key="t-apps">Comptabilité</span>
+            </a>
+              <div class="collapse menu-dropdown" id="Comptabilite">
+                <ul class="nav nav-sm flex-column">
+                  <li class="nav-item"><p:link outcome="accountingPlanListPage"
+                      styleClass="has-arrow ai-icon">
+                      <h:outputText value="Plan comptable" styleClass="nav-link nav-text" />
                     </p:link></li>
                 </ul>
               </div></li>

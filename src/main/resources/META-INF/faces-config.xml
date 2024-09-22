@@ -262,5 +262,14 @@
       <to-view-id>/private/paymentadjustedfee/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    
+    <!-- Accounting Plan -->
+    
+    <navigation-case>
+      <description>page liste des plans comptables</description>
+      <from-outcome>accountingPlanListPage</from-outcome>
+      <to-view-id>/private/accountingplan/administrator/list.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
 </faces-config>

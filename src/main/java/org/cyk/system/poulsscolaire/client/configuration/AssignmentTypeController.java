@@ -14,13 +14,13 @@ import org.cyk.system.poulsscolaire.server.api.configuration.AssignmentTypeDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.AssignmentTypeService;
 
 /**
- * Cette classe représente le contrôleur de CRUD de {@link AssignmentTypeDto}.
+ * Cette classe représente le contrôleur de {@link AssignmentTypeDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class AssignmentTypeCrudController extends AbstractController {
+public class AssignmentTypeController extends AbstractController {
 
   @Inject
   AssignmentTypeClient client;

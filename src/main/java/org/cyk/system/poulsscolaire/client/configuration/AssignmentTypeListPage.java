@@ -18,7 +18,7 @@ public class AssignmentTypeListPage extends AbstractPage {
 
   @Inject
   @Getter
-  AssignmentTypeCrudController crudController;
+  AssignmentTypeController crudController;
 
   @Override
   protected void postConstruct() {
