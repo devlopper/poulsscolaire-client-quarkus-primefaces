@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="" />
+
+      <ui:define name="form-save-inputs">
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Code" for="code" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="code" value="#{controller.entity.code}" />
+          </ui:define>
+        </ui:decorate>
+
+        <ui:decorate template="/extension/component/input/default.xhtml">
+          <ui:define name="input-label">
+            <p:outputLabel value="Libellé" for="name" />
+          </ui:define>
+          <ui:define name="input-control">
+            <p:inputText id="name" value="#{controller.entity.name}" />
+          </ui:define>
+        </ui:decorate>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.planSelectOneController.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+          <ui:param name="selectOneRadio"
+            value="#{container.typeSelectOneController.selectOneRadio}" />
+        </ui:include>
+      </ui:define>
+    </ui:decorate>
+  </h:form>
+</ui:composition>

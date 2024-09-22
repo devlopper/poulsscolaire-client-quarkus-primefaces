@@ -271,5 +271,32 @@
       <to-view-id>/private/accountingplan/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    
+    <!-- Accounting Account -->
+    
+    <navigation-case>
+      <description>page liste des comptes comptables</description>
+      <from-outcome>accountingAccountListPage</from-outcome>
+      <to-view-id>/private/accountingaccount/administrator/list.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Accounting Operation -->
+    
+    <navigation-case>
+      <description>page liste des opérations comptables</description>
+      <from-outcome>accountingOperationListPage</from-outcome>
+      <to-view-id>/private/accountingoperation/administrator/list.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Accounting Account Operation -->
+    
+    <navigation-case>
+      <description>page liste des opérations de comptes comptables</description>
+      <from-outcome>accountingAccountOperationListPage</from-outcome>
+      <to-view-id>/private/accountingaccountoperation/administrator/list.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
 </faces-config>
