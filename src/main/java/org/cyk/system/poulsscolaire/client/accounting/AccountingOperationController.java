@@ -4,6 +4,7 @@ import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
@@ -61,7 +62,7 @@ public class AccountingOperationController extends AbstractController {
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        AbstractIdentifiableCodableDto.JSON_CODE,
+        AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
         AccountingOperationDto.JSON_ACCOUNT_TYPE_AS_STRING, AccountingOperationDto.JSON_BENEFICIARY,
         AccountingOperationDto.JSON_SCHOOL_AS_STRING);
     listController.getReadController().setProjection(projection);
@@ -75,11 +76,10 @@ public class AccountingOperationController extends AbstractController {
       return client.create(request);
     });
 
-    listController.getUpdateController()
-        .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-            AbstractIdentifiableCodableDto.JSON_CODE, AccountingOperationDto.JSON_ACCOUNT_TYPE,
-            AccountingOperationDto.JSON_BENEFICIARY,
-            AccountingOperationDto.JSON_SCHOOL_IDENTIFIER));
+    listController.getUpdateController().setProjection(new ProjectionDto().addNames(
+        AbstractIdentifiableDto.JSON_IDENTIFIER, AbstractIdentifiableCodableDto.JSON_CODE,
+        AbstractIdentifiableCodableNamableDto.JSON_NAME, AccountingOperationDto.JSON_ACCOUNT_TYPE,
+        AccountingOperationDto.JSON_BENEFICIARY, AccountingOperationDto.JSON_SCHOOL_IDENTIFIER));
 
     listController.getUpdateController().addEntityConsumer(entity -> {
       schoolSelectOneController.getSelectOneMenu()

@@ -23,6 +23,6 @@ public class AccountingOperationSelectOneController extends AbstractSelectOneIde
   AccountingOperationClient client;
 
   protected AccountingOperationSelectOneController() {
-    super(AccountingOperationDto.class);
+    super(AccountingOperationDto.class, SelectItemLabelStrategy.CODE_NAME);
   }
 }

@@ -93,6 +93,8 @@ public class AccountingOperationAccountController extends AbstractController {
 
       accountSelectOneController.getSelectOneMenu()
           .writeValue(((AccountingOperationAccountDto) entity).getAccountIdentifier());
+
+      amount.writeValue(((AccountingOperationAccountDto) entity).getAmount());
     });
 
     listController.getUpdateController().setFunction(entity -> {
