@@ -290,12 +290,12 @@
       <redirect />
     </navigation-case>
     
-    <!-- Accounting Account Operation -->
+    <!-- Accounting Operation Account -->
     
     <navigation-case>
       <description>page liste des opérations de comptes comptables</description>
-      <from-outcome>accountingAccountOperationListPage</from-outcome>
-      <to-view-id>/private/accountingaccountoperation/administrator/list.xhtml</to-view-id>
+      <from-outcome>accountingOperationAccountListPage</from-outcome>
+      <to-view-id>/private/accountingoperationaccount/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>
