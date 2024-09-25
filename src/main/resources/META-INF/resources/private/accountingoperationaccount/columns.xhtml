@@ -11,6 +11,11 @@
     <h:outputText value="#{record.code}" />
   </p:column>
   
+  <p:column headerText="Compte"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationAccountDto.JSON_ACCOUNT_AS_STRING)}">
+    <h:outputText value="#{record.accountAsString}" />
+  </p:column>
+  
   <p:column headerText="Libellé"
     rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationAccountDto.JSON_NAME)}">
     <h:outputText value="#{record.name}" />
@@ -21,13 +26,11 @@
     <h:outputText value="#{record.operationAsString}" />
   </p:column>
 
-  <p:column headerText="Compte"
-    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationAccountDto.JSON_ACCOUNT_AS_STRING)}">
-    <h:outputText value="#{record.accountAsString}" />
-  </p:column>
-
   <p:column headerText="Montant" width="100"
     rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationAccountDto.JSON_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.amountAsString}" />
+    <f:facet name="footer">
+      <p:tag severity="success" value="#{container.amountAsString}"/>
+    </f:facet>
   </p:column>
 </ui:composition>

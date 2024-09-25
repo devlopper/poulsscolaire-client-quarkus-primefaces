@@ -5,6 +5,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
+import org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountType;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingOperationDto;
 
 /**
@@ -25,6 +26,10 @@ public class AccountingOperationListPage extends AbstractPage {
   protected void postConstruct() {
     super.postConstruct();
     contentTitle = "Liste " + AccountingOperationDto.NAME;
+    if (controller.getFilterController().getFilter().getAccountType() == null) {
+      controller.getFilterController().getFilter()
+          .setAccountType(AccountingAccountType.EXPENDITURE);
+    }
     controller.initialize();
   }
 

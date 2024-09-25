@@ -50,6 +50,7 @@ public class AccountingOperationReadPage extends AbstractPage {
     accountController.getFilterController().getFilter().setOperationIdentifier(identifier);
 
     accountController.initialize();
+    accountController.amountAsString = operation.getAmountAsString();
   }
 
   public static final String OUTCOME = "accountingOperationReadPage";

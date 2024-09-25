@@ -53,10 +53,14 @@ public class AccountingOperationAccountController extends AbstractController {
   @Getter
   AccountingOperationAccountFilterController filterController;
 
+  @Getter
+  String amountAsString;
+  
   @Override
   protected void postConstruct() {
     super.postConstruct();
     name = AccountingOperationAccountDto.NAME;
+    amountAsString = "---";
   }
 
   /**
@@ -127,7 +131,7 @@ public class AccountingOperationAccountController extends AbstractController {
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(AccountingOperationAccountDto.class)
             .setAccountIdentifier(identifier));
-
+    
     amount = new InputInteger();
     amount.outputLabel().setValue("Montant");
     amount.addValueConsumer(value -> listController
