@@ -9,6 +9,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
+import org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountFilter;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingOperationClient;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingOperationDto;
 
@@ -41,13 +42,17 @@ public class AccountingOperationReadPage extends AbstractPage {
         AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
         AccountingOperationDto.JSON_AMOUNT_AS_STRING, AccountingOperationDto.JSON_SCHOOL_AS_STRING,
         AccountingOperationDto.JSON_ACCOUNT_TYPE_AS_STRING,
-        AccountingOperationDto.JSON_BENEFICIARY);
+        AccountingOperationDto.JSON_ACCOUNT_TYPE, AccountingOperationDto.JSON_BENEFICIARY);
     String identifier = getRequestParameterIdentifier();
     operation = operationClient.getByIdentifier(identifier, projection, userIdentifier, null);
     contentTitle =
         AccountingOperationDto.NAME + " - " + operation.getCode() + " " + operation.getName();
 
     accountController.getFilterController().getFilter().setOperationIdentifier(identifier);
+
+    AccountingAccountFilter accountFilter = new AccountingAccountFilter();
+    accountFilter.setType(operation.getAccountType());
+    accountController.accountSelectOneController.setFilter(accountFilter.toDto());
 
     accountController.initialize();
     accountController.amountAsString = operation.getAmountAsString();
