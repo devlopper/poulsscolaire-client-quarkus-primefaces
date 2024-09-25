@@ -2,23 +2,37 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <p:column headerText="Code" width="100">
+  <p:importConstants
+    type="org.cyk.system.poulsscolaire.server.api.accounting.AccountingOperationDto"
+    var="AccountingOperationDto" />
+
+  <p:column headerText="Code" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationDto.JSON_CODE)}">
     <h:outputText value="#{record.code}" />
   </p:column>
-  
-  <p:column headerText="Libellé">
+
+  <p:column headerText="Libellé"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationDto.JSON_NAME)}">
     <h:outputText value="#{record.name}" />
   </p:column>
 
-  <p:column headerText="Bénéficiaire">
+  <p:column headerText="Bénéficiaire"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationDto.JSON_BENEFICIARY)}">
     <h:outputText value="#{record.beneficiary}" />
   </p:column>
 
-  <p:column headerText="Ecole">
+  <p:column headerText="Ecole"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationDto.JSON_SCHOOL_AS_STRING)}">
     <h:outputText value="#{record.schoolAsString}" />
   </p:column>
 
-  <p:column headerText="Type de compte" width="150">
+  <p:column headerText="Type de compte" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationDto.JSON_ACCOUNT_TYPE_AS_STRING)}">
     <h:outputText value="#{record.accountTypeAsString}" />
+  </p:column>
+
+  <p:column headerText="Montant" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationDto.JSON_AMOUNT_AS_STRING)}">
+    <h:outputText value="#{record.amountAsString}" />
   </p:column>
 </ui:composition>

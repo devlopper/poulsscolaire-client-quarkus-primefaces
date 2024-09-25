@@ -2,12 +2,12 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template/page.xhtml">
 
-  <ui:param name="page" value="#{accountingOperationListPage}" />
+  <ui:param name="page" value="#{accountingOperationReadPage}" />
 
   <ui:define name="content-body">
-    <ui:include src="../component/listForm.xhtml">
-      <ui:param name="controller" value="#{page.controller.listController}" />
-      <ui:param name="container" value="#{page.controller}" />
+    <ui:include src="../../../accountingoperationaccount/component/listForm.xhtml">
+      <ui:param name="controller" value="#{page.accountController.listController}" />
+      <ui:param name="container" value="#{page.accountController}" />
     </ui:include>
   </ui:define>
 </ui:composition>

@@ -286,7 +286,14 @@
     <navigation-case>
       <description>page liste des opérations comptables</description>
       <from-outcome>accountingOperationListPage</from-outcome>
-      <to-view-id>/private/accountingoperation/administrator/list.xhtml</to-view-id>
+      <to-view-id>/private/accountingoperation/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page lecture d'opération comptable</description>
+      <from-outcome>accountingOperationReadPage</from-outcome>
+      <to-view-id>/private/accountingoperation/administrator/read/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     

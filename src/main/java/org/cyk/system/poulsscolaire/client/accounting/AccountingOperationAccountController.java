@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client.accounting;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputInteger;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
@@ -48,6 +49,10 @@ public class AccountingOperationAccountController extends AbstractController {
   @Getter
   ListController listController;
 
+  @Inject
+  @Getter
+  AccountingOperationAccountFilterController filterController;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -61,16 +66,29 @@ public class AccountingOperationAccountController extends AbstractController {
     listController.setEntityClass(AccountingOperationAccountDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(AccountingOperationAccountService.PATH);
+    listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
-        AccountingOperationAccountDto.JSON_OPERATION_AS_STRING,
         AccountingOperationAccountDto.JSON_ACCOUNT_AS_STRING,
         AccountingOperationAccountDto.JSON_AMOUNT_AS_STRING);
+    if (Core.isStringBlank(filterController.getFilter().getOperationIdentifier())) {
+      projection.addNames(AccountingOperationAccountDto.JSON_OPERATION_AS_STRING);
+      operationSelectOneController.getSelectOneMenu()
+          .addValueConsumer(identifier -> listController
+              .getCreateControllerOrUpdateControllerEntityAs(AccountingOperationAccountDto.class)
+              .setOperationIdentifier(identifier));
+    } else {
+      operationSelectOneController.setRenderable(false);
+    }
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
+
+    listController.getCreateController()
+        .addEntityConsumer(entity -> ((AccountingOperationAccountDto) entity)
+            .setOperationIdentifier(filterController.getFilter().getOperationIdentifier()));
 
     listController.getCreateController().setFunction(entity -> {
       AccountingOperationAccountCreateRequestDto request =
@@ -88,9 +106,10 @@ public class AccountingOperationAccountController extends AbstractController {
             AccountingOperationAccountDto.JSON_AMOUNT));
 
     listController.getUpdateController().addEntityConsumer(entity -> {
-      operationSelectOneController.getSelectOneMenu()
-          .writeValue(((AccountingOperationAccountDto) entity).getOperationIdentifier());
-
+      if (operationSelectOneController.isRenderable()) {
+        operationSelectOneController.getSelectOneMenu()
+            .writeValue(((AccountingOperationAccountDto) entity).getOperationIdentifier());
+      }
       accountSelectOneController.getSelectOneMenu()
           .writeValue(((AccountingOperationAccountDto) entity).getAccountIdentifier());
 
@@ -103,11 +122,6 @@ public class AccountingOperationAccountController extends AbstractController {
       request.setAuditWho(userIdentifier);
       return client.update(request);
     });
-
-    operationSelectOneController.getSelectOneMenu()
-        .addValueConsumer(identifier -> listController
-            .getCreateControllerOrUpdateControllerEntityAs(AccountingOperationAccountDto.class)
-            .setOperationIdentifier(identifier));
 
     accountSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController

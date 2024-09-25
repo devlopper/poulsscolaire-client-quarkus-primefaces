@@ -11,7 +11,7 @@
           <ui:param name="selectOneMenu"
             value="#{container.schoolSelectOneController.selectOneMenu}" />
         </ui:include>
-        
+
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">
             <p:outputLabel value="Libellé" for="name" />
@@ -20,15 +20,10 @@
             <p:inputText id="name" value="#{controller.entity.name}" />
           </ui:define>
         </ui:decorate>
-        
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Bénéficaire" for="beneficiary" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:inputText id="beneficiary" value="#{controller.entity.beneficiary}" />
-          </ui:define>
-        </ui:decorate>
+
+        <ui:include src="/extension/component/input/inputText.xhtml">
+          <ui:param name="inputText" value="#{container.beneficiaryInputText}" />
+        </ui:include>
 
         <ui:include src="/extension/component/input/selectOneRadio.xhtml">
           <ui:param name="selectOneRadio"

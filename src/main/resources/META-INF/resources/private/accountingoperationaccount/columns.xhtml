@@ -1,24 +1,33 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
+
+  <p:importConstants
+    type="org.cyk.system.poulsscolaire.server.api.accounting.AccountingOperationAccountDto"
+    var="AccountingOperationAccountDto" />
   
-  <p:column headerText="Opération">
-    <h:outputText value="#{record.operationAsString}" />
-  </p:column>
-  
-  <p:column headerText="Compte">
-    <h:outputText value="#{record.accountAsString}" />
-  </p:column>
-  
-  <p:column headerText="Code" width="100">
+  <p:column headerText="Code" width="100" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationAccountDto.JSON_CODE)}">
     <h:outputText value="#{record.code}" />
   </p:column>
-
-  <p:column headerText="Libellé">
+  
+  <p:column headerText="Libellé"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationAccountDto.JSON_NAME)}">
     <h:outputText value="#{record.name}" />
   </p:column>
+  
+  <p:column headerText="Opération"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationAccountDto.JSON_OPERATION_AS_STRING)}">
+    <h:outputText value="#{record.operationAsString}" />
+  </p:column>
 
-  <p:column headerText="Montant" width="100">
+  <p:column headerText="Compte"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationAccountDto.JSON_ACCOUNT_AS_STRING)}">
+    <h:outputText value="#{record.accountAsString}" />
+  </p:column>
+
+  <p:column headerText="Montant" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingOperationAccountDto.JSON_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.amountAsString}" />
   </p:column>
 </ui:composition>
