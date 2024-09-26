@@ -11,6 +11,11 @@
           <ui:param name="selectOneMenu"
             value="#{container.schoolSelectOneController.selectOneMenu}" />
         </ui:include>
+        
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{container.planSelectOneController.selectOneMenu}" />
+        </ui:include>
 
         <ui:decorate template="/extension/component/input/default.xhtml">
           <ui:define name="input-label">

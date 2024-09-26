@@ -43,6 +43,10 @@ public class AccountingOperationController extends AbstractController {
 
   @Inject
   @Getter
+  AccountingPlanSelectOneController planSelectOneController;
+
+  @Inject
+  @Getter
   AccountingAccountTypeSelectOneController accountTypeSelectOneController;
 
   @Getter
@@ -93,11 +97,11 @@ public class AccountingOperationController extends AbstractController {
     listController.getReadController().setProjection(projection);
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(AccountingOperationReadPage.OUTCOME);
-    
+
     listController.initialize();
 
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
-    
+
     listController.getCreateController().addEntityConsumer(entity -> {
       ((AccountingOperationDto) entity)
           .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
@@ -127,6 +131,9 @@ public class AccountingOperationController extends AbstractController {
       schoolSelectOneController.getSelectOneMenu()
           .writeValue(((AccountingOperationDto) entity).getSchoolIdentifier());
 
+      planSelectOneController.getSelectOneMenu()
+          .writeValue(((AccountingOperationDto) entity).getPlanIdentifier());
+
       accountTypeSelectOneController.getSelectOneRadio()
           .writeValue(((AccountingOperationDto) entity).getAccountType().name());
 
@@ -148,6 +155,11 @@ public class AccountingOperationController extends AbstractController {
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(AccountingOperationDto.class)
             .setSchoolIdentifier(identifier));
+
+    planSelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> listController
+            .getCreateControllerOrUpdateControllerEntityAs(AccountingOperationDto.class)
+            .setPlanIdentifier(identifier));
 
     if (Objects.isNull(filterController.getFilter().getAccountType())) {
       accountTypeSelectOneController.getSelectOneRadio()
