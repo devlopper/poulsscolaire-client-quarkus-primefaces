@@ -305,5 +305,14 @@
       <to-view-id>/private/accountingoperationaccount/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    
+    <!-- Accounting Account School -->
+    
+    <navigation-case>
+      <description>page liste des comptes comptables d'écoles</description>
+      <from-outcome>accountingAccountSchoolListPage</from-outcome>
+      <to-view-id>/private/accountingaccountschool/administrator/list.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
 </faces-config>
