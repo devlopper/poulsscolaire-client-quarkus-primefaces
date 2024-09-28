@@ -2,6 +2,10 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
+  <p:column headerText="Plan">
+    <h:outputText value="#{record.planAsString}" />
+  </p:column>
+
   <p:column headerText="Compte">
     <h:outputText value="#{record.accountAsString}" />
   </p:column>

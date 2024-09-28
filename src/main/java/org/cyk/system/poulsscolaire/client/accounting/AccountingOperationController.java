@@ -2,6 +2,7 @@ package org.cyk.system.poulsscolaire.client.accounting;
 
 import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
+import ci.gouv.dgbf.extension.primefaces.component.CommandUpdatePropertyValueBuilder;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputText;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
@@ -10,6 +11,7 @@ import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.Getter;
@@ -21,6 +23,7 @@ import org.cyk.system.poulsscolaire.server.api.accounting.AccountingOperationReq
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingOperationService;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingOperationService.AccountingOperationCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingOperationService.AccountingOperationUpdateRequestDto;
+import org.cyk.system.poulsscolaire.server.api.accounting.AccountingPlanFilter;
 
 /**
  * Cette classe représente le contrôleur de {@link AccountingOperationDto}.
@@ -102,6 +105,8 @@ public class AccountingOperationController extends AbstractController {
 
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
 
+    planSelectOneController.setChoicable(false);
+
     listController.getCreateController().addEntityConsumer(entity -> {
       ((AccountingOperationDto) entity)
           .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
@@ -155,6 +160,16 @@ public class AccountingOperationController extends AbstractController {
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(AccountingOperationDto.class)
             .setSchoolIdentifier(identifier));
+    schoolSelectOneController.getSelectOneMenu().valueChangeAjax().configure(e -> {
+      AccountingPlanFilter accountingPlanFilter = new AccountingPlanFilter();
+      accountingPlanFilter
+          .setSchoolIdentifier(schoolSelectOneController.getSelectOneMenu().getValue());
+      planSelectOneController.setFilter(accountingPlanFilter.toDto());
+      planSelectOneController.setChoicable(true);
+      planSelectOneController.computeSelectOneMenuChoices();
+    }, new CommandUpdatePropertyValueBuilder()
+        .widgets(List.of(planSelectOneController.getSelectOneMenu())));
+
 
     planSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController

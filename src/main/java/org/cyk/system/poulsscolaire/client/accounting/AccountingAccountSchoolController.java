@@ -1,13 +1,16 @@
 package org.cyk.system.poulsscolaire.client.accounting;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
+import ci.gouv.dgbf.extension.primefaces.component.CommandUpdatePropertyValueBuilder;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import java.util.List;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOneController;
+import org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountFilter;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountSchoolClient;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountSchoolDto;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountSchoolRequestMapper;
@@ -29,6 +32,10 @@ public class AccountingAccountSchoolController extends AbstractController {
 
   @Inject
   AccountingAccountSchoolRequestMapper requestMapper;
+
+  @Inject
+  @Getter
+  AccountingPlanSelectOneController planSelectOneController;
 
   @Inject
   @Getter
@@ -58,12 +65,15 @@ public class AccountingAccountSchoolController extends AbstractController {
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+        AccountingAccountSchoolDto.JSON_PLAN_AS_STRING,
         AccountingAccountSchoolDto.JSON_ACCOUNT_AS_STRING,
         AccountingAccountSchoolDto.JSON_SCHOOL_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
 
+    accountSelectOneController.setChoicable(false);
+    
     listController.getCreateController().setFunction(entity -> {
       AccountingAccountSchoolCreateRequestDto request =
           requestMapper.mapCreate((AccountingAccountSchoolDto) entity);
@@ -90,6 +100,15 @@ public class AccountingAccountSchoolController extends AbstractController {
       request.setAuditWho(userIdentifier);
       return client.update(request);
     });
+
+    planSelectOneController.getSelectOneMenu().valueChangeAjax().configure(e -> {
+      AccountingAccountFilter accountFilter = new AccountingAccountFilter();
+      accountFilter.setPlanIdentifier(planSelectOneController.getSelectOneMenu().getValue());
+      accountSelectOneController.setFilter(accountFilter.toDto());
+      accountSelectOneController.setChoicable(true);
+      accountSelectOneController.computeSelectOneMenuChoices();
+    }, new CommandUpdatePropertyValueBuilder()
+        .widgets(List.of(accountSelectOneController.getSelectOneMenu())));
 
     accountSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
