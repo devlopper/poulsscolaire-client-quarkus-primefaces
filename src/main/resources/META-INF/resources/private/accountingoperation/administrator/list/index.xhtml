@@ -22,11 +22,20 @@
         <f:param name="#{selectedTabIndexParameterName}" value="0" />
         <f:param name="#{AccountingOperationFilter.JSON_ACCOUNT_TYPE}"
           value="#{AccountingAccountType.EXPENDITURE.name()}" />
+        <f:param name="#{AccountingOperationFilter.JSON_CANCELED}" value="false" />
+      </p:menuitem>
+
+      <p:menuitem value="Dépense annulée"
+        outcome="#{AccountingOperationListPage.OUTCOME}">
+        <f:param name="#{selectedTabIndexParameterName}" value="1" />
+        <f:param name="#{AccountingOperationFilter.JSON_ACCOUNT_TYPE}"
+          value="#{AccountingAccountType.EXPENDITURE.name()}" />
+        <f:param name="#{AccountingOperationFilter.JSON_CANCELED}" value="true" />
       </p:menuitem>
 
       <p:menuitem value="#{AccountingAccountType.INCOME}"
         outcome="#{AccountingOperationListPage.OUTCOME}" icon="pi pi-arrow-up-right">
-        <f:param name="#{selectedTabIndexParameterName}" value="1" />
+        <f:param name="#{selectedTabIndexParameterName}" value="2" />
         <f:param name="#{AccountingOperationFilter.JSON_ACCOUNT_TYPE}"
           value="#{AccountingAccountType.INCOME.name()}" />
       </p:menuitem>

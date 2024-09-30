@@ -4,10 +4,12 @@ import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.component.CommandUpdatePropertyValueBuilder;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputText;
+import ci.gouv.dgbf.extension.primefaces.crud.IdentifiableProcessingController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
+import ci.gouv.dgbf.extension.server.service.api.request.ByIdentifierRequestDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
@@ -62,6 +64,10 @@ public class AccountingOperationController extends AbstractController {
   @Inject
   @Getter
   AccountingOperationFilterController filterController;
+
+  @Inject
+  @Getter
+  IdentifiableProcessingController cancelController;
 
   @Override
   protected void postConstruct() {
@@ -185,5 +191,18 @@ public class AccountingOperationController extends AbstractController {
       accountTypeSelectOneController.setRenderable(false);
     }
 
+    cancelController.setName("Annulation opération");
+    cancelController.prepareConfirmation("annuler", "pi pi-times");
+    cancelController.setListController(listController);
+    cancelController.initialize();
+    cancelController.getController().setFunction(identifier -> {
+      ByIdentifierRequestDto request = new ByIdentifierRequestDto();
+      request.setIdentifier((String) identifier);
+      request.setAuditWho(userIdentifier);
+      return client.cancel(request);
+    });
+
+    cancelController.submitButton()
+        .setRendered(!Boolean.TRUE.equals(filterController.getFilter().getCanceled()));
   }
 }

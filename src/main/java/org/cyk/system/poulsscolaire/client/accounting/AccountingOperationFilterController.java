@@ -23,7 +23,7 @@ public class AccountingOperationFilterController
 
   @Inject
   SessionController sessionController;
-  
+
   public AccountingOperationFilterController() {
     super(AccountingOperationFilter.class);
   }
@@ -36,6 +36,7 @@ public class AccountingOperationFilterController
             sessionController.getSchoolIdentifier()));
     filter.setAccountType(Core.getEnumerationValueByName(AccountingAccountType.class,
         getRequestParameter(AccountingOperationFilter.JSON_ACCOUNT_TYPE)));
+    filter.setCanceled(getRequestParameterAsBoolean(AccountingOperationFilter.JSON_CANCELED));
     filter.setSearchText(getRequestParameter(AbstractIdentifiableFilter.JSON_SEARCH_TEXT));
 
   }

@@ -30,6 +30,9 @@ public class AccountingOperationListPage extends AbstractPage {
       controller.getFilterController().getFilter()
           .setAccountType(AccountingAccountType.EXPENDITURE);
     }
+    if (controller.getFilterController().getFilter().getCanceled() == null) {
+      controller.getFilterController().getFilter().setCanceled(false);
+    }
     controller.initialize();
   }
 
