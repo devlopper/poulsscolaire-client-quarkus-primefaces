@@ -39,6 +39,14 @@
         <f:param name="#{AccountingOperationFilter.JSON_ACCOUNT_TYPE}"
           value="#{AccountingAccountType.INCOME.name()}" />
       </p:menuitem>
+      
+      <p:menuitem value="Revenu annulé"
+        outcome="#{AccountingOperationListPage.OUTCOME}">
+        <f:param name="#{selectedTabIndexParameterName}" value="3" />
+        <f:param name="#{AccountingOperationFilter.JSON_ACCOUNT_TYPE}"
+          value="#{AccountingAccountType.INCOME.name()}" />
+        <f:param name="#{AccountingOperationFilter.JSON_CANCELED}" value="true" />
+      </p:menuitem>
 
     </p:tabMenu>
 
