@@ -67,6 +67,8 @@ public class AccountingAccountController extends AbstractController {
 
     listController.initialize();
 
+    planSelectOneController.setFilter(null);
+    
     listController.getCreateController().setFunction(entity -> {
       AccountingAccountCreateRequestDto request =
           requestMapper.mapCreate((AccountingAccountDto) entity);
