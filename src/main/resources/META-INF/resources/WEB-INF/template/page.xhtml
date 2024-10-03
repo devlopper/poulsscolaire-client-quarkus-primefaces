@@ -5,13 +5,15 @@
   <ui:param name="rootRoleCode" value="0" />
   <ui:param name="founderRoleCode" value="7" />
   <ui:param name="educatorRoleCode" value="9" />
+  <ui:param name="administratorRoleCode" value="10" />
   <ui:param name="studiesDirectorRoleCode" value="11" />
   <ui:param name="managerRoleCode" value="12" />
   <ui:param name="accountantRoleCode" value="13" />
   <ui:param name="cashierRoleCode" value="14" />
   <ui:param name="debtCollectorRoleCode" value="15" />
 
-  <ui:param name="administrationModuleVisible" value="#{sessionController.hasRole(rootRoleCode)}" />
+  <ui:param name="administrationModuleVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,administratorRoleCode])}" />
 
   <ui:param name="feeModuleVisible"
     value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
