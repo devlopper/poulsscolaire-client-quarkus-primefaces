@@ -26,6 +26,9 @@
   <ui:param name="paymentModuleVisible"
     value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
 
+  <ui:param name="accountingModuleVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
+
   <ui:define name="topbar-application-name">
     Pouls-Paid
   </ui:define>
