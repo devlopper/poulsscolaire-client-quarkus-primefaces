@@ -68,6 +68,13 @@ public class AuthorizationFilter implements Filter {
     allowAdjustedFee(founderRoleCode, managerRoleCode, accountantRoleCode);
     
     allowPayment(founderRoleCode, managerRoleCode, accountantRoleCode);
+    
+    allowAccountingPlan(founderRoleCode, managerRoleCode, accountantRoleCode);
+    allowAccountingAccount(founderRoleCode, managerRoleCode, accountantRoleCode);
+    
+    allowAccountingAccountSchool(founderRoleCode, managerRoleCode, accountantRoleCode);
+    allowAccountingOperation(founderRoleCode, managerRoleCode, accountantRoleCode);
+    //allowAccountingOperationAccount(founderRoleCode, managerRoleCode, accountantRoleCode);
   }
 
   @Override
@@ -129,7 +136,27 @@ public class AuthorizationFilter implements Filter {
   void allowPayment(String... rolesCodes) {
     allow("/private/payment/administrator/list/index.xhtml", rolesCodes);
   }
+  
+  void allowAccountingPlan(String... rolesCodes) {
+    allow("/private/accountingplan/administrator/list.xhtml", rolesCodes);
+  }
+  
+  void allowAccountingAccount(String... rolesCodes) {
+    allow("/private/accountingaccount/administrator/list.xhtml", rolesCodes);
+  }
+  
+  void allowAccountingAccountSchool(String... rolesCodes) {
+    allow("/private/accountingaccountschool/administrator/list.xhtml", rolesCodes);
+  }
 
+  void allowAccountingOperation(String... rolesCodes) {
+    allow("/private/accountingoperation/administrator/list/index.xhtml", rolesCodes);
+  }
+  
+  void allowAccountingOperationAccount(String... rolesCodes) {
+    allow("/private/accountingoperationaccount/administrator/list.xhtml", rolesCodes);
+  }
+  
   void allow(String uri, String... rolesCodes) {
     map.put(uri, Set.of(rolesCodes));
   }
