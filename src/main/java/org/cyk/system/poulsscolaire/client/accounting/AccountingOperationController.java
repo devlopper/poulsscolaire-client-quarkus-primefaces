@@ -100,19 +100,29 @@ public class AccountingOperationController extends AbstractController {
         beneficiaryInputText.addValueConsumer(value -> listController
             .getCreateControllerOrUpdateControllerEntityAs(AccountingOperationDto.class)
             .setBeneficiary(value));
+        beneficiaryInputText.setRequired(true);
       }
+    }
+    
+    if (Boolean.TRUE.equals(filterController.getFilter().getCanceled())) {
+      listController.getShowCreateDialogButton().setRendered(false);
+      listController.getShowUpdateDialogButton().setRendered(false);
     }
 
     listController.getReadController().setProjection(projection);
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(AccountingOperationReadPage.OUTCOME);
-
+    listController.getDeleteButton().setRendered(false);
+    
     listController.initialize();
 
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
 
-    planSelectOneController.setChoicable(false);
-
+    schoolSelectOneController
+        .setRenderable(filterController.getFilter().getSchoolIdentifier() == null);
+    planSelectOneController.setChoicable(!schoolSelectOneController.isRenderable());
+    planSelectOneController.getSelectOneMenu().setRequired(true);
+    
     listController.getCreateController().addEntityConsumer(entity -> {
       ((AccountingOperationDto) entity)
           .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());

@@ -2,15 +2,22 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <p:column headerText="Plan">
+  <p:importConstants
+    type="org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountSchoolDto"
+    var="AccountingAccountSchoolDto" />
+
+  <p:column headerText="Plan" width="300"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingAccountSchoolDto.JSON_PLAN_AS_STRING)}">
     <h:outputText value="#{record.planAsString}" />
   </p:column>
 
-  <p:column headerText="Compte">
+  <p:column headerText="Compte"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingAccountSchoolDto.JSON_ACCOUNT_AS_STRING)}">
     <h:outputText value="#{record.accountAsString}" />
   </p:column>
 
-  <p:column headerText="École">
+  <p:column headerText="École"
+    rendered="#{listController.isReadControllerHasProjectionName(AccountingAccountSchoolDto.JSON_SCHOOL_AS_STRING)}">
     <h:outputText value="#{record.schoolAsString}" />
   </p:column>
 </ui:composition>

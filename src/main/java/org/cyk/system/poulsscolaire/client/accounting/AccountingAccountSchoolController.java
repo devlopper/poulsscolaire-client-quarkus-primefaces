@@ -49,6 +49,10 @@ public class AccountingAccountSchoolController extends AbstractController {
   @Getter
   ListController listController;
 
+  @Inject
+  @Getter
+  AccountingAccountSchoolFilterController filterController;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -62,18 +66,28 @@ public class AccountingAccountSchoolController extends AbstractController {
     listController.setEntityClass(AccountingAccountSchoolDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(AccountingAccountSchoolService.PATH);
+    listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
+
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AccountingAccountSchoolDto.JSON_PLAN_AS_STRING,
-        AccountingAccountSchoolDto.JSON_ACCOUNT_AS_STRING,
+        AccountingAccountSchoolDto.JSON_ACCOUNT_AS_STRING);
+    projection.addNamesIfStringBlank(filterController.getFilter().getSchoolIdentifier(),
         AccountingAccountSchoolDto.JSON_SCHOOL_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
 
     accountSelectOneController.setChoicable(false);
-    
+    schoolSelectOneController
+        .setRenderable(filterController.getFilter().getSchoolIdentifier() == null);
+
+    listController.getCreateController().addEntityConsumer(entity -> {
+      ((AccountingAccountSchoolDto) entity)
+          .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
+    });
+
     listController.getCreateController().setFunction(entity -> {
       AccountingAccountSchoolCreateRequestDto request =
           requestMapper.mapCreate((AccountingAccountSchoolDto) entity);
@@ -101,6 +115,7 @@ public class AccountingAccountSchoolController extends AbstractController {
       return client.update(request);
     });
 
+    planSelectOneController.setFilter(null);
     planSelectOneController.getSelectOneMenu().valueChangeAjax().configure(e -> {
       AccountingAccountFilter accountFilter = new AccountingAccountFilter();
       accountFilter.setPlanIdentifier(planSelectOneController.getSelectOneMenu().getValue());

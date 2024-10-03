@@ -4,7 +4,8 @@
 
   <h:form>
     <ui:decorate template="/extension/crud/form/save/default.xhtml">
-      <ui:param name="saveCommandUpdate" value="" />
+      <ui:param name="saveCommandUpdate"
+        value="#{container.accountSelectOneController.selectOneMenu.identifier}Message,#{container.amount.identifier}Message" />
 
       <ui:define name="form-save-inputs">
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">

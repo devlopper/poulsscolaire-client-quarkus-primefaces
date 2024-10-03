@@ -131,11 +131,13 @@ public class AccountingOperationAccountController extends AbstractController {
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(AccountingOperationAccountDto.class)
             .setAccountIdentifier(identifier));
+    accountSelectOneController.getSelectOneMenu().setRequired(true);
     
     amount = new InputInteger();
     amount.outputLabel().setValue("Montant");
     amount.addValueConsumer(value -> listController
         .getCreateControllerOrUpdateControllerEntityAs(AccountingOperationAccountDto.class)
         .setAmount(Optional.ofNullable(value).orElse(0)));
+    amount.setRequired(true);
   }
 }

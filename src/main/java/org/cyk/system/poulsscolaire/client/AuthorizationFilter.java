@@ -74,7 +74,6 @@ public class AuthorizationFilter implements Filter {
     
     allowAccountingAccountSchool(founderRoleCode, managerRoleCode, accountantRoleCode);
     allowAccountingOperation(founderRoleCode, managerRoleCode, accountantRoleCode);
-    //allowAccountingOperationAccount(founderRoleCode, managerRoleCode, accountantRoleCode);
   }
 
   @Override
@@ -151,6 +150,7 @@ public class AuthorizationFilter implements Filter {
 
   void allowAccountingOperation(String... rolesCodes) {
     allow("/private/accountingoperation/administrator/list/index.xhtml", rolesCodes);
+    allow("/private/accountingoperation/administrator/read/index.xhtml", rolesCodes);
   }
   
   void allowAccountingOperationAccount(String... rolesCodes) {
