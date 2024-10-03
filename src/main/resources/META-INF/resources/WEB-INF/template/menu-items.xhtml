@@ -2,34 +2,6 @@
   xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui" xmlns:pa="http://primefaces.org/atlantis">
 
-  <ui:param name="rootRoleCode" value="0" />
-  <ui:param name="founderRoleCode" value="7" />
-  <ui:param name="educatorRoleCode" value="9" />
-  <ui:param name="studiesDirectorRoleCode" value="11" />
-  <ui:param name="managerRoleCode" value="12" />
-  <ui:param name="accountantRoleCode" value="13" />
-  <ui:param name="cashierRoleCode" value="14" />
-  <ui:param name="debtCollectorRoleCode" value="15" />
-
-  <ui:param name="administrationModuleVisible" value="#{sessionController.hasRole(rootRoleCode)}" />
-
-  <ui:param name="feeModuleVisible"
-    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
-
-  <ui:param name="registrationModuleVisible"
-    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode,studiesDirectorRoleCode,cashierRoleCode])}" />
-  <ui:param name="studentVisible"
-    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode,studiesDirectorRoleCode,cashierRoleCode])}" />
-  <ui:param name="registrationVisible"
-    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode,studiesDirectorRoleCode])}" />
-
-  <ui:param name="paymentModuleVisible"
-    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
-
-  <ui:param name="accountingModuleVisible"
-    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
-
-
   <ui:fragment rendered="#{administrationModuleVisible}">
     <li class="nav-item"><a class="nav-link menu-link" href="#Administration"
       data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
