@@ -88,6 +88,7 @@ public class StudentController extends AbstractController {
 
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(StudentReadPage.OUTCOME);
+    listController.getDataTable().getFilterButton().setRendered(true);
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
 
     listController.getCreateController().addEntityConsumer(entity -> ((StudentDto) entity)
