@@ -83,12 +83,12 @@ public class StudentController extends AbstractController {
         StudentDto.JSON_NATIONALITY, StudentDto.JSON_ORIGIN_SCHOOL, StudentDto.JSON_RESIDENCE,
         StudentDto.JSON_EMAIL_ADDRESS, StudentDto.JSON_PHONE_NUMBER, StudentDto.JSON_HEALTH_STATUS);
     listController.getReadController().setProjection(projection);
-
+    listController.getDataTable().getFilterButton().setRendered(true);
+    
     listController.initialize();
 
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(StudentReadPage.OUTCOME);
-    listController.getDataTable().getFilterButton().setRendered(true);
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
 
     listController.getCreateController().addEntityConsumer(entity -> ((StudentDto) entity)
