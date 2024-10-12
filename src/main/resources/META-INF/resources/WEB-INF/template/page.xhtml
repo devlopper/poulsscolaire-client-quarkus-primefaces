@@ -33,6 +33,14 @@
 
   <ui:define name="topbar-application-name">
     Pouls-Paid
+    
+    <ui:fragment rendered="#{not empty sessionScope.school.name}">
+      - #{sessionScope.school.name}
+    </ui:fragment>
+
+    <ui:fragment rendered="#{not empty sessionScope.period.name}">
+      - #{sessionScope.period.name}
+    </ui:fragment>
   </ui:define>
 
   <ui:define name="menu-items">

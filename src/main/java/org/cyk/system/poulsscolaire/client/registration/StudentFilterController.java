@@ -65,7 +65,7 @@ public class StudentFilterController extends AbstractFilterController<StudentFil
     arabicFirstNameInputText.addValueConsumer(value -> filter.setArabicFirstName(value));
 
     arabicLastNamesInputText = new InputText();
-    arabicLastNamesInputText.outputLabel().setValue("   الأسماء الأولى");
+    arabicLastNamesInputText.outputLabel().setValue("الأسماء الأولى");
     arabicLastNamesInputText.addValueConsumer(value -> filter.setArabicLastNames(value));
   }
 }
