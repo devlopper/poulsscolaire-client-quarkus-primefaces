@@ -314,5 +314,21 @@
       <to-view-id>/private/accountingaccountschool/administrator/list.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    
+    <!-- School Configuration -->
+    
+    <navigation-case>
+      <description>page liste des configurations d'écoles</description>
+      <from-outcome>schoolConfigurationListPage</from-outcome>
+      <to-view-id>/private/schoolconfiguration/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page de lecture de configuration d'école</description>
+      <from-outcome>schoolConfigurationReadPage</from-outcome>
+      <to-view-id>/private/schoolconfiguration/administrator/read/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
 </faces-config>

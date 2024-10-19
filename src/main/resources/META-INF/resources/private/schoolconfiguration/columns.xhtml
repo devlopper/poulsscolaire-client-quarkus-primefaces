@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <p:importConstants
+    type="org.cyk.system.poulsscolaire.server.api.configuration.SchoolConfigurationDto"
+    var="SchoolConfigurationDto" />
+
+  <p:column headerText="École"
+    rendered="#{listController.isReadControllerHasProjectionName(SchoolConfigurationDto.JSON_SCHOOL_AS_STRING)}">
+    <h:outputText value="#{record.schoolAsString}" />
+  </p:column>
+
+  <p:column headerText="Compte comptable de paiement"
+    rendered="#{listController.isReadControllerHasProjectionName(SchoolConfigurationDto.JSON_PAYMENT_ACCOUNTING_ACCOUNT_AS_STRING)}">
+    <h:outputText value="#{record.paymentAccountingAccountAsString}" />
+  </p:column>
+</ui:composition>
