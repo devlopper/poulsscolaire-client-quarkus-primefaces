@@ -35,7 +35,7 @@
     Pouls-Paid
     
     <ui:fragment rendered="#{not empty sessionScope.school.name}">
-      - #{sessionScope.school.name}
+      <span style="font-size: 54%; font-style: italic;">- #{sessionScope.school.name}</span>
     </ui:fragment>
 
     <ui:fragment rendered="#{not empty sessionScope.period.name}">
@@ -165,6 +165,11 @@
           <li class="nav-item"><p:link outcome="sessionConfigurePage"
               styleClass="has-arrow ai-icon">
               <h:outputText value="Session" styleClass="nav-link nav-text" />
+            </p:link></li>
+
+          <li class="nav-item"><p:link outcome="schoolConfigurationListPage"
+              styleClass="has-arrow ai-icon">
+              <h:outputText value="Configuration de l'école" styleClass="nav-link nav-text" />
             </p:link></li>
         </ul>
       </div></li>

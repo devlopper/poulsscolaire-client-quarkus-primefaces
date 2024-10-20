@@ -43,7 +43,7 @@ public class AccountingOperationReadPage extends AbstractPage {
         AccountingOperationDto.JSON_AMOUNT_AS_STRING, AccountingOperationDto.JSON_SCHOOL_AS_STRING,
         AccountingOperationDto.JSON_ACCOUNT_TYPE_AS_STRING,
         AccountingOperationDto.JSON_ACCOUNT_TYPE, AccountingOperationDto.JSON_BENEFICIARY,
-        AccountingOperationDto.JSON_PLAN_IDENTIFIER);
+        AccountingOperationDto.JSON_PLAN_IDENTIFIER, AccountingOperationDto.JSON_SCHOOL_IDENTIFIER);
     String identifier = getRequestParameterIdentifier();
     operation = operationClient.getByIdentifier(identifier, projection, userIdentifier, null);
     contentTitle =
@@ -54,6 +54,7 @@ public class AccountingOperationReadPage extends AbstractPage {
     AccountingAccountFilter accountFilter = new AccountingAccountFilter();
     accountFilter.setType(operation.getAccountType());
     accountFilter.setPlanIdentifier(operation.getPlanIdentifier());
+    accountFilter.setSchoolIdentifier(operation.getSchoolIdentifier());
     accountController.accountSelectOneController.setFilter(accountFilter.toDto());
 
     accountController.initialize();

@@ -49,7 +49,7 @@ public class SchoolConfigurationController extends AbstractController {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    name = "Scolarités";
+    name = SchoolConfigurationDto.PLURAL_NAME;
   }
 
   /**
@@ -70,10 +70,10 @@ public class SchoolConfigurationController extends AbstractController {
 
     listController.initialize();
 
-    listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
+    listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(2);
 
-    listController.getGotoReadPageButton().setRendered(true);
-    listController.getGotoReadPageButton().setOutcome(SchoolConfigurationReadPage.OUTCOME);
+    //listController.getGotoReadPageButton().setRendered(true);
+    //listController.getGotoReadPageButton().setOutcome(SchoolConfigurationReadPage.OUTCOME);
 
     listController.getCreateController()
         .addEntityConsumer(entity -> ((SchoolConfigurationDto) entity)
