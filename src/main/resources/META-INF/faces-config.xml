@@ -315,6 +315,22 @@
       <redirect />
     </navigation-case>
     
+    <!-- Budget -->
+    
+    <navigation-case>
+      <description>page liste des budgets</description>
+      <from-outcome>budgetListPage</from-outcome>
+      <to-view-id>/private/budget/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page lecture de budget</description>
+      <from-outcome>budgetReadPage</from-outcome>
+      <to-view-id>/private/budget/administrator/read/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- School Configuration -->
     
     <navigation-case>

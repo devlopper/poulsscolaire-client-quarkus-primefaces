@@ -31,6 +31,9 @@
   <ui:param name="accountingModuleVisible"
     value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
 
+  <ui:param name="budgetModuleVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
+
   <ui:define name="topbar-application-name">
     Pouls-Paid
     
@@ -259,6 +262,23 @@
                 styleClass="has-arrow ai-icon">
                 <h:outputText value="Comptes" styleClass="nav-link nav-text" />
               </p:link></li>
+          </ul>
+        </div></li>
+    </ui:fragment>
+
+    <ui:fragment rendered="#{budgetModuleVisible}">
+      <li class="nav-item"><a class="nav-link menu-link" href="#Budget"
+        data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+          <i class="ri-layout-3-line"></i> <span data-key="t-apps">Budget</span>
+      </a>
+        <div class="collapse menu-dropdown" id="Budget">
+          <ul class="nav nav-sm flex-column">
+            <li class="nav-item"><p:link outcome="budgetListPage"
+                styleClass="has-arrow ai-icon">
+                <h:outputText value="Budget" styleClass="nav-link nav-text" />
+              </p:link></li>
+
+
           </ul>
         </div></li>
     </ui:fragment>
