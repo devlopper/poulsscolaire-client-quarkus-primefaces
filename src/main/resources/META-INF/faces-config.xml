@@ -331,6 +331,24 @@
       <redirect />
     </navigation-case>
     
+    <!-- BudgetLine -->
+    
+    <navigation-case>
+      <description>page liste des lignes de budgets</description>
+      <from-outcome>budgetLineListPage</from-outcome>
+      <to-view-id>/private/budgetline/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- FundingSource -->
+    
+    <navigation-case>
+      <description>page liste des sources de financements</description>
+      <from-outcome>fundingSourceListPage</from-outcome>
+      <to-view-id>/private/fundingsource/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- School Configuration -->
     
     <navigation-case>

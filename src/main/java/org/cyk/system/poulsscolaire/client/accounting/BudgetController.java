@@ -75,6 +75,7 @@ public class BudgetController extends AbstractController {
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
+        BudgetDto.JSON_ACCOUNTING_PLAN_AS_STRING, BudgetDto.JSON_YEAR,
         BudgetDto.JSON_AMOUNT_AS_STRING);
     projection.addNamesIfStringBlank(filterController.getFilter().getSchoolIdentifier(),
         BudgetDto.JSON_SCHOOL_AS_STRING);
@@ -92,11 +93,8 @@ public class BudgetController extends AbstractController {
     accountingPlanSelectOneController.setChoicable(!schoolSelectOneController.isRenderable());
     accountingPlanSelectOneController.getSelectOneMenu().setRequired(true);
 
-    listController.getCreateController().addEntityConsumer(entity -> {
-      ((BudgetDto) entity).setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
-      schoolSelectOneController.getSelectOneMenu()
-          .writeValue(((BudgetDto) entity).getSchoolIdentifier());
-    });
+    listController.getCreateController().addEntityConsumer(entity -> ((BudgetDto) entity)
+        .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier()));
 
     listController.getCreateController().setFunction(entity -> {
       BudgetCreateRequestDto request = requestMapper.mapCreate((BudgetDto) entity);

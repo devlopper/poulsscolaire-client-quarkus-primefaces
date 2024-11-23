@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="" />
+
+      <ui:define name="form-save-inputs">
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{container.budgetSelectOneController.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{container.departmentSelectOneController.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{container.accountingAccountSelectOneController.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{container.fundingSourceSelectOneController.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/inputNumber.xhtml">
+          <ui:param name="inputNumber"
+            value="#{container.monthIndexInputNumberController.inputInteger}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/inputNumber.xhtml">
+          <ui:param name="inputNumber"
+            value="#{container.amountInputNumberController.inputLong}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/inputNumber.xhtml">
+          <ui:param name="inputNumber" value="#{container.amountInputNumberController.inputInteger}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/inputTextarea.xhtml">
+          <ui:param name="inputTextarea"
+            value="#{container.justificationInputTextController.inputTextarea}" />
+        </ui:include>
+
+      </ui:define>
+    </ui:decorate>
+  </h:form>
+</ui:composition>

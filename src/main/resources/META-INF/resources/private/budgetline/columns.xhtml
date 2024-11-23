@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.accounting.BudgetLineDto"
+    var="BudgetLineDto" />
+
+  <p:column headerText="Budget"
+    rendered="#{listController.isReadControllerHasProjectionName(BudgetLineDto.JSON_BUDGET_AS_STRING)}">
+    <h:outputText value="#{record.budgetAsString}" />
+  </p:column>
+
+  <p:column headerText="Département"
+    rendered="#{listController.isReadControllerHasProjectionName(BudgetLineDto.JSON_DEPARTMENT_AS_STRING)}">
+    <h:outputText value="#{record.departmentAsString}" />
+  </p:column>
+
+  <p:column headerText="Compte comptable"
+    rendered="#{listController.isReadControllerHasProjectionName(BudgetLineDto.JSON_ACCOUNTING_ACCOUNT_AS_STRING)}">
+    <h:outputText value="#{record.accountingAccountAsString}" />
+  </p:column>
+
+  <p:column headerText="Mois" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(BudgetLineDto.JSON_MONTH_AS_STRING)}">
+    <h:outputText value="#{record.monthAsString}" />
+  </p:column>
+
+  <p:column headerText="Montant" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(BudgetLineDto.JSON_AMOUNT_AS_STRING)}">
+    <h:outputText value="#{record.amountAsString}" />
+  </p:column>
+
+  <p:column headerText="Justification"
+    rendered="#{listController.isReadControllerHasProjectionName(BudgetLineDto.JSON_JUSTIFICATION)}">
+    <h:outputText value="#{record.justification}" />
+  </p:column>
+</ui:composition>
