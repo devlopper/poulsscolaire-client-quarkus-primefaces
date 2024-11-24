@@ -5,12 +5,15 @@ import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.component.CommandUpdatePropertyValueBuilder;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputNumberController;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputTextController;
+import ci.gouv.dgbf.extension.primefaces.component.input.MonthSelectOneController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import java.time.Month;
 import java.util.List;
+import java.util.Optional;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.DepartmentSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountFilter;
@@ -54,7 +57,7 @@ public class BudgetLineController extends AbstractController {
 
   @Inject
   @Getter
-  InputNumberController monthIndexInputNumberController;
+  MonthSelectOneController monthSelectOneController;
 
   @Inject
   @Getter
@@ -120,7 +123,7 @@ public class BudgetLineController extends AbstractController {
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
             BudgetLineDto.JSON_BUDGET_IDENTIFIER, BudgetLineDto.JSON_DEPARTMENT_IDENTIFIER,
-            BudgetLineDto.JSON_ACCOUNTING_ACCOUNT_IDENTIFIER, BudgetLineDto.JSON_MONTH_INDEX,
+            BudgetLineDto.JSON_ACCOUNTING_ACCOUNT_IDENTIFIER, BudgetLineDto.JSON_MONTH,
             BudgetLineDto.JSON_AMOUNT, BudgetLineDto.JSON_JUSTIFICATION));
 
     listController.getUpdateController().addEntityConsumer(entity -> {
@@ -136,8 +139,8 @@ public class BudgetLineController extends AbstractController {
       departmentSelectOneController.getSelectOneMenu()
           .writeValue(((BudgetLineDto) entity).getDepartmentIdentifier());
 
-      monthIndexInputNumberController.getInputInteger()
-          .writeValue(((BudgetLineDto) entity).getMonthIndex());
+      monthSelectOneController.getSelectOneMenu().writeValue(
+          Optional.ofNullable(((BudgetLineDto) entity).getMonth()).map(Month::name).orElse(null));
     });
 
     listController.getUpdateController().setFunction(entity -> {
@@ -178,11 +181,10 @@ public class BudgetLineController extends AbstractController {
             .getCreateControllerOrUpdateControllerEntityAs(BudgetLineDto.class)
             .setDepartmentIdentifier(identifier));
 
-    monthIndexInputNumberController.setOutputLableValue("Mois");
-    monthIndexInputNumberController.getInputInteger()
-        .addValueConsumer(monthIndex -> listController
+    monthSelectOneController.getSelectOneMenu()
+        .addValueConsumer(month -> listController
             .getCreateControllerOrUpdateControllerEntityAs(BudgetLineDto.class)
-            .setMonthIndex(monthIndex));
+            .setMonth(Core.isStringBlank(month) ? null : Month.valueOf(month)));
 
     amountInputNumberController.setOutputLableValue("Montant");
     amountInputNumberController.getInputLong().addValueConsumer(amount -> listController
