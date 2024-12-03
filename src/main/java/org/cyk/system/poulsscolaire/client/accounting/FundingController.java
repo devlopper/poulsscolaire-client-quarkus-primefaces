@@ -17,27 +17,27 @@ import java.util.Optional;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.DepartmentSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountFilter;
-import org.cyk.system.poulsscolaire.server.api.accounting.BudgetLineClient;
-import org.cyk.system.poulsscolaire.server.api.accounting.BudgetLineDto;
-import org.cyk.system.poulsscolaire.server.api.accounting.BudgetLineRequestMapper;
-import org.cyk.system.poulsscolaire.server.api.accounting.BudgetLineService;
-import org.cyk.system.poulsscolaire.server.api.accounting.BudgetLineService.BudgetLineCreateRequestDto;
-import org.cyk.system.poulsscolaire.server.api.accounting.BudgetLineService.BudgetLineUpdateRequestDto;
+import org.cyk.system.poulsscolaire.server.api.accounting.FundingClient;
+import org.cyk.system.poulsscolaire.server.api.accounting.FundingDto;
+import org.cyk.system.poulsscolaire.server.api.accounting.FundingRequestMapper;
+import org.cyk.system.poulsscolaire.server.api.accounting.FundingService;
+import org.cyk.system.poulsscolaire.server.api.accounting.FundingService.FundingCreateRequestDto;
+import org.cyk.system.poulsscolaire.server.api.accounting.FundingService.FundingUpdateRequestDto;
 
 /**
- * Cette classe représente le contrôleur de {@link BudgetLineDto}.
+ * Cette classe représente le contrôleur de {@link FundingDto}.
  *
  * @author Christian
  *
  */
 @Dependent
-public class BudgetLineController extends AbstractController {
+public class FundingController extends AbstractController {
 
   @Inject
-  BudgetLineClient client;
+  FundingClient client;
 
   @Inject
-  BudgetLineRequestMapper requestMapper;
+  FundingRequestMapper requestMapper;
 
   @Inject
   @Getter
@@ -73,32 +73,37 @@ public class BudgetLineController extends AbstractController {
 
   @Inject
   @Getter
-  BudgetLineFilterController filterController;
+  FundingFilterController filterController;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    name = BudgetLineDto.NAME;
+    name = FundingDto.NAME;
   }
 
   /**
    * Cette méthode permet d'initialiser.
    */
   public void initialize() {
-    listController.setEntityClass(BudgetLineDto.class);
+    listController.setEntityClass(FundingDto.class);
     listController.setClient(client);
-    listController.setNotificationChannel(BudgetLineService.PATH);
+    listController.setNotificationChannel(FundingService.PATH);
     listController.setFilterController(filterController);
 
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        BudgetLineDto.JSON_DEPARTMENT_AS_STRING, BudgetLineDto.JSON_ACCOUNTING_ACCOUNT_AS_STRING,
-        BudgetLineDto.JSON_MONTH_AS_STRING, BudgetLineDto.JSON_AMOUNT_AS_STRING,
-        BudgetLineDto.JSON_JUSTIFICATION);
+        FundingDto.JSON_DEPARTMENT_AS_STRING, FundingDto.JSON_ACCOUNTING_ACCOUNT_AS_STRING,
+        FundingDto.JSON_MONTH_AS_STRING, FundingDto.JSON_AMOUNT_AS_STRING,
+        FundingDto.JSON_JUSTIFICATION);
     projection.addNamesIfStringBlank(filterController.getFilter().getBudgetIdentifier(),
-        BudgetLineDto.JSON_BUDGET_AS_STRING);
+        FundingDto.JSON_BUDGET_AS_STRING);
+    projection.addNamesIfStringBlank(filterController.getFilter().getDepartmentIdentifier(),
+        FundingDto.JSON_DEPARTMENT_AS_STRING);
+    projection.addNamesIfNull(filterController.getFilter().getMonth(),
+        FundingDto.JSON_MONTH_AS_STRING);
 
     listController.getReadController().setProjection(projection);
+    listController.getDataTable().getFilterButton().setRendered(true);
 
     listController.initialize();
 
@@ -110,41 +115,40 @@ public class BudgetLineController extends AbstractController {
     accountingAccountSelectOneController.getSelectOneMenu().setRequired(true);
 
     listController.getCreateController().addEntityConsumer(entity -> {
-      ((BudgetLineDto) entity)
-          .setBudgetIdentifier(filterController.getFilter().getBudgetIdentifier());
+      ((FundingDto) entity).setBudgetIdentifier(filterController.getFilter().getBudgetIdentifier());
     });
 
     listController.getCreateController().setFunction(entity -> {
-      BudgetLineCreateRequestDto request = requestMapper.mapCreate((BudgetLineDto) entity);
+      FundingCreateRequestDto request = requestMapper.mapCreate((FundingDto) entity);
       request.setAuditWho(userIdentifier);
       return client.create(request);
     });
 
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-            BudgetLineDto.JSON_BUDGET_IDENTIFIER, BudgetLineDto.JSON_DEPARTMENT_IDENTIFIER,
-            BudgetLineDto.JSON_ACCOUNTING_ACCOUNT_IDENTIFIER, BudgetLineDto.JSON_MONTH,
-            BudgetLineDto.JSON_AMOUNT, BudgetLineDto.JSON_JUSTIFICATION));
+            FundingDto.JSON_BUDGET_IDENTIFIER, FundingDto.JSON_DEPARTMENT_IDENTIFIER,
+            FundingDto.JSON_ACCOUNTING_ACCOUNT_IDENTIFIER, FundingDto.JSON_MONTH,
+            FundingDto.JSON_AMOUNT, FundingDto.JSON_JUSTIFICATION));
 
     listController.getUpdateController().addEntityConsumer(entity -> {
       budgetSelectOneController.getSelectOneMenu()
-          .writeValue(((BudgetLineDto) entity).getBudgetIdentifier());
+          .writeValue(((FundingDto) entity).getBudgetIdentifier());
 
       accountingAccountSelectOneController.getSelectOneMenu()
-          .writeValue(((BudgetLineDto) entity).getAccountingAccountIdentifier());
+          .writeValue(((FundingDto) entity).getAccountingAccountIdentifier());
 
       fundingSourceSelectOneController.getSelectOneMenu()
-          .writeValue(((BudgetLineDto) entity).getFundingSourceIdentifier());
+          .writeValue(((FundingDto) entity).getSourceIdentifier());
 
       departmentSelectOneController.getSelectOneMenu()
-          .writeValue(((BudgetLineDto) entity).getDepartmentIdentifier());
+          .writeValue(((FundingDto) entity).getDepartmentIdentifier());
 
       monthSelectOneController.getSelectOneMenu().writeValue(
-          Optional.ofNullable(((BudgetLineDto) entity).getMonth()).map(Month::name).orElse(null));
+          Optional.ofNullable(((FundingDto) entity).getMonth()).map(Month::name).orElse(null));
     });
 
     listController.getUpdateController().setFunction(entity -> {
-      BudgetLineUpdateRequestDto request = requestMapper.mapUpdate((BudgetLineDto) entity);
+      FundingUpdateRequestDto request = requestMapper.mapUpdate((FundingDto) entity);
       request.setAuditWho(userIdentifier);
       return client.update(request);
     });
@@ -153,7 +157,7 @@ public class BudgetLineController extends AbstractController {
         .setRenderable(Core.isStringBlank(filterController.getFilter().getBudgetIdentifier()));
     budgetSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
-            .getCreateControllerOrUpdateControllerEntityAs(BudgetLineDto.class)
+            .getCreateControllerOrUpdateControllerEntityAs(FundingDto.class)
             .setBudgetIdentifier(identifier));
     budgetSelectOneController.getSelectOneMenu().valueChangeAjax().configure(e -> {
       AccountingAccountFilter accountingAccountFilter = new AccountingAccountFilter();
@@ -168,32 +172,31 @@ public class BudgetLineController extends AbstractController {
 
     accountingAccountSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
-            .getCreateControllerOrUpdateControllerEntityAs(BudgetLineDto.class)
+            .getCreateControllerOrUpdateControllerEntityAs(FundingDto.class)
             .setAccountingAccountIdentifier(identifier));
 
     fundingSourceSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
-            .getCreateControllerOrUpdateControllerEntityAs(BudgetLineDto.class)
-            .setFundingSourceIdentifier(identifier));
+            .getCreateControllerOrUpdateControllerEntityAs(FundingDto.class)
+            .setSourceIdentifier(identifier));
 
     departmentSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
-            .getCreateControllerOrUpdateControllerEntityAs(BudgetLineDto.class)
+            .getCreateControllerOrUpdateControllerEntityAs(FundingDto.class)
             .setDepartmentIdentifier(identifier));
 
-    monthSelectOneController.getSelectOneMenu()
-        .addValueConsumer(month -> listController
-            .getCreateControllerOrUpdateControllerEntityAs(BudgetLineDto.class)
+    monthSelectOneController.getSelectOneMenu().addValueConsumer(
+        month -> listController.getCreateControllerOrUpdateControllerEntityAs(FundingDto.class)
             .setMonth(Core.isStringBlank(month) ? null : Month.valueOf(month)));
 
     amountInputNumberController.setOutputLableValue("Montant");
     amountInputNumberController.getInputLong().addValueConsumer(amount -> listController
-        .getCreateControllerOrUpdateControllerEntityAs(BudgetLineDto.class).setAmount(amount));
+        .getCreateControllerOrUpdateControllerEntityAs(FundingDto.class).setAmount(amount));
 
     justificationInputTextController.setOutputLableValue("Justification");
     justificationInputTextController.getInputTextarea()
         .addValueConsumer(justification -> listController
-            .getCreateControllerOrUpdateControllerEntityAs(BudgetLineDto.class)
+            .getCreateControllerOrUpdateControllerEntityAs(FundingDto.class)
             .setJustification(justification));
   }
 }

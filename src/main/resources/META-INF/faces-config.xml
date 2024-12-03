@@ -331,12 +331,12 @@
       <redirect />
     </navigation-case>
     
-    <!-- BudgetLine -->
+    <!-- Funding -->
     
     <navigation-case>
-      <description>page liste des lignes de budgets</description>
-      <from-outcome>budgetLineListPage</from-outcome>
-      <to-view-id>/private/budgetline/administrator/list/index.xhtml</to-view-id>
+      <description>page liste des financements</description>
+      <from-outcome>fundingListPage</from-outcome>
+      <to-view-id>/private/funding/administrator/list/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     

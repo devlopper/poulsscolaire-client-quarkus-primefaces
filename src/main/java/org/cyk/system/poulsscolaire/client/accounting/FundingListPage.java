@@ -5,28 +5,28 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.accounting.BudgetLineDto;
+import org.cyk.system.poulsscolaire.server.api.accounting.FundingDto;
 
 /**
- * Cette classe représente la page de liste de {@link BudgetLineDto}.
+ * Cette classe représente la page de liste de {@link FundingDto}.
  *
  * @author Christian
  *
  */
 @Named
 @ViewScoped
-public class BudgetLineListPage extends AbstractPage {
+public class FundingListPage extends AbstractPage {
 
   @Inject
   @Getter
-  BudgetLineController controller;
+  FundingController controller;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    contentTitle = "Liste " + BudgetLineDto.NAME;
+    contentTitle = "Liste " + FundingDto.NAME;
     controller.initialize();
   }
 
-  public static final String OUTCOME = "budgetLineListPage";
+  public static final String OUTCOME = "fundingListPage";
 }
