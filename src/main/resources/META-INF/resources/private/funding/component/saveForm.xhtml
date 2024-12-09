@@ -4,12 +4,16 @@
 
   <h:form>
     <ui:decorate template="/extension/crud/form/save/default.xhtml">
-      <ui:param name="saveCommandUpdate" value="" />
+      <ui:param name="saveCommandUpdate" value="#{container.comaSeparatedMessagesIdentifiers}" />
 
       <ui:define name="form-save-inputs">
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
           <ui:param name="selectOneMenu"
             value="#{container.budgetSelectOneController.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu" value="#{container.monthSelectOneController.selectOneMenu}" />
         </ui:include>
 
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
@@ -24,11 +28,7 @@
 
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
           <ui:param name="selectOneMenu"
-            value="#{container.fundingSourceSelectOneController.selectOneMenu}" />
-        </ui:include>
-
-        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.monthSelectOneController.selectOneMenu}" />
+            value="#{container.sourceSelectOneController.selectOneMenu}" />
         </ui:include>
 
         <ui:include src="/extension/component/input/inputNumber.xhtml">

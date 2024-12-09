@@ -4,7 +4,7 @@
   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
   version="4.0">
 
-  <name>form</name>
+  <name>poulspaid</name>
 
   <ordering>
     <after>
@@ -192,6 +192,43 @@
       <description>page lecture d'école</description>
       <from-outcome>schoolReadPage</from-outcome>
       <to-view-id>/private/school/accountant/read/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- Department -->
+    
+    <navigation-case>
+      <description>page liste des départements</description>
+      <from-outcome>departmentListPage</from-outcome>
+      <to-view-id>/private/department/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page lecture de département</description>
+      <from-outcome>departmentReadPage</from-outcome>
+      <to-view-id>/private/department/administrator/read/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page lecture des budgets de département</description>
+      <from-outcome>departmentReadBudgetsPage</from-outcome>
+      <to-view-id>/private/department/administrator/read/budgets.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page lecture des financements de département</description>
+      <from-outcome>departmentReadFundingsPage</from-outcome>
+      <to-view-id>/private/department/administrator/read/fundings.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page saisie des financements de département</description>
+      <from-outcome>departmentInputFundingsPage</from-outcome>
+      <to-view-id>/private/department/administrator/inputfundings/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     

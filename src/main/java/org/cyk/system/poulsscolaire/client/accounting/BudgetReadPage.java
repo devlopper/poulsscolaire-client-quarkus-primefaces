@@ -28,6 +28,10 @@ public class BudgetReadPage extends AbstractPage {
   @Getter
   BudgetDto budget;
 
+  @Inject
+  @Getter
+  FundingController fundingController;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -40,6 +44,10 @@ public class BudgetReadPage extends AbstractPage {
     String identifier = getRequestParameterIdentifier();
     budget = budgetClient.getByIdentifier(identifier, projection, userIdentifier, null);
     contentTitle = BudgetDto.NAME + " - " + budget.getCode() + " " + budget.getName();
+
+    fundingController.getFilterController().getFilter().setBudgetIdentifier(identifier);
+    fundingController.amountColumn().setFooterText(budget.getAmountAsString());
+    fundingController.initialize();
   }
 
   public static final String OUTCOME = "budgetReadPage";

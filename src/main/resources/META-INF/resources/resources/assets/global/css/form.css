@@ -19,8 +19,7 @@
     width: 100% !important;
 }
 
-
-body .ui-autocomplete{
+body .ui-autocomplete {
     width: 100% !important;
     display: flex !important;
 }
@@ -28,7 +27,7 @@ body .ui-autocomplete{
 body .ui-autocomplete .ui-autocomplete-dropdown {
     position: absolute !important;
     height: auto !important;
-    width: 2.357rem ;
+    width: 2.357rem;
     right: 0 !important;
     margin: 0 !important;
     border-top-left-radius: 0;
@@ -60,17 +59,22 @@ body .ui-autocomplete .ui-autocomplete-input.ui-autocomplete-dd-input {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-
-
 body #createDialog .ui-radiobutton .ui-radiobutton-box.ui-state-active {
     border-color: #14c56b !important;
     background: #14c56b !important;
     color: #fff;
 }
 
-
 body #updateDialog .ui-radiobutton .ui-radiobutton-box.ui-state-active {
     border-color: #ffa503 !important;
     background: #ffa503 !important;
     color: #fff;
+}
+
+.app-form-input .p-datepicker {
+    width: 100% !important;
+}
+
+.p-datepicker:not(.p-datepicker-inline) {
+    box-shadow: none !important;
 }

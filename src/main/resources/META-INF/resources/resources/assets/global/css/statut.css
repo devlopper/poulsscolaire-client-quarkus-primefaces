@@ -1,0 +1,40 @@
+/* Badge de statut */
+.processing-status-badge-created,
+.task-status-badge-created {
+    background-color: #e7f5ff !important;
+    color: #1c7ed6 !important;
+    border: 1px solid #d0ebff !important;
+    border-radius: 10px !important;
+}
+
+.processing-status-badge-started,
+.task-status-badge-started {
+    background-color: #fff9db !important;
+    color: #f59f00 !important;
+    border: 1px solid #ffec99 !important;
+    border-radius: 10px !important;
+}
+
+.processing-status-badge-stopped,
+.task-status-badge-stopped {
+    background-color: #fff3e6 !important;
+    color: #e8590c !important;
+    border: 1px solid #ffd8a8 !important;
+    border-radius: 10px !important;
+}
+
+.processing-status-badge-canceled,
+.task-status-badge-canceled {
+    background-color: #ffe3e3 !important;
+    color: #d6336c !important;
+    border: 1px solid #ffa8a8 !important;
+    border-radius: 10px !important;
+}
+
+.processing-status-badge-terminated,
+.task-status-badge-terminated {
+    background-color: #ebfbee !important;
+    color: #37b24d !important;
+    border: 1px solid #b2f2bb !important;
+    border-radius: 10px !important;
+}

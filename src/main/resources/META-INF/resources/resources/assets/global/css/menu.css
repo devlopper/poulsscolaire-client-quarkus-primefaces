@@ -1,22 +1,28 @@
-.dropdown-menu .dropdown-item{
+.dropdown-menu .dropdown-item {
     font-weight: 300;
     font-size: 15px !important;
     color: var(--vz-dropdown-link-color);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.dropdown-menu .dropdown-item:hover{
+.dropdown-menu .dropdown-item:hover {
     text-decoration: none !important;
     color: var(--vz-dropdown-link-color);
 }
 
 .nav .nav-item a {
-color: var(--vz-vertical-menu-sub-item-color);
-font-size: var(--vz-vertical-menu-sub-item-font-size);
-font-family: var(--vz-vertical-menu-sub-item-font-family);
+    color: var(--vz-vertical-menu-sub-item-color);
+    font-size: var(--vz-vertical-menu-sub-item-font-size);
+    font-family: var(--vz-vertical-menu-sub-item-font-family);
 }
 
 .nav .nav-item a:hover {
-color: var(--vz-vertical-menu-item-active-color);
-text-decoration: none !important;
+    color: var(--vz-vertical-menu-item-active-color);
+    text-decoration: none !important;
+}
+
+.menuactive {
+    background-color: var(--vz-sidebar-user-bg) !important;
+    border-radius: var(--vz-border-radius) !important;
+    margin-right: 5px !important;
 }

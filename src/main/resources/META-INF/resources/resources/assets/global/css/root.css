@@ -20,9 +20,119 @@
     --color-delete-transparent: rgba(var(--color-red), var(--opacity));
     --bg-delete-transparent: rgba(var(--color-red), var(--opacity));
 
-    --color-create: rgba(var(--color-Jade-sombre));
     --color-create-transparent: rgba(var(--color-Jade-sombre), var(--opacity));
     --bg-create-transparent: rgba(var(--color-Jade-sombre), var(--opacity));
+
+
+
+    /* New Colors */
+    --vz-purple-bg-subtle: #f5e8ff;
+    --vz-purple: #a855f7;
+    
+    --vz-orange-bg-subtle: #fff5e6;
+    --vz-orange: #fb923c;
+
+    --vz-teal-bg-subtle: #e6fffa;
+    --vz-teal: #14b8a6;
+
+    --vz-pink-bg-subtle: #ffe6f5;
+    --vz-pink: #ec4899;
+
+    --vz-yellow-bg-subtle: #fff9e6;
+    --vz-yellow: #facc15;
+
+
+    /* New Colors */
+    --vz-red-bg-subtle: #fce8e8;
+    --vz-red: #ef4444;
+
+    --vz-brown-bg-subtle: #f5f1f0;
+    --vz-brown: #6d4c41;
+
+    --vz-rose-bg-subtle: #fce0f5;
+    --vz-rose: #d63f8f;
+
+    --vz-maroon-bg-subtle: #f9e3e3;
+    --vz-maroon: #800000;
+
+    --vz-salmon-bg-subtle: #fff1f1;
+    --vz-salmon: #ff6f61;
+
+
+
+    /* New Colors */
+    --vz-lavender-bg-subtle: #f3e8ff;
+    --vz-lavender: #8b5cf6;
+
+    --vz-amber-bg-subtle: #fffbea;
+    --vz-amber: #f59e0b;
+
+    --vz-plum-bg-subtle: #f2e0ff;
+    --vz-plum: #9d4edd;
+
+    --vz-gold-bg-subtle: #fff8d6;
+    --vz-gold: #f59e0b;
+
+    --vz-burgundy-bg-subtle: #f6e0e6;
+    --vz-burgundy: #800020;
+
+
+    /* New Colors */
+    --vz-gray-bg-subtle: #f3f4f6;
+    --vz-gray: #6b7280;
+
+    --vz-charcoal-bg-subtle: #f1f2f6;
+    --vz-charcoal: #374151;
+
+    --vz-beige-bg-subtle: #f9f5eb;
+    --vz-beige: #f4a261;
+
+    --vz-ivory-bg-subtle: #f7f7f7;
+    --vz-ivory: #e5e5e5;
+
+    --vz-ash-bg-subtle: #f0f0f0;
+    --vz-ash: #9e9e9e;
+
+
+
+
+    /* New Colors */
+    --vz-peach-bg-subtle: #ffe4e1;
+    --vz-peach: #ff7f50;
+
+    --vz-mint-bg-subtle: #e0fffa;
+    --vz-mint: #98ff98;
+
+    --vz-lavender-blush-bg-subtle: #f3e7ff;
+    --vz-lavender-blush: #f8b8e3;
+
+    --vz-light-sky-blue-bg-subtle: #e7f7ff;
+    --vz-light-sky-blue: #87cefa;
+
+    --vz-pale-rose-bg-subtle: #f8e0e6;
+    --vz-pale-rose: #f07b7b;
+
+
+
+
+
+    /* New Colors */
+    --vz-turquoise-bg-subtle: #e0f7f7;
+    --vz-turquoise: #1abc9c;
+
+    --vz-aqua-bg-subtle: #e0ffff;
+    --vz-aqua: #00bcd4;
+
+    --vz-petrol-bg-subtle: #e0f3f5;
+    --vz-petrol: #016a6a;
+
+    --vz-mint-green-bg-subtle: #e6f5e6;
+    --vz-mint-green: #4caf50;
+
+    --vz-teal-light-bg-subtle: #e0f7f7;
+    --vz-teal-light: #26a69a;
+
+
+  
+    
 }
-
-

@@ -9,6 +9,11 @@
     rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_BUDGET_AS_STRING)}">
     <h:outputText value="#{record.budgetAsString}" />
   </p:column>
+  
+  <p:column headerText="Mois" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_MONTH_AS_STRING)}">
+    <h:outputText value="#{record.monthAsString}" />
+  </p:column>
 
   <p:column headerText="Département"
     rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_DEPARTMENT_AS_STRING)}">
@@ -19,16 +24,16 @@
     rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_ACCOUNTING_ACCOUNT_AS_STRING)}">
     <h:outputText value="#{record.accountingAccountAsString}" />
   </p:column>
-
-  <p:column headerText="Mois" width="150"
-    rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_MONTH_AS_STRING)}">
-    <h:outputText value="#{record.monthAsString}" />
+  
+  <p:column headerText="Source de financement"
+    rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_SOURCE_AS_STRING)}">
+    <h:outputText value="#{record.sourceAsString}" />
   </p:column>
-
-  <p:column headerText="Montant" width="150"
-    rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_AMOUNT_AS_STRING)}">
-    <h:outputText value="#{record.amountAsString}" />
-  </p:column>
+  
+  <ui:include src="columns-amount.xhtml">
+    <ui:param name="container" value="#{container}" />
+    <ui:param name="record" value="#{record}" />
+  </ui:include>
 
   <p:column headerText="Justification"
     rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_JUSTIFICATION)}">
