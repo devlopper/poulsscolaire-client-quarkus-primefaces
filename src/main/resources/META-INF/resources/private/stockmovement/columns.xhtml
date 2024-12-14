@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.fee.StockMovementDto"
+    var="StockMovementDto" />
+
+  <p:column headerText="Stock"
+    rendered="#{listController.isReadControllerHasProjectionName(StockMovementDto.JSON_STOCK_AS_STRING)}">
+    <h:outputText value="#{record.stockAsString}" />
+  </p:column>
+
+  <p:column headerText="Quantité" styleClass="column-amount"
+    rendered="#{listController.isReadControllerHasProjectionName(StockMovementDto.JSON_QUANTITY_AS_STRING)}">
+    <h:outputText value="#{record.quantityAsString}" />
+
+    <f:facet name="footer">
+      <h:outputText value="#{container.totalQuantityAsString}">
+        <p:autoUpdate on="#{container.totalQuantityChangedEvent}" />
+      </h:outputText>
+    </f:facet>
+  </p:column>
+
+  <p:column headerText="Motif"
+    rendered="#{listController.isReadControllerHasProjectionName(StockMovementDto.JSON_REASON)}">
+    <h:outputText value="#{record.reason}" />
+  </p:column>
+</ui:composition>

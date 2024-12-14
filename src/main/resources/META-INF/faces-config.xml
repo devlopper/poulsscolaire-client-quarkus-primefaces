@@ -56,6 +56,31 @@
       <redirect />
     </navigation-case>
     
+    <!-- Stock -->
+    
+    <navigation-case>
+      <description>page liste des stocks</description>
+      <from-outcome>stockListPage</from-outcome>
+      <to-view-id>/private/stock/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page de lecture de stock</description>
+      <from-outcome>stockReadPage</from-outcome>
+      <to-view-id>/private/stock/administrator/read/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <!-- StockMovement -->
+    
+    <navigation-case>
+      <description>page liste des mouvements de stocks</description>
+      <from-outcome>stockMovementListPage</from-outcome>
+      <to-view-id>/private/stockmovement/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Fee -->
     
     <navigation-case>
