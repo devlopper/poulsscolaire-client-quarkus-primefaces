@@ -76,6 +76,10 @@ public class AuthorizationFilter implements Filter {
     allowAccountingOperation(founderRoleCode, managerRoleCode, accountantRoleCode);
     
     allowSchoolConfiguration(founderRoleCode, managerRoleCode, accountantRoleCode);
+    
+    allowBudget(founderRoleCode, managerRoleCode, accountantRoleCode);
+    allowFunding(founderRoleCode, managerRoleCode, accountantRoleCode);
+    allowFundingSource(founderRoleCode, managerRoleCode, accountantRoleCode);
   }
 
   @Override
@@ -161,6 +165,19 @@ public class AuthorizationFilter implements Filter {
   
   void allowSchoolConfiguration(String... rolesCodes) {
     allow("/private/schoolconfiguration/administrator/list/index.xhtml", rolesCodes);
+  }
+  
+  void allowBudget(String... rolesCodes) {
+    allow("/private/budget/administrator/list/index.xhtml", rolesCodes);
+    allow("/private/budget/administrator/read/index.xhtml", rolesCodes);
+  }
+  
+  void allowFundingSource(String... rolesCodes) {
+    allow("/private/fundingsource/administrator/list/index.xhtml", rolesCodes);
+  }
+  
+  void allowFunding(String... rolesCodes) {
+    allow("/private/funding/administrator/list/index.xhtml", rolesCodes);
   }
   
   void allow(String uri, String... rolesCodes) {
