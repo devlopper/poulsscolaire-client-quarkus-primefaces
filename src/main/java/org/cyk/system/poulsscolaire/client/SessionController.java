@@ -1,7 +1,6 @@
 package org.cyk.system.poulsscolaire.client;
 
 import ci.gouv.dgbf.extension.core.Core;
-import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
@@ -21,7 +20,7 @@ import org.cyk.system.poulsscolaire.server.api.configuration.UserDto;
 @Named
 @SessionScoped
 @Getter
-public class SessionController extends AbstractController {
+public class SessionController {
 
   String userIdentifierName;
 

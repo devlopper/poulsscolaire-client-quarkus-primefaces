@@ -108,6 +108,7 @@ public class StockController extends AbstractController {
             .getCreateControllerOrUpdateControllerEntityAs(StockDto.class)
             .setFeeCategoryIdentifier(identifier));
 
+    nameInputTextController.setOutputLableValue("Libellé");
     nameInputTextController.getInputText().addValueConsumer(name -> listController
         .getCreateControllerOrUpdateControllerEntityAs(StockDto.class).setName(name));
   }

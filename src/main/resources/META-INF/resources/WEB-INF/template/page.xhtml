@@ -34,6 +34,9 @@
   <ui:param name="budgetModuleVisible"
     value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
 
+  <ui:param name="stockModuleVisible"
+    value="#{sessionController.hasOneOfRoles([rootRoleCode,founderRoleCode,managerRoleCode,accountantRoleCode])}" />
+
   <ui:define name="topbar-application-name">
     Pouls-Paid
     
@@ -302,6 +305,26 @@
                 <h:outputText value="Source de financement" styleClass="nav-link nav-text" />
               </p:link></li>
 
+          </ul>
+        </div></li>
+    </ui:fragment>
+    
+    <ui:fragment rendered="#{stockModuleVisible}">
+      <li class="nav-item"><a class="nav-link menu-link" href="#Stock"
+        data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+          <i class="ri-layout-3-line"></i> <span data-key="t-apps">Stock</span>
+      </a>
+        <div class="collapse menu-dropdown" id="Stock">
+          <ul class="nav nav-sm flex-column">
+            <li class="nav-item"><p:link outcome="stockListPage"
+                styleClass="has-arrow ai-icon">
+                <h:outputText value="Stock" styleClass="nav-link nav-text" />
+              </p:link></li>
+
+            <li class="nav-item"><p:link outcome="stockMovementListPage"
+                styleClass="has-arrow ai-icon">
+                <h:outputText value="Mouvement de stock" styleClass="nav-link nav-text" />
+              </p:link></li>
           </ul>
         </div></li>
     </ui:fragment>

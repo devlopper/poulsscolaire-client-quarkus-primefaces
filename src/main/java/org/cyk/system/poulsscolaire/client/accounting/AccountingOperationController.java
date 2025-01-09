@@ -3,6 +3,7 @@ package org.cyk.system.poulsscolaire.client.accounting;
 import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.component.CommandUpdatePropertyValueBuilder;
+import ci.gouv.dgbf.extension.primefaces.component.input.AbstractInput;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputText;
 import ci.gouv.dgbf.extension.primefaces.crud.IdentifiableProcessingController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
@@ -13,9 +14,11 @@ import ci.gouv.dgbf.extension.server.service.api.request.ByIdentifierRequestDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.SchoolSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.accounting.AccountingAccountType;
@@ -103,7 +106,7 @@ public class AccountingOperationController extends AbstractController {
         beneficiaryInputText.setRequired(true);
       }
     }
-    
+
     if (Boolean.TRUE.equals(filterController.getFilter().getCanceled())) {
       listController.getShowCreateDialogButton().setRendered(false);
       listController.getShowUpdateDialogButton().setRendered(false);
@@ -113,7 +116,7 @@ public class AccountingOperationController extends AbstractController {
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(AccountingOperationReadPage.OUTCOME);
     listController.getDeleteButton().setRendered(false);
-    
+
     listController.initialize();
 
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
@@ -122,7 +125,7 @@ public class AccountingOperationController extends AbstractController {
         .setRenderable(filterController.getFilter().getSchoolIdentifier() == null);
     planSelectOneController.setChoicable(!schoolSelectOneController.isRenderable());
     planSelectOneController.getSelectOneMenu().setRequired(true);
-    
+
     listController.getCreateController().addEntityConsumer(entity -> {
       ((AccountingOperationDto) entity)
           .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
@@ -214,5 +217,18 @@ public class AccountingOperationController extends AbstractController {
 
     cancelController.submitButton()
         .setRendered(!Boolean.TRUE.equals(filterController.getFilter().getCanceled()));
+  }
+
+  /**
+   * Cette méthode permet d'obtenir la concatenation des identifiants des messages.
+   *
+   * @return concatenation des identifiants des messages
+   */
+  public String getComaSeparatedMessagesIdentifiers() {
+    return Arrays
+        .stream(
+            new AbstractInput[] {planSelectOneController.getSelectOneMenu(), beneficiaryInputText})
+        .filter(o -> o != null).map(input -> input.getMessage().getIdentifier())
+        .collect(Collectors.joining(","));
   }
 }
