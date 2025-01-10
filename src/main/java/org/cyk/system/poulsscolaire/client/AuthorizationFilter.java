@@ -82,6 +82,7 @@ public class AuthorizationFilter implements Filter {
     allowFundingSource(founderRoleCode, managerRoleCode, accountantRoleCode);
     
     allowStock(founderRoleCode, managerRoleCode, accountantRoleCode);
+    allowStockMovement(founderRoleCode, managerRoleCode, accountantRoleCode);
   }
 
   @Override
@@ -185,6 +186,11 @@ public class AuthorizationFilter implements Filter {
   void allowStock(String... rolesCodes) {
     allow("/private/stock/administrator/list/index.xhtml", rolesCodes);
     allow("/private/stock/administrator/read/index.xhtml", rolesCodes);
+  }
+  
+  void allowStockMovement(String... rolesCodes) {
+    allow("/private/stockmovement/administrator/list/index.xhtml", rolesCodes);
+    allow("/private/stockmovement/administrator/read/index.xhtml", rolesCodes);
   }
   
   void allow(String uri, String... rolesCodes) {
