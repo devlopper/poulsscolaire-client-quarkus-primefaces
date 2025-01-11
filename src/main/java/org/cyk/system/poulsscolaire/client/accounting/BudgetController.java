@@ -76,7 +76,7 @@ public class BudgetController extends AbstractController {
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
         BudgetDto.JSON_ACCOUNTING_PLAN_AS_STRING, BudgetDto.JSON_YEAR,
-        BudgetDto.JSON_AMOUNT_AS_STRING);
+        BudgetDto.JSON_AMOUNT_AS_STRING, BudgetDto.JSON_STATUS_AS_STRING);
     projection.addNamesIfStringBlank(filterController.getFilter().getSchoolIdentifier(),
         BudgetDto.JSON_SCHOOL_AS_STRING);
 

@@ -25,13 +25,18 @@
     <h:outputText value="#{record.accountingPlanAsString}" />
   </p:column>
 
-  <p:column headerText="Année" width="150"
+  <p:column headerText="Année" width="45"
     rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_YEAR)}">
     <h:outputText value="#{record.year}" />
   </p:column>
 
-  <p:column headerText="Montant" width="150"
+  <p:column headerText="Montant" width="100"
     rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.amountAsString}" />
+  </p:column>
+  
+  <p:column headerText="Statut" width="60"
+    rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_STATUS_AS_STRING)}">
+    <h:outputText value="#{record.statusAsString}" />
   </p:column>
 </ui:composition>

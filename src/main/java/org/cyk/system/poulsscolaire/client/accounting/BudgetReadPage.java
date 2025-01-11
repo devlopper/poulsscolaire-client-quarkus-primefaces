@@ -32,6 +32,10 @@ public class BudgetReadPage extends AbstractPage {
   @Getter
   FundingController fundingController;
 
+  @Inject
+  @Getter
+  BudgetActionsController actionsController;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -40,7 +44,9 @@ public class BudgetReadPage extends AbstractPage {
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
         BudgetDto.JSON_AMOUNT_AS_STRING, BudgetDto.JSON_SCHOOL_AS_STRING,
-        BudgetDto.JSON_ACCOUNTING_PLAN_AS_STRING);
+        BudgetDto.JSON_ACCOUNTING_PLAN_AS_STRING, BudgetDto.JSON_TRANSMITABLE,
+        BudgetDto.JSON_ACCEPTABLE, BudgetDto.JSON_APPROVABLE, BudgetDto.JSON_RETURNABLE,
+        BudgetDto.JSON_STATUS_AS_STRING);
     String identifier = getRequestParameterIdentifier();
     budget = budgetClient.getByIdentifier(identifier, projection, userIdentifier, null);
     contentTitle = BudgetDto.NAME + " - " + budget.getCode() + " " + budget.getName();
@@ -48,6 +54,9 @@ public class BudgetReadPage extends AbstractPage {
     fundingController.getFilterController().getFilter().setBudgetIdentifier(identifier);
     fundingController.amountColumn().setFooterText(budget.getAmountAsString());
     fundingController.initialize();
+
+    actionsController.budget = budget;
+    actionsController.initialize();
   }
 
   public static final String OUTCOME = "budgetReadPage";

@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <div class="col-12">
+    <div class="card px-2 py-3">
+      <h:form>
+        <p:outputPanel styleClass="pull-left">
+          <p:staticMessage severity="info" summary="Statut" detail="#{actionsController.budget.statusAsString}"/>
+        </p:outputPanel>
+        <p:outputPanel styleClass="pull-right">
+          <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
+            <ui:param name="controller" value="#{actionsController.transmitProcessingController}" />
+            <ui:param name="record" value="#{actionsController.budget}" />
+          </ui:decorate>
+
+          <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
+            <ui:param name="controller" value="#{actionsController.approveProcessingController}" />
+            <ui:param name="record" value="#{actionsController.budget}" />
+          </ui:decorate>
+        </p:outputPanel>
+      </h:form>
+    </div>
+  </div>
+</ui:composition>

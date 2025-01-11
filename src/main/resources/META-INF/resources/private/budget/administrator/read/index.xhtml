@@ -5,6 +5,10 @@
   <ui:param name="page" value="#{budgetReadPage}" />
 
   <ui:define name="content-body">
+    <ui:include src="../../component/actions.xhtml">
+      <ui:param name="actionsController" value="#{page.actionsController}" />
+    </ui:include>
+
     <ui:include src="../../../funding/component/listForm.xhtml">
       <ui:param name="controller" value="#{page.fundingController.listController}" />
       <ui:param name="container" value="#{page.fundingController}" />
