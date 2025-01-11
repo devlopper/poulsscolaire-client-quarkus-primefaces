@@ -105,11 +105,13 @@ public class SchoolConfigurationController extends AbstractController {
       return client.update(request);
     });
 
+    schoolSelectOneController.getSelectOneMenu().setRequired(true);
     schoolSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SchoolConfigurationDto.class)
             .setSchoolIdentifier(identifier));
 
+    paymentAccountingAccountSelectOneController.getSelectOneMenu().setRequired(true);
     paymentAccountingAccountSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SchoolConfigurationDto.class)
