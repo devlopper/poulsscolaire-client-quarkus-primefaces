@@ -53,7 +53,7 @@ public class RegistrationController extends AbstractController {
   @Inject
   @Getter
   InputNumberController subsidyInputNumberController;
-  
+
   @Inject
   @Getter
   BranchInstanceSelectOneController branchInstanceSelectOneController;
@@ -217,7 +217,12 @@ public class RegistrationController extends AbstractController {
     updateAmountsToZeroController
         .setFunction(identifier -> client.updateAmountsToZero(identifier, userIdentifier, null));
     listController.configureAction(updateAmountsToZeroController);
-    
+
     subsidyInputNumberController.setOutputLableValue("Subvention");
+
+    if (Boolean.TRUE.equals(getRequestParameterAsBoolean("subvention"))) {
+      listController.getDataTable().getActionColumn().setRendered(false);
+    }
+
   }
 }

@@ -1,16 +1,28 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	template="/WEB-INF/template/page.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template/page.xhtml">
 
-	<ui:param name="page" value="#{registrationListPage}" />
+  <ui:param name="page" value="#{registrationListPage}" />
 
-	<ui:define name="content-body">
-		<ui:include src="../component/listForm.xhtml">
-			<ui:param name="controller" value="#{registrationListPage.controller.listController}" />
-			<ui:param name="container" value="#{registrationListPage.controller}" />
-		</ui:include>
-	</ui:define>
+  <ui:define name="content-body">
+    <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.RegistrationFilter" var="RegistrationFilter" />
+    <p:importConstants type="org.cyk.system.poulsscolaire.client.registration.RegistrationListPage" var="RegistrationListPage" />
+    <ui:param name="selectedTabIndexParameterName" value="sti" />
+    
+    <p:tabMenu activeIndex="#{param[selectedTabIndexParameterName]}">
+      <p:menuitem value="Inscriptions" outcome="#{RegistrationListPage.OUTCOME}" icon="pi pi-fw pi-home">
+        <f:param name="#{selectedTabIndexParameterName}" value="0" />
+        <f:param name="subvention" value="false" />
+      </p:menuitem>
+      <p:menuitem value="Subventions" outcome="#{RegistrationListPage.OUTCOME}" icon="pi pi-fw pi-link">
+        <f:param name="#{selectedTabIndexParameterName}" value="1" />
+        <f:param name="subvention" value="true" />
+      </p:menuitem>
+    </p:tabMenu>
+    
+    <ui:include src="../component/listForm.xhtml">
+      <ui:param name="controller" value="#{page.controller.listController}" />
+      <ui:param name="container" value="#{page.controller}" />
+    </ui:include>
+  </ui:define>
 </ui:composition>

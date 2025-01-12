@@ -27,7 +27,8 @@
 
   <p:column headerText="Montant" width="120"
     rendered="#{listController.isReadControllerHasProjectionName(PaymentDto.JSON_AMOUNT_AS_STRING)}">
-    <h:outputText value="#{record.amountAsString}" />
+    <h:outputText value="#{record.amountAsString}" rendered="#{not record.isForSubsidy}"/>
+    <p:tag severity="warning" value="#{record.amountAsString}(Subvention)" rendered="#{record.isForSubsidy}"/>
   </p:column>
   
   <p:column headerText="Création" width="350"

@@ -43,6 +43,7 @@ public class PaymentFilterController extends AbstractFilterController<PaymentFil
             sessionController.getSchoolIdentifier()));
     filter
         .setRegistrationIdentifier(getRequestParameter(PaymentFilter.JSON_REGISTRATION_IDENTIFIER));
+    filter.setIsForSubsidy(getRequestParameterAsBoolean(PaymentFilter.JSON_IS_FOR_SUBSIDY));
     filter.setCanceled(getRequestParameterAsBoolean(PaymentFilter.JSON_CANCELED));
 
     registrationSelectOneController.getSelectOneMenu()
