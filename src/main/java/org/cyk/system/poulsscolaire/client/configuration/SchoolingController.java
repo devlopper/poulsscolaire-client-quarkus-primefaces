@@ -2,6 +2,7 @@ package org.cyk.system.poulsscolaire.client.configuration;
 
 import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
+import ci.gouv.dgbf.extension.primefaces.component.input.InputNumberController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
@@ -36,7 +37,7 @@ public class SchoolingController extends AbstractController {
 
   @Inject
   @Getter
-  SchoolSelectOneController schoolSelectOne;
+  SchoolSelectOneController schoolSelectOneController;
 
   @Inject
   @Getter
@@ -44,7 +45,15 @@ public class SchoolingController extends AbstractController {
 
   @Inject
   @Getter
-  BranchSelectOneController branchSelectOne;
+  BranchSelectOneController branchSelectOneController;
+
+  @Inject
+  @Getter
+  InputNumberController preRegistrationAmountInputNumberController;
+
+  @Inject
+  @Getter
+  InputNumberController subsidyAmountInputNumberController;
 
   @Inject
   SchoolingRequestMapper requestMapper;
@@ -76,6 +85,7 @@ public class SchoolingController extends AbstractController {
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, SchoolingDto.JSON_BRANCH_AS_STRING,
         SchoolingDto.JSON_PRE_REGISTRATION_AMOUNT_AS_STRING,
+        SchoolingDto.JSON_SUBSIDY_AMOUNT_AS_STRING,
         SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_VALUE_AS_STRING,
         SchoolingDto.JSON_NOT_OPTIONAL_FEE_AMOUNT_REGISTRATION_VALUE_PART_AS_STRING);
     listController.getReadController().setProjection(projection);
@@ -89,7 +99,7 @@ public class SchoolingController extends AbstractController {
 
     listController.getCreateController().addEntityConsumer(entity -> ((SchoolingDto) entity)
         .setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier()));
-    
+
     listController.getCreateController().setFunction(entity -> {
       SchoolingCreateRequestDto request = requestMapper.mapCreate((SchoolingDto) entity);
       request.setAuditWho(userIdentifier);
@@ -99,7 +109,21 @@ public class SchoolingController extends AbstractController {
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
             SchoolingDto.JSON_SCHOOL_IDENTIFIER, SchoolingDto.JSON_PERIOD_IDENTIFIER,
-            SchoolingDto.JSON_BRANCH_IDENTIFIER, SchoolingDto.JSON_PRE_REGISTRATION_AMOUNT));
+            SchoolingDto.JSON_BRANCH_IDENTIFIER, SchoolingDto.JSON_PRE_REGISTRATION_AMOUNT,
+            SchoolingDto.JSON_SUBSIDY_AMOUNT));
+
+    listController.getUpdateController().addEntityConsumer(entity -> {
+      schoolSelectOneController.getSelectOneMenu()
+          .writeValue(((SchoolingDto) entity).getSchoolIdentifier());
+      periodSelectOne.getSelectOneMenu().writeValue(((SchoolingDto) entity).getPeriodIdentifier());
+      schoolSelectOneController.getSelectOneMenu()
+          .writeValue(((SchoolingDto) entity).getBranchIdentifier());
+
+      preRegistrationAmountInputNumberController.getInputInteger()
+          .writeValue(((SchoolingDto) entity).getPreRegistrationAmount());
+      subsidyAmountInputNumberController.getInputInteger()
+          .writeValue(((SchoolingDto) entity).getSubsidyAmount());
+    });
 
     listController.getUpdateController().setFunction(entity -> {
       SchoolingUpdateRequestDto request = requestMapper.mapUpdate((SchoolingDto) entity);
@@ -107,30 +131,30 @@ public class SchoolingController extends AbstractController {
       return client.update(request);
     });
 
-    schoolSelectOne.getSelectOneMenu()
+    schoolSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SchoolingDto.class)
             .setSchoolIdentifier(identifier));
 
-    schoolSelectOne.getSelectOneMenu().valueChangeAjax().setConsumer(e -> {
+    schoolSelectOneController.getSelectOneMenu().valueChangeAjax().setConsumer(e -> {
       PeriodFilter periodFilter = new PeriodFilter();
-      periodFilter.setSchoolIdentifier(schoolSelectOne.getSelectOneMenu().getValue());
+      periodFilter.setSchoolIdentifier(schoolSelectOneController.getSelectOneMenu().getValue());
       periodFilter.setOpened(true);
       periodSelectOne.setFilter(periodFilter.toDto());
       periodSelectOne.computeSelectOneMenuChoices();
 
       BranchFilter branchFilter = new BranchFilter();
-      branchFilter.setSchoolIdentifier(schoolSelectOne.getSelectOneMenu().getValue());
-      branchSelectOne.setFilter(branchFilter.toDto());
-      branchSelectOne.computeSelectOneMenuChoices();
+      branchFilter.setSchoolIdentifier(schoolSelectOneController.getSelectOneMenu().getValue());
+      branchSelectOneController.setFilter(branchFilter.toDto());
+      branchSelectOneController.computeSelectOneMenuChoices();
     });
-    schoolSelectOne.getSelectOneMenu().valueChangeAjax().setDisabled(false);
-    schoolSelectOne.getSelectOneMenu().valueChangeAjax()
+    schoolSelectOneController.getSelectOneMenu().valueChangeAjax().setDisabled(false);
+    schoolSelectOneController.getSelectOneMenu().valueChangeAjax()
         .setUpdate(periodSelectOne.getSelectOneMenu().getIdentifier() + ","
-            + branchSelectOne.getSelectOneMenu().getIdentifier());
+            + schoolSelectOneController.getSelectOneMenu().getIdentifier());
 
     if (!Core.isStringBlank(filterController.getFilter().getSchoolIdentifier())) {
-      schoolSelectOne.getSelectOneMenu().setRendered(false);
+      schoolSelectOneController.getSelectOneMenu().setRendered(false);
       PeriodFilter periodFilter = new PeriodFilter();
       periodFilter.setSchoolIdentifier(filterController.getFilter().getSchoolIdentifier());
       periodFilter.setOpened(true);
@@ -143,9 +167,21 @@ public class SchoolingController extends AbstractController {
             .getCreateControllerOrUpdateControllerEntityAs(SchoolingDto.class)
             .setPeriodIdentifier(identifier));
 
-    branchSelectOne.getSelectOneMenu()
+    branchSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SchoolingDto.class)
             .setBranchIdentifier(identifier));
+
+    preRegistrationAmountInputNumberController.setOutputLableValue("Montant pré-inscription");
+    preRegistrationAmountInputNumberController.getInputInteger()
+        .addValueConsumer(amount -> listController
+            .getCreateControllerOrUpdateControllerEntityAs(SchoolingDto.class)
+            .setPreRegistrationAmount(amount));
+    
+    subsidyAmountInputNumberController.setOutputLableValue("Montant subvention");
+    subsidyAmountInputNumberController.getInputInteger()
+        .addValueConsumer(amount -> listController
+            .getCreateControllerOrUpdateControllerEntityAs(SchoolingDto.class)
+            .setSubsidyAmount(amount));
   }
 }

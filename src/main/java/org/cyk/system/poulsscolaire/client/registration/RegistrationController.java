@@ -2,6 +2,7 @@ package org.cyk.system.poulsscolaire.client.registration;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.IdentifiableActionController;
+import ci.gouv.dgbf.extension.primefaces.component.input.InputNumberController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
@@ -49,6 +50,10 @@ public class RegistrationController extends AbstractController {
   @Getter
   SchoolingSelectOneController schoolingSelectOneController;
 
+  @Inject
+  @Getter
+  InputNumberController subsidyInputNumberController;
+  
   @Inject
   @Getter
   BranchInstanceSelectOneController branchInstanceSelectOneController;
@@ -212,5 +217,7 @@ public class RegistrationController extends AbstractController {
     updateAmountsToZeroController
         .setFunction(identifier -> client.updateAmountsToZero(identifier, userIdentifier, null));
     listController.configureAction(updateAmountsToZeroController);
+    
+    subsidyInputNumberController.setOutputLableValue("Subvention");
   }
 }

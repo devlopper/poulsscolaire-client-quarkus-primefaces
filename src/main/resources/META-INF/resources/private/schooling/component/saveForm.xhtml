@@ -8,7 +8,8 @@
 
       <ui:define name="form-save-inputs">
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.schoolSelectOne.selectOneMenu}" />
+          <ui:param name="selectOneMenu"
+            value="#{container.schoolSelectOneController.selectOneMenu}" />
         </ui:include>
 
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
@@ -16,17 +17,19 @@
         </ui:include>
 
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-          <ui:param name="selectOneMenu" value="#{container.branchSelectOne.selectOneMenu}" />
+          <ui:param name="selectOneMenu"
+            value="#{container.branchSelectOneController.selectOneMenu}" />
         </ui:include>
 
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Montant" for="amount" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:inputNumber id="amount" value="#{controller.entity.preRegistrationAmount}" />
-          </ui:define>
-        </ui:decorate>
+        <ui:include src="/extension/component/input/inputNumber.xhtml">
+          <ui:param name="inputNumber"
+            value="#{container.preRegistrationAmountInputNumberController.inputInteger}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/inputNumber.xhtml">
+          <ui:param name="inputNumber"
+            value="#{container.subsidyAmountInputNumberController.inputInteger}" />
+        </ui:include>
       </ui:define>
     </ui:decorate>
   </h:form>

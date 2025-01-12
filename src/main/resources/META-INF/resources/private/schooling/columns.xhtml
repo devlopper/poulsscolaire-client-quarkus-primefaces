@@ -29,4 +29,9 @@
     rendered="#{listController.isReadControllerHasProjectionName(SchoolingDto.JSON_PRE_REGISTRATION_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.preRegistrationAmountAsString}" />
   </p:column>
+  
+  <p:column headerText="Montant subvention"
+    rendered="#{listController.isReadControllerHasProjectionName(SchoolingDto.JSON_SUBSIDY_AMOUNT_AS_STRING)}">
+    <h:outputText value="#{record.subsidyAmountAsString}" />
+  </p:column>
 </ui:composition>

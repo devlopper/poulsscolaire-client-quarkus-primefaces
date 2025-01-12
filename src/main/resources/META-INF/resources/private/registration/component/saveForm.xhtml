@@ -7,24 +7,31 @@
       <ui:define name="form-save-inputs">
 
         <div class="ui-g-12">
-          <div class="ui-g-6">
-            <ui:include src="/extension/component/input/selectOneMenu.xhtml">
-              <ui:param name="selectOneMenu"
-                value="#{container.studentSelectOneController.selectOneMenu}" />
-            </ui:include>
-          </div>
-          <div class="ui-g-3">
-            <ui:include src="/extension/component/input/selectOneRadio.xhtml">
-              <ui:param name="selectOneRadio"
-                value="#{container.assignmentTypeSelectOneController.selectOneRadio}" />
-            </ui:include>
-          </div>
-          <div class="ui-g-3">
-            <ui:include src="/extension/component/input/selectOneRadio.xhtml">
-              <ui:param name="selectOneRadio"
-                value="#{container.senioritySelectOneController.selectOneRadio}" />
-            </ui:include>
-          </div>
+          <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+            <ui:param name="width" value="6" />
+            <ui:param name="selectOneMenu"
+              value="#{container.studentSelectOneController.selectOneMenu}" />
+          </ui:include>
+          
+          <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+            <ui:param name="width" value="6" />
+            <ui:param name="selectOneRadio"
+              value="#{container.senioritySelectOneController.selectOneRadio}" />
+          </ui:include>
+        </div>
+
+        <div class="ui-g-12">
+          <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+            <ui:param name="width" value="6" />
+            <ui:param name="selectOneRadio"
+              value="#{container.assignmentTypeSelectOneController.selectOneRadio}" />
+          </ui:include>
+
+          <ui:include src="/extension/component/input/inputNumber.xhtml">
+            <ui:param name="width" value="6" />
+            <ui:param name="inputNumber"
+              value="#{container.subsidyInputNumberController.inputInteger}" />
+          </ui:include>
         </div>
 
         <div class="ui-g-12">
@@ -56,8 +63,6 @@
             </ui:include>
           </div>
         </div>
-
-
       </ui:define>
     </ui:decorate>
   </h:form>
