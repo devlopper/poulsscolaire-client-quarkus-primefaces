@@ -411,6 +411,15 @@
       <redirect />
     </navigation-case>
     
+    <!-- FundingExecution -->
+    
+    <navigation-case>
+      <description>page liste des exécutions des financements</description>
+      <from-outcome>fundingExecutionListPage</from-outcome>
+      <to-view-id>/private/fundingexecution/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- School Configuration -->
     
     <navigation-case>
