@@ -113,7 +113,8 @@ public class FundingController extends AbstractController {
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         FundingDto.JSON_ACCOUNTING_ACCOUNT_AS_STRING, FundingDto.JSON_SOURCE_AS_STRING,
         FundingDto.JSON_MONTH_AS_STRING, FundingDto.JSON_AMOUNT, FundingDto.JSON_AMOUNT_AS_STRING,
-        FundingDto.JSON_AMOUNT_INPUTABLE, FundingDto.JSON_JUSTIFICATION);
+        FundingDto.JSON_AMOUNT_INPUTABLE, FundingDto.JSON_JUSTIFICATION,
+        FundingDto.JSON_COMMITMENT_AMOUNT_AS_STRING);
     projection.addNamesIfStringBlank(filterController.getFilter().getBudgetIdentifier(),
         FundingDto.JSON_BUDGET_AS_STRING);
     projection.addNamesIfStringBlank(filterController.getFilter().getDepartmentIdentifier(),

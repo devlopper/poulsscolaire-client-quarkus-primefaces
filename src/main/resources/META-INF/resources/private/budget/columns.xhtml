@@ -5,7 +5,7 @@
   <p:importConstants type="org.cyk.system.poulsscolaire.server.api.accounting.BudgetDto"
     var="BudgetDto" />
 
-  <p:column headerText="Code" width="100"
+  <p:column headerText="Code" width="100" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_CODE)}">
     <h:outputText value="#{record.code}" />
   </p:column>
@@ -20,12 +20,12 @@
     <h:outputText value="#{record.schoolAsString}" />
   </p:column>
 
-  <p:column headerText="Plan comptable"
+  <p:column headerText="Plan comptable" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_ACCOUNTING_PLAN_AS_STRING)}">
     <h:outputText value="#{record.accountingPlanAsString}" />
   </p:column>
 
-  <p:column headerText="Année" width="45"
+  <p:column headerText="Année" width="45" visible="false"
     rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_YEAR)}">
     <h:outputText value="#{record.year}" />
   </p:column>
@@ -38,5 +38,10 @@
   <p:column headerText="Statut" width="60"
     rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_STATUS_AS_STRING)}">
     <h:outputText value="#{record.statusAsString}" />
+  </p:column>
+  
+  <p:column headerText="Engagé" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_COMMITMENT_AMOUNT_AS_STRING)}">
+    <h:outputText value="#{record.commitmentAmountAsString}" />
   </p:column>
 </ui:composition>

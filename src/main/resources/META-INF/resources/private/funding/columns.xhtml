@@ -39,4 +39,9 @@
     rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_JUSTIFICATION)}">
     <h:outputText value="#{record.justification}" />
   </p:column>
+  
+  <p:column headerText="Engagé" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_COMMITMENT_AMOUNT_AS_STRING)}">
+    <h:outputText value="#{record.commitmentAmountAsString}" />
+  </p:column>
 </ui:composition>
