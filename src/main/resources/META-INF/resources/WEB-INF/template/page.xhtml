@@ -299,11 +299,11 @@
                 styleClass="has-arrow ai-icon">
                 <h:outputText value="Financement" styleClass="nav-link nav-text" />
               </p:link></li>
-              
+
             <li class="nav-item"><p:link outcome="fundingExecutionListPage"
                 styleClass="has-arrow ai-icon">
                 <h:outputText value="Exécution financement" styleClass="nav-link nav-text" />
-              </p:link></li>  
+              </p:link></li>
 
             <li class="nav-item"><p:link outcome="fundingSourceListPage"
                 styleClass="has-arrow ai-icon">
@@ -313,7 +313,7 @@
           </ul>
         </div></li>
     </ui:fragment>
-    
+
     <ui:fragment rendered="#{stockModuleVisible}">
       <li class="nav-item"><a class="nav-link menu-link" href="#Stock"
         data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
@@ -321,8 +321,7 @@
       </a>
         <div class="collapse menu-dropdown" id="Stock">
           <ul class="nav nav-sm flex-column">
-            <li class="nav-item"><p:link outcome="stockListPage"
-                styleClass="has-arrow ai-icon">
+            <li class="nav-item"><p:link outcome="stockListPage" styleClass="has-arrow ai-icon">
                 <h:outputText value="Stock" styleClass="nav-link nav-text" />
               </p:link></li>
 
@@ -333,6 +332,19 @@
           </ul>
         </div></li>
     </ui:fragment>
+  </ui:define>
+
+  <ui:define name="topbar-application-banner">
+    <div class="banner" style="text-align: center; padding: 5px;">
+      <div class="school-name"
+        style="background: linear-gradient(to right, #f0f8ff, #98fb98, #add8e6, #98fb98, #f0f8ff); color: black; padding: 3px; font-size: 28px; font-weight: bold; text-transform: uppercase; border-radius: 3px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);">
+        <h:outputText value="#{sessionScope.school.name}"
+          rendered="#{not empty sessionScope.school.name}" />
+        <h:outputText value="Nom de l'École de l'utilisateur connecté"
+          rendered="#{empty sessionScope.school.name}" />
+      </div>
+    </div>
+
   </ui:define>
 
 </ui:composition>
