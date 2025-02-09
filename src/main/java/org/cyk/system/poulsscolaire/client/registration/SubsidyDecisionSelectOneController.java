@@ -23,6 +23,6 @@ public class SubsidyDecisionSelectOneController extends AbstractSelectOneIdentif
   SubsidyDecisionClient client;
 
   protected SubsidyDecisionSelectOneController() {
-    super(SubsidyDecisionDto.class);
+    super(SubsidyDecisionDto.class, SelectItemLabelStrategy.AS_STRING);
   }
 }
