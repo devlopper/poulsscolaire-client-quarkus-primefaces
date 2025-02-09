@@ -289,6 +289,15 @@
       <redirect />
     </navigation-case>
     
+    <!-- Subsidy Decision -->
+    
+    <navigation-case>
+      <description>page liste des décisions de subvention</description>
+      <from-outcome>subsidyDecisionListPage</from-outcome>
+      <to-view-id>/private/subsidydecision/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Cash Register -->
     
     <navigation-case>
