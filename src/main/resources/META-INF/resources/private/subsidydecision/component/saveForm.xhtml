@@ -1,26 +1,26 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
   <h:form>
-    <div class="ui-g">
-      <div class="ui-g-3">
-        <p:outputLabel value="Code" for="code" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="code" value="#{controller.entity.code}" />
-      </div>
-      <div class="ui-g-3">
-        <p:outputLabel value="Libellé" for="name" />
-      </div>
-      <div class="ui-g-9">
-        <p:inputText id="name" value="#{controller.entity.name}" />
-      </div>
-      <div class="ui-g-12">
-        <p:commandButton value="Enregistrer" action="#{controller.execute}" />
-      </div>
-    </div>
+    <ui:decorate template="/extension/crud/form/save/default.xhtml">
+      <ui:param name="saveCommandUpdate" value="" />
+
+      <ui:define name="form-save-inputs">
+
+        <ui:include src="/extension/component/input/inputText.xhtml">
+          <ui:param name="inputText" value="#{container.codeInputTextController.inputText}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{container.schoolingSelectOneController.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/inputNumber.xhtml">
+          <ui:param name="inputNumber" value="#{container.amountInputNumberController.inputInteger}" />
+        </ui:include>
+      </ui:define>
+    </ui:decorate>
   </h:form>
 </ui:composition>
