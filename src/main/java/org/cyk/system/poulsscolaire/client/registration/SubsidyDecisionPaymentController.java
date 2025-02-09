@@ -36,6 +36,10 @@ public class SubsidyDecisionPaymentController extends AbstractController {
 
   @Inject
   @Getter
+  SubsidyDecisionPaymentFilterController filterController;
+  
+  @Inject
+  @Getter
   SubsidyDecisionSelectOneController subsidyDecisionSelectOneController;
 
   @Inject
@@ -55,12 +59,14 @@ public class SubsidyDecisionPaymentController extends AbstractController {
     listController.setEntityClass(SubsidyDecisionPaymentDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(SubsidyDecisionPaymentService.PATH);
-
+    listController.setFilterController(filterController);
+    
     ProjectionDto projection = new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         SubsidyDecisionPaymentDto.JSON_SUBSIDY_DECISION_AS_STRING,
         SubsidyDecisionPaymentDto.JSON_AMOUNT_AS_STRING);
     listController.getReadController().setProjection(projection);
-
+    listController.getDataTable().getFilterButton().setRendered(true);
+    
     listController.initialize();
 
     listController.getCreateController().setFunction(entity -> {
