@@ -67,7 +67,9 @@ public class SubsidyDecisionController extends AbstractController {
         AbstractIdentifiableCodableDto.JSON_CODE, SubsidyDecisionDto.JSON_SCHOOLING_AS_STRING,
         SubsidyDecisionDto.JSON_AMOUNT_AS_STRING);
     listController.getReadController().setProjection(projection);
-
+    listController.getGotoReadPageButton().setRendered(true);
+    listController.getGotoReadPageButton().setOutcome(SubsidyDecisionReadPaymentsPage.OUTCOME);
+    
     listController.initialize();
 
     listController.getCreateController().setFunction(entity -> {

@@ -297,6 +297,20 @@
       <to-view-id>/private/subsidydecision/administrator/list/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+        
+    <navigation-case>
+      <description>page lecture des inscriptions de décision de subvention</description>
+      <from-outcome>subsidyDecisionReadRegistrationsPage</from-outcome>
+      <to-view-id>/private/subsidydecision/administrator/read/registrations.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page lecture des paiements de décision de subvention</description>
+      <from-outcome>subsidyDecisionReadPaymentsPage</from-outcome>
+      <to-view-id>/private/subsidydecision/administrator/read/payments.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
     
     <!-- Subsidy Decision Payment -->
     
