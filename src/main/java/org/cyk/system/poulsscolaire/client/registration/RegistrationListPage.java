@@ -5,6 +5,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
+import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 
 /**
  * Cette classe représente la page de liste de {@link RegistrationDto}.
@@ -23,7 +24,8 @@ public class RegistrationListPage extends AbstractPage {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    contentTitle = "Liste des inscriptions";
+    contentTitle = "Liste " + RegistrationDto.PLURAL_NAME;
+    controller.initialize();
   }
   
   public static final String OUTCOME = "registrationListPage";

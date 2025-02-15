@@ -30,6 +30,10 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
   @Getter
   BranchInstanceSelectOneController branchInstanceSelectOneController;
 
+  @Inject
+  @Getter
+  SubsidyDecisionSelectOneController subsidyDecisionSelectOneController;
+
   public RegistrationFilterController() {
     super(RegistrationFilter.class);
   }
@@ -43,11 +47,16 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
     filter.setStudentIdentifier(getRequestParameter(RegistrationFilter.JSON_STUDENT_IDENTIFIER));
     filter.setBranchInstanceIdentifier(
         getRequestParameter(RegistrationFilter.JSON_BRANCH_INSTANCE_IDENTIFIER));
+    filter.setSubsidyDecisionIdentifier(
+        getRequestParameter(RegistrationFilter.JSON_SUBSIDY_DECISION_IDENTIFIER));
 
     studentSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setStudentIdentifier(identifier));
-    
+
     branchInstanceSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setBranchInstanceIdentifier(identifier));
+
+    subsidyDecisionSelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> filter.setSubsidyDecisionIdentifier(identifier));
   }
 }

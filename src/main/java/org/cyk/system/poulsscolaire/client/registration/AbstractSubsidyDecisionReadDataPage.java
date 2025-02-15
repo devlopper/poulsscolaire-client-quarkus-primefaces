@@ -2,6 +2,7 @@ package org.cyk.system.poulsscolaire.client.registration;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractPage;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.inject.Inject;
 import lombok.Getter;
@@ -26,8 +27,9 @@ public abstract class AbstractSubsidyDecisionReadDataPage extends AbstractPage {
   protected void postConstruct() {
     super.postConstruct();
     ProjectionDto projection = new ProjectionDto();
-    projection.addNames(AbstractIdentifiableCodableDto.JSON_CODE,
-        SubsidyDecisionDto.JSON_SCHOOLING_AS_STRING, SubsidyDecisionDto.JSON_AMOUNT_AS_STRING);
+    projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+        AbstractIdentifiableCodableDto.JSON_CODE, SubsidyDecisionDto.JSON_SCHOOLING_AS_STRING,
+        SubsidyDecisionDto.JSON_AMOUNT_AS_STRING);
     String identifier = getRequestParameterIdentifier();
     subsidyDecision =
         subsidyDecisionClient.getByIdentifier(identifier, projection, userIdentifier, null);

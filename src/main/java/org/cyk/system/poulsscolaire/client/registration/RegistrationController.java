@@ -88,8 +88,13 @@ public class RegistrationController extends AbstractController {
   @Override
   protected void postConstruct() {
     super.postConstruct();
-    name = "Inscription";
-
+    name = RegistrationDto.NAME;
+  }
+  
+  /**
+   * Cette méthode permet d'initialiser.
+   */
+  public void initialize() {
     listController.setEntityClass(RegistrationDto.class);
     listController.setClient(client);
     listController.setNotificationChannel(RegistrationService.PATH);

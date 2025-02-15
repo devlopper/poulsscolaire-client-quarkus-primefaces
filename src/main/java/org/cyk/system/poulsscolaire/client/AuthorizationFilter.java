@@ -65,6 +65,7 @@ public class AuthorizationFilter implements Filter {
     
     allowStudent(founderRoleCode, managerRoleCode, accountantRoleCode);
     allowRegistration(founderRoleCode, managerRoleCode, accountantRoleCode);
+    allowSubsidyDecision(founderRoleCode, managerRoleCode, accountantRoleCode);
     allowAdjustedFee(founderRoleCode, managerRoleCode, accountantRoleCode);
     
     allowPayment(founderRoleCode, managerRoleCode, accountantRoleCode);
@@ -137,6 +138,12 @@ public class AuthorizationFilter implements Filter {
     allow("/private/registration/accountant/read/index.xhtml", rolesCodes);
   }
 
+  void allowSubsidyDecision(String... rolesCodes) {
+    allow("/private/subsidydecision/administrator/list.xhtml", rolesCodes);
+    allow("/private/subsidydecision/administrator/read/payments.xhtml", rolesCodes);
+    allow("/private/subsidydecision/administrator/read/registrations.xhtml", rolesCodes);
+  }
+  
   void allowAdjustedFee(String... rolesCodes) {
     allow("/private/adjustedfee/administrator/list/index.xhtml", rolesCodes);
     allow("/private/adjustedfee/administrator/read/index.xhtml", rolesCodes);
