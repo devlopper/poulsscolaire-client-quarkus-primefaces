@@ -56,6 +56,7 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
         getRequestParameter(RegistrationFilter.JSON_SUBSIDY_DECISION_IDENTIFIER));
     filter.setDoesNotBelongsToSubsidyDecisionIdentifier(getRequestParameter(
         RegistrationFilter.JSON_DOES_NOT_BELONGS_TO_SUBSIDY_DECISION_IDENTIFIER));
+    filter.setSubsidyRefused(getRequestParameterAsBoolean(RegistrationFilter.JSON_SUBSIDY_REFUSED));
 
     studentSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setStudentIdentifier(identifier));

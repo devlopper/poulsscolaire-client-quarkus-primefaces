@@ -6,6 +6,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.IconManager;
+import org.cyk.system.poulsscolaire.server.api.registration.RegistrationFilter;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
 
 /**
@@ -47,12 +48,12 @@ public class SubsidyDecisionTabMenuController extends AbstractController {
     menu.tabBuilder().menuItemValue("Acceptation").menuItemIcon(iconManager.getScriptParameter())
         .type(SubsidyDecisionReadSubsidiesPage.class)
         .addMenuItemParameter(requestParameterIdentifierName, subsidyDecision.getIdentifier())
-        .build();
+        .addMenuItemParameter(RegistrationFilter.JSON_SUBSIDY_REFUSED, false).build();
 
     menu.tabBuilder().menuItemValue("Refus").menuItemIcon(iconManager.getScriptParameter())
         .type(SubsidyDecisionReadSubsidiesPage.class)
         .addMenuItemParameter(requestParameterIdentifierName, subsidyDecision.getIdentifier())
-        .build();
+        .addMenuItemParameter(RegistrationFilter.JSON_SUBSIDY_REFUSED, true).build();
 
     menu.tabBuilder().menuItemValue("Inscription").menuItemIcon(iconManager.getScriptParameter())
         .type(SubsidyDecisionReadRegistrationsPage.class)
