@@ -23,7 +23,10 @@ public class SubsidyDecisionReadPaymentsPage extends AbstractSubsidyDecisionRead
   @Override
   protected void postConstruct() {
     super.postConstruct();
+    paymentController.getFilterController().getFilter()
+        .setSubsidyDecisionIdentifier(subsidyDecision.getIdentifier());
     paymentController.initialize();
+    configureDataTable(paymentController.getListController().getDataTable());
   }
 
   public static final String OUTCOME = "subsidyDecisionReadPaymentsPage";

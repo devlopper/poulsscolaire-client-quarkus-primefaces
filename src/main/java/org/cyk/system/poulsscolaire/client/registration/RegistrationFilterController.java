@@ -9,6 +9,7 @@ import org.cyk.system.poulsscolaire.client.SessionController;
 import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationFilter;
+import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
 
 /**
  * Cette classe représente le contrôleur de filtre de {@link RegistrationDto}.
@@ -34,6 +35,10 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
   @Getter
   SubsidyDecisionSelectOneController subsidyDecisionSelectOneController;
 
+  @Inject
+  @Getter
+  SubsidyDecisionSelectOneController doesNotBelongsToSubsidyDecisionSelectOneController;
+
   public RegistrationFilterController() {
     super(RegistrationFilter.class);
   }
@@ -49,6 +54,8 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
         getRequestParameter(RegistrationFilter.JSON_BRANCH_INSTANCE_IDENTIFIER));
     filter.setSubsidyDecisionIdentifier(
         getRequestParameter(RegistrationFilter.JSON_SUBSIDY_DECISION_IDENTIFIER));
+    filter.setDoesNotBelongsToSubsidyDecisionIdentifier(getRequestParameter(
+        RegistrationFilter.JSON_DOES_NOT_BELONGS_TO_SUBSIDY_DECISION_IDENTIFIER));
 
     studentSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setStudentIdentifier(identifier));
@@ -58,5 +65,10 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
 
     subsidyDecisionSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setSubsidyDecisionIdentifier(identifier));
+
+    doesNotBelongsToSubsidyDecisionSelectOneController.getSelectOneMenu().addValueConsumer(
+        identifier -> filter.setDoesNotBelongsToSubsidyDecisionIdentifier(identifier));
+    doesNotBelongsToSubsidyDecisionSelectOneController.getSelectOneMenu().outputLabel()
+        .setValue("N'appartient pas à " + SubsidyDecisionDto.NAME);
   }
 }

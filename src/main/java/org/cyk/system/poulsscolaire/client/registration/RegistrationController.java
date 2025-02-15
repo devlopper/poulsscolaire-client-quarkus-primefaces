@@ -3,12 +3,15 @@ package org.cyk.system.poulsscolaire.client.registration;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.IdentifiableActionController;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputNumberController;
+import ci.gouv.dgbf.extension.primefaces.component.input.InputTextController;
+import ci.gouv.dgbf.extension.primefaces.crud.IdentifiableProcessingController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.AssignmentTypeSelectOneController;
@@ -25,6 +28,8 @@ import org.cyk.system.poulsscolaire.server.api.registration.RegistrationRequestM
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.RegistrationCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.RegistrationUpdateRequestDto;
+import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionClient;
+import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionService.SubsidyDecisionUpdateSubsidiesRequestDto;
 
 /**
  * Cette classe représente le contrôleur de {@link RegistrationDto}.
@@ -85,12 +90,23 @@ public class RegistrationController extends AbstractController {
   @Getter
   IdentifiableActionController updateAmountsToZeroController;
 
+  @Inject
+  SubsidyDecisionClient subsidyDecisionClient;
+
+  @Inject
+  @Getter
+  IdentifiableProcessingController subsidizeProcessingController;
+
+  @Inject
+  @Getter
+  InputTextController subsidyRefusalReasonInpuTextController;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
     name = RegistrationDto.NAME;
   }
-  
+
   /**
    * Cette méthode permet d'initialiser.
    */
@@ -229,5 +245,27 @@ public class RegistrationController extends AbstractController {
       listController.getDataTable().getActionColumn().setRendered(false);
     }
 
+    subsidizeProcessingController.setListController(listController);
+    subsidizeProcessingController.prepareDialog(RegistrationDto.class, "Subventionner",
+        "pi pi-comment", entity -> {
+          SubsidyDecisionUpdateSubsidiesRequestDto request =
+              new SubsidyDecisionUpdateSubsidiesRequestDto();
+          request.setIdentifier(
+              filterController.getFilter().getDoesNotBelongsToSubsidyDecisionIdentifier());
+          SubsidyDecisionUpdateSubsidiesRequestDto.SubsidyDto subsidy =
+              new SubsidyDecisionUpdateSubsidiesRequestDto.SubsidyDto();
+          subsidy.setRegistrationIdentifier(((RegistrationDto) entity).getIdentifier());
+          subsidy.setRefused(((RegistrationDto) entity).getSubsidyRefused());
+          subsidy.setRefusalReason(((RegistrationDto) entity).getSubsidyRefusalReason());
+          request.setSubsidies(List.of(subsidy));
+          request.setAuditWho(userIdentifier);
+          return subsidyDecisionClient.updateSubsidies(request);
+        }, "subsidizeForm", client);
+    subsidizeProcessingController.initialize();
+
+    subsidyRefusalReasonInpuTextController.setOutputLableValue("Raison");
+    subsidyRefusalReasonInpuTextController.getInputTextarea()
+        .addValueConsumer(subsidyRefusalReason -> ((RegistrationDto) subsidizeProcessingController
+            .getController().getEntity()).setSubsidyRefusalReason(subsidyRefusalReason));
   }
 }

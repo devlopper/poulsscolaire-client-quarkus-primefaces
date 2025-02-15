@@ -1,10 +1,10 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template/page.xhtml">
+  xmlns:p="http://primefaces.org/ui" template="template.xhtml">
 
   <ui:param name="page" value="#{subsidyDecisionReadPaymentsPage}" />
 
-  <ui:define name="content-body">
+  <ui:define name="content-body-tab">
     <ui:include src="../../../subsidydecisionpayment/component/listForm.xhtml">
       <ui:param name="controller" value="#{page.paymentController.listController}" />
       <ui:param name="container" value="#{page.paymentController}" />

@@ -5,7 +5,7 @@ import jakarta.inject.Named;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
 
 /**
- * Cette classe représente la page de lecture des inscriptions à subventionner de
+ * Cette classe représente la page de lecture des subventions de
  * {@link SubsidyDecisionDto}.
  *
  * @author Christian
@@ -13,15 +13,15 @@ import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
  */
 @Named
 @ViewScoped
-public class SubsidyDecisionReadRegistrationsPage
+public class SubsidyDecisionReadSubsidiesPage
     extends AbstractSubsidyDecisionReadRegistrationsPage {
 
   @Override
   void initializeRegistrationController() {
     registrationController.getFilterController().getFilter()
-        .setDoesNotBelongsToSubsidyDecisionIdentifier(subsidyDecision.getIdentifier());
+        .setSubsidyDecisionIdentifier(subsidyDecision.getIdentifier());
     super.initializeRegistrationController();
   }
 
-  public static final String OUTCOME = "subsidyDecisionReadRegistrationsPage";
+  public static final String OUTCOME = "subsidyDecisionReadSubsidiesPage";
 }

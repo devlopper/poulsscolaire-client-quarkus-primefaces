@@ -24,6 +24,20 @@
           icon="pi pi-exclamation-triangle" />
       </p:commandButton>
 
+      <ui:include src="/extension/crud/button/identifiable/processing.xhtml">
+        <ui:param name="controller" value="#{container.subsidizeProcessingController}" />
+      </ui:include>
+
+    </ui:define>
+  </ui:decorate>
+
+  <ui:decorate template="/extension/dialog.xhtml">
+    <ui:param name="dialogController" value="#{container.subsidizeProcessingController.dialog}" />
+    <ui:define name="dialog-content">
+      <ui:include src="#{container.subsidizeProcessingController.dialog.contentFilePath}">
+        <ui:param name="controller" value="#{container.subsidizeProcessingController.controller}" />
+        <ui:param name="container" value="#{container}" />
+      </ui:include>
     </ui:define>
   </ui:decorate>
 </ui:composition>

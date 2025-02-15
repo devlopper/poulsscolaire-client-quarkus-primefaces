@@ -299,7 +299,14 @@
     </navigation-case>
         
     <navigation-case>
-      <description>page lecture des inscriptions de décision de subvention</description>
+      <description>page lecture des subventions de décision de subvention</description>
+      <from-outcome>subsidyDecisionReadSubsidiesPage</from-outcome>
+      <to-view-id>/private/subsidydecision/administrator/read/subsidies.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page lecture des inscriptions à subventionner de décision de subvention</description>
       <from-outcome>subsidyDecisionReadRegistrationsPage</from-outcome>
       <to-view-id>/private/subsidydecision/administrator/read/registrations.xhtml</to-view-id>
       <redirect />
