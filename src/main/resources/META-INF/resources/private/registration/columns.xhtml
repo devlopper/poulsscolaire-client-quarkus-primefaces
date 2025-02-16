@@ -2,55 +2,76 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <p:column headerText="Code" width="200" visible="false">
+  <p:importConstants type="org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto"
+    var="RegistrationDto" />
+
+  <p:column headerText="Code" width="200" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_CODE)}">
     <h:outputText value="#{record.code}" />
   </p:column>
 
-  <p:column headerText="Eleve">
+  <p:column headerText="Eleve"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_STUDENT_AS_STRING)}">
     <h:outputText value="#{record.studentAsString}" />
   </p:column>
 
-  <p:column headerText="Scolarité" visible="false">
+  <p:column headerText="Scolarité" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_SCHOOLING_AS_STRING)}">
     <h:outputText value="#{record.schoolingAsString}" />
   </p:column>
-  
-  <p:column headerText="Classe" width="150">
+
+  <p:column headerText="Classe" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_BRANCH_INSTANCE_AS_STRING)}">
     <h:outputText value="#{record.branchInstanceAsString}" />
   </p:column>
 
-  <p:column headerText="Type d'affectation" visible="false">
+  <p:column headerText="Type d'affectation" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING)}">
     <h:outputText value="#{record.assignmentTypeAsString}" />
   </p:column>
 
-  <p:column headerText="Ancienneté" visible="false">
+  <p:column headerText="Ancienneté" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_SENIORITY_AS_STRING)}">
     <h:outputText value="#{record.seniorityAsString}" />
   </p:column>
 
-  <p:column headerText="Montant à payer" width="150">
+  <p:column headerText="Montant à payer" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.totalAmountAsString}" />
   </p:column>
-  
-  <p:column headerText="Montant payé" width="150">
+
+  <p:column headerText="Montant payé" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_PAID_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.paidAmountAsString}" />
   </p:column>
-  
-  <p:column headerText="Montant reste à payer" width="150">
+
+  <p:column headerText="Montant reste à payer" width="150"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.payableAmountAsString}" />
   </p:column>
 
-  <p:column headerText="Payable à l'inscription" width="150" visible="false">
+  <p:column headerText="Payable à l'inscription" width="150" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.totalRegistrationAmountAsString}" />
   </p:column>
-  
-  <p:column headerText="Payé à l'inscription" width="150" visible="false">
+
+  <p:column headerText="Payé à l'inscription" width="150" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.paidRegistrationAmountAsString}" />
   </p:column>
-  
-  <p:column headerText="Reste à payer à l'inscription" width="150" visible="false">
+
+  <p:column headerText="Reste à payer à l'inscription" width="150" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.payableRegistrationAmountAsString}" />
   </p:column>
-  
-  <p:column headerText="Montant pré-inscription" visible="false">
+
+  <p:column headerText="Montant pré-inscription" visible="false"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_PRE_REGISTRATION_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.preRegistrationAmountAsString}" />
+  </p:column>
+
+  <p:column headerText="Motif"
+    rendered="#{listController.isReadControllerHasProjectionName(RegistrationDto.JSON_SUBSIDY_REFUSAL_REASON)}">
+    <h:outputText value="#{record.subsidyRefusalReason}" />
   </p:column>
 </ui:composition>

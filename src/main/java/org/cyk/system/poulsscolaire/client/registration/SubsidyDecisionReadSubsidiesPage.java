@@ -2,19 +2,27 @@ package org.cyk.system.poulsscolaire.client.registration;
 
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
 
 /**
- * Cette classe représente la page de lecture des subventions de
- * {@link SubsidyDecisionDto}.
+ * Cette classe représente la page de lecture des subventions de {@link SubsidyDecisionDto}.
  *
  * @author Christian
  *
  */
 @Named
 @ViewScoped
-public class SubsidyDecisionReadSubsidiesPage
-    extends AbstractSubsidyDecisionReadRegistrationsPage {
+public class SubsidyDecisionReadSubsidiesPage extends AbstractSubsidyDecisionReadRegistrationsPage {
+
+  @Override
+  void initializeRegistrationControllerProjection() {
+    super.initializeRegistrationControllerProjection();
+    if (Boolean.TRUE
+        .equals(registrationController.getFilterController().getFilter().getSubsidyRefused())) {
+      registrationController.projection.addNames(RegistrationDto.JSON_SUBSIDY_REFUSAL_REASON);
+    }
+  }
 
   @Override
   void initializeRegistrationController() {

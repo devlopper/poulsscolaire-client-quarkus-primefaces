@@ -1,9 +1,11 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.IdentifiableActionController;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputNumberController;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputTextController;
+import ci.gouv.dgbf.extension.primefaces.component.input.SelectBooleanController;
 import ci.gouv.dgbf.extension.primefaces.crud.IdentifiableProcessingController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
@@ -30,6 +32,7 @@ import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.RegistrationUpdateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionClient;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionService.SubsidyDecisionUpdateSubsidiesRequestDto;
+import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionService.SubsidyDecisionUpdateSubsidiesToNullRequestDto;
 
 /**
  * Cette classe représente le contrôleur de {@link RegistrationDto}.
@@ -46,6 +49,9 @@ public class RegistrationController extends AbstractController {
   @Inject
   @Getter
   ListController listController;
+
+  @Getter
+  ProjectionDto projection;
 
   @Inject
   @Getter
@@ -90,6 +96,8 @@ public class RegistrationController extends AbstractController {
   @Getter
   IdentifiableActionController updateAmountsToZeroController;
 
+  /* Subsidy */
+
   @Inject
   SubsidyDecisionClient subsidyDecisionClient;
 
@@ -99,12 +107,29 @@ public class RegistrationController extends AbstractController {
 
   @Inject
   @Getter
+  SelectBooleanController subsidyRefusedSelectBooleanController;
+
+  @Inject
+  @Getter
   InputTextController subsidyRefusalReasonInpuTextController;
+
+  @Inject
+  @Getter
+  IdentifiableProcessingController removeSubsidyProcessingController;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
     name = RegistrationDto.NAME;
+    projection = new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+        AbstractIdentifiableCodableDto.JSON_CODE, RegistrationDto.JSON_STUDENT_AS_STRING,
+        RegistrationDto.JSON_SCHOOLING_AS_STRING, RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING,
+        RegistrationDto.JSON_SENIORITY_AS_STRING, RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_PAID_AMOUNT_AS_STRING, RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING,
+        RegistrationDto.JSON_BRANCH_INSTANCE_AS_STRING);
   }
 
   /**
@@ -116,16 +141,6 @@ public class RegistrationController extends AbstractController {
     listController.setNotificationChannel(RegistrationService.PATH);
     listController.setFilterController(filterController);
 
-    ProjectionDto projection = new ProjectionDto();
-    projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        AbstractIdentifiableCodableDto.JSON_CODE, RegistrationDto.JSON_STUDENT_AS_STRING,
-        RegistrationDto.JSON_SCHOOLING_AS_STRING, RegistrationDto.JSON_ASSIGNMENT_TYPE_AS_STRING,
-        RegistrationDto.JSON_SENIORITY_AS_STRING, RegistrationDto.JSON_TOTAL_AMOUNT_AS_STRING,
-        RegistrationDto.JSON_PAID_AMOUNT_AS_STRING, RegistrationDto.JSON_PAYABLE_AMOUNT_AS_STRING,
-        RegistrationDto.JSON_TOTAL_REGISTRATION_AMOUNT_AS_STRING,
-        RegistrationDto.JSON_PAID_REGISTRATION_AMOUNT_AS_STRING,
-        RegistrationDto.JSON_PAYABLE_REGISTRATION_AMOUNT_AS_STRING,
-        RegistrationDto.JSON_BRANCH_INSTANCE_AS_STRING);
     listController.getReadController().setProjection(projection);
     listController.getDataTable().getFilterButton().setRendered(true);
 
@@ -245,27 +260,54 @@ public class RegistrationController extends AbstractController {
       listController.getDataTable().getActionColumn().setRendered(false);
     }
 
-    subsidizeProcessingController.setListController(listController);
-    subsidizeProcessingController.prepareDialog(RegistrationDto.class, "Subventionner",
-        "pi pi-comment", entity -> {
-          SubsidyDecisionUpdateSubsidiesRequestDto request =
-              new SubsidyDecisionUpdateSubsidiesRequestDto();
-          request.setIdentifier(
-              filterController.getFilter().getDoesNotBelongsToSubsidyDecisionIdentifier());
-          SubsidyDecisionUpdateSubsidiesRequestDto.SubsidyDto subsidy =
-              new SubsidyDecisionUpdateSubsidiesRequestDto.SubsidyDto();
-          subsidy.setRegistrationIdentifier(((RegistrationDto) entity).getIdentifier());
-          subsidy.setRefused(((RegistrationDto) entity).getSubsidyRefused());
-          subsidy.setRefusalReason(((RegistrationDto) entity).getSubsidyRefusalReason());
-          request.setSubsidies(List.of(subsidy));
-          request.setAuditWho(userIdentifier);
-          return subsidyDecisionClient.updateSubsidies(request);
-        }, "subsidizeForm", client);
-    subsidizeProcessingController.initialize();
+    /* Subsidy */
 
-    subsidyRefusalReasonInpuTextController.setOutputLableValue("Raison");
-    subsidyRefusalReasonInpuTextController.getInputTextarea()
-        .addValueConsumer(subsidyRefusalReason -> ((RegistrationDto) subsidizeProcessingController
-            .getController().getEntity()).setSubsidyRefusalReason(subsidyRefusalReason));
+    if (!Core.isStringBlank(
+        filterController.getFilter().getDoesNotBelongsToSubsidyDecisionIdentifier())) {
+      subsidizeProcessingController.getController().setName("Subvention");
+      subsidizeProcessingController.setListController(listController);
+      subsidizeProcessingController.prepareDialog(RegistrationDto.class, "Subventionner",
+          "pi pi-plus", entity -> {
+            SubsidyDecisionUpdateSubsidiesRequestDto request =
+                new SubsidyDecisionUpdateSubsidiesRequestDto();
+            request.setIdentifier(
+                filterController.getFilter().getDoesNotBelongsToSubsidyDecisionIdentifier());
+            SubsidyDecisionUpdateSubsidiesRequestDto.SubsidyDto subsidy =
+                new SubsidyDecisionUpdateSubsidiesRequestDto.SubsidyDto();
+            subsidy.setRegistrationIdentifier(((RegistrationDto) entity).getIdentifier());
+            subsidy.setRefused(((RegistrationDto) entity).getSubsidyRefused());
+            subsidy.setRefusalReason(((RegistrationDto) entity).getSubsidyRefusalReason());
+            request.setSubsidies(List.of(subsidy));
+            request.setAuditWho(userIdentifier);
+            return subsidyDecisionClient.updateSubsidies(request);
+          }, "subsidizeForm", client);
+      subsidizeProcessingController.initialize();
+
+      subsidyRefusedSelectBooleanController.setOutputLableValue("Refusé ?");
+      subsidyRefusedSelectBooleanController.getSelectOneRadioBoolean().addTrueOrFalseChoices();
+      subsidyRefusedSelectBooleanController.getSelectOneRadioBoolean()
+          .addValueConsumer(subsidyRefused -> ((RegistrationDto) subsidizeProcessingController
+              .getController().getEntity()).setSubsidyRefused(subsidyRefused));
+
+      subsidyRefusalReasonInpuTextController.setOutputLableValue("Raison");
+      subsidyRefusalReasonInpuTextController.getInputTextarea()
+          .addValueConsumer(subsidyRefusalReason -> ((RegistrationDto) subsidizeProcessingController
+              .getController().getEntity()).setSubsidyRefusalReason(subsidyRefusalReason));
+    }
+
+    if (!Core.isStringBlank(filterController.getFilter().getSubsidyDecisionIdentifier())) {
+      removeSubsidyProcessingController.getController().setName("Subvention");
+      removeSubsidyProcessingController.setListController(listController);
+      removeSubsidyProcessingController.prepareConfirmation(RegistrationDto.class, "Retirer",
+          "pi pi-minus", identifier -> {
+            SubsidyDecisionUpdateSubsidiesToNullRequestDto request =
+                new SubsidyDecisionUpdateSubsidiesToNullRequestDto();
+            request.setIdentifier(filterController.getFilter().getSubsidyDecisionIdentifier());
+            request.setRegistrationsIdentifiers(List.of((String) identifier));
+            request.setAuditWho(userIdentifier);
+            return subsidyDecisionClient.updateSubsidiesToNull(request);
+          });
+      removeSubsidyProcessingController.initialize();
+    }
   }
 }

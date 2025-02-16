@@ -5,6 +5,11 @@
   <h:form>
     <ui:decorate template="/extension/crud/form/save/default.xhtml">
       <ui:define name="form-save-inputs">
+        <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+          <ui:param name="selectOneRadio"
+            value="#{container.subsidyRefusedSelectBooleanController.selectOneRadioBoolean}" />
+        </ui:include>
+
         <ui:include src="/extension/component/input/inputTextarea.xhtml">
           <ui:param name="inputTextarea"
             value="#{container.subsidyRefusalReasonInpuTextController.inputTextarea}" />

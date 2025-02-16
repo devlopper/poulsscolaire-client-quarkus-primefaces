@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
+import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
@@ -25,9 +26,22 @@ public abstract class AbstractSubsidyDecisionReadRegistrationsPage
     initializeRegistrationController();
   }
 
+  void initializeRegistrationControllerProjection() {
+    registrationController.projection.getNames().clear();
+    registrationController.projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+        RegistrationDto.JSON_STUDENT_AS_STRING,
+        RegistrationDto.JSON_BRANCH_INSTANCE_AS_STRING);
+  }
+  
   void initializeRegistrationController() {
+    initializeRegistrationControllerProjection();
     registrationController.initialize();
     registrationController.getListController().getShowCreateDialogButton().setRendered(false);
+    registrationController.getListController().getShowUpdateDialogButton().setRendered(false);
+    registrationController.getListController().getDeleteButton().setRendered(false);
+    registrationController.getListController().getGotoReadPageButton().setRendered(false);
     configureDataTable(registrationController.getListController().getDataTable());
+    registrationController.getListController().getDataTable().getActionColumn()
+        .computeWithForButtonsWithIconOnly(1);
   }
 }
