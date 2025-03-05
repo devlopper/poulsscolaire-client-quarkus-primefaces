@@ -2,11 +2,17 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <p:column headerText="Décision de subvention">
+  <p:importConstants
+    type="org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionPaymentDto"
+    var="SubsidyDecisionPaymentDto" />
+
+  <p:column headerText="Décision de subvention"
+    rendered="#{listController.isReadControllerHasProjectionName(SubsidyDecisionPaymentDto.JSON_SUBSIDY_DECISION_AS_STRING)}">
     <h:outputText value="#{record.subsidyDecisionAsString}" />
   </p:column>
-  
-  <p:column headerText="Montant" width="150">
+
+  <p:column headerText="Montant"
+    rendered="#{listController.isReadControllerHasProjectionName(SubsidyDecisionPaymentDto.JSON_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.amountAsString}" />
   </p:column>
 </ui:composition>

@@ -1,5 +1,6 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
+import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputNumberController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
@@ -37,7 +38,7 @@ public class SubsidyDecisionPaymentController extends AbstractController {
   @Inject
   @Getter
   SubsidyDecisionPaymentFilterController filterController;
-  
+
   @Inject
   @Getter
   SubsidyDecisionSelectOneController subsidyDecisionSelectOneController;
@@ -60,14 +61,21 @@ public class SubsidyDecisionPaymentController extends AbstractController {
     listController.setClient(client);
     listController.setNotificationChannel(SubsidyDecisionPaymentService.PATH);
     listController.setFilterController(filterController);
-    
-    ProjectionDto projection = new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        SubsidyDecisionPaymentDto.JSON_SUBSIDY_DECISION_AS_STRING,
+
+    ProjectionDto projection = new ProjectionDto();
+    projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         SubsidyDecisionPaymentDto.JSON_AMOUNT_AS_STRING);
+    projection.addNamesIfStringBlank(filterController.getFilter().getSubsidyDecisionIdentifier(),
+        SubsidyDecisionPaymentDto.JSON_SUBSIDY_DECISION_AS_STRING);
     listController.getReadController().setProjection(projection);
     listController.getDataTable().getFilterButton().setRendered(true);
-    
+
     listController.initialize();
+
+    listController.getCreateController().addEntityConsumer(entity -> {
+      ((SubsidyDecisionPaymentDto) entity).setSubsidyDecisionIdentifier(
+          filterController.getFilter().getSubsidyDecisionIdentifier());
+    });
 
     listController.getCreateController().setFunction(entity -> {
       SubsidyDecisionPaymentCreateRequestDto request =
@@ -95,6 +103,8 @@ public class SubsidyDecisionPaymentController extends AbstractController {
       return client.update(request);
     });
 
+    subsidyDecisionSelectOneController.setRenderable(
+        Core.isStringBlank(filterController.getFilter().getSubsidyDecisionIdentifier()));
     subsidyDecisionSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SubsidyDecisionPaymentDto.class)
