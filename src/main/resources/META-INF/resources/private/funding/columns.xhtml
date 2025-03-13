@@ -44,4 +44,9 @@
     rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_COMMITMENT_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.commitmentAmountAsString}" />
   </p:column>
+  
+  <p:column headerText="Statut" width="60"
+    rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_STATUS_AS_STRING)}">
+    <h:outputText value="#{record.statusAsString}" />
+  </p:column>
 </ui:composition>

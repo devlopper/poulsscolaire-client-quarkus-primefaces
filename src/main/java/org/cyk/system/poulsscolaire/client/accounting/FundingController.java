@@ -85,6 +85,12 @@ public class FundingController extends AbstractController {
   @Setter
   Column amountColumn;
 
+  /*  */
+
+  @Inject
+  @Getter
+  FundingActionsController actionsController;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -93,7 +99,7 @@ public class FundingController extends AbstractController {
 
   Column amountColumn() {
     if (amountColumn == null) {
-      amountColumn = new Column();
+      amountColumn = new Column().initializeAsAmount();
       amountColumn.setHeaderText("Montant");
       amountColumn.setWidth("150px");
     }
@@ -114,7 +120,7 @@ public class FundingController extends AbstractController {
         FundingDto.JSON_ACCOUNTING_ACCOUNT_AS_STRING, FundingDto.JSON_SOURCE_AS_STRING,
         FundingDto.JSON_MONTH_AS_STRING, FundingDto.JSON_AMOUNT, FundingDto.JSON_AMOUNT_AS_STRING,
         FundingDto.JSON_AMOUNT_INPUTABLE, FundingDto.JSON_JUSTIFICATION,
-        FundingDto.JSON_COMMITMENT_AMOUNT_AS_STRING);
+        FundingDto.JSON_STATUS_AS_STRING, FundingDto.JSON_COMMITMENT_AMOUNT_AS_STRING);
     projection.addNamesIfStringBlank(filterController.getFilter().getBudgetIdentifier(),
         FundingDto.JSON_BUDGET_AS_STRING);
     projection.addNamesIfStringBlank(filterController.getFilter().getDepartmentIdentifier(),
@@ -129,6 +135,9 @@ public class FundingController extends AbstractController {
 
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(3);
 
+    actionsController.listController = listController;
+    actionsController.initialize();
+    
     budgetSelectOneController
         .setRenderable(filterController.getFilter().getBudgetIdentifier() == null);
     accountingAccountSelectOneController.setChoicable(!budgetSelectOneController.isRenderable());

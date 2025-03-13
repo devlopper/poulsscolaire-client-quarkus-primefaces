@@ -5,5 +5,23 @@
   <ui:decorate template="/extension/crud/list/default.xhtml">
     <ui:param name="listController" value="#{controller}" />
     <ui:param name="container" value="#{container}" />
+
+    <ui:define name="datatable-columns-action-column-body-before">
+      <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
+        <ui:param name="controller" value="#{container.actionsController.transmitProcessingController}" />
+        <ui:param name="record" value="#{record}" />
+      </ui:decorate>
+      
+      <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
+        <ui:param name="controller" value="#{container.actionsController.acceptProcessingController}" />
+        <ui:param name="record" value="#{record}" />
+      </ui:decorate>
+      
+      <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
+        <ui:param name="controller" value="#{container.actionsController.approveProcessingController}" />
+        <ui:param name="record" value="#{record}" />
+      </ui:decorate>
+    </ui:define>
   </ui:decorate>
+
 </ui:composition>
