@@ -1,6 +1,8 @@
 package org.cyk.system.poulsscolaire.client.accounting;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
+import ci.gouv.dgbf.extension.primefaces.component.DataTable.RecordComponentController;
+import ci.gouv.dgbf.extension.primefaces.component.input.InputTextController;
 import ci.gouv.dgbf.extension.primefaces.crud.IdentifiableProcessingController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.request.ByIdentifierRequestDto;
@@ -8,7 +10,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import java.util.function.UnaryOperator;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.accounting.BudgetDto;
+import org.cyk.system.poulsscolaire.server.api.accounting.BudgetStatus;
 import org.cyk.system.poulsscolaire.server.api.accounting.FundingClient;
 import org.cyk.system.poulsscolaire.server.api.accounting.FundingDto;
 import org.cyk.system.poulsscolaire.server.api.accounting.FundingService.FundingReturnRequestDto;
@@ -41,6 +43,10 @@ public class FundingActionsController extends AbstractController {
   @Getter
   IdentifiableProcessingController approveProcessingController;
 
+  @Inject
+  @Getter
+  InputTextController statusReasonInputTextController;
+
   ListController listController;
 
   /**
@@ -61,11 +67,26 @@ public class FundingActionsController extends AbstractController {
     approveProcessingController.prepareConfirmation(FundingDto.class,
         FundingStatus.APPROVED.getAction(), "pi pi-thumbs-up", approveFunction());
     approveProcessingController.initialize();
-
+    
     returnProcessingController.setListController(listController);
-    returnProcessingController.prepareDialog(FundingDto.class, FundingStatus.RETURNED.getAction(),
+    returnProcessingController.prepareDialog(FundingDto.class, BudgetStatus.RETURNED.getAction(),
         "pi pi-arrow-left", returnFunction(), "returnForm", client);
+    returnProcessingController.submitButton().setValue(BudgetStatus.RETURNED.getAction());
+    returnProcessingController.submitButton()
+        .setActionFunction(i -> returnProcessingController.getController().execute());
+    returnProcessingController.setShowDialogButtonController(new RecordComponentController());
+    returnProcessingController.getShowDialogButtonController()
+        .setRenderedFunction(entity -> ((FundingDto) entity).getReturnable());
     returnProcessingController.initialize();
+    
+    statusReasonInputTextController.setOutputLableValue("Motif");
+    statusReasonInputTextController.getInputTextarea().setRequired(true);
+    statusReasonInputTextController.getInputTextarea().addValueConsumer(
+        reason -> ((FundingDto) returnProcessingController.getController().getEntity())
+            .setStatusReason(reason));
+
+    returnProcessingController.submitButton()
+        .addUpdate(statusReasonInputTextController.getInputTextarea().getMessage().getIdentifier());
   }
 
   UnaryOperator<Object> transmitFunction() {
@@ -98,8 +119,8 @@ public class FundingActionsController extends AbstractController {
   UnaryOperator<Object> returnFunction() {
     return entity -> {
       FundingReturnRequestDto request = new FundingReturnRequestDto();
-      request.setIdentifier(((BudgetDto) entity).getIdentifier());
-      request.setReason(((BudgetDto) entity).getStatusReason());
+      request.setIdentifier(((FundingDto) entity).getIdentifier());
+      request.setReason(((FundingDto) entity).getStatusReason());
       request.setAuditWho(userIdentifier);
       return client.returnBack(request);
     };

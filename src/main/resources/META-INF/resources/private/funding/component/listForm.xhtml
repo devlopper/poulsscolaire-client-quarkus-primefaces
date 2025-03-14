@@ -8,19 +8,40 @@
 
     <ui:define name="datatable-columns-action-column-body-before">
       <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
-        <ui:param name="controller" value="#{container.actionsController.transmitProcessingController}" />
+        <ui:param name="controller"
+          value="#{container.actionsController.transmitProcessingController}" />
         <ui:param name="record" value="#{record}" />
       </ui:decorate>
-      
+
       <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
-        <ui:param name="controller" value="#{container.actionsController.acceptProcessingController}" />
+        <ui:param name="controller"
+          value="#{container.actionsController.acceptProcessingController}" />
         <ui:param name="record" value="#{record}" />
       </ui:decorate>
-      
+
       <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
-        <ui:param name="controller" value="#{container.actionsController.approveProcessingController}" />
+        <ui:param name="controller"
+          value="#{container.actionsController.approveProcessingController}" />
         <ui:param name="record" value="#{record}" />
       </ui:decorate>
+
+      <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
+        <ui:param name="controller"
+          value="#{container.actionsController.returnProcessingController}" />
+        <ui:param name="record" value="#{record}" />
+      </ui:decorate>
+    </ui:define>
+  </ui:decorate>
+
+  <ui:decorate template="/extension/dialog.xhtml">
+    <ui:param name="dialogController"
+      value="#{container.actionsController.returnProcessingController.dialog}" />
+    <ui:define name="dialog-content">
+      <ui:include src="#{container.actionsController.returnProcessingController.dialog.contentFilePath}">
+        <ui:param name="container" value="#{container.actionsController}" />
+        <ui:param name="submitCommandButton"
+          value="#{container.actionsController.returnProcessingController.submitButton}" />
+      </ui:include>
     </ui:define>
   </ui:decorate>
 

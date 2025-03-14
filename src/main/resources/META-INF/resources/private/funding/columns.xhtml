@@ -48,5 +48,6 @@
   <p:column headerText="Statut" width="60"
     rendered="#{listController.isReadControllerHasProjectionName(FundingDto.JSON_STATUS_AS_STRING)}">
     <h:outputText value="#{record.statusAsString}" />
+    <p:tag severity="danger" value="#{record.statusReason}" rendered="#{not empty record.statusReason}"/>
   </p:column>
 </ui:composition>
