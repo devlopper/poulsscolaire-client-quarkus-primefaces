@@ -100,12 +100,6 @@
     color: var(--color-white) !important;
 }
 
-.crud-list-button-read {
-    background-color: var(--vz-info-bg-subtle) !important;
-    border-color: var(--vz-info-bg-subtle) !important;
-    color: var(--vz-info) !important;
-}
-
 /* UI Button Styles */
 .ui-button {
     margin-right: 0.5rem !important;
@@ -195,13 +189,13 @@ body .ui-button.ui-button-raised {
 
 /* Éditer Button */
 .btn-editer {
-    background-color: var(--vz-salmon-bg-subtle) !important;
-    border-color: var(--vz-salmon-bg-subtle) !important;
-    color: var(--vz-salmon) !important;
+    background-color: var(--vz-yellow-bg-subtle) !important;
+    border-color: var(--vz-yellow-bg-subtle) !important;
+    color: var(--vz-yellow) !important;
 }
 
 .btn-editer:hover {
-    background-color: var(--vz-salmon) !important;
-    border-color: var(--vz-salmon) !important;
+    background-color: var(--vz-yellow) !important;
+    border-color: var(--vz-yellow) !important;
     color: var(--color-white) !important;
 }

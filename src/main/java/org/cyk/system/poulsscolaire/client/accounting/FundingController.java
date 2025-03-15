@@ -95,15 +95,8 @@ public class FundingController extends AbstractController {
   protected void postConstruct() {
     super.postConstruct();
     name = FundingDto.NAME;
-  }
-
-  Column amountColumn() {
-    if (amountColumn == null) {
-      amountColumn = new Column().initializeAsAmount();
-      amountColumn.setHeaderText("Montant");
-      amountColumn.setWidth("150px");
-    }
-    return amountColumn;
+    amountColumn = new Column().initializeAsAmount();
+    amountColumn.setHeaderText("Montant");
   }
 
   /**
@@ -268,7 +261,7 @@ public class FundingController extends AbstractController {
     request.setAuditWho(userIdentifier);
     new ActionExecutor<>(this, "Mise à jour de montant", () -> {
       FundingUpdateAmountResponseDto response = client.updateAmount(request);
-      amountColumn().setFooterText(response.getTotalAmountAsString());
+      amountColumn.setFooterText(response.getTotalAmountAsString());
       return response;
     }).execute();
   }

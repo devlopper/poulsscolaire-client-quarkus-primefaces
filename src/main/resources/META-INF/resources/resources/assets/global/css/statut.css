@@ -38,3 +38,7 @@
     border: 1px solid #b2f2bb !important;
     border-radius: 10px !important;
 }
+
+.colonne-montant{
+        text-align: right !important;
+      }

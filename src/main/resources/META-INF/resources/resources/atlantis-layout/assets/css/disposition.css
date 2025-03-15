@@ -1,3 +1,4 @@
+
 .pull-left {
     float: left !important;
 }
@@ -231,6 +232,8 @@
     /* Couleur Orange */
     --color-orange: 255, 165, 0;
     --color-wihte :#fff;
+    /* Couleur violet */
+    --color-viole: 137, 59, 173;
 }
 
 
@@ -241,16 +244,21 @@
     --btn-create : #099885;
     --btn-delete :#fce8e4;
     --btn-info :#299cdb;
+    --btn-read :#8000ff;
 
-    --color-update : rgba(var(--color-orange));
+    --text-color-read : rgba(var(--color-viole));
+    --color-read-transparent :rgba(var(--color-viole), var(--opacity));
+    --bg-read-transparent :rgba(var(--color-viole), var(--opacity));
+
+    --text-color-update : rgba(var(--color-orange));
     --color-update-transparent :rgba(var(--color-orange), var(--opacity));
     --bg-update-transparent :rgba(var(--color-orange), var(--opacity));
-    
-    --color-delete : rgba(var(--color-red));
+
+    --text-color-delete : rgba(var(--color-red));
     --color-delete-transparent :rgba(var(--color-red), var(--opacity));
     --bg-delete-transparent :rgba(var(--color-red), var(--opacity));
 
-    --color-create : rgba(var(--color-Jade-sombre));
+    --text-color-create : rgba(var(--color-Jade-sombre));
     --color-create-transparent :rgba(var(--color-Jade-sombre), var(--opacity));
     --bg-create-transparent :rgba(var(--color-Jade-sombre), var(--opacity));
 }
@@ -258,27 +266,59 @@
 
 
 .crud-list-button-export{
-    background-color: var( --btn-export) !important;
+    background: var( --btn-export) !important;
     border-color: var( --btn-export) !important;
     /* color: var( --btn-export) !important; */
 }
 
 .crud-list-button-create{
-    background-color: var(--color-create) !important;
-    border-color: var(--color-create) !important;
-    /* color: var(--color-wihte) !important; */
+    background-color: var(--btn-create) !important;
+    border-color: var(--btn-create) !important;
+    color: var(--color-wihte) !important;
 }
 
 .crud-list-button-update{
-    background-color: var(--bg-update-transparent) !important;
-    border-color: var(--bg-update-transparent) !important;
-    color: var( --color-update ) !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: var(--text-color-update ) !important;
 }
 
+.crud-list-button-update:hover{
+     background-color: var(--bg-update-transparent) !important;
+    border-color: var(--bg-update-transparent) !important;
+    color: var(--text-color-update ) !important;
+}
+
+
+/* BTN READ CSS */
+
+.crud-list-button-read{
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: var(--text-color-read) !important;
+}
+
+.crud-list-button-read:hover{
+    background-color: var(--bg-read-transparent) !important;
+    border-color: var(--bg-read-transparent) !important;
+    color: var(--text-color-read) !important;
+}
+
+
+/* BTN DELETE CSS */
+
 .crud-list-button-delete{
+    /* background-color: var(--bg-delete-transparent) !important;
+    border-color: var(--bg-delete-transparent) !important; */
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: var(--text-color-delete) !important;
+}
+
+.crud-list-button-delete:hover{
     background-color: var(--bg-delete-transparent) !important;
     border-color: var(--bg-delete-transparent) !important;
-    color: var(--color-delete) !important;
+    color: var(--text-color-delete) !important;
 }
 
 .ui-button{
@@ -337,7 +377,7 @@ body .ui-dialog .ui-dialog-titlebar {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
 }
 
-.app-form-input .ui-selectonemenu, .app-form-input .p-datepicker , .app-form-input .ui-outputlabel{
+.app-form-input .ui-selectonemenu, .app-form-input .p-datepicker , .app-form-input .ui-outputlabel, .app-form-input textarea{
 	width: 100% !important;
 }
 .ui-datepicker{
@@ -368,3 +408,225 @@ body .ui-dialog .ui-dialog-titlebar {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out
 }
+
+
+body .ui-commandlink span  {
+    font-weight: var(--vz-font-weight-normal);
+    color: var(--vz-dropdown-link-color) !important;
+    font-size: 14px ;
+}
+
+.dropdown-item:hover {
+    text-decoration: none !important;
+}
+
+body .ui-commandlink span:hover , .nav-item a:hover{
+    text-decoration: none !important;
+}
+
+
+.br{
+    border-right: 1px solid #d4d4d4 !important;
+}
+
+.toggle-btn {
+    z-index: 10;
+}
+
+
+#showNavigatorButton,#hideNavigatorButton{
+    position: absolute;
+    padding: 3px !important;
+}
+
+
+/* Tooltip container */
+[data-tooltip] {
+    position: relative;
+    cursor: pointer;
+  }
+
+  /* Tooltip text */
+  [data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 150%; /* Position the tooltip above the element */
+    left: 50%;
+    transform: translateX(-30%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    /* white-space: wrap; */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    font-size: 10px;
+    z-index: 10;
+  }
+
+  /* Tooltip arrow */
+  [data-tooltip]::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 10;
+  }
+
+  /* Show the tooltip text and arrow */
+  [data-tooltip].show-tooltip::after,
+  [data-tooltip].show-tooltip::before {
+    opacity: 1;
+  }
+
+
+.datatable-default tr td, .datatable-default tr th {
+    /* border-width: 1px !important; */
+    padding: 0.5rem !important;
+}
+
+/* datatable-default table-striped */
+
+.folder-list-title,
+.folder-read-title,
+.activity-read-title,
+.task-read-title {
+    font-size: 17px !important;
+    font-weight: bold !important;
+}
+
+.navigator-link{
+    color: #000;
+}
+
+.navigator-link:hover{
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
+#folders{
+    border: 0px !important;
+}
+
+body .ui-tree {
+    border: 0px !important;
+}
+
+#navigator ul a{
+    color: #000 !important;
+    font-size: 14px !important;
+}
+
+#navigator .bx-left-arrow-alt{
+    color: #ffffff !important;
+}
+
+#navigator .bxs-folder-open, #navigator .bxs-folder{
+    color: #ed8600 !important;
+}
+
+#navigator .bxs-file-plus{
+    color: #186af6 !important;
+}
+
+#navigator .bbx-list-plus{
+    color: #792dfc !important;
+}
+
+#navigator .bxs-folder-open, #navigator .bxs-folder, #navigator .bx-list-plus, #navigator .bxs-file-plus{
+    font-size: 18px !important;
+}
+
+#navigator a:hover{
+    text-decoration: none !important;
+}
+
+#navigator .ui-treenode-leaf-icon{
+    display: none;
+}
+
+body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content {
+ display: -ms-flexbox;
+ display: block !important;
+ -ms-flex-align: center;
+ align-items: center;
+}
+
+/* .text-truncate-two-lines,
+.text-truncate-one-lines  */
+
+.capitalize-first-letter {
+    text-transform: lowercase;
+}
+
+.capitalize-first-letter::first-letter {
+    text-transform: uppercase;
+}
+
+body .ui-tree {
+    background-color: #d3e2fd !important;
+    background: #d3e2fd !important;
+    padding: 1rem !important;
+    border-radius: 10px !important;
+}
+
+.card{
+    border-radius: 10px !important;
+}
+
+body .ui-datatable .ui-datatable-data>tr>td{
+    font-size: 0.850rem !important;
+    font-family: var(--vz-body-font-family) !important;
+    padding: 1rem 1rem !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    /* border: 1px solid rgba(0, 0, 0, .08); */
+    /* border-width: 0 0 1px 0; */
+}
+
+body .ui-datatable .ui-datatable-data>tr {
+    background-color: transparent !important;
+    background: transparent !important;
+    color:  var(--vz-heading-color)!important;
+}
+
+
+body .ui-datatable .ui-datatable-data>tr>td .ui-tag {
+    font-size: 0.850rem !important;
+    font-family: var(--vz-body-font-family) !important;
+    font-weight: 200;
+    text-align: center !important;
+}
+
+
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem  a {
+    color: #000 !important;
+    font-size: 0.850rem !important;
+    font-family: var(--vz-body-font-family) !important;
+    font-weight: 200 !important;
+    text-align: center !important;
+    border-right: 1px solid #dee2e64b;
+}
+
+body .ui-tabmenu .ui-tabmenu-nav .ui-tabmenuitem.ui-state-active a {
+    color: #2196f3 !important;
+    font-weight: bold !important;
+    background-color: #f4f6f9 !important;
+}
+
+
+
+body .ui-tree .ui-tree-container .ui-treenode .ui-treenode-content .ui-tree-toggler {
+    width: 1rem !important;
+    
+}
+

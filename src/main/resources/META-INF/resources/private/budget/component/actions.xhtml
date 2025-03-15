@@ -6,11 +6,17 @@
     <div class="card px-2 py-3">
       <h:form>
         <p:outputPanel styleClass="pull-left">
-          <p:staticMessage severity="info" summary="Statut" detail="#{actionsController.budget.statusAsString}"/>
+          <p:staticMessage severity="info" summary="Statut"
+            detail="#{actionsController.budget.statusAsString}" />
         </p:outputPanel>
         <p:outputPanel styleClass="pull-right">
           <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
             <ui:param name="controller" value="#{actionsController.transmitProcessingController}" />
+            <ui:param name="record" value="#{actionsController.budget}" />
+          </ui:decorate>
+
+          <ui:decorate template="/extension/crud/button/identifiable/processing.xhtml">
+            <ui:param name="controller" value="#{actionsController.returnProcessingController}" />
             <ui:param name="record" value="#{actionsController.budget}" />
           </ui:decorate>
 
@@ -20,6 +26,19 @@
           </ui:decorate>
         </p:outputPanel>
       </h:form>
+
+      <ui:decorate template="/extension/dialog.xhtml">
+        <ui:param name="dialogController"
+          value="#{actionsController.returnProcessingController.dialog}" />
+        <ui:define name="dialog-content">
+          <ui:include
+            src="#{actionsController.returnProcessingController.dialog.contentFilePath}">
+            <ui:param name="container" value="#{actionsController}" />
+            <ui:param name="submitCommandButton"
+              value="#{actionsController.returnProcessingController.submitButton}" />
+          </ui:include>
+        </ui:define>
+      </ui:decorate>
     </div>
   </div>
 </ui:composition>

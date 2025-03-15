@@ -30,7 +30,7 @@
     <h:outputText value="#{record.year}" />
   </p:column>
 
-  <p:column headerText="Montant" width="100"
+  <p:column headerText="Montant" width="100" styleClass="colonne-montant"
     rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.amountAsString}" />
   </p:column>

@@ -6094,6 +6094,15 @@ code {
     white-space: normal
 }
 
+.text-truncate-one-lines {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal
+}
+
 .favourite-btn {
     border-color: transparent
 }

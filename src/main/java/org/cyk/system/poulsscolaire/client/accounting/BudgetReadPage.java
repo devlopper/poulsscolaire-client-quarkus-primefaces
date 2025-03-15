@@ -52,10 +52,11 @@ public class BudgetReadPage extends AbstractPage {
     contentTitle = BudgetDto.NAME + " - " + budget.getCode() + " " + budget.getName();
 
     fundingController.getFilterController().getFilter().setBudgetIdentifier(identifier);
-    fundingController.amountColumn().setFooterText(budget.getAmountAsString());
+    fundingController.amountColumn.setFooterText(budget.getAmountAsString());
     fundingController.initialize();
 
     actionsController.budget = budget;
+    actionsController.fundingFilterController = fundingController.filterController;
     actionsController.initialize();
   }
 

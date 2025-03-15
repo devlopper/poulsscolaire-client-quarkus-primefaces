@@ -2,28 +2,19 @@
   xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:p="http://primefaces.org/ui">
 
-  <p:column>
-    <f:facet name="header">
-      <div class="pull-right">
-        <h:outputText value="#{container.amountColumn.headerText}" />
-      </div>
-    </f:facet>
+  <ui:decorate template="/extension/component/column/default.xhtml">
+    <ui:param name="column" value="#{container.amountColumn}" />
+    <ui:define name="column-body">
+      <p:inputNumber value="#{record.amount}" maxValue="99999999999999"
+        inputStyleClass="colonne-montant" rendered="#{record.amountInputable}">
+        <p:ajax event="valueChange" listener="#{container.listenAmountChange(record)}"
+          update="#{container.listController.dataTable.identifier}" />
+      </p:inputNumber>
 
-    <p:inputNumber value="#{record.amount}" maxValue="99999999999999" inputStyleClass="input-amount"
-      rendered="#{record.amountInputable}">
-      <p:ajax event="valueChange" listener="#{container.listenAmountChange(record)}"
-        update="#{container.listController.dataTable.identifier}" />
-    </p:inputNumber>
-
-    <p:outputPanel styleClass="pull-right" rendered="#{not record.amountInputable}">
-      <h:outputText value="#{record.amountAsString}" />
-    </p:outputPanel>
-
-    <f:facet name="footer">
-      <div class="pull-right">
-        <h:outputText value="#{container.amountColumn.footerText}" />
-      </div>
-    </f:facet>
-  </p:column>
+      <p:outputPanel styleClass="colonne-montant" rendered="#{not record.amountInputable}">
+        <h:outputText value="#{record.amountAsString}" />
+      </p:outputPanel>
+    </ui:define>
+  </ui:decorate>
 
 </ui:composition>
