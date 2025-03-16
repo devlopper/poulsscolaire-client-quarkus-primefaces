@@ -125,7 +125,7 @@ public class BudgetActionsController extends AbstractController {
   }
 
   String buildButtonStyleClass(String styleClassSuffix) {
-    return "triennial-program-action-%s".formatted(styleClassSuffix);
+    return "budget-action-%s".formatted(styleClassSuffix);
   }
 
   UnaryOperator<Object> transmitFunction() {

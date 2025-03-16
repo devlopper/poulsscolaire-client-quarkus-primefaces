@@ -1,6 +1,7 @@
 package org.cyk.system.poulsscolaire.client.accounting;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
+import ci.gouv.dgbf.extension.primefaces.component.CommandUpdatePropertyValueBuilder;
 import ci.gouv.dgbf.extension.primefaces.component.DataTable.RecordComponentController;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputTextController;
 import ci.gouv.dgbf.extension.primefaces.crud.IdentifiableProcessingController;
@@ -8,9 +9,10 @@ import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.request.ByIdentifierRequestDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.accounting.BudgetStatus;
+import lombok.Setter;
 import org.cyk.system.poulsscolaire.server.api.accounting.FundingClient;
 import org.cyk.system.poulsscolaire.server.api.accounting.FundingDto;
 import org.cyk.system.poulsscolaire.server.api.accounting.FundingService.FundingReturnRequestDto;
@@ -43,6 +45,10 @@ public class FundingActionsController extends AbstractController {
   @Getter
   IdentifiableProcessingController approveProcessingController;
 
+  @Getter
+  @Setter
+  String statusChangedEvent;
+  
   @Inject
   @Getter
   InputTextController statusReasonInputTextController;
@@ -53,25 +59,19 @@ public class FundingActionsController extends AbstractController {
    * Cette méthode permet d'initialiser.
    */
   public void initialize() {
-    transmitProcessingController.setListController(listController);
-    transmitProcessingController.prepareConfirmation(FundingDto.class,
-        FundingStatus.TRANSMITTED.getAction(), "pi pi-send", transmitFunction());
-    transmitProcessingController.initialize();
+    initializeConfirmation(transmitProcessingController, FundingStatus.TRANSMITTED, "pi pi-send",
+        "transmit", transmitFunction(), entity -> ((FundingDto) entity).getTransmitable());    
 
-    acceptProcessingController.setListController(listController);
-    acceptProcessingController.prepareConfirmation(FundingDto.class,
-        FundingStatus.ACCEPTED.getAction(), "pi pi-check", acceptFunction());
-    acceptProcessingController.initialize();
-
-    approveProcessingController.setListController(listController);
-    approveProcessingController.prepareConfirmation(FundingDto.class,
-        FundingStatus.APPROVED.getAction(), "pi pi-thumbs-up", approveFunction());
-    approveProcessingController.initialize();
+    initializeConfirmation(acceptProcessingController, FundingStatus.ACCEPTED, "pi pi-check",
+        "accept", acceptFunction(), entity -> ((FundingDto) entity).getAcceptable());
+    
+    initializeConfirmation(approveProcessingController, FundingStatus.APPROVED, "pi pi-thumbs-up",
+        "approve", approveFunction(), entity -> ((FundingDto) entity).getApprovable());
     
     returnProcessingController.setListController(listController);
-    returnProcessingController.prepareDialog(FundingDto.class, BudgetStatus.RETURNED.getAction(),
+    returnProcessingController.prepareDialog(FundingDto.class, FundingStatus.RETURNED.getAction(),
         "pi pi-arrow-left", returnFunction(), "returnForm", client);
-    returnProcessingController.submitButton().setValue(BudgetStatus.RETURNED.getAction());
+    returnProcessingController.submitButton().setValue(FundingStatus.RETURNED.getAction());
     returnProcessingController.submitButton()
         .setActionFunction(i -> returnProcessingController.getController().execute());
     returnProcessingController.setShowDialogButtonController(new RecordComponentController());
@@ -87,6 +87,27 @@ public class FundingActionsController extends AbstractController {
 
     returnProcessingController.submitButton()
         .addUpdate(statusReasonInputTextController.getInputTextarea().getMessage().getIdentifier());
+  }
+  
+  void initializeConfirmation(IdentifiableProcessingController identifiableProcessingController,
+      FundingStatus status, String icon, String styleClassSuffix,
+      UnaryOperator<Object> processingFunction, Function<Object, Boolean> buttonRenderedFunction) {
+    identifiableProcessingController.setListController(listController);
+    identifiableProcessingController.prepareConfirmation(FundingDto.class, status.getAction(), icon,
+        processingFunction);
+    identifiableProcessingController.setSubmitButtonController(new RecordComponentController());
+    identifiableProcessingController.getSubmitButtonController()
+        .setRenderedFunction(buttonRenderedFunction);
+    //addStatusUpdateResponseConsumer(identifiableProcessingController);
+    identifiableProcessingController.submitButton()
+        .addStyleClass(buildButtonStyleClass(styleClassSuffix));
+    identifiableProcessingController.submitButton()
+        .addUpdates(CommandUpdatePropertyValueBuilder.formatObserver(statusChangedEvent));
+    identifiableProcessingController.initialize();
+  }
+  
+  String buildButtonStyleClass(String styleClassSuffix) {
+    return "funding-action-%s".formatted(styleClassSuffix);
   }
 
   UnaryOperator<Object> transmitFunction() {

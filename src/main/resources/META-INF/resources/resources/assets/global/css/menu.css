@@ -26,3 +26,42 @@
     border-radius: var(--vz-border-radius) !important;
     margin-right: 5px !important;
 }
+
+.label-value-information-card {
+	border: 0.5px solid #d7dadf;
+	border-radius: 8px;
+	width: 400px;
+	position: relative;
+}
+
+.label-value-information-header {
+	position: absolute;
+	top: -12px;
+	left: 15px;
+	background: #d7dadf;
+	padding: 5px;
+	border-radius: 5px;
+	padding: 0 10px;
+	font-weight: bold;
+	color: #475569;
+}
+
+.label-value-information-content {
+	padding: 25px 15px 15px;
+}
+
+.label-value-information-row {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.label-value-information-label {
+	width: 150px;
+	font-weight: bold;
+	color: #475569;
+}
+
+.label-value-information-value {
+	flex-grow: 1;
+	color: #1E293B;
+}

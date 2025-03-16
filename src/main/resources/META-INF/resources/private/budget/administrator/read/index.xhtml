@@ -5,8 +5,14 @@
   <ui:param name="page" value="#{budgetReadPage}" />
 
   <ui:define name="content-body">
+    <!--
     <ui:include src="../../component/actions.xhtml">
       <ui:param name="actionsController" value="#{page.actionsController}" />
+    </ui:include>
+    -->
+    
+    <ui:include src="#{page.labelValueGroupsInformationCard.templateFilePath}">
+      <ui:param name="informationCard" value="#{page.labelValueGroupsInformationCard}" />
     </ui:include>
 
     <ui:include src="../../../funding/component/listForm.xhtml">

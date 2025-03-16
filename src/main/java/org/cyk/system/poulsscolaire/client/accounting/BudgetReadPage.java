@@ -1,6 +1,7 @@
 package org.cyk.system.poulsscolaire.client.accounting;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractPage;
+import ci.gouv.dgbf.extension.primefaces.component.information.LabelValueGroupsInformationCard;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableNamableDto;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
@@ -36,6 +37,9 @@ public class BudgetReadPage extends AbstractPage {
   @Getter
   BudgetActionsController actionsController;
 
+  @Getter
+  LabelValueGroupsInformationCard labelValueGroupsInformationCard;
+
   @Override
   protected void postConstruct() {
     super.postConstruct();
@@ -49,7 +53,7 @@ public class BudgetReadPage extends AbstractPage {
         BudgetDto.JSON_STATUS_AS_STRING);
     String identifier = getRequestParameterIdentifier();
     budget = budgetClient.getByIdentifier(identifier, projection, userIdentifier, null);
-    contentTitle = BudgetDto.NAME + " - " + budget.getCode() + " " + budget.getName();
+    contentTitle = "Consultation " + BudgetDto.NAME;
 
     fundingController.getFilterController().getFilter().setBudgetIdentifier(identifier);
     fundingController.amountColumn.setFooterText(budget.getAmountAsString());
@@ -58,6 +62,12 @@ public class BudgetReadPage extends AbstractPage {
     actionsController.budget = budget;
     actionsController.fundingFilterController = fundingController.filterController;
     actionsController.initialize();
+
+    labelValueGroupsInformationCard = new LabelValueGroupsInformationCard();
+    labelValueGroupsInformationCard.getHeaderText().setValue("Budget");
+    labelValueGroupsInformationCard.group().add("Code", budget.getCode())
+        .add("Libellé", budget.getName()).add("Montant", budget.getAmountAsString())
+        .add("Montant engagé", budget.getCommitmentAmountAsString());
   }
 
   public static final String OUTCOME = "budgetReadPage";
