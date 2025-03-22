@@ -139,9 +139,10 @@ public class AuthorizationFilter implements Filter {
   }
 
   void allowSubsidyDecision(String... rolesCodes) {
-    allow("/private/subsidydecision/administrator/list.xhtml", rolesCodes);
+    allow("/private/subsidydecision/administrator/list/index.xhtml", rolesCodes);
     allow("/private/subsidydecision/administrator/read/payments.xhtml", rolesCodes);
     allow("/private/subsidydecision/administrator/read/registrations.xhtml", rolesCodes);
+    allow("/private/subsidydecision/administrator/read/subsidies.xhtml", rolesCodes);
   }
   
   void allowAdjustedFee(String... rolesCodes) {
