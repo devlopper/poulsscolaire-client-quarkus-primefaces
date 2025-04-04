@@ -8,6 +8,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.accounting.AccountingAccountSelectOneController;
+import org.cyk.system.poulsscolaire.client.accounting.FundingSourceSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolConfigurationClient;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolConfigurationDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.SchoolConfigurationRequestMapper;
@@ -40,6 +41,10 @@ public class SchoolConfigurationController extends AbstractController {
   AccountingAccountSelectOneController paymentAccountingAccountSelectOneController;
 
   @Inject
+  @Getter
+  FundingSourceSelectOneController paymentFundingSourceSelectOneController;
+
+  @Inject
   SchoolConfigurationRequestMapper requestMapper;
 
   @Inject
@@ -65,15 +70,16 @@ public class SchoolConfigurationController extends AbstractController {
     projection.addNamesIfStringBlank(filterController.getFilter().getSchoolIdentifier(),
         SchoolConfigurationDto.JSON_SCHOOL_AS_STRING);
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        SchoolConfigurationDto.JSON_PAYMENT_ACCOUNTING_ACCOUNT_AS_STRING);
+        SchoolConfigurationDto.JSON_PAYMENT_ACCOUNTING_ACCOUNT_AS_STRING,
+        SchoolConfigurationDto.JSON_PAYMENT_FUNDING_SOURCE_AS_STRING);
     listController.getReadController().setProjection(projection);
 
     listController.initialize();
 
     listController.getDataTable().getActionColumn().computeWithForButtonsWithIconOnly(2);
 
-    //listController.getGotoReadPageButton().setRendered(true);
-    //listController.getGotoReadPageButton().setOutcome(SchoolConfigurationReadPage.OUTCOME);
+    // listController.getGotoReadPageButton().setRendered(true);
+    // listController.getGotoReadPageButton().setOutcome(SchoolConfigurationReadPage.OUTCOME);
 
     listController.getCreateController()
         .addEntityConsumer(entity -> ((SchoolConfigurationDto) entity)
@@ -89,13 +95,16 @@ public class SchoolConfigurationController extends AbstractController {
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
             SchoolConfigurationDto.JSON_SCHOOL_IDENTIFIER,
-            SchoolConfigurationDto.JSON_PAYMENT_ACCOUNTING_ACCOUNT_IDENTIFIER));
+            SchoolConfigurationDto.JSON_PAYMENT_ACCOUNTING_ACCOUNT_IDENTIFIER,
+            SchoolConfigurationDto.JSON_PAYMENT_FUNDING_SOURCE_IDENTIFIER));
 
     listController.getUpdateController().addEntityConsumer(entity -> {
       schoolSelectOneController.getSelectOneMenu()
           .writeValue(((SchoolConfigurationDto) entity).getSchoolIdentifier());
       paymentAccountingAccountSelectOneController.getSelectOneMenu()
           .writeValue(((SchoolConfigurationDto) entity).getPaymentAccountingAccountIdentifier());
+      paymentFundingSourceSelectOneController.getSelectOneMenu()
+          .writeValue(((SchoolConfigurationDto) entity).getPaymentFundingSourceIdentifier());
     });
 
     listController.getUpdateController().setFunction(entity -> {
@@ -116,5 +125,11 @@ public class SchoolConfigurationController extends AbstractController {
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SchoolConfigurationDto.class)
             .setPaymentAccountingAccountIdentifier(identifier));
+
+    paymentFundingSourceSelectOneController.getSelectOneMenu().setRequired(true);
+    paymentFundingSourceSelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> listController
+            .getCreateControllerOrUpdateControllerEntityAs(SchoolConfigurationDto.class)
+            .setPaymentFundingSourceIdentifier(identifier));
   }
 }

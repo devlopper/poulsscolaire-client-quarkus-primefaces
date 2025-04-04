@@ -15,4 +15,9 @@
     rendered="#{listController.isReadControllerHasProjectionName(SchoolConfigurationDto.JSON_PAYMENT_ACCOUNTING_ACCOUNT_AS_STRING)}">
     <h:outputText value="#{record.paymentAccountingAccountAsString}" />
   </p:column>
+  
+  <p:column headerText="Source de financement de paiement"
+    rendered="#{listController.isReadControllerHasProjectionName(SchoolConfigurationDto.JSON_PAYMENT_FUNDING_SOURCE_AS_STRING)}">
+    <h:outputText value="#{record.paymentFundingSourceAsString}" />
+  </p:column>
 </ui:composition>
