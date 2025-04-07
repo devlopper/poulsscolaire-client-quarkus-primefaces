@@ -74,6 +74,7 @@ public class FundingFilterController extends AbstractFilterController<FundingFil
     monthSelectOneController.getSelectOneMenu().addValueConsumer(
         name -> filter.setMonth(Optional.ofNullable(name).map(Month::valueOf).orElse(null)));
 
+    monthIndexInputNumberController.setOutputLableValue("Index Mois");
     monthIndexInputNumberController.getInputInteger()
         .addValueConsumer(index -> filter.setMonthIndex(index));
 
