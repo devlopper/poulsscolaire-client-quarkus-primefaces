@@ -5,9 +5,25 @@
   <h:form>
     <ui:decorate template="/extension/crud/list/filter/form/default.xhtml">
       <ui:define name="form-filter-inputs">
+
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
           <ui:param name="selectOneMenu"
             value="#{controller.budgetSelectOneController.selectOneMenu}" />
+        </ui:include>
+        
+        <ui:include src="/extension/component/input/inputNumber.xhtml">
+          <ui:param name="inputNumber"
+            value="#{controller.budgetYearInputNumberController.inputInteger}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{controller.monthSelectOneController.selectOneMenu}" />
+        </ui:include>
+        
+        <ui:include src="/extension/component/input/inputNumber.xhtml">
+          <ui:param name="inputNumber"
+            value="#{controller.monthIndexInputNumberController.inputInteger}" />
         </ui:include>
 
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
@@ -17,7 +33,12 @@
 
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
           <ui:param name="selectOneMenu"
-            value="#{controller.monthSelectOneController.selectOneMenu}" />
+            value="#{controller.accountingAccountSelectOneController.selectOneMenu}" />
+        </ui:include>
+
+        <ui:include src="/extension/component/input/selectOneMenu.xhtml">
+          <ui:param name="selectOneMenu"
+            value="#{controller.sourceSelectOneController.selectOneMenu}" />
         </ui:include>
 
       </ui:define>
