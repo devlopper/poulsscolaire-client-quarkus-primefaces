@@ -7,16 +7,6 @@
       <ui:param name="saveCommandUpdate" value="amountMessage" />
 
       <ui:define name="form-save-inputs">
-        <ui:decorate template="/extension/component/input/default.xhtml">
-          <ui:define name="input-label">
-            <p:outputLabel value="Est pour subvention" for="isForSubsidy" />
-          </ui:define>
-          <ui:define name="input-control">
-            <p:selectBooleanButton id="isForSubsidy" onLabel="Oui" offLabel="Non"
-              onIcon="pi pi-check" offIcon="pi pi-times" value="#{controller.entity.isForSubsidy}" />
-          </ui:define>
-        </ui:decorate>
-
         <ui:include src="/extension/component/input/selectOneMenu.xhtml">
           <ui:param name="selectOneMenu"
             value="#{container.registrationSelectOneController.selectOneMenu}" />

@@ -38,6 +38,10 @@ public class SchoolConfigurationController extends AbstractController {
 
   @Inject
   @Getter
+  DepartmentSelectOneController paymentDepartmentSelectOneController;
+
+  @Inject
+  @Getter
   AccountingAccountSelectOneController paymentAccountingAccountSelectOneController;
 
   @Inject
@@ -70,6 +74,7 @@ public class SchoolConfigurationController extends AbstractController {
     projection.addNamesIfStringBlank(filterController.getFilter().getSchoolIdentifier(),
         SchoolConfigurationDto.JSON_SCHOOL_AS_STRING);
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
+        SchoolConfigurationDto.JSON_PAYMENT_DEPARTMENT_AS_STRING,
         SchoolConfigurationDto.JSON_PAYMENT_ACCOUNTING_ACCOUNT_AS_STRING,
         SchoolConfigurationDto.JSON_PAYMENT_FUNDING_SOURCE_AS_STRING);
     listController.getReadController().setProjection(projection);
@@ -95,12 +100,15 @@ public class SchoolConfigurationController extends AbstractController {
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
             SchoolConfigurationDto.JSON_SCHOOL_IDENTIFIER,
+            SchoolConfigurationDto.JSON_PAYMENT_DEPARTMENT_IDENTIFIER,
             SchoolConfigurationDto.JSON_PAYMENT_ACCOUNTING_ACCOUNT_IDENTIFIER,
             SchoolConfigurationDto.JSON_PAYMENT_FUNDING_SOURCE_IDENTIFIER));
 
     listController.getUpdateController().addEntityConsumer(entity -> {
       schoolSelectOneController.getSelectOneMenu()
           .writeValue(((SchoolConfigurationDto) entity).getSchoolIdentifier());
+      paymentDepartmentSelectOneController.getSelectOneMenu()
+          .writeValue(((SchoolConfigurationDto) entity).getPaymentDepartmentIdentifier());
       paymentAccountingAccountSelectOneController.getSelectOneMenu()
           .writeValue(((SchoolConfigurationDto) entity).getPaymentAccountingAccountIdentifier());
       paymentFundingSourceSelectOneController.getSelectOneMenu()
@@ -120,13 +128,19 @@ public class SchoolConfigurationController extends AbstractController {
             .getCreateControllerOrUpdateControllerEntityAs(SchoolConfigurationDto.class)
             .setSchoolIdentifier(identifier));
 
-    paymentAccountingAccountSelectOneController.getSelectOneMenu().setRequired(true);
+    paymentDepartmentSelectOneController.getSelectOneMenu();
+    paymentDepartmentSelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> listController
+            .getCreateControllerOrUpdateControllerEntityAs(SchoolConfigurationDto.class)
+            .setPaymentDepartmentIdentifier(identifier));
+
+    paymentAccountingAccountSelectOneController.getSelectOneMenu();
     paymentAccountingAccountSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SchoolConfigurationDto.class)
             .setPaymentAccountingAccountIdentifier(identifier));
 
-    paymentFundingSourceSelectOneController.getSelectOneMenu().setRequired(true);
+    paymentFundingSourceSelectOneController.getSelectOneMenu();
     paymentFundingSourceSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SchoolConfigurationDto.class)
