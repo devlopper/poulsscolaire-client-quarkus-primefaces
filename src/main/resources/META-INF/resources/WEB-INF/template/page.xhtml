@@ -39,14 +39,6 @@
 
   <ui:define name="topbar-application-name">
     Pouls-Paid
-    
-    <ui:fragment rendered="#{not empty sessionScope.school.name}">
-      <span style="font-size: 54%; font-style: italic;">- #{sessionScope.school.name}</span>
-    </ui:fragment>
-
-    <ui:fragment rendered="#{not empty sessionScope.period.name}">
-      - #{sessionScope.period.name}
-    </ui:fragment>
   </ui:define>
 
   <ui:define name="menu-items">
