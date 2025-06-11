@@ -72,6 +72,22 @@
       <redirect />
     </navigation-case>
     
+    <!-- StockDistribution -->
+    
+    <navigation-case>
+      <description>page liste des distribution de stock</description>
+      <from-outcome>stockDistributionListPage</from-outcome>
+      <to-view-id>/private/stockdistribution/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
+    <navigation-case>
+      <description>page de lecture de distribution de stock</description>
+      <from-outcome>stockDistributionReadPage</from-outcome>
+      <to-view-id>/private/stockdistribution/administrator/read/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- StockMovement -->
     
     <navigation-case>
