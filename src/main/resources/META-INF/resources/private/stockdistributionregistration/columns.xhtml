@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <p:importConstants
+    type="org.cyk.system.poulsscolaire.server.api.fee.StockDistributionRegistrationDto"
+    var="StockDistributionRegistrationDto" />
+
+  <p:column headerText="Distribution"
+    rendered="#{listController.isReadControllerHasProjectionName(StockDistributionRegistrationDto.JSON_DISTRIBUTION_AS_STRING)}">
+    <h:outputText value="#{record.distributionAsString}" />
+  </p:column>
+
+  <p:column headerText="Inscription"
+    rendered="#{listController.isReadControllerHasProjectionName(StockDistributionRegistrationDto.JSON_REGISTRATION_AS_STRING)}">
+    <h:outputText value="#{record.registrationAsString}" />
+  </p:column>
+
+  <p:column headerText="Quantité"
+    rendered="#{listController.isReadControllerHasProjectionName(StockDistributionRegistrationDto.JSON_QUANTITY_AS_STRING)}">
+    <h:outputText value="#{record.quantityAsString}" />
+  </p:column>
+</ui:composition>
