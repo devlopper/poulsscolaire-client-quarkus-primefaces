@@ -5,7 +5,7 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
-import org.cyk.system.poulsscolaire.server.api.registration.StockDistributionDto;
+import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionDto;
 
 /**
  * Cette classe représente la page de liste de {@link StockDistributionDto}.

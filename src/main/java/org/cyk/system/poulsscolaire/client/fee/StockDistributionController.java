@@ -17,12 +17,12 @@ import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.configuration.HasBranchInstanceAsStringDto;
 import org.cyk.system.poulsscolaire.server.api.configuration.HasBranchInstanceIdentifierDto;
-import org.cyk.system.poulsscolaire.server.api.registration.StockDistributionClient;
-import org.cyk.system.poulsscolaire.server.api.registration.StockDistributionDto;
-import org.cyk.system.poulsscolaire.server.api.registration.StockDistributionRequestMapper;
-import org.cyk.system.poulsscolaire.server.api.registration.StockDistributionService;
-import org.cyk.system.poulsscolaire.server.api.registration.StockDistributionService.StockDistributionCreateRequestDto;
-import org.cyk.system.poulsscolaire.server.api.registration.StockDistributionService.StockDistributionUpdateRequestDto;
+import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionClient;
+import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionDto;
+import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionRequestMapper;
+import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionService;
+import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionService.StockDistributionCreateRequestDto;
+import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionService.StockDistributionUpdateRequestDto;
 
 /**
  * Cette classe représente le contrôleur de {@link StockDistributionDto}.

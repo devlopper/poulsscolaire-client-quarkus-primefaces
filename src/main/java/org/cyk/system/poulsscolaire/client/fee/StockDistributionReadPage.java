@@ -7,9 +7,9 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
+import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionClient;
+import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionDto;
 import org.cyk.system.poulsscolaire.server.api.fee.StockDto;
-import org.cyk.system.poulsscolaire.server.api.registration.StockDistributionClient;
-import org.cyk.system.poulsscolaire.server.api.registration.StockDistributionDto;
 
 /**
  * Cette classe représente la page de lecture de {@link StockDistributionDto}.
@@ -25,20 +25,26 @@ public class StockDistributionReadPage extends AbstractPage {
   StockDistributionClient client;
 
   @Getter
-  StockDistributionDto stockDistribution;
+  StockDistributionDto distribution;
 
   @Inject
   @Getter
-  StockMovementController movementController;
+  StockDistributionRegistrationController distributionRegistrationController;
 
   @Override
   protected void postConstruct() {
     super.postConstruct();
     String identifier = getRequestParameterIdentifier();
-    stockDistribution = client.getByIdentifier(identifier, new ProjectionDto()
+    distribution = client.getByIdentifier(identifier, new ProjectionDto()
         .addNames(AbstractIdentifiableDto.JSON_IDENTIFIER, StockDto.JSON_QUANTITY_AS_STRING),
         userIdentifier, null);
     contentTitle = StockDistributionDto.NAME;
+
+    // distributionRegistrationController.getFilterController()
+    // .getFilter().setDistributionIdentifier(distribution.getIdentifier());
+
+    // distributionRegistrationController.totalQuantityAsString = stock.getQuantityAsString();
+    distributionRegistrationController.initialize();
   }
 
   public static final String OUTCOME = "stockDistributionReadPage";

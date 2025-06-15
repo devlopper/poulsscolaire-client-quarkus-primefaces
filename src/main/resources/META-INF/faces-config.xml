@@ -88,6 +88,15 @@
       <redirect />
     </navigation-case>
     
+    <!-- StockDistribution -->
+    
+    <navigation-case>
+      <description>page liste des distribution de stock et inscription</description>
+      <from-outcome>stockDistributionRegistrationListPage</from-outcome>
+      <to-view-id>/private/stockdistributionregistration/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- StockMovement -->
     
     <navigation-case>

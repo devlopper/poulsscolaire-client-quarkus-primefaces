@@ -12,6 +12,9 @@
       }
     </style>
     
-    
+    <ui:include src="../../../stockdistributionregistration/component/listForm.xhtml">
+      <ui:param name="controller" value="#{page.distributionRegistrationController.listController}" />
+      <ui:param name="container" value="#{page.distributionRegistrationController}" />
+    </ui:include>
   </ui:define>
 </ui:composition>
