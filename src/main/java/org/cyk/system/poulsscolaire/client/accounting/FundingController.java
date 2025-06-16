@@ -1,6 +1,7 @@
 package org.cyk.system.poulsscolaire.client.accounting;
 
 import ci.gouv.dgbf.extension.core.Core;
+import ci.gouv.dgbf.extension.core.enumeration.BusinessValueType;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.ActionExecutor;
 import ci.gouv.dgbf.extension.primefaces.component.Column;
@@ -95,8 +96,7 @@ public class FundingController extends AbstractController {
   protected void postConstruct() {
     super.postConstruct();
     name = FundingDto.NAME;
-    amountColumn = new Column().initializeAsAmount();
-    amountColumn.setHeaderText("Montant");
+    amountColumn = Column.newBuilder().businessValueType(BusinessValueType.AMOUNT).build();
   }
 
   /**

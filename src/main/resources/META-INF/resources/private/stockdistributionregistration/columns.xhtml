@@ -20,4 +20,9 @@
     rendered="#{listController.isReadControllerHasProjectionName(StockDistributionRegistrationDto.JSON_QUANTITY_AS_STRING)}">
     <h:outputText value="#{record.quantityAsString}" />
   </p:column>
+  
+  <ui:include src="/extension/component/column/amount.xhtml">
+    <ui:param name="amountColumn" value="#{container.quantityColumn}" />
+    <ui:param name="record" value="#{record}" />
+  </ui:include>
 </ui:composition>
