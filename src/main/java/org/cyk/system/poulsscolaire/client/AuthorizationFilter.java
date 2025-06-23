@@ -65,7 +65,10 @@ public class AuthorizationFilter implements Filter {
     
     allowStudent(founderRoleCode, managerRoleCode, accountantRoleCode);
     allowRegistration(founderRoleCode, managerRoleCode, accountantRoleCode);
+    
     allowSubsidyDecision(founderRoleCode, managerRoleCode, accountantRoleCode);
+    allowSubsidyDecisionPayment(founderRoleCode, managerRoleCode, accountantRoleCode);
+    
     allowAdjustedFee(founderRoleCode, managerRoleCode, accountantRoleCode);
     
     allowPayment(founderRoleCode, managerRoleCode, accountantRoleCode);
@@ -85,6 +88,9 @@ public class AuthorizationFilter implements Filter {
     
     allowStock(founderRoleCode, managerRoleCode, accountantRoleCode);
     allowStockMovement(founderRoleCode, managerRoleCode, accountantRoleCode);
+    
+    allowStockDistribution(founderRoleCode, managerRoleCode, accountantRoleCode);
+    allowStockDistributionRegistration(founderRoleCode, managerRoleCode, accountantRoleCode);
   }
 
   @Override
@@ -143,6 +149,10 @@ public class AuthorizationFilter implements Filter {
     allow("/private/subsidydecision/administrator/read/payments.xhtml", rolesCodes);
     allow("/private/subsidydecision/administrator/read/registrations.xhtml", rolesCodes);
     allow("/private/subsidydecision/administrator/read/subsidies.xhtml", rolesCodes);
+  }
+  
+  void allowSubsidyDecisionPayment(String... rolesCodes) {
+    allow("/private/subsidydecisionpayment/administrator/list/index.xhtml", rolesCodes);
   }
   
   void allowAdjustedFee(String... rolesCodes) {
@@ -204,6 +214,16 @@ public class AuthorizationFilter implements Filter {
   void allowStockMovement(String... rolesCodes) {
     allow("/private/stockmovement/administrator/list/index.xhtml", rolesCodes);
     allow("/private/stockmovement/administrator/read/index.xhtml", rolesCodes);
+  }
+  
+  void allowStockDistribution(String... rolesCodes) {
+    allow("/private/stockdistribution/administrator/list/index.xhtml", rolesCodes);
+    allow("/private/stockdistribution/administrator/read/index.xhtml", rolesCodes);
+  }
+  
+  void allowStockDistributionRegistration(String... rolesCodes) {
+    allow("/private/stockdistributionregistration/administrator/list/index.xhtml", rolesCodes);
+    allow("/private/stockdistributionregistration/administrator/read/index.xhtml", rolesCodes);
   }
   
   void allow(String uri, String... rolesCodes) {
