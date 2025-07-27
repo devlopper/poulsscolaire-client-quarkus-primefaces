@@ -91,6 +91,8 @@ public class AuthorizationFilter implements Filter {
     
     allowStockDistribution(founderRoleCode, managerRoleCode, accountantRoleCode);
     allowStockDistributionRegistration(founderRoleCode, managerRoleCode, accountantRoleCode);
+    
+    allowDepartment(founderRoleCode, managerRoleCode, accountantRoleCode);
   }
 
   @Override
@@ -224,6 +226,10 @@ public class AuthorizationFilter implements Filter {
   void allowStockDistributionRegistration(String... rolesCodes) {
     allow("/private/stockdistributionregistration/administrator/list/index.xhtml", rolesCodes);
     allow("/private/stockdistributionregistration/administrator/read/index.xhtml", rolesCodes);
+  }
+  
+  void allowDepartment(String... rolesCodes) {
+    allow("/private/department/administrator/list/index.xhtml", rolesCodes);
   }
   
   void allow(String uri, String... rolesCodes) {
