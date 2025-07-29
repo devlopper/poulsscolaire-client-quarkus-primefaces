@@ -3,7 +3,11 @@
   xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template/page.xhtml">
 
   <ui:define name="content-body">
-
+    
+    <ui:include src="#{page.labelValueGroupsInformationCard.templateFilePath}">
+      <ui:param name="informationCard" value="#{page.labelValueGroupsInformationCard}" />
+    </ui:include>
+    
     <ui:include src="/extension/component/menu/tabmenu/default.xhtml">
       <ui:param name="tabMenu" value="#{page.tabMenuController.menu}" />
     </ui:include>

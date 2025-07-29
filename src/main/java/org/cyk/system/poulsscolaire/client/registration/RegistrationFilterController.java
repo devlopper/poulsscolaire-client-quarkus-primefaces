@@ -7,6 +7,7 @@ import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.SessionController;
 import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOneController;
+import org.cyk.system.poulsscolaire.client.configuration.SchoolingSelectOneController;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationFilter;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
@@ -26,6 +27,10 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
   @Inject
   @Getter
   StudentSelectOneController studentSelectOneController;
+
+  @Inject
+  @Getter
+  SchoolingSelectOneController schoolingSelectOneController;
 
   @Inject
   @Getter
@@ -50,6 +55,8 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
         Core.getOrDefaultIfNull(getRequestParameter(RegistrationFilter.JSON_SCHOOL_IDENTIFIER),
             sessionController.getSchoolIdentifier()));
     filter.setStudentIdentifier(getRequestParameter(RegistrationFilter.JSON_STUDENT_IDENTIFIER));
+    filter
+        .setSchoolingIdentifier(getRequestParameter(RegistrationFilter.JSON_SCHOOLING_IDENTIFIER));
     filter.setBranchInstanceIdentifier(
         getRequestParameter(RegistrationFilter.JSON_BRANCH_INSTANCE_IDENTIFIER));
     filter.setSubsidyDecisionIdentifier(
@@ -60,6 +67,9 @@ public class RegistrationFilterController extends AbstractFilterController<Regis
 
     studentSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setStudentIdentifier(identifier));
+
+    schoolingSelectOneController.getSelectOneMenu()
+        .addValueConsumer(identifier -> filter.setSchoolingIdentifier(identifier));
 
     branchInstanceSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setBranchInstanceIdentifier(identifier));

@@ -29,12 +29,13 @@ public abstract class AbstractSubsidyDecisionReadRegistrationsPage
   void initializeRegistrationControllerProjection() {
     registrationController.projection.getNames().clear();
     registrationController.projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
-        RegistrationDto.JSON_STUDENT_AS_STRING,
-        RegistrationDto.JSON_BRANCH_INSTANCE_AS_STRING);
+        RegistrationDto.JSON_STUDENT_AS_STRING, RegistrationDto.JSON_BRANCH_INSTANCE_AS_STRING);
   }
-  
+
   void initializeRegistrationController() {
     initializeRegistrationControllerProjection();
+    registrationController.getFilterController().getFilter()
+        .setSchoolingIdentifier(subsidyDecision.getSchoolingIdentifier());
     registrationController.initialize();
     registrationController.getListController().getShowCreateDialogButton().setRendered(false);
     registrationController.getListController().getShowUpdateDialogButton().setRendered(false);

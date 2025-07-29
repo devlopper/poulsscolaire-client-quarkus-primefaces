@@ -265,6 +265,10 @@ public class RegistrationController extends AbstractController {
     if (!Core.isStringBlank(
         filterController.getFilter().getDoesNotBelongsToSubsidyDecisionIdentifier())) {
       subsidizeProcessingController.getController().setName("Subvention");
+      subsidizeProcessingController.getController().addEntityConsumer(entity -> {
+        subsidyRefusedSelectBooleanController.getSelectOneRadioBoolean().setValue(false);
+      });
+      
       subsidizeProcessingController.setListController(listController);
       subsidizeProcessingController.prepareDialog(RegistrationDto.class, "Subventionner",
           "pi pi-plus", entity -> {

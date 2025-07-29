@@ -65,11 +65,14 @@ public class SubsidyDecisionController extends AbstractController {
 
     ProjectionDto projection = new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         AbstractIdentifiableCodableDto.JSON_CODE, SubsidyDecisionDto.JSON_SCHOOLING_AS_STRING,
-        SubsidyDecisionDto.JSON_AMOUNT_AS_STRING);
+        SubsidyDecisionDto.JSON_REGISTRATION_COUNT_AS_STRING,
+        SubsidyDecisionDto.JSON_AMOUNT_AS_STRING, SubsidyDecisionDto.JSON_PAYMENT_COUNT_AS_STRING,
+        SubsidyDecisionDto.JSON_PAID_AMOUNT_AS_STRING,
+        SubsidyDecisionDto.JSON_REMAINING_AMOUNT_TO_PAY_AS_STRING);
     listController.getReadController().setProjection(projection);
     listController.getGotoReadPageButton().setRendered(true);
     listController.getGotoReadPageButton().setOutcome(SubsidyDecisionReadPaymentsPage.OUTCOME);
-    
+
     listController.initialize();
 
     listController.getCreateController().setFunction(entity -> {
@@ -108,7 +111,7 @@ public class SubsidyDecisionController extends AbstractController {
             .getCreateControllerOrUpdateControllerEntityAs(SubsidyDecisionDto.class)
             .setSchoolingIdentifier(identifier));
     schoolingSelectOneController.getSelectOneMenu().getOutputLabel().setValue("Branche");
-    
+
     amountInputNumberController.setOutputLableValue("Montant");
     amountInputNumberController.getInputInteger().addValueConsumer(amount -> listController
         .getCreateControllerOrUpdateControllerEntityAs(SubsidyDecisionDto.class).setAmount(amount));
