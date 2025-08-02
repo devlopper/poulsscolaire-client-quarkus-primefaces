@@ -1,8 +1,11 @@
 package org.cyk.system.poulsscolaire.client.accounting;
 
 import ci.gouv.dgbf.extension.core.Core;
+import ci.gouv.dgbf.extension.core.segregation.HasDeadlineAsStringDto;
+import ci.gouv.dgbf.extension.core.segregation.HasDeadlineDto;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.component.CommandUpdatePropertyValueBuilder;
+import ci.gouv.dgbf.extension.primefaces.component.input.InputDateController;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputNumberController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
 import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableCodableDto;
@@ -51,6 +54,10 @@ public class BudgetController extends AbstractController {
 
   @Inject
   @Getter
+  InputDateController deadlineInputDateController;
+
+  @Inject
+  @Getter
   ListController listController;
 
   @Inject
@@ -77,7 +84,7 @@ public class BudgetController extends AbstractController {
         AbstractIdentifiableCodableDto.JSON_CODE, AbstractIdentifiableCodableNamableDto.JSON_NAME,
         BudgetDto.JSON_ACCOUNTING_PLAN_AS_STRING, BudgetDto.JSON_YEAR,
         BudgetDto.JSON_AMOUNT_AS_STRING, BudgetDto.JSON_STATUS_AS_STRING,
-        BudgetDto.JSON_COMMITMENT_AMOUNT_AS_STRING);
+        BudgetDto.JSON_COMMITMENT_AMOUNT_AS_STRING, HasDeadlineAsStringDto.JSON_DEADLINE_AS_STRING);
     projection.addNamesIfStringBlank(filterController.getFilter().getSchoolIdentifier(),
         BudgetDto.JSON_SCHOOL_AS_STRING);
 
@@ -106,7 +113,7 @@ public class BudgetController extends AbstractController {
     listController.getUpdateController()
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
             BudgetDto.JSON_ACCOUNTING_PLAN_IDENTIFIER, BudgetDto.JSON_SCHOOL_IDENTIFIER,
-            BudgetDto.JSON_YEAR));
+            BudgetDto.JSON_YEAR, HasDeadlineDto.JSON_DEADLINE));
 
     listController.getUpdateController().addEntityConsumer(entity -> {
       schoolSelectOneController.getSelectOneMenu()
@@ -149,5 +156,9 @@ public class BudgetController extends AbstractController {
     yearInputNumberController.setOutputLableValue("Année");
     yearInputNumberController.getInputInteger().addValueConsumer(year -> listController
         .getCreateControllerOrUpdateControllerEntityAs(BudgetDto.class).setYear(year));
+
+    deadlineInputDateController.setOutputLableValue("Date butoir");
+    deadlineInputDateController.getInputLocalDateTime().addValueConsumer(date -> listController
+        .getCreateControllerOrUpdateControllerEntityAs(BudgetDto.class).setDeadline(date));
   }
 }

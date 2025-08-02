@@ -40,6 +40,11 @@
     <h:outputText value="#{record.statusAsString}" />
   </p:column>
   
+  <p:column headerText="Date butoir" width="100"
+    rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_DEADLINE_AS_STRING)}">
+    <h:outputText value="#{record.deadlineAsString}" />
+  </p:column>
+  
   <p:column headerText="Engagé" width="100"
     rendered="#{listController.isReadControllerHasProjectionName(BudgetDto.JSON_COMMITMENT_AMOUNT_AS_STRING)}">
     <h:outputText value="#{record.commitmentAmountAsString}" />

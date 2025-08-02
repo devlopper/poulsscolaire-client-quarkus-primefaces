@@ -20,6 +20,10 @@
         <ui:include src="/extension/component/input/inputNumber.xhtml">
           <ui:param name="inputNumber" value="#{container.yearInputNumberController.inputInteger}" />
         </ui:include>
+        
+        <ui:include src="/extension/component/input/datePicker.xhtml">
+          <ui:param name="datePicker" value="#{container.deadlineInputDateController.inputLocalDateTime}" />
+        </ui:include>
 
       </ui:define>
     </ui:decorate>
