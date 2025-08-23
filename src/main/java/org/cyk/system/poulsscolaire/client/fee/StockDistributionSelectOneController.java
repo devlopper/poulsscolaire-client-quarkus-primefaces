@@ -23,6 +23,6 @@ public class StockDistributionSelectOneController extends AbstractSelectOneIdent
   StockDistributionClient client;
 
   protected StockDistributionSelectOneController() {
-    super(StockDistributionDto.class);
+    super(StockDistributionDto.class, SelectItemLabelStrategy.AS_STRING);
   }
 }
