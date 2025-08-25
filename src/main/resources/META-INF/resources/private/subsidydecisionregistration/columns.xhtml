@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <p:importConstants
+    type="org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionRegistrationDto"
+    var="SubsidyDecisionRegistrationDto" />
+
+  <p:column headerText="Décision de subvention"
+    rendered="#{listController.isReadControllerHasProjectionName(SubsidyDecisionRegistrationDto.JSON_SUBSIDY_DECISION_AS_STRING)}">
+    <h:outputText value="#{record.subsidyDecisionAsString}" />
+  </p:column>
+
+  <p:column headerText="Inscription"
+    rendered="#{listController.isReadControllerHasProjectionName(SubsidyDecisionRegistrationDto.JSON_REGISTRATION_AS_STRING)}">
+    <h:outputText value="#{record.registrationAsString}" />
+  </p:column>
+  
+  <p:column headerText="Montant"
+    rendered="#{listController.isReadControllerHasProjectionName(SubsidyDecisionRegistrationDto.JSON_REJECTED_AS_STRING)}">
+    <h:outputText value="#{record.rejectedAsString}" />
+  </p:column>
+</ui:composition>
