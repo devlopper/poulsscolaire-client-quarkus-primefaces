@@ -1,5 +1,7 @@
 package org.cyk.system.poulsscolaire.client.fee;
 
+import ci.gouv.dgbf.extension.core.segregation.HasBranchInstanceAsStringDto;
+import ci.gouv.dgbf.extension.core.segregation.HasBranchInstanceIdentifierDto;
 import ci.gouv.dgbf.extension.core.segregation.HasDateAsStringDto;
 import ci.gouv.dgbf.extension.core.segregation.HasDateDto;
 import ci.gouv.dgbf.extension.core.segregation.HasQuantityAsStringDto;
@@ -15,8 +17,6 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOneController;
-import org.cyk.system.poulsscolaire.server.api.configuration.HasBranchInstanceAsStringDto;
-import org.cyk.system.poulsscolaire.server.api.configuration.HasBranchInstanceIdentifierDto;
 import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionClient;
 import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionDto;
 import org.cyk.system.poulsscolaire.server.api.fee.StockDistributionRequestMapper;

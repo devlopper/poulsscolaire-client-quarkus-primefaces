@@ -353,6 +353,13 @@
       <redirect />
     </navigation-case>
     
+    <navigation-case>
+      <description>page liste inscriptions des décisions de subvention</description>
+      <from-outcome>subsidyDecisionRegistrationListPage</from-outcome>
+      <to-view-id>/private/subsidydecisionregistration/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Cash Register -->
     
     <navigation-case>
