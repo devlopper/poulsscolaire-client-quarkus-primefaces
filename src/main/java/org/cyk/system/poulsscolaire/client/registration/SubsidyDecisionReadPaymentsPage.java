@@ -7,7 +7,7 @@ import lombok.Getter;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
 
 /**
- * Cette classe représente la page de lecture de {@link SubsidyDecisionDto}.
+ * Cette classe représente la page de lecture des paiements de {@link SubsidyDecisionDto}.
  *
  * @author Christian
  *

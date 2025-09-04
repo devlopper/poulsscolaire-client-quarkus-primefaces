@@ -1,7 +1,9 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import lombok.Getter;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
 
 /**
@@ -13,14 +15,19 @@ import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
  */
 @Named
 @ViewScoped
-public class SubsidyDecisionReadRegistrationsPage
-    extends AbstractSubsidyDecisionReadRegistrationsPage {
+public class SubsidyDecisionReadRegistrationsPage extends AbstractSubsidyDecisionReadDataPage {
+
+  @Inject
+  @Getter
+  SubsidyDecisionRegistrationController registrationController;
 
   @Override
-  void initializeRegistrationController() {
+  protected void postConstruct() {
+    super.postConstruct();
     registrationController.getFilterController().getFilter()
-        .setDoesNotBelongsToSubsidyDecisionIdentifier(subsidyDecision.getIdentifier());
-    super.initializeRegistrationController();
+        .setSubsidyDecisionIdentifier(subsidyDecision.getIdentifier());
+    registrationController.initialize();
+    configureDataTable(registrationController.getListController().getDataTable());
   }
 
   public static final String OUTCOME = "subsidyDecisionReadRegistrationsPage";

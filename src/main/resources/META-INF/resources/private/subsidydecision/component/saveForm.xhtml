@@ -4,7 +4,7 @@
 
   <h:form>
     <ui:decorate template="/extension/crud/form/save/default.xhtml">
-      <ui:param name="saveCommandUpdate" value="" />
+      <ui:param name="saveCommandUpdate" value="#{container.comaSeparatedMessagesIdentifiers}" />
 
       <ui:define name="form-save-inputs">
 
@@ -19,6 +19,10 @@
 
         <ui:include src="/extension/component/input/inputNumber.xhtml">
           <ui:param name="inputNumber" value="#{container.amountInputNumberController.inputInteger}" />
+        </ui:include>
+        
+        <ui:include src="/extension/component/input/datePicker.xhtml">
+          <ui:param name="datePicker" value="#{container.dateInputDateController.inputLocalDateTime}" />
         </ui:include>
       </ui:define>
     </ui:decorate>

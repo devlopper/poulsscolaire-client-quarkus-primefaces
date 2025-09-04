@@ -2,11 +2,11 @@ package org.cyk.system.poulsscolaire.client.registration;
 
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.component.TabMenu;
+import ci.gouv.dgbf.extension.server.service.api.filter.IsRejectedFilter;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.IconManager;
-import org.cyk.system.poulsscolaire.server.api.registration.RegistrationFilter;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionDto;
 
 /**
@@ -25,6 +25,9 @@ public class SubsidyDecisionTabMenuController extends AbstractController {
 
   SubsidyDecisionDto subsidyDecision;
 
+  /**
+   * Cette méthode permet de construire.
+   */
   protected SubsidyDecisionTabMenuController() {
     menu = new TabMenu();
     menu.setMenuItemStyleClassPrefix("subsidydecision");
@@ -34,6 +37,8 @@ public class SubsidyDecisionTabMenuController extends AbstractController {
         SubsidyDecisionReadRegistrationsPage.OUTCOME);
     menu.getOutcomesMap().put(SubsidyDecisionReadPaymentsPage.class,
         SubsidyDecisionReadPaymentsPage.OUTCOME);
+    menu.getOutcomesMap().put(SubsidyDecisionReadRegistrationsForCreationPage.class,
+        SubsidyDecisionReadRegistrationsForCreationPage.OUTCOME);
   }
 
   /**
@@ -46,17 +51,23 @@ public class SubsidyDecisionTabMenuController extends AbstractController {
         .build();
 
     menu.tabBuilder().menuItemValue("Acceptation").menuItemIcon(iconManager.getScriptParameter())
-        .type(SubsidyDecisionReadSubsidiesPage.class)
+        .type(SubsidyDecisionReadRegistrationsPage.class)
         .addMenuItemParameter(requestParameterIdentifierName, subsidyDecision.getIdentifier())
-        .addMenuItemParameter(RegistrationFilter.JSON_SUBSIDY_REFUSED, false).build();
+        .addMenuItemParameter(IsRejectedFilter.JSON_KEY, false).build();
 
     menu.tabBuilder().menuItemValue("Refus").menuItemIcon(iconManager.getScriptParameter())
-        .type(SubsidyDecisionReadSubsidiesPage.class)
+        .type(SubsidyDecisionReadRegistrationsPage.class)
         .addMenuItemParameter(requestParameterIdentifierName, subsidyDecision.getIdentifier())
-        .addMenuItemParameter(RegistrationFilter.JSON_SUBSIDY_REFUSED, true).build();
+        .addMenuItemParameter(IsRejectedFilter.JSON_KEY, true).build();
 
     menu.tabBuilder().menuItemValue("Inscription").menuItemIcon(iconManager.getScriptParameter())
         .type(SubsidyDecisionReadRegistrationsPage.class)
+        .addMenuItemParameter(requestParameterIdentifierName, subsidyDecision.getIdentifier())
+        .build();
+
+    menu.tabBuilder().menuItemValue("Inscription à mettre sur une décision")
+        .menuItemIcon(iconManager.getScriptParameter())
+        .type(SubsidyDecisionReadRegistrationsForCreationPage.class)
         .addMenuItemParameter(requestParameterIdentifierName, subsidyDecision.getIdentifier())
         .build();
 

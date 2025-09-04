@@ -25,7 +25,15 @@
           message="Êtes vous sur de vouloir mettre à zéro tous les montants"
           icon="pi pi-exclamation-triangle" />
       </p:commandButton>
-
+      
+      <ui:include src="/extension/crud/button/identifiable/processing.xhtml">
+        <ui:param name="controller" value="#{container.acceptSubsidyProcessingController}" />
+      </ui:include>
+      
+      <ui:include src="/extension/crud/button/identifiable/processing.xhtml">
+        <ui:param name="controller" value="#{container.rejectSubsidyProcessingController}" />
+      </ui:include>
+      
       <ui:include src="/extension/crud/button/identifiable/processing.xhtml">
         <ui:param name="controller" value="#{container.subsidizeProcessingController}" />
       </ui:include>

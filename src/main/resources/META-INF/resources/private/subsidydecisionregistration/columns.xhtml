@@ -16,8 +16,8 @@
     <h:outputText value="#{record.registrationAsString}" />
   </p:column>
   
-  <p:column headerText="Montant"
-    rendered="#{listController.isReadControllerHasProjectionName(SubsidyDecisionRegistrationDto.JSON_REJECTED_AS_STRING)}">
-    <h:outputText value="#{record.rejectedAsString}" />
+  <p:column headerText="Rejetée ?"
+    rendered="#{listController.isReadControllerHasProjectionName(SubsidyDecisionRegistrationDto.JSON_IS_REJECTED_AS_STRING)}">
+    <h:outputText value="#{record.isRejectedAsString}" />
   </p:column>
 </ui:composition>

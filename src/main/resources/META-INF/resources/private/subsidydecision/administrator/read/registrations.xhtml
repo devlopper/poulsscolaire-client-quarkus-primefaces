@@ -5,11 +5,9 @@
   <ui:param name="page" value="#{subsidyDecisionReadRegistrationsPage}" />
 
   <ui:define name="content-body-tab">
-    <ui:include src="../../../registration/component/listForm.xhtml">
+    <ui:include src="../../../subsidydecisionregistration/component/listForm.xhtml">
       <ui:param name="controller" value="#{page.registrationController.listController}" />
       <ui:param name="container" value="#{page.registrationController}" />
-      <ui:param name="payButtonRendered" value="false" />
-      <ui:param name="reduceAmountToZeroButtonRendered" value="false" />
     </ui:include>
   </ui:define>
 </ui:composition>

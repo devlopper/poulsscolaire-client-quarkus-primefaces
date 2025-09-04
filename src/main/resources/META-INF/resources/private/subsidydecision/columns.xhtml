@@ -6,26 +6,30 @@
     <h:outputText value="#{record.code}" />
   </p:column>
 
+  <p:column headerText="Date" width="100">
+    <h:outputText value="#{record.dateAsString}" />
+  </p:column>
+
   <p:column headerText="Branche">
     <h:outputText value="#{record.schoolingAsString}" />
   </p:column>
-  
+
   <p:column headerText="Effectif" width="150">
     <h:outputText value="#{record.registrationCountAsString}" />
   </p:column>
-  
+
   <p:column headerText="Montant" width="150">
     <h:outputText value="#{record.amountAsString}" />
   </p:column>
-  
+
   <p:column headerText="Nombre de paiement" width="150">
     <h:outputText value="#{record.paymentCountAsString}" />
   </p:column>
-  
+
   <p:column headerText="Montant payé" width="150">
     <h:outputText value="#{record.paidAmountAsString}" />
   </p:column>
-  
+
   <p:column headerText="Reste à payer" width="150">
     <h:outputText value="#{record.remainingAmountToPayAsString}" />
   </p:column>

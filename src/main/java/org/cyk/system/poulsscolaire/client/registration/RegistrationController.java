@@ -31,6 +31,8 @@ import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.RegistrationCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.RegistrationUpdateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionClient;
+import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionRegistrationClient;
+import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionRegistrationService.SubsidyDecisionRegistrationCreateRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionService.SubsidyDecisionUpdateSubsidiesRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionService.SubsidyDecisionUpdateSubsidiesToNullRequestDto;
 
@@ -97,6 +99,17 @@ public class RegistrationController extends AbstractController {
   IdentifiableActionController updateAmountsToZeroController;
 
   /* Subsidy */
+
+  @Inject
+  SubsidyDecisionRegistrationClient subsidyDecisionRegistrationClient;
+
+  @Inject
+  @Getter
+  IdentifiableProcessingController acceptSubsidyProcessingController;
+
+  @Inject
+  @Getter
+  IdentifiableProcessingController rejectSubsidyProcessingController;
 
   @Inject
   SubsidyDecisionClient subsidyDecisionClient;
@@ -264,11 +277,42 @@ public class RegistrationController extends AbstractController {
 
     if (!Core.isStringBlank(
         filterController.getFilter().getDoesNotBelongsToSubsidyDecisionIdentifier())) {
+      acceptSubsidyProcessingController.getController().setName("Acceptation Subvention");
+      acceptSubsidyProcessingController.setListController(listController);
+      acceptSubsidyProcessingController.prepareConfirmation(RegistrationDto.class, "Accepter",
+          "pi pi-plus", identifier -> {
+            SubsidyDecisionRegistrationCreateRequestDto request =
+                new SubsidyDecisionRegistrationCreateRequestDto();
+            request.setSubsidyDecisionIdentifier(
+                filterController.getFilter().getDoesNotBelongsToSubsidyDecisionIdentifier());
+            request.setRegistrationIdentifier((String) identifier);
+            request.setIsRejected(false);
+            request.setAuditWho(userIdentifier);
+            return subsidyDecisionRegistrationClient.create(request);
+          });
+      acceptSubsidyProcessingController.initialize();
+      
+      rejectSubsidyProcessingController.getController().setName("Rejet Subvention");
+      rejectSubsidyProcessingController.setListController(listController);
+      rejectSubsidyProcessingController.prepareConfirmation(RegistrationDto.class, "Rejeter",
+          "pi pi-minus", identifier -> {
+            SubsidyDecisionRegistrationCreateRequestDto request =
+                new SubsidyDecisionRegistrationCreateRequestDto();
+            request.setSubsidyDecisionIdentifier(
+                filterController.getFilter().getDoesNotBelongsToSubsidyDecisionIdentifier());
+            request.setRegistrationIdentifier((String) identifier);
+            request.setIsRejected(true);
+            request.setAuditWho(userIdentifier);
+            return subsidyDecisionRegistrationClient.create(request);
+          });
+      rejectSubsidyProcessingController.initialize();
+      
+      /*
       subsidizeProcessingController.getController().setName("Subvention");
       subsidizeProcessingController.getController().addEntityConsumer(entity -> {
         subsidyRefusedSelectBooleanController.getSelectOneRadioBoolean().setValue(false);
       });
-      
+
       subsidizeProcessingController.setListController(listController);
       subsidizeProcessingController.prepareDialog(RegistrationDto.class, "Subventionner",
           "pi pi-plus", entity -> {
@@ -297,6 +341,8 @@ public class RegistrationController extends AbstractController {
       subsidyRefusalReasonInpuTextController.getInputTextarea()
           .addValueConsumer(subsidyRefusalReason -> ((RegistrationDto) subsidizeProcessingController
               .getController().getEntity()).setSubsidyRefusalReason(subsidyRefusalReason));
+      
+      */
     }
 
     if (!Core.isStringBlank(filterController.getFilter().getSubsidyDecisionIdentifier())) {

@@ -1,6 +1,8 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
 import ci.gouv.dgbf.extension.core.Core;
+import ci.gouv.dgbf.extension.core.segregation.HasIsRejectedAsStringDto;
+import ci.gouv.dgbf.extension.core.segregation.HasIsRejectedDto;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.component.input.SelectBooleanController;
 import ci.gouv.dgbf.extension.primefaces.crud.ListController;
@@ -49,7 +51,7 @@ public class SubsidyDecisionRegistrationController extends AbstractController {
 
   @Inject
   @Getter
-  SelectBooleanController rejectedSelectBooleanController;
+  SelectBooleanController isRejectedSelectBooleanController;
 
   @Override
   protected void postConstruct() {
@@ -69,7 +71,7 @@ public class SubsidyDecisionRegistrationController extends AbstractController {
     ProjectionDto projection = new ProjectionDto();
     projection.addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
         SubsidyDecisionRegistrationDto.JSON_REGISTRATION_AS_STRING,
-        SubsidyDecisionRegistrationDto.JSON_REJECTED_AS_STRING);
+        HasIsRejectedAsStringDto.JSON_IS_REJECTED_AS_STRING);
     projection.addNamesIfStringBlank(filterController.getFilter().getSubsidyDecisionIdentifier(),
         SubsidyDecisionRegistrationDto.JSON_SUBSIDY_DECISION_AS_STRING);
     listController.getReadController().setProjection(projection);
@@ -93,15 +95,15 @@ public class SubsidyDecisionRegistrationController extends AbstractController {
         .setProjection(new ProjectionDto().addNames(AbstractIdentifiableDto.JSON_IDENTIFIER,
             SubsidyDecisionRegistrationDto.JSON_SUBSIDY_DECISION_IDENTIFIER,
             SubsidyDecisionRegistrationDto.JSON_REGISTRATION_IDENTIFIER,
-            SubsidyDecisionRegistrationDto.JSON_REJECTED));
+            HasIsRejectedDto.JSON_IS_REJECTED));
 
     listController.getUpdateController().addEntityConsumer(entity -> {
       subsidyDecisionSelectOneController.getSelectOneMenu()
           .writeValue(((SubsidyDecisionRegistrationDto) entity).getSubsidyDecisionIdentifier());
       registrationSelectOneController.getSelectOneMenu()
           .writeValue(((SubsidyDecisionRegistrationDto) entity).getRegistrationIdentifier());
-      rejectedSelectBooleanController.getSelectOneRadioBoolean()
-          .writeValue(((SubsidyDecisionRegistrationDto) entity).getRejected());
+      isRejectedSelectBooleanController.getSelectOneRadioBoolean()
+          .writeValue(((SubsidyDecisionRegistrationDto) entity).getIsRejected());
     });
 
     listController.getUpdateController().setFunction(entity -> {
@@ -122,12 +124,12 @@ public class SubsidyDecisionRegistrationController extends AbstractController {
         .addValueConsumer(identifier -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SubsidyDecisionRegistrationDto.class)
             .setRegistrationIdentifier(identifier));
-    
-    rejectedSelectBooleanController.setOutputLableValue("Rejetée ?");
-    rejectedSelectBooleanController.getSelectOneRadioBoolean().addTrueOrFalseChoices();
-    rejectedSelectBooleanController.getSelectOneRadioBoolean()
-        .addValueConsumer(value -> listController
+
+    isRejectedSelectBooleanController.setOutputLableValue("Est rejetée ?");
+    isRejectedSelectBooleanController.getSelectOneRadioBoolean().addTrueOrFalseChoices();
+    isRejectedSelectBooleanController.getSelectOneRadioBoolean()
+        .addValueConsumer(isRejected -> listController
             .getCreateControllerOrUpdateControllerEntityAs(SubsidyDecisionRegistrationDto.class)
-            .setRejected(value));
+            .setIsRejected(isRejected));
   }
 }

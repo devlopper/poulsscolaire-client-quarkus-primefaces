@@ -344,6 +344,13 @@
       <redirect />
     </navigation-case>
     
+    <navigation-case>
+      <description>page lecture des inscriptions à subventionner de décision de subvention</description>
+      <from-outcome>subsidyDecisionReadRegistrationsForCreationPage</from-outcome>
+      <to-view-id>/private/subsidydecision/administrator/read/registrations-create.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- Subsidy Decision Payment -->
     
     <navigation-case>

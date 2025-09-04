@@ -1,7 +1,9 @@
 package org.cyk.system.poulsscolaire.client.registration;
 
 import ci.gouv.dgbf.extension.core.Core;
+import ci.gouv.dgbf.extension.core.segregation.HasIsRejectedDto;
 import ci.gouv.dgbf.extension.primefaces.AbstractFilterController;
+import ci.gouv.dgbf.extension.primefaces.component.input.SelectBooleanController;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import lombok.Getter;
@@ -26,6 +28,10 @@ public class SubsidyDecisionRegistrationFilterController
   @Getter
   SubsidyDecisionSelectOneController subsidyDecisionSelectOneController;
 
+  @Inject
+  @Getter
+  SelectBooleanController isRejectedSelectBooleanController;
+
   public SubsidyDecisionRegistrationFilterController() {
     super(SubsidyDecisionRegistrationFilter.class);
   }
@@ -40,8 +46,15 @@ public class SubsidyDecisionRegistrationFilterController
         getRequestParameter(SubsidyDecisionRegistrationFilter.JSON_STUDENT_IDENTIFIER));
     filter.setSubsidyDecisionIdentifier(
         getRequestParameter(SubsidyDecisionRegistrationFilter.JSON_SUBSIDY_DECISION_IDENTIFIER));
+    filter.setIsRejected(getRequestParameterAsBoolean(HasIsRejectedDto.JSON_IS_REJECTED));
 
     subsidyDecisionSelectOneController.getSelectOneMenu()
         .addValueConsumer(identifier -> filter.setSubsidyDecisionIdentifier(identifier));
+
+    isRejectedSelectBooleanController.setOutputLableValue("Est rejetée ?");
+    isRejectedSelectBooleanController.getSelectOneRadioBoolean().addTrueOrFalseChoices()
+        .addNullChoice();
+    isRejectedSelectBooleanController.getSelectOneRadioBoolean()
+        .addValueConsumer(isRejected -> filter.setIsRejected(isRejected));
   }
 }

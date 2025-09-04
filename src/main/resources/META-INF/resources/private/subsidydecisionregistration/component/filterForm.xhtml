@@ -10,6 +10,11 @@
           <ui:param name="selectOneMenu"
             value="#{controller.subsidyDecisionSelectOneController.selectOneMenu}" />
         </ui:include>
+        
+        <ui:include src="/extension/component/input/selectOneRadio.xhtml">
+          <ui:param name="selectOneRadio"
+            value="#{controller.isRejectedSelectBooleanController.selectOneRadioBoolean}" />
+        </ui:include>
 
       </ui:define>
     </ui:decorate>
