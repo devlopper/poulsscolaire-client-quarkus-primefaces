@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui" template="template.xhtml">
+
+  <ui:param name="page" value="#{subsidyDecisionReadRegistrationsForCreationPage}" />
+
+  <ui:define name="content-body-tab">
+    <ui:include src="../../../registration/component/listForm.xhtml">
+      <ui:param name="controller" value="#{page.registrationController.listController}" />
+      <ui:param name="container" value="#{page.registrationController}" />
+      <ui:param name="payButtonRendered" value="false" />
+      <ui:param name="reduceAmountToZeroButtonRendered" value="false" />
+    </ui:include>
+  </ui:define>
+</ui:composition>
