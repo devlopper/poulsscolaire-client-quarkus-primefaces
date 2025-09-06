@@ -116,7 +116,7 @@ public class SchoolingController extends AbstractController {
       schoolSelectOneController.getSelectOneMenu()
           .writeValue(((SchoolingDto) entity).getSchoolIdentifier());
       periodSelectOne.getSelectOneMenu().writeValue(((SchoolingDto) entity).getPeriodIdentifier());
-      schoolSelectOneController.getSelectOneMenu()
+      branchSelectOneController.getSelectOneMenu()
           .writeValue(((SchoolingDto) entity).getBranchIdentifier());
 
       preRegistrationAmountInputNumberController.getInputInteger()

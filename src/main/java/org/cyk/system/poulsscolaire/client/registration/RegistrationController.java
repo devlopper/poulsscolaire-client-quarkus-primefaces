@@ -3,7 +3,7 @@ package org.cyk.system.poulsscolaire.client.registration;
 import ci.gouv.dgbf.extension.core.Core;
 import ci.gouv.dgbf.extension.primefaces.AbstractController;
 import ci.gouv.dgbf.extension.primefaces.IdentifiableActionController;
-import ci.gouv.dgbf.extension.primefaces.component.input.InputNumberController;
+import ci.gouv.dgbf.extension.primefaces.component.input.AbstractInput;
 import ci.gouv.dgbf.extension.primefaces.component.input.InputTextController;
 import ci.gouv.dgbf.extension.primefaces.component.input.SelectBooleanController;
 import ci.gouv.dgbf.extension.primefaces.crud.IdentifiableProcessingController;
@@ -13,8 +13,10 @@ import ci.gouv.dgbf.extension.server.service.api.entity.AbstractIdentifiableDto;
 import ci.gouv.dgbf.extension.server.service.api.request.ProjectionDto;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import org.cyk.system.poulsscolaire.client.configuration.AssignmentTypeSelectOneController;
 import org.cyk.system.poulsscolaire.client.configuration.BranchInstanceSelectOneController;
@@ -33,7 +35,6 @@ import org.cyk.system.poulsscolaire.server.api.registration.RegistrationService.
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionClient;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionRegistrationClient;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionRegistrationService.SubsidyDecisionRegistrationCreateRequestDto;
-import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionService.SubsidyDecisionUpdateSubsidiesRequestDto;
 import org.cyk.system.poulsscolaire.server.api.registration.SubsidyDecisionService.SubsidyDecisionUpdateSubsidiesToNullRequestDto;
 
 /**
@@ -62,10 +63,6 @@ public class RegistrationController extends AbstractController {
   @Inject
   @Getter
   SchoolingSelectOneController schoolingSelectOneController;
-
-  @Inject
-  @Getter
-  InputNumberController subsidyInputNumberController;
 
   @Inject
   @Getter
@@ -244,16 +241,19 @@ public class RegistrationController extends AbstractController {
     branchInstance2SelectOneController.getSelectOneMenu().outputLabel()
         .setValue(BranchInstanceDto.NAME + " 2");
 
+    senioritySelectOneController.getSelectOneRadio().setRequired(true);
     senioritySelectOneController.getSelectOneRadio()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity()).setSeniorityIdentifier(identifier));
 
+    assignmentTypeSelectOneController.getSelectOneRadio().setRequired(true);
     assignmentTypeSelectOneController.getSelectOneRadio()
         .addValueConsumer(identifier -> ((RegistrationDto) listController
             .getCreateControllerOrUpdateControllerEntity())
                 .setAssignmentTypeIdentifier(identifier));
 
     if (filterController.getFilter().getStudentIdentifier() == null) {
+      studentSelectOneController.getSelectOneMenu().setRequired(true);
       studentSelectOneController.getSelectOneMenu()
           .addValueConsumer(identifier -> ((RegistrationDto) listController
               .getCreateControllerOrUpdateControllerEntity()).setStudentIdentifier(identifier));
@@ -266,8 +266,6 @@ public class RegistrationController extends AbstractController {
     updateAmountsToZeroController
         .setFunction(identifier -> client.updateAmountsToZero(identifier, userIdentifier, null));
     listController.configureAction(updateAmountsToZeroController);
-
-    subsidyInputNumberController.setOutputLableValue("Subvention");
 
     if (Boolean.TRUE.equals(getRequestParameterAsBoolean("subvention"))) {
       listController.getDataTable().getActionColumn().setRendered(false);
@@ -359,5 +357,20 @@ public class RegistrationController extends AbstractController {
           });
       removeSubsidyProcessingController.initialize();
     }
+  }
+  
+  /**
+   * Cette méthode permet d'obtenir la concatenation des identifiants des messages.
+   *
+   * @return concatenation des identifiants des messages
+   */
+  public String getComaSeparatedMessagesIdentifiers() {
+    return Arrays
+        .stream(new AbstractInput[] {studentSelectOneController.getSelectOneMenu(),
+            schoolingSelectOneController.getSelectOneMenu(),
+            senioritySelectOneController.getSelectOneMenu(),
+            assignmentTypeSelectOneController.getSelectOneMenu()})
+        .filter(o -> o != null).map(input -> input.getMessage().getIdentifier())
+        .collect(Collectors.joining(","));
   }
 }
