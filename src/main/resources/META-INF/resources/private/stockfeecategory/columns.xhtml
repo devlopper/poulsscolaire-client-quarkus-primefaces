@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+
+  <p:importConstants
+    type="org.cyk.system.poulsscolaire.server.api.fee.StockFeeCategoryDto"
+    var="StockFeeCategoryDto" />
+
+  <p:column headerText="Stock"
+    rendered="#{listController.isReadControllerHasProjectionName(StockFeeCategoryDto.JSON_STOCK_AS_STRING)}">
+    <h:outputText value="#{record.stockAsString}" />
+  </p:column>
+
+  <p:column headerText="Rubrique"
+    rendered="#{listController.isReadControllerHasProjectionName(StockFeeCategoryDto.JSON_FEE_CATEGORY_AS_STRING)}">
+    <h:outputText value="#{record.feeCategoryAsString}" />
+  </p:column>
+</ui:composition>
