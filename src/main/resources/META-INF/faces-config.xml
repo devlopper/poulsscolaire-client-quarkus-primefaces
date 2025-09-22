@@ -72,6 +72,15 @@
       <redirect />
     </navigation-case>
     
+    <!-- StockFeeCategory -->
+    
+    <navigation-case>
+      <description>page liste des stocks de rubrique</description>
+      <from-outcome>stockFeeCategoryListPage</from-outcome>
+      <to-view-id>/private/stockfeecategory/administrator/list/index.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    
     <!-- StockDistribution -->
     
     <navigation-case>
